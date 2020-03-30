@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>idfind</title>   
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/idfind.css">
+</head>
+<body>
+      <!-- 헤더부분-->
+      <div id="header">
+        <div id="userMenu">
+            <ul class="list_menu">
+                <li class="menu_join" onclick="location.href='join.html'">회원가입</li>
+                <li class="menu_login" onclick="location.href='login.html'">로그인</li>
+            </ul>
+        </div>
+
+        <div class="headerLogo">
+            <img src="img/logo.png">
+        </div>
+
+        <div class="category">
+            <div class="c_menu">
+                <div class="menulist">
+                    <div class="list">
+                        <ul class="listName">
+                            <li class="C1"><a href="#"><span><img class="listImg" src="img/list.png"></span>전체 카테고리</a>
+                                <ul class="All">
+                                    <li><a href="#"><img src="img/korea.png" class="food">한식</a></li>
+                                    <li><a href="#"><img src="img/usa.png" class="food">양식</a></li>
+                                    <li><a href="#"><img src="img/japan.png" class="food">일식</a></li>
+                                    <li><a href="#"><img src="img/china.png" class="food">중식</a></li>
+                                    <li><a href="#"><img src="img/world.png" class="food">기타</a></li>
+                                </ul>
+                            </li>
+                            <span class="bar"> | </span>
+                            <li class="C2">TOP 10 레시피</li>
+                            <span class="bar"> | </span>
+                            <li class="C3">TV  속 레시피</li>
+                            <span class="bar"> | </span>
+                            <li class="C4">사용자 레시피</li>
+                            <span class="bar"> | </span>
+                            <li class="C5">단일 상품</li>
+                            <span class="bar"> | </span>
+                            <li class="C6">고객센터</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 아이디 찾기 부분-->
+    <div id="loginfind_full">
+        <h2>아이디 찾기</h2>
+        <div id="loginfind_write">
+            <label>이름</label><br>
+            <input type="text" name="input_name" class="input" placeholder="    이름을 입력해주세요"><br><br> 
+            <label>이메일</label><br>
+            <input type="text" name="input_email" class="input" placeholder="    이메일을 입력해주세요"><br><br><br>
+            <button id="okbtn" onclick="location.href='main.html'">확인</button><br><br>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .product_count{
+            border:1px solid #ddd;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding: 10px 10px;
+            width: 70px;
+            height: 13px;
+        }
+        .input_num{
+            border: 0px solid transparent;
+            text-align: center;
+        }
+
+        .count_btn{
+           border: none;
+           background: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="product_count">
+       <button onclick="form_btn(-1)" class="count_btn">-</button>
+       <input type="text" id="text" value="1" style="width: 30px;" class="input_num">
+       <button onclick="form_btn(1)" class="count_btn">+</button>
+    </div>
+
+
+        <script type="text/javascript">
+            // 폼값 증가&감소
+            function form_btn(n){
+            
+            var text = document.getElementById("text"); // 폼 선택
+            text_val = parseInt(text.value); // 폼 값을 숫자열로 변환
+            text_val += n; // 계산
+            text.value = text_val; // 계산된 값을 바꾼다
+            
+            if(text_val <= 0){
+               text.value = 1;   // 만약 값이 0 이하면 1로 되돌려준다, 1보다 작은 수는 나타나지 않게하기 위해   
+            }
+            
+        }
+        </script>
+</body>
+</html>

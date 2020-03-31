@@ -1,0 +1,49 @@
+.sectionView{
+    margin-top: 70px;
+    /* margin: 0 auto; */
+}
+.detailImg{
+    float: left;
+    margin-left: 200px;
+}
+
+.goods_name{
+    float: left;
+    padding-left: 50px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 34px;
+}
+
+.goods_list{
+    float: left;
+}
+
+.detailContent{
+    border: 1px solid #dcdcdc;
+    min-width:1050px;
+    height: 600px;
+}
+.detail{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-lg-6{
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.detail_img{
+    display: block;
+}
+
+.detail_sub{
+    padding-top: 10px;
+}
+
+.detail_sub h3{
+    color: #1e1e1e;
+    font-weight: 700;
+    margin-bottom: 12px;
+}

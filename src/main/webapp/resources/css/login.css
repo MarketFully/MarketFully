@@ -1,0 +1,77 @@
+@font-face { 
+    font-family: 'MapoPeacefull'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); 
+    font-weight: normal; font-style: normal; 
+}
+
+body{
+    font-family: MapoPeacefull;
+}
+
+#login_full{
+    text-align: center;
+    max-width: 350px;
+    margin: 0 auto;
+    padding-top: 90px;
+}
+
+#login_write{
+    max-width: 350px;
+}
+
+.input{
+    width: 100%;
+    height:54px;
+    border-radius: 5px;
+    border: 1px solid;
+}
+
+#idfind{
+    border:0; 
+    background-color: white; 
+    cursor:pointer;     
+    color: black;
+    font-family: MapoPeacefull;
+}
+#idfind:hover {
+    text-decoration: underline;
+}
+
+#pwdfind{
+    border:0; 
+    background-color: white; 
+    cursor:pointer;     
+    color: black;
+    font-family: MapoPeacefull;
+}
+#pwdfind:hover {
+    text-decoration: underline;
+}
+
+#loginbtn{
+    border:1px solid #2e8b57;
+    background-color: #2e8b57;
+    border-radius: 5px;
+    color: whitesmoke;
+    width: 100%;
+    height: 54px;
+    cursor:pointer;  
+    font-family: MapoPeacefull;
+}
+
+#joinbtn{
+    border:1px solid #2e8b57;
+    background-color: white;
+    border-radius: 5px;
+    color: #2e8b57;
+    width: 100%;
+    height: 54px;
+    cursor:pointer;  
+    font-family: MapoPeacefull;
+}
+
+button:focus{outline: none;}
+
+#find{
+    float: right;
+}

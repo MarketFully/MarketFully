@@ -1,0 +1,224 @@
+
+.topTenRecipe{
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.line{
+    display: inline-block;
+}
+.topImgdiv{
+    display: inline-block;
+    vertical-align: middle;
+    /* margin-top: 20px; */
+    margin-left: 20px;
+}
+.topImg{
+    width: 50px;
+    height: 50px;
+}
+.Ttitle{
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+/* 탭 메뉴 css*/
+.TopMenu,.TopMenu ul, .TopMenu ul li, .TopMenu ul li a{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    line-height: 1;
+    display: block;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.TopMenu:after, .TopMenu >ul:after{
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.TopMenu{
+    width: auto;
+    border-bottom: 3px solid #2e8b57;
+    line-height: 1;
+}
+
+.TopMenu ul{
+    background: #fff;
+}
+
+.TopMenu > ul > li{
+    float: left;
+}
+
+.TopMenu.align-center > ul{
+    font-size: 0;
+    text-align: center;
+}
+
+.TopMenu.align-center > ul >li {
+    display: inline-block;
+    float: none;
+}
+
+.TopMenu.align-right > ul > li{
+    float: right;
+}
+
+.TopMenu.align-right > ul > li > a{
+    margin-right: 0;
+    margin-left: -4px;
+}
+
+.TopMenu > ul > li > a{
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #444444;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-right: -4px;
+}
+
+.TopMenu > ul > li:active > a,
+.TopMenu > ul > li:hover > a,
+.TopMenu > ul > li > a:hover {
+    color: #fff;
+}
+
+.TopMenu > ul > li > a:after{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    width: 100%;
+    height: 120%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    content: "";
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    -webkit-transform: perspective(5px) rotateX(2deg);
+    -webkit-transform-origin: bottom;
+    -moz-transform: perspective(5px) rotateX(2deg);
+    -moz-transform-origin: bottom;
+    transform: perspective(5px) rotateX(2deg);
+    transform-origin: bottom; 
+}
+
+.TopMenu > ul > li.active > a:after,
+.TopMenu > ul > li:hover > a:after,
+.TopMenu > ul > li > a:hover:after{
+    background: #2e8b57 ;
+}
+
+/* 탭 메뉴 속 목록 */
+.table{
+    position: relative;
+    margin-top: 10px;
+    border-bottom: 1px solid #dedede;
+    max-width: 100%;
+    border-top: 2px solid #2e8b57;
+    width: 100%;
+}
+.col{
+    background: #f0f3fa;
+    border-bottom: 1px solid #dedede;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: center;
+    font-size: 15px;
+    border-right: 1px solid #dedede;
+    color: #555;
+}
+.colT{
+    background: #f0f3fa;
+    border-bottom: 1px solid #dedede;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: center;
+    font-size: 15px;
+    border-right: 1px solid #dedede;
+    color: #555;
+    width: 470px;
+}
+
+.toptenTab{
+    text-align: center;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 30px;
+}
+
+.tbox{
+    padding: 0 5px 0 30px;
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: url(../img/Tsearch.png) no-repeat 10px 50%;
+    background-size: 15px;
+}
+.btn_srch{
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+    height: 35px;
+    font-size: 14px;
+    line-height: 35px;
+    vertical-align: middle;
+    background: #2e8b57;
+    color: #fff !important;
+    text-decoration: none;
+}
+fieldset {
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 50px; 
+    margin-bottom: 50px;
+}
+
+.recipe{
+    width: 100%;
+}
+
+.item > tr > td{
+    padding: 10px;
+}
+
+.item > tr > td {
+    border-bottom: 1px dashed #dcdcdc;
+}
+
+.mtitle {
+    margin-top: 40px;
+    /* float: right; */
+    display: inline-block;
+}
+
+.mimg{
+    float: left;
+    margin-left: 20px;
+}
+.menu{
+    padding-bottom: 20px;
+}

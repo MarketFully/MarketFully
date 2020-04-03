@@ -221,7 +221,7 @@
         <button onclick="allchkContentclose();" class="closebtn">확인</button>
         </div>
     </div>
-
+ 
     <div id="agreeModal2">
        
         <div id="allchkContent2">

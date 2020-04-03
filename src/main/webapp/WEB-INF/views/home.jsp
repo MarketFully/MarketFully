@@ -15,11 +15,6 @@
     <title>mainpage</title>
 </head>
 <body>
-
-	내가바꿨다!
-	B
-	
-	나도 바꿨다!
     <div class="full">
         <div class="container">
             <!-- header -->

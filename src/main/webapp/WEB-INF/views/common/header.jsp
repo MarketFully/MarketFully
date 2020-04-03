@@ -17,7 +17,7 @@
                  <li class="menu_login" style="cursor: pointer;" onclick="location.href='#'">장바구니</li> 
             </ul>
         </div>
-
+ 
         <div class="headerLogo">
             <img src="resources/img/logo.jpg" onclick="location.href='home.do'">
         </div>

@@ -11,7 +11,7 @@
 </head>
 <body>
       <!-- 헤더부분-->
-      <%@include file="../common/header.jsp" %>>
+      <%@include file="../common/header.jsp" %>
 
    <!--장바구니 내용부분-->
     <div class="layout-page-header">

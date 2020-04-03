@@ -13,7 +13,8 @@
             <ul class="list_menu">
                 <li class="menu_join" style="cursor: pointer;" onclick="location.href='regist'">회원가입</li>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='login'">로그인</li>
-                <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자화면으로(임시)</li> 
+                <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자</li> 
+                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='#'">장바구니</li> 
             </ul>
         </div>
 

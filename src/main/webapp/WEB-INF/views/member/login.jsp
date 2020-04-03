@@ -15,7 +15,7 @@
     <!--로그인 부분-->
     <div id="login_full">
         <h2>로그인</h2><br>
-        <div id="login_write" style="margin-bottom : 300px;"> 
+        <div id="login_write" style="margin-bottom : 100px;"> 
             <input type="text" name="input_id" class="input" placeholder="    아이디를 입력해주세요"><br><br>
             <input type="password" name="password" class="input" placeholder="    비밀번호를 입력해주세요"><br><br>
             <span id="find">

@@ -14,10 +14,10 @@
                 <li class="menu_join" style="cursor: pointer;" onclick="location.href='regist'">회원가입</li>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='login'">로그인</li>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자</li> 
-                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='#'">장바구니</li> 
+                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='basket'">장바구니</li> 
             </ul>
         </div>
- 
+
         <div class="headerLogo">
             <img src="resources/img/logo.jpg" onclick="location.href='home.do'">
         </div>

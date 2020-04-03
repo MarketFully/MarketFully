@@ -29,5 +29,11 @@ public class MemberController {
 
 		return "member/idfind";
 	}
+	
+	@RequestMapping("basket")
+	public String basketView() { // 장바구로 이동하는 메소드
+
+		return "member/basket";
+	}
 
 }

@@ -66,7 +66,7 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("RecipeDetail")
-	public String recipeDetailView() { //TV속 레시피 이동하는 메소드
+	public String recipeDetailView() { //레시피 자세히 보는 페이지로 이동하는 메소드
 
 		return "recipe/recipedetail";
 	}

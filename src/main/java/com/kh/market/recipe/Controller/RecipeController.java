@@ -64,6 +64,11 @@ public class RecipeController {
 
 		return "recipe/userRecipe";
 	}
+	
+	@RequestMapping("RecipeDetail")
+	public String recipeDetailView() { //TV속 레시피 이동하는 메소드
 
+		return "recipe/recipedetail";
+	}
 
 }

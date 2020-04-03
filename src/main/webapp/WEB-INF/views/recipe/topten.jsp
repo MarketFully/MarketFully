@@ -86,7 +86,7 @@
                     </tr>
                 </thead>
                 <tbody class="item">
-                    <tr onclick="location.href='recipedetail.html'">
+                    <tr onclick="location.href='RecipeDetail'">
                         <td>1</td>
                         <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다." </p></td>
                         <td>admin</td>

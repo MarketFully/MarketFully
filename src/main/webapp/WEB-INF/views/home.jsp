@@ -15,6 +15,8 @@
     <title>mainpage</title>
 </head>
 <body>
+
+	내가바꿨다!
     <div class="full">
         <div class="container">
             <!-- header -->

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Member;
@@ -27,6 +28,7 @@ public class MemberController {
 //		return "member/login";
 //	}
 
+	// 로그인1
 	@RequestMapping(value="login.do",method= RequestMethod.POST) 
 	public String memberLogin(Member m , Model model) {
 		
@@ -41,10 +43,19 @@ public class MemberController {
 		}
 	}
 
+	//로그인2
 	@RequestMapping("login")
 	public String loginView() { // 회원가입 페이지로 이동하는 메소드
 
 		return "member/login";
+	}
+	
+	// 로그아웃
+	@RequestMapping("logout.do")
+	public String logut(SessionStatus status) {
+		status.setComplete();
+		
+		return "redirect:index.jsp";
 	}
 	
 	

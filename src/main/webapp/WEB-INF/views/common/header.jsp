@@ -27,7 +27,8 @@
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='basket'">장바구니</li> 
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='mypageorder'">마이페이지</li>
                 <c:if test="${ !empty sessionScope.loginUser }">
-                <li class="menu_login" style="cursor: pointer;" onclick="location.href=''">로그아웃</li>
+                	<c:url var="logout" value="logout.do"/>
+                	<li class="menu_login" style="cursor: pointer;" onclick="location.href='${logout}'">로그아웃</li>
                 </c:if>
             </ul>
         </div>

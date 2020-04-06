@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
-	// 회원 로그인 S
+	// 회원 로그인
 	@Override
 	public Member loginMember(Member m) {
 		Member loginUser = mDao.loginMember(m);

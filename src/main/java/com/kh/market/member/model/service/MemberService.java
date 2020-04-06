@@ -10,5 +10,7 @@ public interface MemberService {
 	 * @return
 	 */
 	Member loginMember(Member m);
+	
+	
 
 }

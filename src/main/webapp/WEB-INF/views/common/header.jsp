@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,23 @@
 <div id="header">
         <div id="userMenu">
             <ul class="list_menu">
-                <li class="menu_join" style="cursor: pointer;" onclick="location.href='regist'">회원가입</li>
-                <li class="menu_login" style="cursor: pointer;" onclick="location.href='login'">로그인</li>
+            	<c:if test="${ empty sessionScope.loginUser }">
+                	<li class="menu_join" style="cursor: pointer;" onclick="location.href='regist'">
+                		회원가입
+                	</li>
+                </c:if>
+                <c:if test="${ empty sessionScope.loginUser }">
+                	<li class="menu_login" style="cursor: pointer;" onclick="location.href='login'">로그인</li>
+                </c:if>
+                <c:if test="${ !empty sessionScope.loginUser }">
+                	<li class="menu_login"><c:out value="${ loginUser.MEM_NAME }님 환영합니다!" /> </li>
+                </c:if>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자</li> 
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='basket'">장바구니</li> 
-                <li class="menu_login" style="cursor: pointer;" onclick="location.href='mypageorder'">마이페이지</li> 
+                <li class="menu_login" style="cursor: pointer;" onclick="location.href='mypageorder'">마이페이지</li>
+                <c:if test="${ !empty sessionScope.loginUser }">
+                <li class="menu_login" style="cursor: pointer;" onclick="location.href=''">로그아웃</li>
+                </c:if>
             </ul>
         </div>
 

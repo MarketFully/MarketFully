@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-	<resultMap id="memberResultSet" type="Member">
+<!-- 	<resultMap id="memberResultSet" type="Member">
 		<id property="id" column="ID"/>
 		<result property="pwd" column="PWD"/>
 		<result property="name" column="NAME"/>
@@ -13,21 +13,47 @@
 		<result property="enrollDate" column="ENROLL_DATE"/>
 		<result property="updateDate" column="UPDATE_DATE"/>
 		<result property="mStatus" column="M_STATUS"/>
+	</resultMap> -->
+	
+	<resultMap id="memberResultSet" type="Member">
+		<id property="MEM_NUM" column="MEM_NUM"/>
+		<id property="MEM_ID" column="MEM_ID"/>
+		<id property="MEM_PWD" column="MEM_PWD"/>
+		<id property="MEM_EMAIL" column="MEM_EMAIL"/>
+		<id property="MEM_PHONE" column="MEM_PHONE"/>
+		<id property="MEM_ADDR" column="MEM_ADDR"/>
+		<id property="MEM_NAME" column="MEM_NAME"/>
+		<id property="MEM_GENDER" column="MEM_GENDER"/>
+		<id property="MEM_BIRTH" column="MEM_BIRTH"/>
+		<id property="MEM_POINT" column="MEM_POINT"/>
+		<id property="MEM_PROFILE" column="MEM_PROFILE"/>
+		<id property="MEM_STATUS" column="MEM_STATUS"/>
+		<id property="SHIPPING_CODE" column="SHIPPING_CODE"/>
+		<id property="MEM_GRADE" column="MEM_GRADE"/>
 	</resultMap>
+	
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
-	<!-- 암호화 전
+		SELECT * 
+		FROM MEMBER
+		WHERE MEM_ID=#{MEM_ID}
+		AND MEM_PWD=#{MEM_PWD}
+		AND MEM_STATUS='Y'
+	</select>
+	
+<!-- 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+	암호화 전
 		SELECT *
 		FROM MEMBER
 		WHERE ID=#{id}
 		AND PWD=#{pwd}
 		AND M_STATUS='Y'
-		 -->
-		 <!-- 암호화 후 -->
+		
+		 암호화 후
 		 SELECT *
 		 FROM MEMBER
 		 WHERE ID=#{id}
 		 AND M_STATUS='Y'
-	</select>
+	</select> -->
 	
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER

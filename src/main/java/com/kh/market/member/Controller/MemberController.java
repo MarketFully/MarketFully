@@ -1,17 +1,54 @@
 package com.kh.market.member.Controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.market.member.model.service.MemberService;
+import com.kh.market.member.model.vo.Member;
+
+@SessionAttributes("loginUser")
 @Controller
 public class MemberController {
+	
+	@Autowired
+	private MemberService mService;
+	
+	private Logger logger = LoggerFactory.getLogger(MemberController.class);
+
+//	@RequestMapping("login")
+//	public String loginView() { // 로그인 페이지로 이동하는 메소드
+//
+//		return "member/login";
+//	}
+
+	@RequestMapping(value="login.do",method= RequestMethod.POST) 
+	public String memberLogin(Member m , Model model) {
+		
+		Member loginUser = mService.loginMember(m);
+		
+		if(loginUser != null) {
+			model.addAttribute("loginUser", loginUser);
+			return "redirect:index.jsp";
+		}else {
+			model.addAttribute("msg", "로그인실패!!");
+			return "";
+		}
+	}
 
 	@RequestMapping("login")
-	public String loginView() { // 로그인 페이지로 이동하는 메소드
+	public String loginView() { // 회원가입 페이지로 이동하는 메소드
 
 		return "member/login";
 	}
-
+	
+	
+	
 	@RequestMapping("regist")
 	public String registView() { // 회원가입 페이지로 이동하는 메소드
 

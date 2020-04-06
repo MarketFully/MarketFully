@@ -1,0 +1,101 @@
+.section_point .point_header {
+    overflow: hidden;
+    height: 100px;
+    border: 1px solid #ddd;
+}
+
+.section_point .point_header .point_view {
+    float: left;
+    width: 409px;
+    border-right: 1px solid #ddd;
+}
+
+.section_point .point_header .tit {
+    float: left;
+    padding: 30px 0 0 55px;
+    font-size: 14px;
+    color: #000;
+    line-height: 20px;
+}
+
+.section_point .point_header .point {
+    float: right;
+    width: 200px;
+    padding: 34px 59px 36px 0;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #2e8b57;
+    text-align: right;
+}
+
+.section_point .point_header .disappear {
+    float: left;
+    width: 408px;
+}
+
+.section_point .point_header .subject.no_day {
+    padding-top: 38px;
+}
+
+.section_point .point_header .num {
+    float: right;
+    width: 200px;
+    padding: 34px 58px 36px 0;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #2e8b57;
+    text-align: right;
+}
+
+span{
+    float: none;
+}
+
+.subject.no_day{
+    padding: 40px 0 40px 55px;
+    float: left;
+    font-size: 14px;
+    color: #000;
+    line-height: 20px;
+}
+
+.date{
+    width: 120px;
+    height: 61px;
+}
+
+.info{
+    width: 439px;
+    height: 61px;
+}
+
+.expiration{
+    width: 122px;
+    height: 61px;
+}
+
+.point{
+    width: 140px;
+    height: 61px;
+}
+
+.section_point .tbl_type1 {
+    margin-top: 40px;
+}
+
+.page_aticle .tbl{
+    width: 100%;
+}
+
+th,td{
+    border-bottom: 1px solid gray;
+}
+
+.section_point td {
+    font-size: 14px;
+    color: #000;
+    line-height: 20px;
+    text-align: center;
+}

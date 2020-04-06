@@ -1,3 +1,128 @@
+#mypageTop{
+    height: 230px;
+    max-width: 100%;
+    background: #f7f7f7;
+    padding-top:44px;
+    padding-bottom: 30px;
+}
+
+#topContent{
+    height: 180px;
+    max-width: 1050px;
+    border: 1px solid #e5e5e5;
+    background: white;   
+    text-align: center;  
+    margin: 0 auto;
+    padding-top: 34px;
+}
+
+#user{
+    position: relative;
+    float: left;
+    width: 312px;
+    height: 140px;
+    text-align: center;
+    display: inline-block;
+}
+
+#order{
+    position: relative;
+    float: left;
+    width: 245px;
+    height: 141px;
+    border-left: 1px solid #e2e2e2;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#point{
+    position: relative;
+    float: left;
+    width: 245px;
+    height: 141px;
+    border-left: 1px solid #e2e2e2;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#good{
+    position: relative;
+    float: left;
+    width: 245px;
+    height: 141px;
+    border-left: 1px solid #e2e2e2;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+#gradeArea{
+    display: table;
+    margin-left: 40px;
+    margin-top: 20px;
+    float: left;
+    height: 65px;
+    width: 65px;
+    border: 1px solid darkgray;
+    border-radius: 100%;
+    
+}
+
+#grade{
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#nameArea{
+    margin-top: 24px;
+    margin-left: 30px;
+    float: left;
+   
+}
+
+#lblname{
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#benefit{
+    float: left;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#allgrade{
+    float: left;
+    border-radius: 5%;
+    border:1px solid #e2e2e2;
+    cursor: pointer;
+    height: 30px;
+    
+}
+
+button:focus{outline: none;}
+
+#ordernum{
+    font-size: 40px;
+}
+
+#pointnum{
+    font-size: 40px;
+}
+
+#goodnum{
+    font-size: 40px;
+}
+
+#pageClick{
+    display: block;
+}
+
 .page_aticle.aticle_type2{
     padding-top: 15px;
     height: 1153px;
@@ -36,7 +161,7 @@ ol, ul {
 }
 
 #snb .list_menu_left li.on a, #snb .list_menu_left li a:hover {
-    background: #f7f7f7 url(../images/arrow_on.png) no-repeat 174px 50%;
+    background: #f7f7f7 url(../img/arrow_on.png) no-repeat 174px 50%;
     background-size: 6px 10px;
     color: #2e8b57;
 }
@@ -45,7 +170,7 @@ ol, ul {
     display: block;
     overflow: hidden;
     padding: 16px 0 16px 19px;
-    background: #fff url(../images/arrow.png) no-repeat 174px 50%;
+    background: #fff url(../img/arrow.png) no-repeat 174px 50%;
     background-size: 6px 10px;
     font-size: 12px;
     color: #666;
@@ -93,13 +218,165 @@ ol, ul {
     text-indent: -9999px;
 }
 
+.section_orderlist .search_date .btn_layer {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: -70px;
+    width: 140px;
+    height: 28px;
+    padding: 10px 0 0 8px;
+    border: 1px solid #2e8b57;
+    font-size: 14px;
+    background: url(../img/arrow_down.png) no-repeat 121px 14px;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.2px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.87);
+}
 
+section_orderlist .search_date .btn_layer {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: -64px;
+    width: 140px;
+    height: 28px;
+    padding: 7px 0 0 8px;
+    border: 1px solid #2e8b57;
+    font-size: 14px;
+    background: url(../img/arrow_down.png) no-repeat 121px 14px;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.2px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.section_orderlist .search_date .btn_layer.on {
+    background-image: url(../img/arrow_up.png);
+}
+
+
+.section_orderlist .layer_search {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: -30px;
+    width: 146px;
+    border: 1px solid #dddfe1;
+    border-top: 0 none;
+    text-align: left;
+}
+
+.section_orderlist .layer_search li:first-child {
+    border-top: 0 none;
+}
+
+.section_orderlist .layer_search li {
+    background-color: #fff;
+    border-top: 1px solid #dddfe1;
+}
+
+.section_orderlist .layer_search a.on {
+    background-color: #f7f7f7;
+}
+
+.section_orderlist .layer_search a {
+    display: block;
+    overflow: hidden;
+    height: 32px;
+    padding: 7px 0 0 8px;
+    font-size: 12px;
+    color: #666;
+    line-height: 18px;
+    letter-spacing: -0.2px;
+}
+
+div, th, td, li, dt, dd, p {
+    word-break: break-all;
+}
 
 .section_orderlist .list_order {
     padding-top: 10px;
     border-top: 2px solid #2e8b57;
-}  
+}
 
+.section_orderlist .list_order .date {
+    padding-top: 20px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #666;
+}
+
+.section_orderlist .list_order .order_goods {
+    position: relative;
+    margin-top: 10px;
+    padding: 0 20px;
+    border: 1px solid #dddfe1;
+    height: 172px;
+}
+
+.section_orderlist .list_order .name {
+    padding: 20px 0 13px;
+    border-bottom: 1px solid #dddfe1;
+}
+
+.section_orderlist .list_order .name a {
+    display: block;
+    overflow: hidden;
+    background: url(../img/arrow_on_white.png) no-repeat 100% 1px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+}
+
+.section_orderlist .list_order .thumb img {
+    width: 60px;
+    height: auto;
+}
+.page_aticle
+
+.section_orderlist .list_order .desc {
+    overflow: hidden;
+    padding-top: 1px;
+}
+
+.section_orderlist .list_order .order_info dl:first-child {
+    padding-top: 0px;
+    margin: 0px;
+
+}
+
+.section_orderlist .list_order .order_info dt {
+    float: left;
+    padding-right: 15px;
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+}
+
+.section_orderlist .list_order .order_info dd {
+    float: left;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0px;
+}
+
+.section_orderlist .list_order .order_info dl {
+    overflow: hidden;
+    padding-top: 6px;
+}
+
+.section_orderlist .list_order .order_info .end {
+    color: #514859;
+}
 
 ul {
     display: block;
@@ -112,4 +389,132 @@ ul {
 
 a {
     text-decoration: none;
+}
+
+.section_orderlist .list_order .order_info {
+    overflow: hidden;
+    padding: 11px 0 20px;
+}
+
+.section_orderlist .list_order .thumb {
+    float: left;
+    width: 60px;
+    margin-right: 20px;
+}
+
+.page_aticle .layout-pagination {
+    font-size: 0;
+}
+
+.layout-pagination {
+    margin: 60px 0 0 0;
+    text-align: center;
+}
+
+.page_aticle .layout-pagination-first-page:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.page_aticle .layout-pagination a {
+    cursor: pointer;
+}
+
+.page_aticle .layout-pagination a, .page_aticle .layout-pagination strong {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.page_aticle .layout-pagination-button:first-child {
+    border-left: 0 none;
+}
+
+.layout-pagination-number:hover, .layout-pagination-number.__active {
+    background-color: #f7f7f7;
+    color: #5f0080;
+}
+
+/* 전체등급 보기 눌렀을 때 뜨는 창 */
+#gradeModal{
+    display: none;
+    position: fixed;
+    z-index: 10; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+#gradeContent{
+    height: 600px;
+    width: 600px;
+    border:none;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    margin: 85px auto;
+    padding-top: 2px;
+    text-align: center;
+    display: inline-block
+}
+
+#gradetbl{
+    text-align: center;
+    border: 1px solid;
+    border-collapse: collapse;
+    margin: 30px 30px 0 30px;
+}
+
+.grade_th{
+    width: 120px;
+    height: 100px;
+    border: 1px solid;
+}
+
+.t1{
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+.t2{
+    border-right: 1px solid;
+}
+
+.grade_td{
+    height: 100px;
+    border-bottom: 1px solid;
+}
+
+.font1{
+    font-size: 14px;
+}
+
+.font2{
+    font-size: 15px;
+}
+
+#caution_Content{
+    text-align: left;
+    margin: 20px 30px 20px 30px;
+    font-size: 13px;
+}
+
+p{
+    margin: 0px;
+}
+
+.btn_close1{
+    display: block;
+    overflow: hidden;
+    right: 24px;
+    top: 30px;
+    width: 32px;
+    height: 32px;
+    border: 0 none;
+    background: url(../img/close.png);
+    font-size: 0;
+    text-indent: -9999px;
+    cursor: pointer;
 }

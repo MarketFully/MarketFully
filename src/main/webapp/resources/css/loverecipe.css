@@ -1,0 +1,42 @@
+.user_form{
+    width: 820px;
+    float: left;
+}
+
+.tr_food{
+    border-bottom: 1px solid #ddd;
+}
+
+input[type='checkbox']{
+    display:none; 
+    cursor:pointer;
+    
+}
+
+input[type='checkbox'] + label:before{
+    content: '\2714';
+    font-size: 12px;
+    border: 0.1em solid #2e8b57;
+    border-radius: 0.2em;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    padding-left: 0.2em;
+    padding-bottom: 0.23em;
+    margin-right: 0.2em;
+    vertical-align: middle;
+    color: transparent;
+    transition: .1s;
+}
+
+
+
+input[type='checkbox']:checked + label:before{
+    background-color: #2e8b57;
+    border-color: #2e8b57;
+    color: #fff;
+}
+
+.check{
+    margin-left: 23px;
+}

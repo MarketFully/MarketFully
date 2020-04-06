@@ -35,5 +35,53 @@ public class MemberController {
 
 		return "member/basket";
 	}
+	
+	@RequestMapping("mypageorder")
+	public String mypageordertView() { // 마이페이지 주문내역으로 이동하는 메소드(마이페이지 첫화면)
+
+		return "member/mypageorder";
+	}
+	
+	@RequestMapping("mypagereview")
+	public String mypagereviewView() { // 마이페이지 상품후기로 이동하는 메소드
+
+		return "member/mypagereview";
+	}
+	
+	@RequestMapping("mypagepoint")
+	public String mypagepointView() { // 마이페이지 적립금으로 이동하는 메소드
+
+		return "member/mypagepoint";
+	}
+	
+	@RequestMapping("mypageloverecipe")
+	public String mypageloverecipeView() { // 마이페이지 찜한레시피로 이동하는 메소드
+
+		return "member/mypageloverecipe";
+	}
+	
+	@RequestMapping("mypagechange")
+	public String mypagechange() { // 마이페이지 개인정보수정으로 이동하는 메소드
+
+		return "member/mypagechange";
+	}
+	
+	@RequestMapping("orderdetail")
+	public String orderdetailView() { // 마이페이지 주문내역상세로 이동하는 메소드
+
+		return "member/orderdetail";
+	}
+	
+	@RequestMapping("reviewinsert")
+	public String reviewinsertView() { // 마이페이지 리뷰작성으로 이동하는 메소드
+
+		return "member/reviewinsert";
+	}
+	
+	@RequestMapping("informationchange")
+	public String informationchangeView() { // 마이페이지 개인정보수정 디테일로 이동하는 메소드
+
+		return "member/informationchange";
+	}
 
 }

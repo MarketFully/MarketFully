@@ -3,7 +3,7 @@
 <mapper namespace="USERboardMapper">
 	<!-- resultMap -->
 	<resultMap type="Board" id="boardResultSet">
-		<id property="MB_NUM" column="MB_NUM"/>
+		<id property="MB_NUM" column="UMB_NUM"/>
 		<result property="MB_TITLE" column="UMB_TITLE"/>
 		<result property="MB_CONTENT" column="UMB_CONTENT"/>
 		<result property="MB_CDATE" column="UMB_CDATE"/>

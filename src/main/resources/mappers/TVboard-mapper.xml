@@ -99,17 +99,13 @@
 	</insert> -->
 	
 	<select id="TvTop10selectList" resultMap="boardResultSet">
+		<![CDATA[
 		SELECT *
-		FROM TV_MENU_BOARD
-		WHERE TMB_STATUS='Y'
-		ORDER BY TMB_THANK DESC
-	</select>
-	
-	<select id="UserTop10selectList" resultMap="boardResultSet">
-		SELECT *
-		FROM USER_MENU_BOARD
-		WHERE UMB_STATUS='Y'
-		ORDER BY UMB_THANK DESC
+		FROM (SELECT *
+		 	  FROM TV_MENU_BOARD
+		 	  ORDER BY TMB_THANK DESC)
+		WHERE ROWNUM <= 10
+		]]>
 	</select>
 	
 	

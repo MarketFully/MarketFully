@@ -10,76 +10,85 @@
     <script src="resources/js/jquery-3.4.1.min.js"></script>
     <script src="resources/js/join.js"></script>
     <style>
-    	#agreeModal2{
-		    display: none;
-		    position: fixed;
-		    z-index: 10; 
-		    left: 0;
-		    top: 0;
-		    width: 100%;
-		    height: 100%;
-		    overflow: auto;
-		    background-color: rgb(0,0,0);
-		    background-color: rgba(0,0,0,0.4);
-		    text-align: center;
-		   
-		}
-		
-		#allchkContent2{
-		    height: 640px;
-		    width: 440px;
-		    border:none;
-		    background-color: white;
-		    border-radius: 5px;
-		    font-size: 18px;
-		    margin: 85px auto;
-		    padding-top: 2px;
-		    text-align: center;
-		    display: inline-block
-		}
-		
-		#Content2{
-		    height: 350px;
-		    overflow: scroll;
-		    overflow-x: hidden;
-		    font-size: 12px; 
-		    text-align: left; 
-		    margin: 70px 15px 0 18px;
-		}
-		
-		input[type='checkbox']{
-		    display:none; 
-		    cursor:pointer;
-		    
-		}
-		
-		input[type='checkbox'] + label:before{
-		    content: '\2714';
-		    font-size: 12px;
-		    border: 0.1em solid #2e8b57;
-		    border-radius: 0.2em;
-		    display: inline-block;
-		    width: 1em;
-		    height: 1em;
-		    padding-left: 0.2em;
-		    padding-bottom: 0.27em;
-		    margin-right: 0.2em;
-		    vertical-align: middle;
-		    color: transparent;
-		    transition: .1s;
-		}
-		
-		
-		
-		input[type='checkbox']:checked + label:before{
-		    background-color: #2e8b57;
-		    border-color: #2e8b57;
-		    color: #fff;
-		}
-		
-		.check{
-		    margin-left: 23px;
-    </style>
+#agreeModal2 {
+	display: none;
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
+	text-align: center;
+}
+
+#allchkContent2 {
+	height: 640px;
+	width: 440px;
+	border: none;
+	background-color: white;
+	border-radius: 5px;
+	font-size: 18px;
+	margin: 85px auto;
+	padding-top: 2px;
+	text-align: center;
+	display: inline-block
+}
+
+#Content2 {
+	height: 350px;
+	overflow: scroll;
+	overflow-x: hidden;
+	font-size: 12px;
+	text-align: left;
+	margin: 70px 15px 0 18px;
+}
+
+input[type='checkbox'] {
+	display: none;
+	cursor: pointer;
+}
+
+input[type='checkbox']+label:before {
+	content: '\2714';
+	font-size: 12px;
+	border: 0.1em solid #2e8b57;
+	border-radius: 0.2em;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	padding-left: 0.2em;
+	padding-bottom: 0.27em;
+	margin-right: 0.2em;
+	vertical-align: middle;
+	color: transparent;
+	transition: .1s;
+}
+
+input[type='checkbox']:checked+label:before {
+	background-color: #2e8b57;
+	border-color: #2e8b57;
+	color: #fff;
+}
+
+.check {
+	margin-left: 23px;
+	span .guide{display: none;
+	font-size: 12px;
+	top: 12px;
+	right: 10px
+}
+
+span.ok {
+	color: green;display:none;
+}
+
+span.error {
+	color: red;display:none;
+}
+</style>
 </head>
 <body  style="text-align:left;">
     <!-- 헤더부분-->
@@ -89,61 +98,89 @@
     <div id="join_full">
         <h2 style="text-align: center; margin: 35px;">회원가입</h2><br>
         <div id="join_write"> 
+        	<form action="minsert.do" id="insertfrm">
             <table class="tbl">
                 <tr>
                     <td class="td1">아이디*</td>         
-                    <td class="td2"><input type="text" name="input_id" class="input" placeholder="  아이디" required></td>
-                    <td class="td3"><button id="loginokbtn" onclick="location.href='main.html'" class="btn">중복확인</button></td>
+                    <td class="td2"><input type="text" name="MEM_ID" id="MEM_ID" class="input" placeholder="  아이디" required></td>
+                    <td style="padding-left: 20px;">
+                    	<span class="guide ok" style="color: green;display:none;">사용가능</span>
+                    	<span class="guide error" style="color: red;display:none;">사용 불가능</span>
+                    	<input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0"/>
+                    </td>
                 </tr>
                 <tr>
                     <td class="td1">비밀번호*</td>
-                    <td class="td2"><input type="password" name="password" class="input" placeholder="  비밀번호(8자이상)" required></td>
-                    <td class="td3"></td>
+                    <td class="td2"><input type="password" name="MEM_PWD" id="MEM_PWD" class="input" placeholder="  비밀번호(8자이상)" required ></td>
+                    <!-- <td class="td3"></td> -->
                 </tr>
                     <td class="td1">비밀번호확인*</td>
-                    <td class="td2"><input type="password" name="password_ok" class="input" placeholder="  비밀번호 확인" required></td>
-                    <td class="td3"></td>
+                    <td class="td2"><input type="password" id="MEM_PWD1" class="input" placeholder="  비밀번호 확인" required ></td>
+                    <td style="padding-left: 20px;">
+                    	<span id="pwCheckF" style="color: green;"></span>
+                    	<span id="pwCheckFF" style="color:red;"></span>
+                    </td>
+                    <!-- <td class="td3"></td> -->
                 </tr>
                 <tr>
                     <td class="td1">이름*</td>
-                    <td class="td2"><input type="text" name="input_name" class="input" placeholder="  이름" required></td>
+                    <td class="td2"><input type="text" name="MEM_NAME" class="input" placeholder="  이름" required></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
                     <td class="td1">이메일*</td>
-                    <td class="td2"><input type="text" name="input_email" class="input" placeholder="  이메일" required></td>
-                    <td class="td3"><button id="emailbtn" onclick="location.href='main.html'" class="btn">인증번호받기</button></td>
+                    <td class="td2"><input type="text" name="MEM_EMAIL" class="input" placeholder="  이메일" required ></td>
+<!--                     <td class="td3"><button id="emailbtn" onclick="location.href='main.html'" class="btn">인증번호받기</button></td> -->
                 </tr>
-                <tr>
+<!--                 <tr>
                     <td class="td1"></td>
                     <td class="td2"><input type="text" name="email_ok" class="input"></td>
                     <td class="td3"><button id="emailokbtn" onclick="location.href='main.html'" class="btn" 
                     style="border:1px solid #2e8b57;background-color: white;border-radius: 5px;color: #2e8b57;">인증번호확인</button></td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td class="td1">휴대폰*</td>
-                    <td class="td2"><input type="text" name="input_phone" class="input" placeholder="  휴대폰" required></td>
+                    <td class="td2"><input type="text" name="MEM_PHONE" class="input" placeholder="  휴대폰" required ></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
-                    <td class="td1">배송 주소</td>
-                    <td class="td2"><button id="addressbtn" onclick="location.href='main.html'" class="btn">주소검색</button></td>
-                    <td class="td3"></td>
+                    <td class="td1">우편번호</td>
+                    <td>
+                    	<input type="text" name="post" class="postcodify_postcode5" size="6">
+                    </td>
+                    <td class="td3">
+                    	<button id="postcodify_search_button" class="btn" type="button">주소검색</button>
+                    </td>
+                    <!-- <td class="td2"><button id="postcodify_search_button" class="btn">주소검색</button></td> -->
+                    <!-- <td class="td3"></td> -->
+                </tr>
+                <tr>
+                	<td>도로명 주소</td>
+                	<td class="td2"><input type="text" name="address1" class="postcodify_address"></td>
+                </tr>
+                <tr>
+                	<td>상세 주소</td>
+                	<td class="td2"><input type="text" name="address2" class="postcodify_extra_info"></td>
                 </tr>
                 <tr>
                     <td class="td1">성별</td>
                     <td class="td2">
-                        <input type="radio" name="radio" id="man"/><label for="man">남자</label>&nbsp;
-                        <input type="radio" name="radio" id="woman"/><label for="woman">여자</label></td>
+                        <input type="radio" name="gender" id="man"/><label for="man">남자</label>&nbsp;
+                        <input type="radio" name="gender" id="woman"/><label for="woman">여자</label>
+                        <input type="hidden" name="MEM_GENDER" id="people_mem">
+                    </td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
                     <td class="td1">생년월일</td>
-                    <td class="td2"><input type="text" name="input_birthday" class="input" placeholder="  YY/MM/DD"></td>
+                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YY/MM/DD" ></td>
                     <td class="td3"></td>
                 </tr>                  
             </table>
-        
+            	  <input type="hidden" id="input_check6" class="checkcbox"  name="MEM_SMS_AGREE">
+                  <input type="hidden" id="input_check7" class="checkcbox"  name="MEM_EMAIL_AGREE"> 
+            </form>
+        	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
             <hr>
 
             <div id="chk_agree">              
@@ -167,22 +204,19 @@
                 <label for="check5" class="check">무료배송, 할인쿠폰 등 혜택/정보 수신</label>
                 <label for="check5" style="color:#9c9c9c;">(선택)</label><br><br>
                 <div class="check_event email_sms" style="margin-left: 30px;">
-					<label class="select_check check_agree ">
-                        <input type="checkbox" id="check6" class="checkcbox">
-                        <label for="check6" class="check">SMS</label>
-					</label>
-					<label class="select_check check_agree ">
-                        <input type="checkbox" id="check7" class="checkcbox">
-                        <label for="check7" class="check">이메일</label>
-					</label>
+                <input type="checkbox" id="check6" class="checkcbox">
+                <label for="check6" class="check">SMS</label>
+                <input type="checkbox" id="check7" class="checkcbox">
+                <label for="check7" class="check">이메일</label>
 				</div>
             </div>
+                      
             <br>
             <table>
                 <tr>
                     <td class="td1"></td>
                     <td class="td2">
-                        <button type="submit" id="joinokbtn" onclick="Joinbtn()" class="okbtn">가입하기</button>
+                        <button id="joinokbtn" class="okbtn" onclick="Joinbtn();">가입하기</button>
                     <td class="td3"></td>
                 </tr>              
             </table>
@@ -285,6 +319,172 @@
 	    function allchkContentclose2(){
 	        $('#agreeModal2').css("display",'none');
 	    }
+	    
+		// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+		$(function(){
+			$("#postcodify_search_button").postcodifyPopUp();
+		});
+		
+		// 이메일 중복확인
+		function validate(){
+			// 아이디 중복 체크 여부 
+			if($("#idDuplicateCheck").val()==0){
+				alert("사용가능한 아이디를 입력해주세요");
+				$("#MEM_ID").focus();
+				return false;
+			}else{
+				return true;
+			}
+		}
+		
+		$(function(){
+			$("#MEM_ID").on("keyup",function(){
+				var MEM_ID = $(this).val();
+				console.log(MEM_ID);
+				if(MEM_ID.length < 4){
+					$(".guide").hide();
+					$('#idDuplicateCheck').val(0);
+					
+					return;
+				}
+				
+				$.ajax({
+					url:"idCheck.do",
+					data:{MEM_ID:MEM_ID},
+					type:"post",
+					success:function(data){
+						console.log(data);
+						if(data=="ok"){
+							$(".error").hide();
+							$(".ok").show();
+							$("#idDuplicateCheck").val(1);
+						}else{
+							console.log('실패!');	
+						
+							$(".ok").hide();
+							$(".error").show();
+							$("#idDuplicateCheck").val(0);
+						}
+					},error:function(jqxhr, textStatus, errorThrown){
+						console.log("ajax 처리 실패");
+						
+						//에러 로그
+						console.log(jqxhr);
+						console.log(textStatus);
+						console.log(errorThrown);
+					}
+				});
+			});
+		});
+		
+		//비밀번호 중복확인
+		$(document).ready(function(){
+			$('#MEM_PWD').keyup(function(){
+				if($('#MEM_PWD').val()!=$('#MEM_PWD1').val()){
+					$('#pwCheckFF').text(''); 
+					$('#pwCheckFF').html("패스워드  불일치"); 
+				}else{ 
+					$('#pwCheckFF').text(''); 
+					$('#pwCheckFF').html("<font color='green'>패스워드 일치</font>");
+				} 
+			}); 
+			
+			$('#MEM_PWD1').keyup(function(){
+				if($('#MEM_PWD').val()!=$('#MEM_PWD1').val()){
+					$('#pwCheckFF').text(''); 
+					$('#pwCheckFF').html("패스워드  불일치"); 
+				}else{ 
+					$('#pwCheckFF').text(''); 
+					$('#pwCheckFF').html("<font color='green'>패스워드 일치</font>");
+				} 
+			}); 
+		}); 
+		
+		//비밀번호 실시간 유효성 체크 
+		function pwCheck(MEM_PWD){ 
+			$.ajax({ 
+				type:"POST", 
+				url: "pwCheck.do", 
+				data : { MEM_PWD: MEM_PWD }, 
+				success:function(result){
+					if(result == true){ 
+						pwCheckF.innerHTML = "유효성 체크 문제 없음"; 
+					}else{ 
+						pwCheckF.innerHTML = "유효성 체크 범위 벗어남"; 
+					} 
+				}, 
+			error:function(request,status){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				} 
+				});
+			}
+		
+		<!--전체동의-->
+		 $("#chk_all").click(function(){
+             var chk = $("#chk_all").prop("checked");
+             if(chk) {
+              $(".checkcbox").prop("checked", true);
+             } else {
+              $(".checkcbox").prop("checked", false);
+             }
+            });
+           
+
+
+   //     <!--전체동의가 체크되있을 때 하나라도 풀리면 해제 -->
+       
+            $(".checkcbox").click(function(){
+            $("#chk_all").prop("checked", false);
+            });
+
+
+
+   //     <!-- 선택 동의 -->
+     
+            $("#check5").click(function(){
+            var chk2 = $("#check5").prop("checked");
+            if(chk2) {
+            $(".chk_choice").prop("checked", true);
+            } else {
+            $(".chk_choice").prop("checked", false);
+            }
+           });
+
+            
+            function Joinbtn(){
+                var chk1 = document.getElementById('check1');
+                var chk2 = document.getElementById('check2');
+                var chk3 = document.getElementById('check3');
+                
+                if(document.getElementById("man").checked==true){
+                	document.getElementById("people_mem").value = "남";
+                }else{
+                	document.getElementById("people_mem").value = "여";
+                }
+
+                
+    			if(document.getElementById("check6").checked== true){
+    				document.getElementById("input_check6").value="Y"
+    			}else{
+    				document.getElementById("input_check6").value="N"
+    			}
+    			
+    			if(document.getElementById("check7").checked== true){
+    				document.getElementById("input_check7").value="Y"
+    			}else{
+    				document.getElementById("input_check7").value="N"
+    			}
+                
+    			
+                if(chk1.checked == true && chk2.checked == true && chk3.checked == true){
+					document.getElementById("insertfrm").submit();
+                }else{
+                    alert('이용약관에 동의해 주세요.');
+                }
+            
+            }
+
+
     </script>
 </body>
 </html>

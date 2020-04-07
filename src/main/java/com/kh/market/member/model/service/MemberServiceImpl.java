@@ -24,4 +24,20 @@ public class MemberServiceImpl implements MemberService{
 		
 		return loginUser;
 	}
+
+	// 아이디 중복 체크
+	@Override
+	public int idCheck(String MEM_ID) {
+		System.out.println(MEM_ID);
+		return mDao.idCheck(MEM_ID);
+
+	}
+
+	// 회원 가입
+	@Override
+	public int insertMember(Member m) {
+		int result = mDao.insertMember(m);
+		
+		return result;
+	}
 }

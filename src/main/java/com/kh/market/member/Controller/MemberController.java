@@ -1,5 +1,9 @@
 package com.kh.market.member.Controller;
 
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -58,12 +64,74 @@ public class MemberController {
 		return "redirect:index.jsp";
 	}
 	
+	/**
+	 * 아이디 중복 체크
+	 * @param id
+	 * @param response
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping("idCheck.do")
+	public String idCheck(String MEM_ID) throws IOException{
+		int result = mService.idCheck(MEM_ID);
+		
+		if(result > 0) {
+			return "fail";
+		}else {
+			return "ok";
+		}
+	}
 	
+	// 비밀번호 체크
+	@ResponseBody
+	@RequestMapping(value="pwCheck.do", method = RequestMethod.POST)
+	public boolean PwCheck(String MEM_PWD) {
+		logger.info("PwCheck");
+		
+		boolean check = false;
+		
+		String pw_chk = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*?&`~'\"+=])[A-Za-z[0-9]$@$!%*?&`~'\"+=]{6,18}$";
+		
+		Pattern pattern_symbol = Pattern.compile(pw_chk);
+		Matcher matcher_symbol = pattern_symbol.matcher(MEM_PWD);
+		
+		if(matcher_symbol.find()) {
+			check = true;
+		}
+		return check;
+
+	}
 	
+	// 회원가입
 	@RequestMapping("regist")
 	public String registView() { // 회원가입 페이지로 이동하는 메소드
 
 		return "member/regist";
+	}
+	
+	@RequestMapping("minsert.do")
+	public String insertMember(Member m, Model model,
+							   @RequestParam("post")String post,
+							   @RequestParam("address1") String address1,
+							   @RequestParam("address2") String address2) {
+	
+		System.out.println(m);
+		System.out.println(post+","+address1+"," +address2);
+		
+		if(!post.equals("")) {
+			m.setMEM_ADDR(post+","+address1+"," +address2);
+		}
+		
+		int result = mService.insertMember(m);
+		
+		
+		if(result > 0) {
+			return "redirect:index.jsp";
+		}else {
+			model.addAttribute("msg","회원가입 실패");
+			return "";
+		}
+		
 	}
 
 	@RequestMapping("pwdfind")

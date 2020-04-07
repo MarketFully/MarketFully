@@ -12,8 +12,19 @@ public class MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	// 로그인
 	public Member loginMember(Member m) {
 		return (Member)sqlSession.selectOne("memberMapper.loginMember",m);
+	}
+
+	//아이디 중복 체크
+	public int idCheck(String MEM_ID) {
+		return sqlSession.selectOne("memberMapper.idCheck",MEM_ID);
+	}
+
+	// 회원가입
+	public int insertMember(Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 
 }

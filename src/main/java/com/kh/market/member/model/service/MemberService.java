@@ -10,6 +10,20 @@ public interface MemberService {
 	 * @return
 	 */
 	Member loginMember(Member m);
+
+	/**
+	 * 2. id 중복체크 
+	 * @param MEM_ID
+	 * @return
+	 */
+	int idCheck(String MEM_ID);
+
+	/**
+	 * 3. 회원 가입
+	 * @param m
+	 * @return
+	 */
+	int insertMember(Member m);
 	
 	
 

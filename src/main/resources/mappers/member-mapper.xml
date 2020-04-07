@@ -30,8 +30,12 @@
 		<id property="MEM_STATUS" column="MEM_STATUS"/>
 		<id property="SHIPPING_CODE" column="SHIPPING_CODE"/>
 		<id property="MEM_GRADE" column="MEM_GRADE"/>
+		<id property="MEM_CERT" column="MEM_CERT"/>
+		<id property="MEM_SMS_AGREE" column="MEM_SMS_AGREE"/>
+		<id property="MEM_EMAIL_AGREE" column="MEM_EMAIL_AGREE"/>
 	</resultMap>
 	
+	<!-- 로그인 -->
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		SELECT * 
 		FROM MEMBER
@@ -39,6 +43,22 @@
 		AND MEM_PWD=#{MEM_PWD}
 		AND MEM_STATUS='Y'
 	</select>
+	
+	<!-- 아이디 체크 -->
+	<select id="idCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_ID=#{MEM_ID}
+	</select>
+	
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(SEQ_MEM_NUM.nextval,#{MEM_ID},#{MEM_PWD},#{MEM_EMAIL},#{MEM_PHONE},#{MEM_ADDR},#{MEM_NAME},#{MEM_GENDER},TO_DATE(#{MEM_BIRTH},'YYMMDD'),0,NULL,'Y',0,'SILVER','N',#{MEM_SMS_AGREE},#{MEM_EMAIL_AGREE})
+		
+	</insert>
+	
 	
 <!-- 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	암호화 전
@@ -54,7 +74,7 @@
 		 WHERE ID=#{id}
 		 AND M_STATUS='Y'
 	</select> -->
-	
+	<!-- 
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES(#{id},#{pwd},#{name},#{email},#{gender},
@@ -73,12 +93,12 @@
 		SET M_STATUS='N'
 		WHERE ID=#{id}
 	</update>
-	
-	<select id="idCheck" parameterType="string" resultType="_int">
+	 -->
+<!-- 	<select id="idCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE id=#{id}
-	</select>
+	</select> -->
 </mapper>
 
 

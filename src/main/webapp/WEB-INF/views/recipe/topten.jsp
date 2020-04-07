@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -70,8 +71,8 @@
 	<div id="topRecipe">
         <div class="TopMenu">
 		<ul class="tab" style="margin-top: 30px;">
-			<li class="current" data-tab="tab1"><a href="#">TV 속 레시피</a></li>
-			<li data-tab="tab2"><a href="#">사용자 레시피</a></li>
+			<li class="current" data-tab="tab1"><a href="TvRecipetopten">TV 속 레시피</a></li>
+			<li data-tab="tab2"><a href="UserRecipetopten">사용자 레시피</a></li>
 		</ul>
         </div>
 		<div id="tab1" class="toptenTab current">
@@ -85,78 +86,17 @@
                         <th class="col">조회수</th>
                     </tr>
                 </thead>
+                <c:forEach var="b" items="${ list }">
                 <tbody class="item">
                     <tr onclick="location.href='RecipeDetail'">
-                        <td>1</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다." </p></td>
-                        <td>admin</td>
-                        <td>2018.07.07</td>
-                        <td>1</td>
+                        <td>${ b.MB_NUM }</td>
+                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">${ b.MB_TITLE } </p></td>
+                        <td>${ b.MB_WRITER }</td>
+                        <td>${ b.MB_CDATE }</td>
+                        <td>${ b.MB_COUNT }</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2019.10.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle"><냉장고를 부탁해> "이연복 까르복나라"</p></td>
-                        <td>admin</td>
-                        <td>2017.08.30</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.28</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td> 
-                        <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle"><백종원>"분식집st 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.20</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>6</td> 
-                        <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle"><집밥 백선생 시즌3>"꽃게찜"</p></td>
-                        <td>admin</td>
-                        <td>2018.08.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>7</td> 
-                        <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle"><살림 9단의 만물상>"신효섭의 다이어트 찜닭"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>8</td> 
-                        <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2019.07.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>9</td> 
-                        <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle"><알토란>"김하진의 소고기떡국"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>10</td> 
-                        <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle"><백종원>"고추 마늘 치킨"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.06</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
+                 </tbody>
+                 </c:forEach>                                                                
             </table>
 		</div>
 
@@ -171,78 +111,17 @@
                         <th class="col">조회수</th>
                     </tr>
                 </thead>
+                <c:forEach var="b" items="${ list }">
                 <tbody class="item">
-                    <tr>
-                        <td>1</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">순두부찌개 </p></td>
-                        <td>admin</td>
-                        <td>2018.07.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle">안동찜닭 황금레시피</p></td>
-                        <td>admin</td>
-                        <td>2019.10.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle">떡볶이</p></td>
-                        <td>admin</td>
-                        <td>2017.08.30</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle">찹스테이크</p></td>
-                        <td>admin</td>
-                        <td>2020.02.28</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td> 
-                        <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle">스팸마요 덮밥</p></td>
-                        <td>admin</td>
-                        <td>2020.01.20</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>6</td> 
-                        <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle">치킨마요 덮밥</p></td>
-                        <td>admin</td>
-                        <td>2018.08.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>7</td> 
-                        <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle">야채볶음밥 달걀말이</p></td>
-                        <td>admin</td>
-                        <td>2020.01.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>8</td> 
-                        <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle">목살간장볶음</p></td>
-                        <td>admin</td>
-                        <td>2019.07.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>9</td> 
-                        <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle">소불고기</p></td>
-                        <td>admin</td>
-                        <td>2020.02.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>10</td> 
-                        <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle">짜파구리</p></td>
-                        <td>admin</td>
-                        <td>2020.02.06</td>
-                        <td>1</td>
+                    <tr onclick="location.href='RecipeDetail'">
+                        <td>${ b.MB_NUM }</td>
+                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">${ b.MB_TITLE } </p></td>
+                        <td>${ b.MB_WRITER }</td>
+                        <td>${ b.MB_CDATE }</td>
+                        <td>${ b.MB_COUNT }</td>
                     </tr>
                 </tbody>
+                </c:forEach>
             </table>
         </div>
         

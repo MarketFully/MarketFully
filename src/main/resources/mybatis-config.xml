@@ -8,8 +8,8 @@
 	<!-- typeAliases -->
 	<typeAliases>
 		<typeAlias type="com.kh.market.member.model.vo.Member" alias="Member"/>
-<!-- 		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
-		<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
+		<typeAlias type="com.kh.market.recipe.model.vo.Board" alias="Board"/>
+<!-- 	<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
 	</typeAliases>
 	
 	<!-- DB정보를 썼던 부분 
@@ -21,7 +21,8 @@
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
-<!-- 		<mapper resource="mappers/board-mapper.xml"/> -->
+		<mapper resource="mappers/TVboard-mapper.xml"/>
+		<mapper resource="mappers/USERboard-mapper.xml"/>
 	</mappers>
 	
 	

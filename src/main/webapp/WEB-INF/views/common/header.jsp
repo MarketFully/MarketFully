@@ -52,7 +52,7 @@
                                 </ul>
                             </li>
                              <span class="bar"> | </span>
-                                    <li style="cursor: pointer;" class="C2" onclick="location.href='Recipetopten'">TOP 10 레시피</li>
+                                    <li style="cursor: pointer;" class="C2" onclick="location.href='TvRecipetopten'">TOP 10 레시피</li>
                                     <span class="bar"> | </span>
                                     <li style="cursor: pointer;" class="C3" onclick="location.href='Recipetv'">TV  속 레시피</li>
                                     <span class="bar"> | </span>

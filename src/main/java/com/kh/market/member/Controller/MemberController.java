@@ -45,7 +45,9 @@ public class MemberController {
 			return "redirect:index.jsp";
 		}else {
 			model.addAttribute("msg", "로그인실패!!");
-			return "";
+			model.addAttribute("url","login");
+			return "member/loginfail";
+			
 		}
 	}
 

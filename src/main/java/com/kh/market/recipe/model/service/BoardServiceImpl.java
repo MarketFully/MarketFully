@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
+import com.kh.market.recipe.model.vo.PageInfo;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService{
@@ -37,6 +38,18 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<Menu_Category> TvCateList() {
 		
 		return bDao.TvCateList();
+	}
+	
+	@Override
+	public int getListCount() {
+		
+		return bDao.getListCount();
+	}
+
+	@Override
+	public ArrayList<Board> UserselectList(PageInfo pi) {
+		
+		return bDao.UserselectList(pi);
 	}
 
 }

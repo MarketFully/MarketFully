@@ -108,7 +108,18 @@
 		]]>
 	</select>
 	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM USER_MENU_BOARD
+		WHERE UMB_STATUS='Y'
+	</select>
 	
+	<select id="UserselectList" resultMap="boardResultSet">
+		SELECT *
+		FROM USER_MENU_BOARD
+		WHERE UMB_STATUS='Y'
+		ORDER BY UMB_NUM DESC
+	</select>
 	
 	
 	

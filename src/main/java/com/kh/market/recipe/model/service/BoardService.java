@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
+import com.kh.market.recipe.model.vo.PageInfo;
 
 public interface BoardService {
 	
@@ -13,6 +14,11 @@ public interface BoardService {
 	// UserTop10 레시피 조회
 	ArrayList<Board> UserTop10selectList();
 
+	// 페이징을 위한 전체 게시물 수
+	int getListCount();
+	
+	// 유저 레시피 조회 
+	ArrayList<Board> UserselectList(PageInfo pi);
 
 
 	/**

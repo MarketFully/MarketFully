@@ -205,7 +205,7 @@
         }
 
         .write{
-            flex: auto;
+            flex: auto;     
         }
 	</style>
     <link rel="stylesheet" href="resources/css/header.css">
@@ -245,78 +245,17 @@
                     <th class="col">조회수</th>
                 </tr>
             </thead>
+            <c:forEach var="b" items="${ list }">
             <tbody class="item">
                 <tr>
-                    <td>1</td>
-                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">순두부찌개 </p></td>
-                    <td>admin</td>
-                    <td>2018.07.07</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle">안동찜닭 황금레시피</p></td>
-                    <td>admin</td>
-                    <td>2019.10.10</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle">떡볶이</p></td>
-                    <td>admin</td>
-                    <td>2017.08.30</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle">찹스테이크</p></td>
-                    <td>admin</td>
-                    <td>2020.02.28</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>5</td> 
-                    <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle">스팸마요 덮밥</p></td>
-                    <td>admin</td>
-                    <td>2020.01.20</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>6</td> 
-                    <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle">치킨마요 덮밥</p></td>
-                    <td>admin</td>
-                    <td>2018.08.07</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>7</td> 
-                    <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle">야채볶음밥 달걀말이</p></td>
-                    <td>admin</td>
-                    <td>2020.01.01</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>8</td> 
-                    <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle">목살간장볶음</p></td>
-                    <td>admin</td>
-                    <td>2019.07.10</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>9</td> 
-                    <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle">소불고기</p></td>
-                    <td>admin</td>
-                    <td>2020.02.01</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>10</td> 
-                    <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle">짜파구리</p></td>
-                    <td>admin</td>
-                    <td>2020.02.06</td>
-                    <td>1</td>
+                    <td>${ b.MB_NUM }</td>
+                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">${ b.MB_TITLE } </p></td>
+                    <td>${ b.MB_WRITER }</td>
+                    <td>${ b.MB_CDATE }</td>
+                    <td>${ b.MB_COUNT }</td>
                 </tr>
             </tbody>
+            </c:forEach>
         </table>
     </div>
 
@@ -328,17 +267,49 @@
     <!-- 페이징 처리 -->
     <div class="pagination">
             
-        <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img">
-       
+<!--         <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img">
         <span class="pagenum_currentpage">1</span>
         <span class="pagenum">2</span>
         <span class="pagenum">3</span>
         <span class="pagenum">4</span>
         <span class="pagenum">5</span> 
-   
+        <img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img"> -->
         
-        <img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img">
-        
+        <!-- 이전 -->
+        <c:if test="${ pi.currentPage eq 1 }">
+				[이전] &nbsp;
+		</c:if>
+			<c:if test="${ pi.currentPage ne 1 }">
+				<c:url var="before" value="RecipeUser">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ before }">[이전]</a> &nbsp;
+		</c:if>
+		
+		<!-- 페이지 -->
+		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			<c:if test="${ p eq pi.currentPage }">
+				<font color="red" size="4"><b>${ p }</b></font>
+			</c:if>
+					
+			<c:if test="${ p ne pi.currentPage }">
+				<c:url var="pagination" value="RecipeUser">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ pagination }">${ p }</a> &nbsp;
+				</c:if>
+			</c:forEach>
+		
+		<!-- [다음] -->
+			<c:if test="${ pi.currentPage eq pi.maxPage }">
+					[다음]
+			</c:if>
+			<c:if test="${ pi.currentPage ne pi.maxPage }">
+				<c:url var="after" value="RecipeUser">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url> 
+				<a href="${ after }">[다음]</a>
+			</c:if>    
 
         <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>
         <a href="javascript:;"><img src="images/doublenext.png" alt="마지막 페이지로 이동" class="lastpage_img"></a> -->

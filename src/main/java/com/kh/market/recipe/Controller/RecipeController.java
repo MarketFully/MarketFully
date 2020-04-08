@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.market.common.Pagination;
 import com.kh.market.recipe.model.service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
+import com.kh.market.recipe.model.vo.PageInfo;
 
 /**
  * Handles requests for the application home page.
@@ -94,10 +96,27 @@ public class RecipeController {
 		return mv;
 	}
 	
-	//@RequestMapping("tvBoardList")
-	
-	
-	
+	@RequestMapping("RecipeUser")
+	public ModelAndView recipeUserView(ModelAndView mv, 
+									@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { // 사용자 레시피
+		
+		System.out.println("@@@@ currentPage : "+ currentPage);
+		
+		int listCount = bService.getListCount();
+		
+		System.out.println("listCount : " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+		
+		ArrayList<Board> list = bService.UserselectList(pi);
+			
+		mv.addObject("list", list);
+		mv.addObject("pi",pi);
+		mv.setViewName("recipe/userRecipe");
+		
+		return mv;
+		
+	}
 	
 	@RequestMapping("RecipeList")
 	public String recipeUserView() { //TV속 레시피 이동하는 메소드

@@ -13,7 +13,7 @@
             /* text-align:center; */
             margin-bottom: 100px;
 		}
-		ㅏㅓㅗ라ㅗㅎ라ㅓㅎ
+		
 		.tab {
 			list-style: none;
 			margin: 0;

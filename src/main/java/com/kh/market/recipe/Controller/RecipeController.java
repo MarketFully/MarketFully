@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.market.recipe.model.service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.Menu_Category;
 
 /**
  * Handles requests for the application home page.
@@ -78,13 +80,26 @@ public class RecipeController {
 	}
 	
 	
-	@RequestMapping("Recipetv")
-	public String recipeTvView() { //TV속 레시피 이동하는 메소드
+	
+	@RequestMapping("tvCateList")
+	public ModelAndView tvCateList(ModelAndView mv) { //TV속 레시피 이동하는 메소드
 		
-		return "recipe/tvRecipe";
+		ArrayList<Menu_Category> clist = bService.TvCateList();
+		System.out.println("clist : "+ clist);
+		mv.addObject("clist", clist);
+		mv.setViewName("recipe/tvRecipe");
+		
+		
+		
+		return mv;
 	}
 	
-	@RequestMapping("RecipeUser")
+	//@RequestMapping("tvBoardList")
+	
+	
+	
+	
+	@RequestMapping("RecipeList")
 	public String recipeUserView() { //TV속 레시피 이동하는 메소드
 
 		return "recipe/userRecipe";

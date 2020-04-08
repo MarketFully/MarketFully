@@ -9,6 +9,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.market.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.market.recipe.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.market.recipe.model.vo.Menu_Category" alias="Menu_Category"/>
 <!-- 	<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
 	</typeAliases>
 	

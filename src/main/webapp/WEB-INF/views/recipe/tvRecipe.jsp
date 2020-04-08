@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -135,15 +136,25 @@
     </div>
     <!-- top10 메뉴 타이틀 end-->
 
-
-    <!-- 레시피 목록 -->
+<script>
+	//탭 만들기
+	
+	$(function(){
+		$('ul .tab').children().attr('class','current');
+		
+	});
+	
+	
+	
+</script>
+`
+    <!-- 레시피 목록 반복문으로 돌린다 -->
 	<div id="topRecipe">
         <div class="TopMenu">
 		    <ul class="tab" style="margin-top: 30px;">
-			    <li class="current" data-tab="tab1"><a href="#">강식당</a></li>
-                <li data-tab="tab2"><a href="#">수미네 반찬</a></li>
-                <li data-tab="tab3"><a href="#">현지에서 먹힐까?</a></li>
-                <li data-tab="tab4"><a href="#">최고의 요리비결</a></li>
+		    	<c:forEach var="clist" items="${clist }">
+		    		<li><a href="javascript:tabChange(${clist.mc_cate_num});">${clist.mc_name }</a></li>
+		    	</c:forEach>
 		    </ul>
         </div>
 
@@ -159,76 +170,19 @@
                     </tr>
                 </thead>
                 <tbody class="item">
-                    <tr>
-                        <td>1</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다." </p></td>
-                        <td>admin</td>
-                        <td>2018.07.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2019.10.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2017.08.30</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2020.02.28</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td> 
-                        <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2020.01.20</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>6</td> 
-                        <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2018.08.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>7</td> 
-                        <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2020.01.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>8</td> 
-                        <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2019.07.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>9</td> 
-                        <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2020.02.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>10</td> 
-                        <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle"><강식당2> "김치밥이 피오씁니다."</p></td>
-                        <td>admin</td>
-                        <td>2020.02.06</td>
-                        <td>1</td>
-                    </tr>
+                
+                	<c:forEach var="b" items="$(blist)">
+	                    <tr>
+	                    <%-- 
+	                        <td>${b.MB_NUM} }</td>
+	                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">"${b.MB_TITLE }" (${b.MB_RCOUNT }) </p></td>
+	                        <td>${b.MB_WRITER }</td>
+	                        <td>${b.MB_CDATE }</td>
+	                        <td>${b.MB_COUNT }</td>
+	                     --%>    
+	                    </tr>
+	                 </c:forEach>
+	                    
                 </tbody>
             </table>
 		</div>

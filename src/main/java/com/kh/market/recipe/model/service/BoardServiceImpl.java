@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.Menu_Category;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService{
@@ -24,6 +25,18 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<Board> UserTop10selectList() {
 		
 		return bDao.UserTop10selectList();
+	}
+
+	@Override
+	public ArrayList<Board> TvBoardList(int mC_CATE_NUM) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Menu_Category> TvCateList() {
+		
+		return bDao.TvCateList();
 	}
 
 }

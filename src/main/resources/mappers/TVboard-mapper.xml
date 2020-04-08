@@ -16,6 +16,11 @@
 		<result property="MB_TYPE" column="TMB_TYPE"/>
 	</resultMap>
 
+	<resultMap type="Menu_Category" id="mcResultSet">
+		<id property="mc_cate_num" column="MC_CATE_NUM"/>
+		<result property="mc_name" column="MC_NAME"/>
+		
+	</resultMap>
 	
 <!-- 	<resultMap type="Reply" id="replyResultSet">
 		<id property="rId" column="RID"/>
@@ -101,13 +106,17 @@
 	<select id="TvTop10selectList" resultMap="boardResultSet">
 		<![CDATA[
 		SELECT *
-		FROM (SELECT *
 		 	  FROM TV_MENU_BOARD
 		 	  ORDER BY TMB_THANK DESC)
 		WHERE ROWNUM <= 10
 		]]>
 	</select>
 	
+	<select id="TvCateList" resultMap="mcResultSet">
+		SELECT *
+		FROM MENU_CATEGORY
+		WHERE MC_STATUS='Y'
+	</select>
 	
 	
 	

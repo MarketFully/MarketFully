@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.Menu_Category;
 
 @Repository("bDao")
 public class BoardDao {
@@ -22,6 +23,11 @@ public class BoardDao {
 	public ArrayList<Board> UserTop10selectList() {
 		
 		return (ArrayList)sqlSession.selectList("USERboardMapper.UserTop10selectList");
+	}
+
+	public ArrayList<Menu_Category> TvCateList() {
+		
+		return (ArrayList)sqlSession.selectList("TVboardMapper.TvCateList");
 	}
 
 }

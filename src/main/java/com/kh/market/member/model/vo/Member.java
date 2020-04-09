@@ -1,6 +1,7 @@
 package com.kh.market.member.model.vo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Component;
 
@@ -117,13 +118,25 @@ public class Member {
 		MEM_GENDER = mEM_GENDER;
 	}
 
+
+
 	public String getMEM_BIRTH() {
 		return MEM_BIRTH;
 	}
 
+
 	public void setMEM_BIRTH(String mEM_BIRTH) {
+		
+		if(mEM_BIRTH.length()>8) {
+			mEM_BIRTH=mEM_BIRTH.replaceAll("[^0-9]", "");
+			mEM_BIRTH=mEM_BIRTH.substring(2,8);
+			
+			System.out.println("setter mEM_BIRTH : "+ mEM_BIRTH);
+		}
+		
 		MEM_BIRTH = mEM_BIRTH;
 	}
+
 
 	public int getMEM_POINT() {
 		return MEM_POINT;

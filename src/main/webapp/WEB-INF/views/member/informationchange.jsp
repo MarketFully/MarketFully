@@ -12,7 +12,7 @@
     <script src="resources/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-      <!-- 헤더부분-->
+      <!-- 헤더부분-->W
       <%@include file="../common/mypageheader.jsp" %>
 
     <!--마이페이지 왼쪽 부분-->
@@ -121,7 +121,7 @@
 
 				<tr>
                     <td class="td1">생년월일</td>
-                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YYYY-MM-DD" value="${ loginUser.MEM_BIRTH }" style="padding: 0 9px; width: 280px;"></td>
+                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YYMMDD" value="${ loginUser.MEM_BIRTH }" style="padding: 0 9px; width: 280px;"></td>
                     <td class="td3"></td>
                 </tr>  
             </table>
@@ -293,7 +293,7 @@
 	    			location.href="mupdate.do";
 	    			
 	    		}else if(pwd1 == pwd4 && pwd2 == pwd3){ // 현재 비밀번호 , 새 비밀번호/새 비밀번호 확인이 맞을경우
-	    			alert("비빌번호 변경 성공");
+	    			alert("회원정보 수정 완료");
 	    			location.href="mupdate.do";
 	    		}else if(pwd1 == pwd4 && pwd2 != pwd3){ // 현재 비밀번호는 맞고 새 비밀번호 / 새 비밀번호 확인이 틀릴경우
 	    			alert("새 비빌번호를 확인해 주세요 ")

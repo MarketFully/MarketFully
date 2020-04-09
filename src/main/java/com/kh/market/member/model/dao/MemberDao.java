@@ -26,5 +26,16 @@ public class MemberDao {
 	public int insertMember(Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
+	
+	// 회원 탈퇴 
+	public int deleteMember(String id) {
+		System.out.println(id);
+		return sqlSession.delete("memberMapper.deleteMember",id);
+	}
+	// 회원 정보 수정
+	public int updateMember(Member m) {
+		System.out.println(m);
+		return sqlSession.update("memberMapper.updateMember",m);
+	}
 
 }

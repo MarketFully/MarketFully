@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,12 +54,12 @@
             <table style="margin: 0 255px 0 255px;">
                 <tr>
                     <td style="width: 100px;"> <div class="tit_id">아이디</div></td>
-                    <td style="width: 200px;"><span style="float:none;margin-right:0px;" class="txt_id">abc123</span></td>
+                    <td style="width: 200px;"><span style="float:none;margin-right:0px;" class="txt_id">${ sessionScope.loginUser.MEM_ID }</span></td>
                 </tr>
                 <tr>
                     <td style="width: 100px;"><div class="tit_pw">비밀번호</div></td>
                     <td style="width: 200px;">  <div>
-                        <input type="hidden" name="mode" id="mode" value="confirmPassword">
+                       
                         <input type="password" name="confirm_password" id="confirm_password" class="inp_pw">
                     </div></td>
                 </tr>
@@ -68,11 +69,30 @@
         
         <div class="group_btn">
             <span style="float:none;margin-right:0px;" class="inner_groupbtn">
-                <button type="submit" class="btn btn_positive" onclick="location.href='informationchange'">확인</button>
+                <button type="submit" class="btn btn_positive" id="okbtn">확인</button>
             </span>
         </div>
       </div>
     </div>
   </div>
+  
+  <script>
+  	$("#okbtn").click(function(){
+  		var pwd1 = $("#confirm_password").val();
+  		var pwd2 = ${ sessionScope.loginUser.MEM_PWD };
+  		
+  		
+  		if(pwd1 != ""){
+  			if(pwd1 == pwd2){
+  	  			location.href="informationchange";
+  	  		}else{
+  	  			alert("비밀번호가 일치하지 않습니다.");
+  	  		}	
+  		}else{
+  			alert("비밀번호를 입력해주세요.");
+  		}
+  		
+  	}) 
+  </script>
 </body>
 </html>

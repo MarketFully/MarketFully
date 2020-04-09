@@ -103,6 +103,7 @@ public class MemberController {
 		return check;
 
 	}
+
 	
 	// 회원가입
 	@RequestMapping("regist")
@@ -132,6 +133,38 @@ public class MemberController {
 		}else {
 			model.addAttribute("msg","회원가입 실패");
 			return "";
+		}
+		
+	}
+	
+	
+	// 회원 정보 수정
+	@RequestMapping(value="mupdate.do",method=RequestMethod.POST )
+	public String memberUpdate(Member m,Model model) {
+		System.out.println(m);
+		int result = mService.updateMember(m);
+		
+		if(result > 0) {			 
+			Member loginUser = mService.loginMember(m);
+			model.addAttribute("loginUser", loginUser);
+			return "member/informationchange";
+		}else {
+			model.addAttribute("msg","회원 정보 수정 실패!");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 회원 탈퇴
+	@RequestMapping("mdelete.do")
+	public String memberDelete(String id, Model model) {
+		int result = mService.deleteMember(id);
+		
+		if(result > 0) {
+			return "redirect:logout.do";
+		}else {
+			model.addAttribute("msg","회원 탈퇴 실패!!");
+			return "common/errorPage";
 		}
 		
 	}

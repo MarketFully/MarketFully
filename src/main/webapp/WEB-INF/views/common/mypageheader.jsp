@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +18,14 @@
         <div id="topContent">
             <div id="user">
                 <span id="gradeArea">
-                    <span id="grade">Silver</span>
+                    <span id="grade">${ loginUser.MEM_GRADE }</span>
                 </span> 
-                <div id="nameArea">
-                    <label id="lblname">홍길동</label> 님<br>
-                    <label id="benefit">0.5% 적립</label><br><br><br>
+                <div id="nameArea" style="margin-left:0px;">
+                	<div style="margin: 10px;">
+                		<label id="lblname" style="position: relative; top: 1.5px;">${ loginUser.MEM_NAME }</label> 
+                		<label style="font-size: 14px;margin-top: 14px;position: relative;top: 3.5px;">님</label><br>
+                	</div>
+                 	<br><br>
                     <button id="allgrade" onclick="gradebtn()">전체등급 보기</button> 
                 </div>   
             </div>

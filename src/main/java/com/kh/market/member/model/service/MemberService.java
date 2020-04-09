@@ -25,6 +25,20 @@ public interface MemberService {
 	 */
 	int insertMember(Member m);
 	
+	/**
+	 * 회원 탈퇴를 위한 메소드
+	 * @param id
+	 * @return
+	 */
+	int deleteMember(String id);
+
+	/**
+	 * 회원 정보 수정 서비스를 위한 메소드
+	 * @param m
+	 * @return
+	 */
+	int updateMember(Member m);
+	
 	
 
 }

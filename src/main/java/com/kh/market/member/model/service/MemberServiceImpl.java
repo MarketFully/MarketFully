@@ -40,4 +40,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+	
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(String id) {
+		return mDao.deleteMember(id);
+	}
+
+	// 회원 정보 수정
+	@Override
+	public int updateMember(Member m) {
+		return mDao.updateMember(m);
+	}
 }

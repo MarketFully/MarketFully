@@ -99,6 +99,28 @@
 		FROM MEMBER
 		WHERE id=#{id}
 	</select> -->
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET 
+		MEM_PWD=#{MEM_PWD},
+		MEM_NAME=#{MEM_NAME},
+		MEM_EMAIL=#{MEM_EMAIL},
+		MEM_PHONE=#{MEM_PHONE},
+		MEM_GENDER=#{MEM_GENDER},
+		MEM_BIRTH=TO_DATE(#{MEM_BIRTH},'YYMMDD'),
+		MEM_SMS_AGREE=#{MEM_SMS_AGREE},
+		MEM_EMAIL_AGREE=#{MEM_EMAIL_AGREE}
+		WHERE MEM_ID=#{MEM_ID}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+		SET MEM_STATUS='N'
+		WHERE MEM_ID=#{MEM_ID}
+	</update>
 </mapper>
 
 

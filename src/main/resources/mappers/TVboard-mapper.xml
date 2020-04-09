@@ -105,10 +105,11 @@
 	
 	<select id="TvTop10selectList" resultMap="boardResultSet">
 		<![CDATA[
-		SELECT *
-		 	  FROM TV_MENU_BOARD
-		 	  ORDER BY TMB_THANK DESC)
-		WHERE ROWNUM <= 10
+			SELECT *
+			FROM (SELECT *
+			 	  FROM TV_MENU_BOARD
+			 	  ORDER BY TMB_THANK DESC)
+			WHERE ROWNUM <= 10
 		]]>
 	</select>
 	

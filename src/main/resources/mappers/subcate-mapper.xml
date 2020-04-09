@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subcateMapper">
+	<!-- resultMap -->
+	<resultMap type="subcate" id="subcateResultSet">
+		<id property="upcate" column="UPCATECODE"/>
+		<result property="catecode2" column="CATECODE2"/>
+		<result property="catename2" column="CATENAME2"/>
+		<result property="Y_index" column="Y_INDEX"/>
+	
+	</resultMap>
+	
+	<insert id="insertSubcate">
+	INSERT INTO CATE2
+	VALUES(#{upcate}, #{catecode2},#{catename2},#{Y_index})
+	</insert>
+	
+	<delete id="deleteSubcate">
+	DELETE FROM CATE2
+	</delete>
+	
+	<select id="selectSubcatelist" resultMap="subcateResultSet">
+	SELECT * FROM CATE2
+	ORDER BY Y_INDEX ASC
+	</select>
+	
+	
+	<!-- 
+	<resultMap type="Reply" id="replyResultSet">
+		<id property="rId" column="RID"/>
+		<result property="rContent" column="RCONTENT"/>
+		<result property="refBid" column="REF_BID"/>
+		<result property="rWriter" column="RWRITER"/>
+		<result property="rCreateDate" column="R_CREATE_DATE"/>
+		<result property="rModifyDate" column="R_MODIFY_DATE"/>
+		<result property="rStatus" column="R_STATUS"/>
+	</resultMap>
+	 -->
+	
+	<!-- <select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE B_STATUS='Y'
+	</select>
+	
+	<select id="selectList" resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE B_STATUS='Y'
+		ORDER BY BID DESC
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD
+		VALUES(SEQ_BID.NEXTVAL, #{bTitle},#{bWriter},#{bContent},#{originalFileName},#{renameFileName},
+				DEFAULT,SYSDATE,SYSDATE,DEFAULT)
+	
+	</insert>
+	
+	<update id="updateCount" parameterType="_int">
+		UPDATE BOARD
+		SET BCOUNT = BCOUNT +1
+		WHERE BID=#{bId}
+	</update>
+	
+	<select id="selectBoard" resultMap="boardResultSet">
+		SELECT * 
+		FROM BOARD
+		WHERE BID=#{bId}
+		AND B_STATUS='Y'
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD
+		SET BTITLE=#{bTitle},BCONTENT=#{bContent},
+			ORIGINAL_FILENAME=#{originalFileName},RENAME_FILENAME=#{renameFileName},
+			B_MODIFY_DATE=SYSDATE
+		WHERE BID=#{bId}
+	</update>
+	
+	<update id="deleteBoard" parameterType="_int">
+		UPDATE BOARD
+		SET B_STATUS='N'
+		WHERE BID=#{bId}
+	</update>
+	
+	<select id="selectTopList" resultMap="boardResultSet">
+		<![CDATA[
+		SELECT *
+		FROM (SELECT *
+		 	  FROM BOARD
+		 	  ORDER BY BID DESC)
+		WHERE ROWNUM <= 5	
+		]]>
+	</select>
+	
+	<select id="selectReplyList" resultMap="replyResultSet" parameterType="_int">
+		SELECT *
+		FROM REPLY
+		WHERE REF_BID=#{bId}
+		AND R_STATUS ='Y'
+		ORDER BY RID DESC
+	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES
+		(SEQ_RID.NEXTVAL,#{rContent},#{refBid},#{rWriter},SYSDATE,SYSDATE,DEFAULT)
+	</insert>
+	
+	 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

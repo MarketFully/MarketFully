@@ -169,8 +169,9 @@
         <div id="avoidDbl" class="after" style="text-align:center;">
         	<c:url var="mdelete" value="mdelete.do">
 				<c:param name="id" value="${ loginUser.MEM_ID }"/>
-			</c:url>  
-            <button id="dropbtn">탈퇴하기</button>&nbsp;&nbsp;
+			</c:url>
+			<%-- <input type="button" onclick="location.href='${ mdelete }';">탈퇴하기</button> --%>
+            <input type="button" id="dropbtn" value="탈퇴하기"></button>&nbsp;&nbsp;
             <button id="changebtn" onclick="changebtn();"> <!--  onclick="location.href='join.html'" -->회원정보수정</button>
         </div>
     </div>
@@ -183,12 +184,27 @@
  	<!-- 회원 탈퇴 -->
     <script>
         $("#dropbtn").click(function(){
+        	$('#joinForm').attr('action','mdelete.do');
             if (confirm("정말 탈퇴 하시겠습니까??") == true){    //확인
-            	location.href="mdelete.do";
+            	$.ajax({
+                	url:"mdelete.do"
+                	, type:"post"
+                	, data:{id:"${loginUser.MEM_ID}"}
+                	, success:function(){
+                		//alert("성공");
+                		window.location.replace("home.do");
+                	}
+                	, error:function(){
+                		alert("회원탈퇴 실패");
+                		window.location.replace("home.do");
+                	}
+                })
          }else{   //취소
              return false;
-         }  
+         } 
      });
+        
+        
     </script> 
     
     <!-- 선택 동의  -->

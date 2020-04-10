@@ -157,11 +157,16 @@ public class MemberController {
 	
 	// 회원 탈퇴
 	@RequestMapping("mdelete.do")
-	public String memberDelete(String id, Model model) {
+	public String memberDelete(String id, Model model, SessionStatus status) {
+		
+		System.out.println("@@@@@@@@@ id : " + id);
 		int result = mService.deleteMember(id);
 		
 		if(result > 0) {
-			return "redirect:logout.do";
+			System.out.println("로그아웃 성공");
+			status.setComplete();
+//			return "redirect:logout.do";
+			return "home";
 		}else {
 			model.addAttribute("msg","회원 탈퇴 실패!!");
 			return "common/errorPage";

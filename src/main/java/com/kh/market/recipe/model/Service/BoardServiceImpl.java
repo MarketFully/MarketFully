@@ -1,4 +1,4 @@
-package com.kh.market.recipe.model.service;
+package com.kh.market.recipe.model.Service;
 
 import java.util.ArrayList;
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.market.common.Pagination;
-import com.kh.market.recipe.model.service.BoardService;
+import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;

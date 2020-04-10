@@ -10,6 +10,9 @@
 		<typeAlias type="com.kh.market.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.market.recipe.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.market.recipe.model.vo.Menu_Category" alias="Menu_Category"/>
+		<typeAlias type="com.kh.market.admin.model.vo.MainCategory" alias="maincate"/>
+		<typeAlias type="com.kh.market.admin.model.vo.SubCategory" alias="subcate"/>
+	
 <!-- 	<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
 	</typeAliases>
 	
@@ -21,6 +24,8 @@
 	-->
 	
 	<mappers>
+		<mapper resource="mappers/subcate-mapper.xml"/>
+		<mapper resource="mappers/maincate-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/TVboard-mapper.xml"/>
 		<mapper resource="mappers/USERboard-mapper.xml"/>

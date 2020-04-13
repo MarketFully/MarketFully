@@ -143,7 +143,7 @@
 									</button></li>
 							</ul>
 							
-							<ul id="sortable" class="jul">
+							<ul id="sortable" class="jul" style="min-height: 100px;">
 							
 							<c:forEach var="m" items="${maincate}">
 								<li class="ui-state-default jli"><input type="text"
@@ -259,7 +259,7 @@
 			$(function(){
 				
 				$.ajax({
-					url:"admincategory2",
+					url:"adminsubgory",
 					dataType:"json",
 					success:function(data){
 						datalist=data;
@@ -354,6 +354,9 @@
 							+ '</li></ul>';
 					text += '<ul id="sortable2" class="jul ui-sortable" style="min-height:100px;">';
 
+					if(datalist[0]!=null){
+						
+					
 					for (var i = 0; i < datalist.length; i++) {
 						if (datalist[i].upcate == $(card).parent().children()[0].value) {
 							if (datalist[i].newli == 'y') {
@@ -373,6 +376,7 @@
 							+'</li>';
 
 						}
+					}
 					}
 					text += '</ul>';
 				}
@@ -461,7 +465,10 @@ function upload(){
 	}
 	//datalist에 추가
 	if(document.getElementById("sortable2").children.length!=0){//하위카테고리가 비어있지 않을경우
-
+	
+		if(datalist[0]!=null){
+			
+		
         for(var j=0;j<datalist.length;){//데이터리스트의 상위 카테고리코드 삭제
             if(datalist[j].upcate==document.getElementById("sortable2").children[0].children[2].value){ //뭐지
                 datalist.splice(j,1);
@@ -469,6 +476,7 @@ function upload(){
             }
             j++;
         }
+	}
 
     for(var i=0;i<document.getElementById("sortable2").children.length;i++){ //li태그안의 갯수만큼 반복
 

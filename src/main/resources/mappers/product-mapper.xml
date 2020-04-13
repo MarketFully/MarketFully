@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+
+	<resultMap id="productResultSet" type="Product">
+		<id property="PR_CODE" column="PR_CODE"/>
+		<result property="PR_CATE1" column="PR_CATE1"/>
+		<result property="PR_CATE2" column="PR_CATE2"/>
+		<result property="PR_NAME" column="PR_NAME"/>
+		<result property="PR_PRICE" column="PR_PRICE"/>
+		<result property="PR_CONTENT" column="PR_CONTENT"/>
+		<result property="PR_CARLORY" column="PR_CARLORY"/>
+		<result property="PR_FROM" column="PR_FROM"/>
+		<result property="PR_SIZE" column="PR_SIZE"/>
+		<result property="PR_ENTITY" column="PR_ENTITY"/>
+		<result property="ORIGINAL_FILE_NAME" column="ORIGINAL_FILE_NAME"/>
+		<result property="RENAME_FILE_NAME" column="RENAME_FILE_NAME"/>
+	</resultMap>
+	
+	
+	<insert id="insertproduct" parameterType="Product">
+		INSERT INTO PRODUCT
+		VALUES (#{PR_CODE},#{PR_CATE1},#{PR_CATE2},
+		#{PR_NAME},#{PR_PRICE},#{PR_CONTENT},
+		#{PR_CARLORY},#{PR_FROM},#{PR_SIZE},#{PR_ENTITY},
+		#{originalFileName},#{renameFileName})
+		
+	</insert>
+	
+	<!-- <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+	암호화 전
+		SELECT *
+		FROM MEMBER
+		WHERE ID=#{id}
+		AND PWD=#{pwd}
+		AND M_STATUS='Y'
+		
+		 암호화 후
+		 SELECT *
+		 FROM MEMBER
+		 WHERE ID=#{id}
+		 AND M_STATUS='Y'
+	</select>-->
+	
+</mapper>

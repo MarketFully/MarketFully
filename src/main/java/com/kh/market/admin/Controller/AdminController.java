@@ -95,7 +95,7 @@ public class AdminController {
 	 @RequestMapping("admincategory") 
 	 public ModelAndView admin_categoryView(ModelAndView mv) {
 		 
-		List<Object> mc = cService.selectMainCategoryList();
+		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		ArrayList<SubCategory> sc = cService.selectSubCategoryList();
 			System.out.println(mc.toString());
 			//maincatearr.add()
@@ -120,6 +120,31 @@ public class AdminController {
 			Gson gson = new GsonBuilder().create();
 			
 			gson.toJson(sc,response.getWriter());
+			
+		}
+	 @RequestMapping("adminsubgory") //json 으로 subcategory 반환
+		public void admin_subcategoryView(HttpServletResponse response) throws JsonIOException, IOException {
+			
+			ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+			response.setContentType("application/json; charset=UTF-8");
+			
+			Gson gson = new GsonBuilder().create();
+			
+			gson.toJson(sc,response.getWriter());
+			
+		}
+	 
+
+	 
+	 @RequestMapping("adminmaincategory") //json 으로 subcategory 반환
+		public void admin_maincategoryView(HttpServletResponse response) throws JsonIOException, IOException {
+			
+			ArrayList<MainCategory> mc = cService.selectMainCategoryList();
+			response.setContentType("application/json; charset=UTF-8");
+			
+			Gson gson = new GsonBuilder().create();
+			
+			gson.toJson(mc,response.getWriter());
 			
 		}
 	

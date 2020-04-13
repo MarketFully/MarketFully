@@ -37,18 +37,13 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public List<Object> selectMainCategoryList() {
+	public ArrayList<MainCategory> selectMainCategoryList() {
 		return cDao.selectMainCategoryList();
 	}
 
 	@Override
 	public ArrayList<SubCategory> selectSubCategoryList() {
-		// TODO Auto-generated method stub
 		return cDao.selectSubCategoryList();
 	}
 	
-	
-	
-	
-
 }

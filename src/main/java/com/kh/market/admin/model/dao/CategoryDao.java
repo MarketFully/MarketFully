@@ -14,28 +14,22 @@ import com.kh.market.admin.model.vo.SubCategory;
 public class CategoryDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
 	public int updateCategory(MainCategory c) {
-		return sqlSession.insert("categoryMapper.insertMaincate", c);
+		return sqlSession.insert("categoryMapper.insertMaincate",c);
 	}
-
 	public int deleteCategory() {
 		return sqlSession.delete("categoryMapper.deleteMaincate");
 	}
-
 	public int updatesubCategory(SubCategory sc) {
-		return sqlSession.insert("subcateMapper.insertSubcate", sc);
+		return sqlSession.insert("subcateMapper.insertSubcate",sc);
 	}
-
 	public int deletesubCategory() {
 		return sqlSession.delete("subcateMapper.deleteSubcate");
 	}
-
-	public List<Object> selectMainCategoryList() {
-		return sqlSession.selectList("categoryMapper.selectMaincatelist");
+	public ArrayList<MainCategory> selectMainCategoryList() {
+		return (ArrayList)sqlSession.selectList("categoryMapper.selectMaincatelist");
 	}
-
 	public ArrayList<SubCategory> selectSubCategoryList() {
-		return (ArrayList) sqlSession.selectList("subcateMapper.selectSubcatelist");
+		return (ArrayList)sqlSession.selectList("subcateMapper.selectSubcatelist");
 	}
 }

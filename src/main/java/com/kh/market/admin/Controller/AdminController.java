@@ -101,7 +101,6 @@ public class AdminController {
 			//maincatearr.add()
 			if(mc!=null) {
 				mv.addObject("maincate", mc) //메인카테고리
-				
 				.setViewName("admin/admincategory");
 				
 			}

@@ -16,7 +16,7 @@ public interface CategoryService {
 
 	public int deleteSubCategory();
 
-	public List<Object> selectMainCategoryList();
+	public ArrayList<MainCategory> selectMainCategoryList();
 
 	public ArrayList<SubCategory> selectSubCategoryList();
 }

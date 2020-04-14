@@ -32,6 +32,7 @@ public class MemberDao {
 		System.out.println(id);
 		return sqlSession.delete("memberMapper.deleteMember",id);
 	}
+	
 	// 회원 정보 수정
 	public int updateMember(Member m) {
 		System.out.println(m);

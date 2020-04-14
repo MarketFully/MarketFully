@@ -26,8 +26,8 @@ public class CategoryDao {
 	public int deletesubCategory() {
 		return sqlSession.delete("subcateMapper.deleteSubcate");
 	}
-	public List<Object> selectMainCategoryList() {
-		return sqlSession.selectList("categoryMapper.selectMaincatelist");
+	public ArrayList<MainCategory> selectMainCategoryList() {
+		return (ArrayList)sqlSession.selectList("categoryMapper.selectMaincatelist");
 	}
 	public ArrayList<SubCategory> selectSubCategoryList() {
 		return (ArrayList)sqlSession.selectList("subcateMapper.selectSubcatelist");

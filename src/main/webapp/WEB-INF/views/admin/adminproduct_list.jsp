@@ -44,7 +44,7 @@
             <!-- header -->
             <%@include file="../common/adminheader.jsp" %>
 <hr><br>
-            <h1>TV 속 레시피 리스트</h1>
+            <h1>상품 리스트</h1>
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="Rcard h-500 w-100">

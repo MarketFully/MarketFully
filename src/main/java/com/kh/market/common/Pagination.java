@@ -23,7 +23,7 @@ public class Pagination {
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		
 		// * endPage : 현재 페이지에서 보여질 마지막 페이지 수
-		endPage = startPage + pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
 		
 		// 마지막 페이지 수가 총 페이지 수보다 클 경우
 		if(maxPage < endPage) {

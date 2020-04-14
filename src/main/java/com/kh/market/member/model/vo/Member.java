@@ -30,6 +30,14 @@ public class Member {
 	}
 
 	
+	public Member(String mEM_ID, String mEM_EMAIL, String mEM_NAME) {
+		super();
+		MEM_ID = mEM_ID;
+		MEM_EMAIL = mEM_EMAIL;
+		MEM_NAME = mEM_NAME;
+	}
+
+	
 	public Member(int mEM_NUM, String mEM_ID, String mEM_PWD, String mEM_EMAIL, String mEM_PHONE, String mEM_ADDR,
 			String mEM_NAME, String mEM_GENDER, String mEM_BIRTH, int mEM_POINT, String mEM_PROFILE, String mEM_STATUS,
 			int sHIPPING_CODE, String mEM_GRADE, String mEM_CERT, String mEM_SMS_AGREE, String mEM_EMAIL_AGREE) {

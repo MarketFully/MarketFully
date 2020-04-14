@@ -41,6 +41,14 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
+	// 회원가입 이메일인증 후 DB 변경 
+	@Override
+	public Member changeMemcert(String mEM_ID) {
+		Member Memcert = mDao.changeMemcert(mEM_ID);
+		
+		return Memcert;
+	}
+	
 	// 회원 탈퇴
 	@Override
 	public int deleteMember(String id) {
@@ -52,4 +60,27 @@ public class MemberServiceImpl implements MemberService{
 	public int updateMember(Member m) {
 		return mDao.updateMember(m);
 	}
+	
+	
+	// 아이디 찾기
+	@Override
+	public Member idfind(Member m) {
+			
+		return mDao.idfind(m);
+	}
+
+	// 비밀번호 찾기 (값 일치)
+	@Override
+	public Member pwdfind(Member m) {
+			
+		return mDao.pwdfind(m);
+	}
+
+		
+	// 비밀번호 재설정(임시 비밀번호)
+	@Override
+	public int changePwd(Member m) {
+		return mDao.changePwd(m);
+	}
+
 }

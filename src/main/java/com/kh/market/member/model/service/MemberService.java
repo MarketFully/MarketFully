@@ -26,6 +26,14 @@ public interface MemberService {
 	int insertMember(Member m);
 	
 	/**
+	 * 4.이메일 인증 후 DB 값 변경
+	 * @param mEM_ID
+	 * @return
+	 */
+	Member changeMemcert(String mEM_ID);
+	
+
+	/**
 	 * 회원 탈퇴를 위한 메소드
 	 * @param id
 	 * @return
@@ -39,6 +47,31 @@ public interface MemberService {
 	 */
 	int updateMember(Member m);
 	
+	
+	/**
+	 * 5. 아이디 찾기 
+	 * @param m
+	 * @return
+	 */
+	Member idfind(Member m);
+
+
+	/**
+	 * 6. 비밀번호 찾기
+	 * @param m
+	 * @return
+	 */
+	Member pwdfind(Member m);
+
+	
+	/**
+	 * 7. 임시 비밀번호 (비밀번호 값 변경)
+	 * @param mEM_NAME
+	 * @param mEM_ID
+	 * @param mEM_EMAIL
+	 * @return
+	 */
+	int changePwd(Member m);
 	
 
 }

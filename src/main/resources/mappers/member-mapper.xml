@@ -59,6 +59,12 @@
 		
 	</insert>
 	
+	<!-- 회원가입 이메일 인증  -->
+	<update id="registSuccess" parameterType="Member">
+		UPDATE MEMBER
+		SET MEM_CERT = 'Y'
+		WHERE MEM_ID = #{MEM_ID}
+	</update>
 	
 <!-- 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	암호화 전
@@ -121,6 +127,33 @@
 		SET MEM_STATUS='N'
 		WHERE MEM_ID=#{MEM_ID}
 	</update>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_NAME = #{MEM_NAME}
+		AND MEM_EMAIL = #{MEM_EMAIL}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="pwdfind" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_NAME=#{MEM_NAME}
+		AND MEM_ID=#{MEM_ID}
+		AND MEM_EMAIL=#{MEM_EMAIL}
+	</select>
+	
+	<!-- 임시비밀번호로 pwd 재설정 -->
+	<update id="changePwd" parameterType="Member">
+		UPDATE MEMBER
+		SET MEM_PWD = #{MEM_PWD}
+		WHERE MEM_ID=#{MEM_ID}
+	</update>
+	
+	
+	
 </mapper>
 
 

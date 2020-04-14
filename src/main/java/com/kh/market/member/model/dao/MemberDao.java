@@ -27,6 +27,11 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
+	// 이메일 인증 후 DB 값 변경 
+	public Member changeMemcert(String mEM_ID) {
+		return (Member)sqlSession.selectOne("memberMapper.registSuccess",mEM_ID);
+	}
+	
 	// 회원 탈퇴 
 	public int deleteMember(String id) {
 		System.out.println(id);
@@ -38,5 +43,22 @@ public class MemberDao {
 		System.out.println(m);
 		return sqlSession.update("memberMapper.updateMember",m);
 	}
+	
+	// 아이디 찾기
+	public Member idfind(Member m) {
+		return (Member) sqlSession.selectOne("memberMapper.findId",m);
+	}
+
+	// 비밀번호 찾기 
+	public Member pwdfind(Member m) {
+		return (Member) sqlSession.selectOne("memberMapper.pwdfind", m);
+	}
+
+	// 임시비밀번호
+	public int changePwd(Member m) {
+		return sqlSession.update("memberMapper.changePwd", m);
+
+	}
+	
 
 }

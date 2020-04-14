@@ -98,7 +98,7 @@ span.error {
     <div id="join_full">
         <h2 style="text-align: center; margin: 35px;">회원가입</h2><br>
         <div id="join_write"> 
-        	<form action="minsert.do" id="insertfrm">
+        	<form action="minsert.do" id="insertfrm" method="POST">
             <table class="tbl">
                 <tr>
                     <td class="td1">아이디*</td>         
@@ -124,7 +124,7 @@ span.error {
                 </tr>
                 <tr>
                     <td class="td1">이름*</td>
-                    <td class="td2"><input type="text" name="MEM_NAME" class="input" placeholder="  이름" required></td>
+                    <td class="td2"><input type="text" name="MEM_NAME" class="input" placeholder="  이름" required ></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
@@ -140,7 +140,7 @@ span.error {
                 </tr> -->
                 <tr>
                     <td class="td1">휴대폰*</td>
-                    <td class="td2"><input type="text" name="MEM_PHONE" class="input" placeholder="  휴대폰" required ></td>
+                    <td class="td2"><input type="text" name="MEM_PHONE" class="input" placeholder="  휴대폰" required></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
@@ -173,7 +173,7 @@ span.error {
                 </tr>
                 <tr>
                     <td class="td1">생년월일</td>
-                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YY/MM/DD" ></td>
+                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YY/MM/DD"></td>
                     <td class="td3"></td>
                 </tr>                  
             </table>

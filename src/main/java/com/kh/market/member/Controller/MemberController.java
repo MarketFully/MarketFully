@@ -4,18 +4,23 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.market.member.model.service.MailService;
 import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Member;
 
@@ -27,6 +32,9 @@ public class MemberController {
 	private MemberService mService;
 	
 	private Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
+	@Autowired
+	private MailService mailsender;
 
 //	@RequestMapping("login")
 //	public String loginView() { // 로그인 페이지로 이동하는 메소드
@@ -137,7 +145,37 @@ public class MemberController {
 		
 	}
 	
-	
+	// 회원가입 메일 인증1
+		@RequestMapping(value="sinsert.do", method = RequestMethod.POST)
+		public String mailSend(Member m, Model model, HttpServletRequest request) {
+			
+			mailsender.mailSendWithUserKey(m.getMEM_EMAIL(),m.getMEM_ID(),request);
+			
+			return "redirect:index.jsp";
+		}
+		
+		// 회원가입 메일 인증2
+		@RequestMapping(value = "registSuccess" , method = RequestMethod.GET)
+		public String registSuccess(@RequestParam("user_id")String MEM_ID) { 
+					
+			System.out.println(MEM_ID);
+			
+			Member loginUser = mService.changeMemcert(MEM_ID);
+			
+			return "member/registSuccess";
+		}
+		
+		
+		// 이메일 재인증
+		@RequestMapping(value="rsinsert.do", method = RequestMethod.GET)
+		public String mailreSend(@RequestParam("MEM_ID") String MEM_ID,
+								 @RequestParam("MEM_EMAIL") String MEM_EMAIL,Model model, HttpServletRequest request) {
+			
+			mailsender.mailSendWithUserKey(MEM_EMAIL,MEM_ID,request);
+			
+			return "redirect:index.jsp";
+		}
+
 	// 회원 정보 수정
 	@RequestMapping(value="mupdate.do",method=RequestMethod.POST )
 	public String memberUpdate(Member m,Model model) {
@@ -173,19 +211,100 @@ public class MemberController {
 		}
 		
 	}
-
-	@RequestMapping("pwdfind")
-	public String pwdfindView() { // 비밀번호 찾기  페이지로 이동하는 메소드
-
-		return "member/pwdfind";
-	}
-
-	@RequestMapping("idfind")
-	public String idfindView() { // 아이디 찾기 페이지로 이동하는 메소드
-
-		return "member/idfind";
-	}
 	
+	// 아이디 찾기(페이지)
+		@RequestMapping("idfind")
+		public String idfindView() { 
+
+			return "member/idfind";
+		}
+		
+		
+		// 아이디 찾기
+		@RequestMapping("idfind.do")
+		public ModelAndView idfind(@ModelAttribute Member m)throws Exception{
+			
+			System.out.println(m);
+			ModelAndView mav = new ModelAndView();
+			Member userList = mService.idfind(m);
+
+			
+			
+			if(userList!=null) {
+			System.out.println(userList);
+			mav.setViewName("member/idfindSuccess");
+			mav.addObject("idfind",userList);
+			
+			return mav;
+			
+			}else {
+			System.out.println(userList);
+			mav.setViewName("member/idfindFail");
+			
+			return mav;
+				
+			}
+			
+		}
+		
+		
+		// 비밀번호 찾기 페이지
+		@RequestMapping("pwdfind")
+		public String pwdfindView() {
+
+			return "member/pwdfind";
+		}
+		
+		
+		// 비밀번호 찾기 (값 일치여부)
+		@RequestMapping("pwdfind.do")
+		public ModelAndView pwdfind(@ModelAttribute Member m ,HttpServletRequest request)throws Exception{
+			
+			System.out.println(m);
+			ModelAndView mav = new ModelAndView();
+			Member userList = mService.pwdfind(m);
+			
+			if(userList != null) {
+				System.out.println(userList);
+				mav.setViewName("member/pwdfindconfirm");
+				mav.addObject("pwdfind",userList);
+				
+				mailsender.mailsendWithPassword(m.getMEM_NAME(), m.getMEM_ID(), m.getMEM_EMAIL(), request);
+				
+				return mav;
+			}else {
+				
+				mav.setViewName("member/pwdfindFail");
+				return mav;
+			}
+			
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
 	@RequestMapping("basket")
 	public String basketView() { // 장바구로 이동하는 메소드
 

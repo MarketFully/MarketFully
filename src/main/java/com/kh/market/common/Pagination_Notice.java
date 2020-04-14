@@ -1,13 +1,13 @@
 package com.kh.market.common;
 
-import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
 
-public class Pagination {
+public class Pagination_Notice {
 	// PageInfo 객체를 리턴하는 static 메소드
-	public static PageInfo getPageInfo(int currentPage,int listCount) {
+	public static ServiceCenterNoticePageInfo getPageInfo(int currentPage,int listCount) {
 		
 		// 페이지 정보를 담아줄 PageInfo 참조변수 선언
-		PageInfo pi = null;
+		ServiceCenterNoticePageInfo pi = null;
 		
 		int pageLimit = 10; 	// 한 페이지에서 보여질 페이징 수
 		int maxPage;			// 전체 페이징 수 중 가장 마지막 페이지
@@ -30,7 +30,7 @@ public class Pagination {
 			endPage = maxPage;
 		}
 		
-		pi = new PageInfo(currentPage,listCount,pageLimit
+		pi = new ServiceCenterNoticePageInfo(currentPage,listCount,pageLimit
 				,maxPage,startPage,endPage,boardLimit);
 	
 		return pi;

@@ -57,79 +57,17 @@
                             <th class="col">조회수</th>
                         </tr>
                     </thead>
-                    
+                    <c:forEach var="b" items="${ list }">
                     <tbody class="item">
                         <tr>
-                            <td>1</td>
-                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='noticeDetail'">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>5</td> 
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td class="tdtext" style="padding-left: 30px;">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>10</td> 
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
+                            <td>${ b.NOTICE_NUM }</td>
+                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='noticeDetail'">${ b.NOTICE_TITLE }</td>
+                            <td>${ b.NOTICE_WRITER }</td>
+                            <td>${ b.NOTICE_CDATE }</td>
+                            <td>${ b.NOTICE_COUNT }</td>
                         </tr>
                     </tbody>
+                    </c:forEach>
                 </table>
 
                 <fieldset>
@@ -137,7 +75,57 @@
                     <a href="#" class="btn_srch">검색</a>
                 </fieldset>
 
-                <ul class="pagination"></ul>  
+                    <!-- 페이징 처리 -->
+    			<div class="pagination">
+            
+		<!--         <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img">
+		        <span class="pagenum_currentpage">1</span>
+		        <span class="pagenum">2</span>
+		        <span class="pagenum">3</span>
+		        <span class="pagenum">4</span>
+		        <span class="pagenum">5</span> 
+		        <img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img"> -->
+        
+		        <!-- 이전 -->
+		        <c:if test="${ pi.currentPage eq 1 }">
+						[이전] &nbsp;
+				</c:if>
+					<c:if test="${ pi.currentPage ne 1 }">
+						<c:url var="before" value="ServiceCenter">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+						</c:url>
+						<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+		
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<font color="red" size="4"><b>${ p }</b></font>
+					</c:if>
+							
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="ServiceCenter">
+								<c:param name="currentPage" value="${ p }"/>
+							</c:url>
+							<a href="${ pagination }">${ p }</a> &nbsp;
+						</c:if>
+					</c:forEach>
+		
+					<!-- [다음] -->
+						<c:if test="${ pi.currentPage eq pi.maxPage }">
+								[다음]
+						</c:if>
+						<c:if test="${ pi.currentPage ne pi.maxPage }">
+							<c:url var="after" value="ServiceCenter">
+								<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+							</c:url> 
+							<a href="${ after }">[다음]</a>
+						</c:if>    
+			
+			        <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>
+			        <a href="javascript:;"><img src="images/doublenext.png" alt="마지막 페이지로 이동" class="lastpage_img"></a> -->
+			    </div> 
+			    <!-- 페이징처리 end--> 
             </div>
         </div>
     </div>

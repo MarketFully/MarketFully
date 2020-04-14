@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeboardMapper">
+	<!-- resultMap -->
+	<resultMap type="Notice" id="boardResultSet">
+		<id property="NOTICE_NUM" column="NOTICE_NUM"/>
+		<result property="NOTICE_TITLE" column="NOTICE_TITLE"/>
+		<result property="NOTICE_CONTENT" column="NOTICE_CONTENT"/>
+		<result property="NOTICE_WRITER" column="NOTICE_WRITER"/>
+		<result property="NOTICE_CDATE" column="NOTICE_CDATE"/>
+		<result property="NOTICE_STATUS" column="NOTICE_STATUS"/>
+		<result property="NOTICE_COUNT" column="NOTICE_COUNT"/>	
+	</resultMap>
+	
+	<select id="getListCountNotice" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE NOTICE_STATUS='Y'
+	</select>	
+	
+		<select id="NoticeselectList" resultMap="boardResultSet">
+		SELECT *
+		FROM NOTICE
+		WHERE NOTICE_STATUS='Y'
+		ORDER BY NOTICE_NUM DESC
+	</select>
+</mapper>

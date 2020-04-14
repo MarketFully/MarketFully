@@ -252,6 +252,7 @@
 	                    <c:url var="bdetail" value="RecipeDetail">
 							<c:param name="bId" value="${ b.MB_NUM }"/>
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
                     <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.MB_TITLE }</a> </p></td>
                     <td>${ b.MB_WRITER }</td>

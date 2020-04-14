@@ -145,6 +145,7 @@ public class RecipeController {
 		ArrayList<Board> list = bService.UserselectList(pi);
 			
 		mv.addObject("list", list);
+		mv.addObject("TvOrUser", "user");
 		mv.addObject("pi",pi);
 		mv.setViewName("recipe/userRecipe");
 		

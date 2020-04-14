@@ -26,7 +26,8 @@ public interface BoardService {
 	 * @param mC_CATE_NUM
 	 * @return
 	 */
-	ArrayList<Board> TvBoardList(int mC_CATE_NUM);
+	ArrayList<Board> TvBoardList(PageInfo pi, int mc_cate_num);
+	int getTvListCount(int mc_cate_num);
 
 	/**
 	 * 카테고리 리스트

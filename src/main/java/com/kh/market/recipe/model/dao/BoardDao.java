@@ -36,6 +36,27 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("TVboardMapper.tvBoardList", cNum);
 	}
 	
+	public int getTvListCount(int mc_cate_num) {
+		
+		return sqlSession.selectOne("TVboardMapper.tvListCount", mc_cate_num);
+	}
+	
+	public ArrayList<Board> TvBoardList(PageInfo pi, int mc_cate_num) {
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("TVboardMapper.tvBoardList",mc_cate_num, rowBounds);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//----------------USERboardMapper---------------------------------

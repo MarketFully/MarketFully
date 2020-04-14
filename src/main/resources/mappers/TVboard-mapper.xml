@@ -143,10 +143,16 @@
 		WHERE MC_STATUS='Y'
 	</select>
 	
-	<select id="tvBoardList" parameterType="int" resultMap="tvBoardResultSet">
+	<select id="tvBoardList" parameterType="_int" resultMap="tvBoardResultSet">
 		SELECT *
 		FROM TV_MENU_BOARD
 		WHERE TMB_STATUS='Y'
+		<if test="value != 0">
+  			AND MC_CATE_NUM = #{cNum}
+  		</if>
+		ORDER BY TMB_NUM DESC
+		
+  		
 	</select>
 	
 	<update id="updateCount" parameterType="_int">
@@ -162,7 +168,14 @@
 		AND TMB_STATUS='Y'
 	</select>
 	
-	
+	<select id="tvListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM TV_MENU_BOARD
+		WHERE TMB_STATUS='Y'
+		<if test="value !=0">
+			AND MC_CATE_NUM= #{mc_cate_num}
+		</if>
+	</select>
 	
 	
 	

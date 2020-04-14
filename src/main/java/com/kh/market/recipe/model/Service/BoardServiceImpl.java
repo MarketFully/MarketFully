@@ -29,10 +29,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<Board> TvBoardList(int mC_CATE_NUM) {
-		// TODO Auto-generated method stub
-		return bDao.TvBoardList(mC_CATE_NUM);
+	public ArrayList<Board> TvBoardList(PageInfo pi, int mc_cate_num) {
+		
+		return bDao.TvBoardList(pi, mc_cate_num);
 	}
+
 
 	@Override
 	public ArrayList<Menu_Category> TvCateList() {
@@ -76,6 +77,12 @@ public class BoardServiceImpl implements BoardService{
 		}else {
 			return null;
 		}
+	}
+
+
+	public int getTvListCount(int mc_cate_num) {
+		
+		return bDao.getTvListCount(mc_cate_num);
 	}
 
 }

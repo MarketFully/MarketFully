@@ -165,13 +165,10 @@
 		console.log('suc');
 		
 		//선택된 카테고리 확인
-		if(!( ${mc_cate_num} == 0)){ //카테고리가 전체가 아니면
-			
+		if(${mc_cate_num} == 0){ //카테고리가 전체면
+			$('button[name=allCate]').attr('class','btn btn-success');
+		}else{ //카테고리가 선택되었으면
 			console.log('카테고리가 선택되었음 : '+${mc_cate_num});
-		
-			
-			//전체 카테고리의 btn-success 클래스 변경
-			$('button.btn-success').attr('class', 'btn btn-default');
 		
 			//선택된 카테고리의 btn-default를 success로 변경
 			var cateNum = $('ul.tab li').children().children('input[type=hidden]').val();
@@ -184,11 +181,13 @@
 					console.log('값 변경중 : '+$(item).children('#tvCateBtn'));
 					$(item).children('#tvCateBtn').attr('class','btn btn-success');
 					console.log('미션 석세스');
-					 
+					return false;
+					
 				}//if
 			}); //each
 			
-		}//if
+			
+		}//else
 		
 	});
 	
@@ -203,8 +202,8 @@
 		    <!-- 전체 목록 -->
 		    	<li>
 		    		<form action="tvBoardList" method="post" >
-			    				<input type="hidden" value="0" name="mc_cate_num">
-			    	<button id="tvCateBtn" class="btn btn-success">전체</button>
+			    		<input type="hidden" value="0" name="mc_cate_num">
+			    		<button id="tvCateBtn" class="btn btn-default" name="allCate">전체</button>
 			    	</form>
 		    	</li>
 		    	<!-- 레시피 목록 반복문으로 돌려서 카테고리를 만든다.-->
@@ -253,34 +252,60 @@
         
     <!-- 페이징 처리 -->
     <div class="pagination">
-            
-        <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img">
-       
-        <span class="pagenum_currentpage">1</span>
-        <span class="pagenum">2</span>
-        <span class="pagenum">3</span>
-        <span class="pagenum">4</span>
-        <span class="pagenum">5</span> 
-   
         
-        <img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img">
-        
+        <!-- 이전 -->
+        <c:if test="${ pi.currentPage eq 1 }">
+				[이전] &nbsp;
+		</c:if>
+		
+		<c:if test="${ pi.currentPage ne 1 }">
+			<c:url var="before" value="tvBoardList">
+				<c:param name="mc_cate_num" value="${mc_cate_num }"/>
+				<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+			</c:url>
+			<a href="${ before }">[이전]</a> &nbsp;
+		</c:if>
+		
+		<!-- 페이지 -->
+		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			<c:if test="${ p eq pi.currentPage }">
+				<font color="red" size="4"><b>${ p }</b></font>
+			</c:if>
 
-        <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>
-        <a href="javascript:;"><img src="images/doublenext.png" alt="마지막 페이지로 이동" class="lastpage_img"></a> -->
+			<c:if test="${ p ne pi.currentPage }">
+				<c:url var="pagination" value="tvBoardList">
+						<c:param name="currentPage" value="${ p }"/>
+						<c:param name="mc_cate_num" value="${mc_cate_num }"/>
+					</c:url>
+					<a href="${ pagination }" >${ p }</a> &nbsp;
+				</c:if>
+			</c:forEach>
+
+
+		<!-- [다음] -->
+			<c:if test="${ pi.currentPage eq pi.maxPage }">
+					[다음]
+			</c:if>
+			<c:if test="${ pi.currentPage ne pi.maxPage }">
+				<c:url var="after" value="tvBoardList">
+					<c:param name="mc_cate_num" value="${mc_cate_num }"/>
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url> 
+				<a href="${ after }">[다음]</a>
+			</c:if>    
+
     </div> 
     <!-- 페이징처리 end-->
 
     <!--검색창-->
     <fieldset>
+    	<select>
+    		<option value="title" selected>제목</option>
+    	</select>
         <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
         <a href="javascript:;" class="btn_srch">검색</a>
     </fieldset>
     <!-- 검색창 ends-->
-
-
-	</div>
-    <!--tv 레시피 end-->
 
 </body>
 </html>

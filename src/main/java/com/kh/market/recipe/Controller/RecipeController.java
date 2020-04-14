@@ -94,11 +94,23 @@ public class RecipeController {
 	  ArrayList<Menu_Category> clist = bService.TvCateList();
 	  mv.addObject("clist", clist);
 	  
-	  ArrayList<Board> blist = bService.TvBoardList(mc_cate_num);
+	  
+	  	System.out.println("tvCateList입니다.----------------");
+		int listCount = bService.getTvListCount(mc_cate_num);
+		System.out.println("listCount : "+ listCount);
+		
+		int currentPage = 1;
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+	  
+	  ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
+	  
+	  System.out.println("blist : "+ blist);
+	  
 	  mv.addObject("blist", blist);
 	  
 	  mv.addObject("mc_cate_num", mc_cate_num);
-	  
+		mv.addObject("pi",pi);
 	  mv.setViewName("recipe/tvRecipe");
 	  
 	  
@@ -107,21 +119,33 @@ public class RecipeController {
 	
 	
 	@RequestMapping("tvBoardList")
-	public ModelAndView tvBoardList(ModelAndView mv, @RequestParam(defaultValue="-1")int mc_cate_num) { // 카테고리에 맞는 tv속 레시피 리스트 
-																	// mc_cate_num 값이 -1이면 오류페이지로 가게 처리해야함
+	public ModelAndView tvBoardList(ModelAndView mv
+									, @RequestParam(defaultValue="-1")int mc_cate_num //// mc_cate_num 값이 -1이면 오류페이지로 가게 처리해야함
+									, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			) { // 카테고리에 맞는 tv속 레시피 리스트 
+			
 		if(mc_cate_num == -1) {
 			//오류 페이지로 
+			
+			
+			
 		}
 		
-		System.out.println("tvBoardList입니다.");
+		//전체 페이지
+		System.out.println("tvBoardList입니다.----------------");
+		int listCount = bService.getTvListCount(mc_cate_num);
+		System.out.println("listCount : "+ listCount);
 		
-		ArrayList<Board> blist = bService.TvBoardList(mc_cate_num);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
 		
 		System.out.println("blist : "+ blist);
 		System.out.println("mc_cate_num : "+ mc_cate_num);
 		
 		mv.addObject("blist",blist);
 		mv.addObject("mc_cate_num", mc_cate_num);
+		mv.addObject("pi",pi);
 		
 		mv.setViewName("recipe/tvRecipe");
 		

@@ -35,6 +35,8 @@ public interface BoardService {
 	 */
 	ArrayList<Menu_Category> TvCateList();
 	
-	Board selectBoard(int bId);
+	Board USERselectBoard(int bId);
+
+	Board TVselectBoard(int bId);
 	
 }

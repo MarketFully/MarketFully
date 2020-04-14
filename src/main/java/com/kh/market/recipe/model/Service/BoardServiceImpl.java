@@ -53,13 +53,26 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public Board selectBoard(int bId) {
+	public Board USERselectBoard(int bId) {
 		System.out.println("bId1 : " + bId);
-		int result = bDao.updateCount(bId);
+		int result = bDao.USERupdateCount(bId);
 		
 		if(result > 0) {
 			System.out.println("bId2 : " + bId);
-			return bDao.selectBoard(bId);
+			return bDao.USERselectBoard(bId);
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public Board TVselectBoard(int bId) {
+		System.out.println("bId1 : " + bId);
+		int result = bDao.TVupdateCount(bId);
+		
+		if(result > 0) {
+			System.out.println("bId2 : " + bId);
+			return bDao.TVselectBoard(bId);
 		}else {
 			return null;
 		}

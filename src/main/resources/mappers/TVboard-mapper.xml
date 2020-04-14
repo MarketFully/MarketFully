@@ -144,17 +144,23 @@
 	</select>
 	
 	<select id="tvBoardList" parameterType="int" resultMap="tvBoardResultSet">
-		
 		SELECT *
 		FROM TV_MENU_BOARD
 		WHERE TMB_STATUS='Y'
-		<if test="value != 0">
-  			AND MC_CATE_NUM = #{cNum}
-  		</if> 
-  		
 	</select>
-
 	
+	<update id="updateCount" parameterType="_int">
+		UPDATE TV_MENU_BOARD
+		SET TMB_COUNT = TMB_COUNT +1
+		WHERE TMB_NUM=#{MB_NUM}
+	</update>
+
+	<select id="selectBoard" resultMap="boardResultSet">
+		SELECT * 
+		FROM TV_MENU_BOARD
+		WHERE TMB_NUM=#{MB_NUM}
+		AND TMB_STATUS='Y'
+	</select>
 	
 	
 	

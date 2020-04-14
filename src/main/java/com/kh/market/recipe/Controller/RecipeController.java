@@ -68,6 +68,7 @@ public class RecipeController {
 		ArrayList<Board> list = bService.TvTop10selectList();
 		
 		mv.addObject("list", list);
+		mv.addObject("TvOrUser", "tv");
 		mv.setViewName("recipe/topten");
 		
 		return mv;
@@ -78,6 +79,7 @@ public class RecipeController {
 		ArrayList<Board> list = bService.UserTop10selectList();
 		
 		mv.addObject("list", list);
+		mv.addObject("TvOrUser", "user");
 		mv.setViewName("recipe/topten");
 		
 		return mv;
@@ -158,18 +160,34 @@ public class RecipeController {
 	
 	@RequestMapping("RecipeDetail")
 	public ModelAndView recipeDetailView(ModelAndView mv, int bId,
-			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //레시피 자세히 보는 페이지로 이동하는 메소드
+			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage, String TvOrUser) { //레시피 자세히 보는 페이지로 이동하는 메소드
 		
-		Board b = bService.selectBoard(bId);
-		System.out.println("@@@@ b : " + b);
-		if(b != null) {
-			mv.addObject("b",b)
-			  .addObject("currentPage",currentPage)
-			  .setViewName("recipe/recipedetail");
+		System.out.println("TvOrUser : " + TvOrUser);
+		
+		if(TvOrUser.equals("user")) {
+			Board b = bService.USERselectBoard(bId);
+			System.out.println("@@@@ b : " + b);
+			if(b != null) {
+				mv.addObject("b",b)
+				  .addObject("currentPage",currentPage)
+				  .setViewName("recipe/recipedetail");
+			}else {
+				mv.addObject("msg","게시글 상세조회 실패")
+				  .setViewName("common/errorPage");
+			}
 		}else {
-			mv.addObject("msg","게시글 상세조회 실패")
-			  .setViewName("common/errorPage");
+			Board b = bService.TVselectBoard(bId);
+			System.out.println("@@@@ b : " + b);
+			if(b != null) {
+				mv.addObject("b",b)
+				  .addObject("currentPage",currentPage)
+				  .setViewName("recipe/recipedetail");
+			}else {
+				mv.addObject("msg","게시글 상세조회 실패")
+				  .setViewName("common/errorPage");
+			}
 		}
+		
 		
 		return mv;
 	}

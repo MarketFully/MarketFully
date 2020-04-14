@@ -59,15 +59,29 @@ public class BoardDao {
 		
 	}
 	
-	public Board selectBoard(int bId) {
+	public Board USERselectBoard(int bId) {
 		
 		return sqlSession.selectOne("USERboardMapper.selectBoard",bId);
 	}
+	
+	public Board TVselectBoard(int bId) {
+		
+		return sqlSession.selectOne("TVboardMapper.selectBoard",bId);
+	}
 
-	public int updateCount(int bId) {
+	public int USERupdateCount(int bId) {
 		
 		return sqlSession.update("USERboardMapper.updateCount",bId);
 	}
+
+
+	public int TVupdateCount(int bId) {
+		
+		return sqlSession.update("TVboardMapper.updateCount",bId);
+	}
+
+
+
 
 	
 	

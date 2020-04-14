@@ -19,6 +19,8 @@ public class Pagination {
 		// * maxPage : 총 페이지 수
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
+		if(maxPage < 1) maxPage=1;
+		
 		// * startPage : 현재 페이지에 보여질 시작 페이지 수
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		

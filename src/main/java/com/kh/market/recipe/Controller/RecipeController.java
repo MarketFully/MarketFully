@@ -142,7 +142,7 @@ public class RecipeController {
 		
 		System.out.println("blist : "+ blist);
 		System.out.println("mc_cate_num : "+ mc_cate_num);
-		
+		System.out.println("pi : "+pi);
 		mv.addObject("blist",blist);
 		mv.addObject("mc_cate_num", mc_cate_num);
 		mv.addObject("pi",pi);

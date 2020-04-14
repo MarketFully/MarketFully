@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.market.common.Pagination;
@@ -25,6 +26,7 @@ import com.kh.market.recipe.model.vo.PageInfo;
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes("clist")
 public class RecipeController {
 	
 	@Autowired
@@ -83,18 +85,48 @@ public class RecipeController {
 	
 	
 	
-	@RequestMapping("tvCateList")
-	public ModelAndView tvCateList(ModelAndView mv) { //TV속 레시피 이동하는 메소드
+	  @RequestMapping("tvCateList") 
+	public ModelAndView tvCateList(ModelAndView mv, @RequestParam(defaultValue="0")int mc_cate_num) { //TV속 레시피 카테고리 리스트
+	  
+		  
+	  ArrayList<Menu_Category> clist = bService.TvCateList();
+	  mv.addObject("clist", clist);
+	  
+	  ArrayList<Board> blist = bService.TvBoardList(mc_cate_num);
+	  mv.addObject("blist", blist);
+	  
+	  mv.addObject("mc_cate_num", mc_cate_num);
+	  
+	  mv.setViewName("recipe/tvRecipe");
+	  
+	  
+	  return mv; 
+	  }
+	
+	
+	@RequestMapping("tvBoardList")
+	public ModelAndView tvBoardList(ModelAndView mv, @RequestParam(defaultValue="-1")int mc_cate_num) { // 카테고리에 맞는 tv속 레시피 리스트 
+																	// mc_cate_num 값이 -1이면 오류페이지로 가게 처리해야함
+		if(mc_cate_num == -1) {
+			//오류 페이지로 
+		}
 		
-		ArrayList<Menu_Category> clist = bService.TvCateList();
-		System.out.println("clist : "+ clist);
-		mv.addObject("clist", clist);
+		System.out.println("tvBoardList입니다.");
+		
+		ArrayList<Board> blist = bService.TvBoardList(mc_cate_num);
+		
+		System.out.println("blist : "+ blist);
+		System.out.println("mc_cate_num : "+ mc_cate_num);
+		
+		mv.addObject("blist",blist);
+		mv.addObject("mc_cate_num", mc_cate_num);
+		
 		mv.setViewName("recipe/tvRecipe");
-		
-		
 		
 		return mv;
 	}
+	
+	
 	
 	@RequestMapping("RecipeUser")
 	public ModelAndView recipeUserView(ModelAndView mv, 

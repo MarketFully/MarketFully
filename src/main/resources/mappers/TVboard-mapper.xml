@@ -15,12 +15,36 @@
 		<result property="MB_STATUS" column="TMB_STATUS"/>
 		<result property="MB_TYPE" column="TMB_TYPE"/>
 	</resultMap>
+	
+	<resultMap type="TBoard" id="tvBoardResultSet">
+		<id property="MB_NUM" column="TMB_NUM"/>
+		<result property="MB_TITLE" column="TMB_TITLE"/>
+		<result property="MB_CONTENT" column="TMB_CONTENT"/>
+		<result property="MB_CDATE" column="TMB_CDATE"/>
+		<result property="MB_WRITER" column="TMB_WRITER"/>
+		<result property="MB_IMAGE" column="TMB_IMAGE"/>
+		<result property="MB_THANK" column="TMB_THANK"/>
+		<result property="MB_COUNT" column="TMB_COUNT"/>
+		<result property="MB_RCOUNT" column="TMB_RCOUNT"/>
+		<result property="MB_STATUS" column="TMB_STATUS"/>
+		<result property="MB_TYPE" column="TMB_TYPE"/>
+		<result property="MC_CATE_NUM" column="MC_CATE_NUM"/>
+		<association property="mc" select="selectOneMC"
+				javaType="Menu_Category" column="MC_CATE_NUM"
+				/>
+	</resultMap>
 
 	<resultMap type="Menu_Category" id="mcResultSet">
 		<id property="mc_cate_num" column="MC_CATE_NUM"/>
 		<result property="mc_name" column="MC_NAME"/>
 		
 	</resultMap>
+	
+	<select id="selectOneMC" resultType="Menu_Category">
+		SELECT * FROM MENU_CATEGORY
+		WHERE MC_STATUS='Y'
+		AND MC_CATE_NUM = #{MC_CATE_NUM}
+	</select>
 	
 <!-- 	<resultMap type="Reply" id="replyResultSet">
 		<id property="rId" column="RID"/>
@@ -119,7 +143,17 @@
 		WHERE MC_STATUS='Y'
 	</select>
 	
-	
+	<select id="tvBoardList" parameterType="int" resultMap="tvBoardResultSet">
+		
+		SELECT *
+		FROM TV_MENU_BOARD
+		WHERE TMB_STATUS='Y'
+		<if test="value != 0">
+  			AND MC_CATE_NUM = #{cNum}
+  		</if> 
+  		
+	</select>
+
 	
 	
 	

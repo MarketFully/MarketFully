@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public ArrayList<Board> TvBoardList(int mC_CATE_NUM) {
 		// TODO Auto-generated method stub
-		return null;
+		return bDao.TvBoardList(mC_CATE_NUM);
 	}
 
 	@Override

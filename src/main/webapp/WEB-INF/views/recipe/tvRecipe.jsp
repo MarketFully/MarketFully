@@ -115,6 +115,28 @@
             vertical-align: middle;
             float: left;
         }
+        
+        .btn{display:inline-block;font-weight:400;color:#212529;text-align:center;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-color:transparent;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;line-height:1.5;border-radius:.25rem;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out}
+        @media (prefers-reduced-motion:reduce){
+        .btn{transition:none}}
+        .btn:hover{color:#212529;text-decoration:none}
+        .btn.focus,.btn:focus{outline:0;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}
+        .btn.disabled,.btn:disabled{opacity:.65}
+        a.btn.disabled,fieldset:disabled a
+        .btn{pointer-events:none}
+        
+        
+        .btn-success{color:#fff;background-color:#28a745;border-color:#28a745}
+        .btn-success:hover{color:#fff;background-color:#218838;border-color:#1e7e34}
+        .btn-success.focus,.btn-success:focus{box-shadow:0 0 0 .2rem rgba(72,180,97,.5)}
+        .btn-success.disabled,.btn-success:disabled{color:#fff;background-color:#28a745;border-color:#28a745}
+        .btn-success:not(:disabled):not(.disabled).active,.btn-success:not(:disabled):not(.disabled):active,.show>
+        .btn-success.dropdown-toggle{color:#fff;background-color:#1e7e34;border-color:#1c7430}
+        .btn-success:not(:disabled):not(.disabled).active:focus,
+        .btn-success:not(:disabled):not(.disabled):active:focus,.show>
+        .btn-success.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(72,180,97,.5)}
+        
+        
 	</style>
     <link rel="stylesheet" href="resources/css/header.css">
     <link rel="stylesheet" href="resources/css/toptenrecipe.css">
@@ -138,10 +160,35 @@
     <!-- top10 메뉴 타이틀 end-->
 
 <script>
-	//탭 만들기
-	
-	$(function(){
-		$('ul .tab').children().attr('class','current');
+	//탭 만들기 
+	$(function(){ 
+		console.log('suc');
+		
+		//선택된 카테고리 확인
+		if(!( ${mc_cate_num} == 0)){ //카테고리가 전체가 아니면
+			
+			console.log('카테고리가 선택되었음 : '+${mc_cate_num});
+		
+			
+			//전체 카테고리의 btn-success 클래스 변경
+			$('button.btn-success').attr('class', 'btn btn-default');
+		
+			//선택된 카테고리의 btn-default를 success로 변경
+			var cateNum = $('ul.tab li').children().children('input[type=hidden]').val();
+			console.log(cateNum);
+			
+			//반복문을 돌면서 mc_cate_num과 같은 값을 가진 li태그를 찾는다.
+			$.each($('ul.tab li').children(), function(index, item){
+				console.log('반복문 도는중 : '+$(item).children('input[type=hidden]').val());
+				if($(item).children('input[type=hidden]').val() ==  ${mc_cate_num}){
+					console.log('값 변경중 : '+$(item).children('#tvCateBtn'));
+					$(item).children('#tvCateBtn').attr('class','btn btn-success');
+					console.log('미션 석세스');
+					 
+				}//if
+			}); //each
+			
+		}//if
 		
 	});
 	
@@ -149,12 +196,27 @@
 	
 </script>
 `
-    <!-- 레시피 목록 반복문으로 돌린다 -->
+    
 	<div id="topRecipe">
         <div class="TopMenu">
 		    <ul class="tab" style="margin-top: 30px;">
-		    	<c:forEach var="clist" items="${clist }">
-		    		<li><a href="javascript:tabChange(${clist.mc_cate_num});">${clist.mc_name }</a></li>
+		    <!-- 전체 목록 -->
+		    	<li>
+		    		<form action="tvBoardList" method="post" >
+			    				<input type="hidden" value="0" name="mc_cate_num">
+			    	<button id="tvCateBtn" class="btn btn-success">전체</button>
+			    	</form>
+		    	</li>
+		    	<!-- 레시피 목록 반복문으로 돌려서 카테고리를 만든다.-->
+		    	<c:forEach var="clist" items="${clist }" varStatus="status">
+			    		<li>
+			    			<form action="tvBoardList" method="post" >
+			    				<input type="hidden" value="${clist.mc_cate_num}" name="mc_cate_num">
+			    				<button id="tvCateBtn" class="btn btn-default">${clist.mc_name }</button>
+			    				&nbsp;&nbsp;
+			    			</form>
+			    		</li>
+		    		
 		    	</c:forEach>
 		    </ul>
         </div>
@@ -172,280 +234,21 @@
                 </thead>
                 <tbody class="item">
                 
-                	<c:forEach var="b" items="$(blist)">
+                	<c:forEach var="b" items="${blist}">
 	                    <tr>
-	                    <%-- 
-	                        <td>${b.MB_NUM} }</td>
+	                     
+	                        <td>${b.MB_NUM }</td>
 	                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">"${b.MB_TITLE }" (${b.MB_RCOUNT }) </p></td>
 	                        <td>${b.MB_WRITER }</td>
 	                        <td>${b.MB_CDATE }</td>
 	                        <td>${b.MB_COUNT }</td>
-	                     --%>    
+	                         
 	                    </tr>
 	                 </c:forEach>
 	                    
                 </tbody>
             </table>
 		</div>
-
-		<div id="tab2" class="toptenTab">
-			<table class="recipe" id="tv_recipe">
-                <thead>
-                    <tr>
-                        <th class="col">번호</th>
-                        <th class="colT">제목</th>
-                        <th class="col">작성자</th>
-                        <th class="col">작성일</th>
-                        <th class="col">조회수</th>
-                    </tr>
-                </thead>
-                <tbody class="item">
-                    <tr>
-                        <td>1</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2018.07.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2019.10.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2017.08.30</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.28</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td> 
-                        <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.20</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>6</td> 
-                        <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2018.08.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>7</td> 
-                        <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle"> <수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>8</td> 
-                        <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2019.07.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>9</td> 
-                        <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>10</td> 
-                        <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle"><수미네 반찬> "LA 갈비찜"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.06</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div id="tab3" class="toptenTab">
-			<table class="recipe" id="tv_recipe">
-                <thead>
-                    <tr>
-                        <th class="col">번호</th>
-                        <th class="colT">제목</th>
-                        <th class="col">작성자</th>
-                        <th class="col">작성일</th>
-                        <th class="col">조회수</th>
-                    </tr>
-                </thead>
-                <tbody class="item">
-                    <tr>
-                        <td>1</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이" </p></td>
-                        <td>admin</td>
-                        <td>2018.07.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2019.10.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2017.08.30</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.28</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td> 
-                        <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.20</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>6</td> 
-                        <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2018.08.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>7</td> 
-                        <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle"> <현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>8</td> 
-                        <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2019.07.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>9</td> 
-                        <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>10</td> 
-                        <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle"><현지에서 먹힐까? 중국편>"짜장 떡볶이"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.06</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div id="tab4" class="toptenTab">
-			<table class="recipe" id="tv_recipe">
-                <thead>
-                    <tr>
-                        <th class="col">번호</th>
-                        <th class="colT">제목</th>
-                        <th class="col">작성자</th>
-                        <th class="col">작성일</th>
-                        <th class="col">조회수</th>
-                    </tr>
-                </thead>
-                <tbody class="item">
-                    <tr>
-                        <td>1</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면" </p></td>
-                        <td>admin</td>
-                        <td>2018.07.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="menu"><img src="resources/img/menu2.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2019.10.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="menu"><img src="resources/img/menu3.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2017.08.30</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="menu"><img src="resources/img/menu4.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.28</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td> 
-                        <td class="menu"><img src="resources/img/menu5.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.20</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>6</td> 
-                        <td class="menu"><img src="resources/img/menu6.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"ㄴ</p></td>
-                        <td>admin</td>
-                        <td>2018.08.07</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>7</td> 
-                        <td class="menu"><img src="resources/img/menu7.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2020.01.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>8</td> 
-                        <td class="menu"><img src="resources/img/menu8.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2019.07.10</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>9</td> 
-                        <td class="menu"><img src="resources/img/menu9.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.01</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>10</td> 
-                        <td class="menu"><img src="resources/img/menu10.png" class="mimg"><p class="mtitle"><최고의 요리비결> "유산슬라면"</p></td>
-                        <td>admin</td>
-                        <td>2020.02.06</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- tv 속 레시피 탭 별로 end-->
 
         
     <!-- 페이징 처리 -->
@@ -479,17 +282,5 @@
 	</div>
     <!--tv 레시피 end-->
 
-    <!-- 탭 메뉴 스크립트-->
-	<script>
-		$(function() {
-			$('ul.tab li').click(function() {
-				var activeTab = $(this).attr('data-tab');
-				$('ul.tab li').removeClass('current');
-				$('.toptenTab').removeClass('current');
-				$(this).addClass('current');
-				$('#' + activeTab).addClass('current');
-			})
-		});
-	</script>
 </body>
-</html></html>
+</html>

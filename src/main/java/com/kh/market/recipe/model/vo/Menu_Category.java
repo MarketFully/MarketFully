@@ -1,6 +1,14 @@
 package com.kh.market.recipe.model.vo;
 
-public class Menu_Category {
+import java.io.Serializable;
+
+public class Menu_Category implements Serializable{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int mc_cate_num;
 	private String mc_name;
 	

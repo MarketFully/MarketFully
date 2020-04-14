@@ -17,19 +17,32 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	
+	//----------------TVboardMapper---------------------------------
+	
+	
 	public ArrayList<Board> TvTop10selectList() {
 		
 		return (ArrayList)sqlSession.selectList("TVboardMapper.TvTop10selectList");
 	}
 
-	public ArrayList<Board> UserTop10selectList() {
-		
-		return (ArrayList)sqlSession.selectList("USERboardMapper.UserTop10selectList");
-	}
 
 	public ArrayList<Menu_Category> TvCateList() {
 		
 		return (ArrayList)sqlSession.selectList("TVboardMapper.TvCateList");
+	}
+	
+	public ArrayList<Board> TvBoardList(int cNum) {
+		return (ArrayList)sqlSession.selectList("TVboardMapper.tvBoardList", cNum);
+	}
+	
+	
+	
+	//----------------USERboardMapper---------------------------------
+	
+	public ArrayList<Board> UserTop10selectList() {
+		
+		return (ArrayList)sqlSession.selectList("USERboardMapper.UserTop10selectList");
 	}
 	
 	public int getListCount() {
@@ -56,4 +69,6 @@ public class BoardDao {
 		return sqlSession.update("USERboardMapper.updateCount",bId);
 	}
 
+	
+	
 }

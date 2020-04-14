@@ -17,32 +17,25 @@ public class Board {
 	private int MB_RCOUNT;
 	private String MB_STATUS;
 	private String MB_TYPE;
-	private int MB_CATE_NUM;
+	private int MC_CATE_NUM;
+	
+	private Menu_Category mc;
 	
 	
-	public Board(int mB_NUM, String mB_TITLE, String mB_CONTENT, Date mB_CDATE, String mB_WRITER, String mB_IMAGE,
-			int mB_THANK, int mB_COUNT, int mB_RCOUNT, String mB_STATUS, String mB_TYPE, int mB_CATE_NUM) {
-		super();
-		MB_NUM = mB_NUM;
-		MB_TITLE = mB_TITLE;
-		MB_CONTENT = mB_CONTENT;
-		MB_CDATE = mB_CDATE;
-		MB_WRITER = mB_WRITER;
-		MB_IMAGE = mB_IMAGE;
-		MB_THANK = mB_THANK;
-		MB_COUNT = mB_COUNT;
-		MB_RCOUNT = mB_RCOUNT;
-		MB_STATUS = mB_STATUS;
-		MB_TYPE = mB_TYPE;
-		MB_CATE_NUM = mB_CATE_NUM;
+	public Menu_Category getMc() {
+		return mc;
 	}
 
-	public int getMB_CATE_NUM() {
-		return MB_CATE_NUM;
+	public void setMc(Menu_Category mc) {
+		this.mc = mc;
 	}
 
-	public void setMB_CATE_NUM(int mB_CATE_NUM) {
-		MB_CATE_NUM = mB_CATE_NUM;
+	public int getMC_CATE_NUM() {
+		return MC_CATE_NUM;
+	}
+
+	public void setMC_CATE_NUM(int mC_CATE_NUM) {
+		MC_CATE_NUM = mC_CATE_NUM;
 	}
 
 	public Board() {

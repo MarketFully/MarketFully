@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,16 +58,16 @@
 
                     
                     <div class="goods_name">
-                        <h3 class="name"><강식당2> "김치밥이 피오씁니다."</h3>
+                        <h3 class="name">${ b.MB_TITLE }</h3>
                         <div class="good_list">
                             <ul>
                                 <li>
                                     <div class="ment">조회수</div>
-                                    <div class="ment_sub">10000</div>
+                                    <div class="ment_sub">${b.MB_COUNT }</div>
                                 </li>
                                 <li>
                                     <div class="ment">추천수</div>
-                                    <div class="ment_sub">9999</div>
+                                    <div class="ment_sub">${ b.MB_THANK }</div>
                                 </li>
 
                                 <li>

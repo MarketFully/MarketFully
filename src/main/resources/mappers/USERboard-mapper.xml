@@ -121,7 +121,18 @@
 		ORDER BY UMB_NUM DESC
 	</select>
 	
+	<update id="updateCount" parameterType="_int">
+		UPDATE USER_MENU_BOARD
+		SET UMB_COUNT = UMB_COUNT +1
+		WHERE UMB_NUM=#{MB_NUM}
+	</update>
 	
+	<select id="selectBoard" resultMap="boardResultSet">
+		SELECT * 
+		FROM USER_MENU_BOARD
+		WHERE UMB_NUM=#{MB_NUM}
+		AND UMB_STATUS='Y'
+	</select>
 	
 	
 	

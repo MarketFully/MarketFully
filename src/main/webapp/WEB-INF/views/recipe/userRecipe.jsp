@@ -249,7 +249,11 @@
             <tbody class="item">
                 <tr>
                     <td>${ b.MB_NUM }</td>
-                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">${ b.MB_TITLE } </p></td>
+	                    <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.MB_NUM }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+						</c:url>
+                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.MB_TITLE }</a> </p></td>
                     <td>${ b.MB_WRITER }</td>
                     <td>${ b.MB_CDATE }</td>
                     <td>${ b.MB_COUNT }</td>

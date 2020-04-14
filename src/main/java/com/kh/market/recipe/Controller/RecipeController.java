@@ -125,9 +125,21 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("RecipeDetail")
-	public String recipeDetailView() { //레시피 자세히 보는 페이지로 이동하는 메소드
-
-		return "recipe/recipedetail";
+	public ModelAndView recipeDetailView(ModelAndView mv, int bId,
+			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //레시피 자세히 보는 페이지로 이동하는 메소드
+		
+		Board b = bService.selectBoard(bId);
+		System.out.println("@@@@ b : " + b);
+		if(b != null) {
+			mv.addObject("b",b)
+			  .addObject("currentPage",currentPage)
+			  .setViewName("recipe/recipedetail");
+		}else {
+			mv.addObject("msg","게시글 상세조회 실패")
+			  .setViewName("common/errorPage");
+		}
+		
+		return mv;
 	}
 
 }

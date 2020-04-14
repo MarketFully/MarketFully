@@ -51,5 +51,18 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bDao.UserselectList(pi);
 	}
+	
+	@Override
+	public Board selectBoard(int bId) {
+		System.out.println("bId1 : " + bId);
+		int result = bDao.updateCount(bId);
+		
+		if(result > 0) {
+			System.out.println("bId2 : " + bId);
+			return bDao.selectBoard(bId);
+		}else {
+			return null;
+		}
+	}
 
 }

@@ -45,5 +45,15 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList",null,rowBounds);
 		
 	}
+	
+	public Board selectBoard(int bId) {
+		
+		return sqlSession.selectOne("USERboardMapper.selectBoard",bId);
+	}
+
+	public int updateCount(int bId) {
+		
+		return sqlSession.update("USERboardMapper.updateCount",bId);
+	}
 
 }

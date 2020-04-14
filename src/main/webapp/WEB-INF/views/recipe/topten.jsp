@@ -79,7 +79,7 @@
 			<table class="recipe" id="tv_recipe">
                 <thead>
                     <tr>
-                        <th class="col">순위</th>
+                        <th class="col">순위1</th>
                         <th class="colT">제목</th>
                         <th class="col">작성자</th>
                         <th class="col">작성일</th>
@@ -90,7 +90,11 @@
                 <tbody class="item">
                     <tr onclick="location.href='RecipeDetail'">
                         <td>${ b.MB_NUM }</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">${ b.MB_TITLE } </p></td>
+                        <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.MB_NUM }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+						</c:url>
+                    	<td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.MB_TITLE }</a> </p></td>
                         <td>${ b.MB_WRITER }</td>
                         <td>${ b.MB_CDATE }</td>
                         <td>${ b.MB_COUNT }</td>
@@ -115,7 +119,11 @@
                 <tbody class="item">
                     <tr onclick="location.href='RecipeDetail'">
                         <td>${ b.MB_NUM }</td>
-                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">${ b.MB_TITLE } </p></td>
+                        <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.MB_NUM }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+						</c:url>
+                    	<td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.MB_TITLE }</a> </p></td>
                         <td>${ b.MB_WRITER }</td>
                         <td>${ b.MB_CDATE }</td>
                         <td>${ b.MB_COUNT }</td>
@@ -132,7 +140,7 @@
 
     <!-- 탭 메뉴 스크립트-->
 	<script>
-		$(function() {
+/* 		$(function() {
 			$('ul.tab li').click(function() {
 				var activeTab = $(this).attr('data-tab');
 				$('ul.tab li').removeClass('current');
@@ -140,7 +148,7 @@
 				$(this).addClass('current');
 				$('#' + activeTab).addClass('current');
 			})
-		});
+		});  */
 	</script>
 </body>
 </html>

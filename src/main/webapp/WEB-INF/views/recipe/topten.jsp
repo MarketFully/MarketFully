@@ -88,7 +88,7 @@
                 </thead>
                 <c:forEach var="b" items="${ list }">
                 <tbody class="item">
-                    <tr onclick="location.href='RecipeDetail'">
+                    <tr>
                         <td>${ b.MB_NUM }</td>
                         <c:url var="bdetail" value="RecipeDetail">
 							<c:param name="bId" value="${ b.MB_NUM }"/>

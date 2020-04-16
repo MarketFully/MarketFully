@@ -42,22 +42,24 @@ public class MemberController {
 //		return "member/login";
 //	}
 
-	// 로그인1
-	@RequestMapping(value="login.do",method= RequestMethod.POST) 
-	public String memberLogin(Member m , Model model) {
-		
-		Member loginUser = mService.loginMember(m);
-		
-		if(loginUser != null) {
-			model.addAttribute("loginUser", loginUser);
-			return "redirect:index.jsp";
-		}else {
-			model.addAttribute("msg", "로그인실패!!");
-			model.addAttribute("url","login");
-			return "member/loginfail";
-			
-		}
-	}
+	//로그인1
+	   @RequestMapping(value="login.do",method= RequestMethod.POST) 
+	   public String memberLogin(Member m , Model model) {
+	      
+	      Member loginUser = mService.loginMember(m);
+	      
+	      if(loginUser != null) {
+	         model.addAttribute("loginUser", loginUser);
+	         if(loginUser.getMEM_CERT().equals("Y")) {
+	            return "redirect:index.jsp";         
+	         }else {
+	            return "member/mailsendFail";
+	         }
+	      }else {
+	         model.addAttribute("msg", "로그인실패!!");
+	         return "";
+	      }
+	   }
 
 	//로그인2
 	@RequestMapping("login")

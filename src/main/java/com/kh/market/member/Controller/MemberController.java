@@ -53,6 +53,8 @@ public class MemberController {
 	        	 model.addAttribute("loginUser", loginUser);
 	            return "redirect:index.jsp";         
 	         }else {
+	        	 model.addAttribute("MEM_ID",loginUser.getMEM_ID());
+	        	 model.addAttribute("MEM_EMAIL",loginUser.getMEM_EMAIL());
 	            return "member/mailsendFail";
 	         }
 	      }else {
@@ -126,7 +128,8 @@ public class MemberController {
 	public String insertMember(Member m, Model model,
 							   @RequestParam("post")String post,
 							   @RequestParam("address1") String address1,
-							   @RequestParam("address2") String address2) {
+							   @RequestParam("address2") String address2,
+							   HttpServletRequest request) {
 	
 		System.out.println(m);
 		System.out.println(post+","+address1+"," +address2);
@@ -139,7 +142,8 @@ public class MemberController {
 		
 		
 		if(result > 0) {
-			return "redirect:index.jsp";
+			return mailSend(m,model,request);
+
 		}else {
 			model.addAttribute("msg","회원가입 실패");
 			return "";
@@ -171,7 +175,8 @@ public class MemberController {
 		// 이메일 재인증
 		@RequestMapping(value="rsinsert.do", method = RequestMethod.GET)
 		public String mailreSend(@RequestParam("MEM_ID") String MEM_ID,
-								 @RequestParam("MEM_EMAIL") String MEM_EMAIL,Model model, HttpServletRequest request) {
+								 @RequestParam("MEM_EMAIL") String MEM_EMAIL,Model model,
+								 HttpServletRequest request) {
 			
 			mailsender.mailSendWithUserKey(MEM_EMAIL,MEM_ID,request);
 			

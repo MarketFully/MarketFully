@@ -58,89 +58,18 @@
                             <th class="col">조회수</th>
                         </tr>
                     </thead>
-                    
+                    <c:forEach var="b" items="${ list }">
                     <tbody class="item">
                         <tr>
-                            <td>1</td>
-                            <td>배송문의</td>
-                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='QNAdetail'">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>user01</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>배송문의</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>user02</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>주문/결제</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>user03</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>서비스 이용 및 기타</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>user04</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>5</td> 
-                            <td>취소/교환/반품</td>
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>user05</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>회원문의</td>
-                            <td class="tdtext" style="padding-left: 30px;">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>user06</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>적립금</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>user07</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>배송문의</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>user08</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>주문/결제</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>user09</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>10</td> 
-                            <td>서비스 이용 및 기타</td>
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>user10</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
+                            <td>${ b.q_NUM }</td>
+                            <td>${ b.q_CATEGORY }</td>
+                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='QNAdetail'">${ b.q_TITLE }</td>
+                            <td>${ b.q_WRITER }</td>
+                            <td>${ b.q_CDATE }</td>
+                            <td>${ b.q_RCOUNT }</td>
                         </tr>
                     </tbody>
+                    </c:forEach>
                 </table>
 
                 <fieldset>

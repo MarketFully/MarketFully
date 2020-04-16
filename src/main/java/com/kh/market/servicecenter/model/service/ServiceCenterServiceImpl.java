@@ -9,6 +9,8 @@ import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.servicecenter.model.dao.ServiceCenterDao;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
 
 @Service("sService")
 public class ServiceCenterServiceImpl implements ServiceCenterService {
@@ -26,6 +28,18 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	public ArrayList<ServiceCenterNoticeBoard> NoticeselectList(ServiceCenterNoticePageInfo pi) {
 		
 		return sDao.NoticeselectList(pi);
+	}
+
+	@Override
+	public int getListCountQna() {
+		
+		return sDao.getListCountQna();
+	}
+
+	@Override
+	public ArrayList<ServiceCenterQnaBoard> QnaselectList(ServiceCenterQnaPageInfo pi) {
+		
+		return sDao.QnaselectList(pi);
 	}
 
 

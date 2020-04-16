@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="NoticeboardMapper">
+<mapper namespace="ServiceCenterMapper">
 	<!-- resultMap -->
-	<resultMap type="Notice" id="boardResultSet">
+	<resultMap type="Notice" id="NoticeboardResultSet">
 		<id property="NOTICE_NUM" column="NOTICE_NUM"/>
 		<result property="NOTICE_TITLE" column="NOTICE_TITLE"/>
 		<result property="NOTICE_CONTENT" column="NOTICE_CONTENT"/>
@@ -12,16 +12,49 @@
 		<result property="NOTICE_COUNT" column="NOTICE_COUNT"/>	
 	</resultMap>
 	
+	<resultMap type="Qna" id="QnaboardResultSet">
+		<id property="Q_NUM" column="Q_NUM"/>
+		<result property="Q_TITLE" column="Q_TITLE"/>
+		<result property="Q_CONTENT" column="Q_CONTENT"/>
+		<result property="Q_WRITER" column="Q_WRITER"/>
+		<result property="OR_NUM" column="OR_NUM"/>
+		<result property="Q_STATUS" column="Q_STATUS"/>
+		<result property="Q_CDATE" column="Q_CDATE"/>
+		<result property="Q_COUNT" column="Q_COUNT"/>
+		<result property="Q_RCOUNT" column="Q_RCOUNT"/>
+		<result property="Q_CATEGORY" column="Q_CATEGORY"/>
+	</resultMap>
+	
 	<select id="getListCountNotice" resultType="_int">
 		SELECT COUNT(*)
 		FROM NOTICE
 		WHERE NOTICE_STATUS='Y'
 	</select>	
 	
-		<select id="NoticeselectList" resultMap="boardResultSet">
+	<select id="NoticeselectList" resultMap="NoticeboardResultSet">
 		SELECT *
 		FROM NOTICE
 		WHERE NOTICE_STATUS='Y'
 		ORDER BY NOTICE_NUM DESC
 	</select>
+	
+	<select id="getListCountQna" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA_BOARD
+		WHERE Q_STATUS='Y'
+	</select>
+	
+	<select id="QnaselectList" resultMap="QnaboardResultSet">
+        SELECT *
+		FROM QNA_BOARD
+		WHERE Q_STATUS='Y'
+		ORDER BY Q_NUM DESC
+	</select>
+	
 </mapper>
+
+
+
+
+
+

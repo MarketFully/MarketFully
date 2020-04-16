@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.market.common.Pagination_Notice;
+import com.kh.market.common.Pagination_Qna;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.servicecenter.model.service.ServiceCenterService;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
 
 
 
@@ -38,7 +41,7 @@ public class ServiceCenterController {
 		System.out.println("@@@@ currentPage : "+ currentPage);
 		
 		int listCount = sService.getListCountNotice();
-		System.out.println("listCount : " + listCount);
+		System.out.println("NOTICE BOARD listCount : " + listCount);
 		
 		ServiceCenterNoticePageInfo pi = Pagination_Notice.getPageInfo(currentPage,listCount);
 		
@@ -77,9 +80,22 @@ public class ServiceCenterController {
 	}
 
 	@RequestMapping("QNA")
-	public String QNAViewView() { //고객센터 QNA메인으로 이동하는 메소드
-
-		return "servicecenter/QNA";
+	public ModelAndView QNAViewView(ModelAndView mv,
+			@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //고객센터 QNA메인으로 이동하는 메소드
+		System.out.println("@@@@ currentPage : "+ currentPage);
+		int listCount = sService.getListCountQna();
+		System.out.println("QNA BOARD listCount : " + listCount);
+		
+		ServiceCenterQnaPageInfo pi = Pagination_Qna.getPageInfo(currentPage,listCount);
+		
+		ArrayList<ServiceCenterQnaBoard> list = sService.QnaselectList(pi);
+		System.out.println("list : " + list);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi",pi);
+		mv.setViewName("servicecenter/QNA");
+		
+		return mv;
 	}
 	
 	@RequestMapping("recipeSuggest")

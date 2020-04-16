@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
 
 @Repository("sDao")
 public class ServiceCenterDao {
@@ -19,7 +21,7 @@ public class ServiceCenterDao {
 
 	public int getListCountNotice() {
 		
-		return sqlSession.selectOne("NoticeboardMapper.getListCountNotice");
+		return sqlSession.selectOne("ServiceCenterMapper.getListCountNotice");
 	}
 
 	public ArrayList<ServiceCenterNoticeBoard> NoticeselectList(ServiceCenterNoticePageInfo pi) {
@@ -27,7 +29,20 @@ public class ServiceCenterDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("NoticeboardMapper.NoticeselectList",null,rowBounds);
+		return (ArrayList)sqlSession.selectList("ServiceCenterMapper.NoticeselectList",null,rowBounds);
+	}
+
+	public int getListCountQna() {
+		
+		return sqlSession.selectOne("ServiceCenterMapper.getListCountQna");
+	}
+
+	public ArrayList<ServiceCenterQnaBoard> QnaselectList(ServiceCenterQnaPageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("ServiceCenterMapper.QnaselectList",null,rowBounds);
 	}
 
 	

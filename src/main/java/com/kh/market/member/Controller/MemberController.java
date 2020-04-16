@@ -49,8 +49,8 @@ public class MemberController {
 	      Member loginUser = mService.loginMember(m);
 	      
 	      if(loginUser != null) {
-	         model.addAttribute("loginUser", loginUser);
 	         if(loginUser.getMEM_CERT().equals("Y")) {
+	        	 model.addAttribute("loginUser", loginUser);
 	            return "redirect:index.jsp";         
 	         }else {
 	            return "member/mailsendFail";

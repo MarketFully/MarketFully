@@ -42,6 +42,12 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 		return sDao.QnaselectList(pi);
 	}
 
+	@Override
+	public int QNAinsert(ServiceCenterQnaBoard b) {
+		
+		return sDao.QNAinsert(b);
+	}
+
 
 
 	

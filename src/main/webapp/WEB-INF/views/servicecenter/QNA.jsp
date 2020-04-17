@@ -71,11 +71,63 @@
                     </tbody>
                     </c:forEach>
                 </table>
+                
 
                 <fieldset>
                     <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
                     <button type="submit" class="btn_srch">검색</a>
                 </fieldset>
+                    <!-- 페이징 처리 -->
+    <div class="pagination">
+            
+<!--         <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img">
+        <span class="pagenum_currentpage">1</span>
+        <span class="pagenum">2</span>
+        <span class="pagenum">3</span>
+        <span class="pagenum">4</span>
+        <span class="pagenum">5</span> 
+        <img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img"> -->
+        
+        <!-- 이전 -->
+        <c:if test="${ pi.currentPage eq 1 }">
+				[이전] &nbsp;
+		</c:if>
+			<c:if test="${ pi.currentPage ne 1 }">
+				<c:url var="before" value="RecipeUser">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ before }">[이전]</a> &nbsp;
+		</c:if>
+		
+		<!-- 페이지 -->
+		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			<c:if test="${ p eq pi.currentPage }">
+				<font color="red" size="4"><b>${ p }</b></font>
+			</c:if>
+					
+			<c:if test="${ p ne pi.currentPage }">
+				<c:url var="pagination" value="RecipeUser">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ pagination }">${ p }</a> &nbsp;
+				</c:if>
+			</c:forEach>
+		
+		<!-- [다음] -->
+			<c:if test="${ pi.currentPage eq pi.maxPage }">
+					[다음]
+			</c:if>
+			<c:if test="${ pi.currentPage ne pi.maxPage }">
+				<c:url var="after" value="RecipeUser">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url> 
+				<a href="${ after }">[다음]</a>
+			</c:if>    
+
+        <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>
+        <a href="javascript:;"><img src="images/doublenext.png" alt="마지막 페이지로 이동" class="lastpage_img"></a> -->
+    </div> 
+    <!-- 페이징처리 end-->
 
                 <ul class="pagination"></ul>  
             </div>
@@ -86,6 +138,7 @@
         </div>
     </div>
    <!-- QNA 내용 끝-->
+   
 </div>
 <!-- QNA 끝-->
 

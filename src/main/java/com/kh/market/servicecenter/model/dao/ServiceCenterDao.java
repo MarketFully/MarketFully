@@ -45,6 +45,11 @@ public class ServiceCenterDao {
 		return (ArrayList)sqlSession.selectList("ServiceCenterMapper.QnaselectList",null,rowBounds);
 	}
 
+	public int QNAinsert(ServiceCenterQnaBoard b) {
+		
+		return sqlSession.insert("ServiceCenterMapper.QNAinsert",b);
+	}
+
 	
 
 	

@@ -13,16 +13,16 @@
 	</resultMap>
 	
 	<resultMap type="Qna" id="QnaboardResultSet">
-		<id property="Q_NUM" column="Q_NUM"/>
-		<result property="Q_TITLE" column="Q_TITLE"/>
-		<result property="Q_CONTENT" column="Q_CONTENT"/>
-		<result property="Q_WRITER" column="Q_WRITER"/>
-		<result property="OR_NUM" column="OR_NUM"/>
-		<result property="Q_STATUS" column="Q_STATUS"/>
-		<result property="Q_CDATE" column="Q_CDATE"/>
-		<result property="Q_COUNT" column="Q_COUNT"/>
-		<result property="Q_RCOUNT" column="Q_RCOUNT"/>
-		<result property="Q_CATEGORY" column="Q_CATEGORY"/>
+		<id property="q_NUM" column="Q_NUM"/>
+		<result property="q_TITLE" column="Q_TITLE"/>
+		<result property="q_CONTENT" column="Q_CONTENT"/>
+		<result property="q_WRITER" column="Q_WRITER"/>
+		<result property="oR_NUM" column="OR_NUM"/>
+		<result property="q_STATUS" column="Q_STATUS"/>
+		<result property="q_CDATE" column="Q_CDATE"/>
+		<result property="q_COUNT" column="Q_COUNT"/>
+		<result property="q_RCOUNT" column="Q_RCOUNT"/>
+		<result property="q_CATEGORY" column="Q_CATEGORY"/>
 	</resultMap>
 	
 	<select id="getListCountNotice" resultType="_int">
@@ -50,6 +50,12 @@
 		WHERE Q_STATUS='Y'
 		ORDER BY Q_NUM DESC
 	</select>
+	
+	<insert id="QNAinsert" parameterType="Qna">
+		INSERT INTO QNA_BOARD
+		VALUES(SEQ_QNA.NEXTVAL, #{q_TITLE},#{q_CONTENT},#{q_WRITER},#{oR_NUM},'Y',SYSDATE,#{q_COUNT},#{q_RCOUNT},#{q_CATEGORY})
+	
+	</insert>
 	
 </mapper>
 

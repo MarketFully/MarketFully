@@ -40,23 +40,23 @@
     <!--QNA tab end-->
 
     <!-- QNA 내용-->
+    <form action="QNAinsert" method="POST">
     <div id="viewNotice" class="viewNotice">
         <div class="head_aticle">
             <h2 class="tit">문의</h2>
         </div>
-
         <div class="Ncontent">
             <div class="Ncontent_div">
                 <table>
                     <tbody class="qwrite">
                         <tr>
                             <td>제목</td>
-                            <td><input type="text" class="inputcss"></td>
+                            <td><input type="text" class="inputcss" name="q_TITLE"></td>
                         </tr>
                         <tr>
                             <td>문의종류</td>
                             <td>
-                                <select>
+                                <select name="q_CATEGORY">
                                     <option value="회원문의">회원문의</option>
                                     <option value="주문/결제">주문/결제</option>
                                     <option value="취소/교환/반품">취소/교환/반품</option>
@@ -68,12 +68,12 @@
                         </tr>
                         <tr>
                             <td>주문번호</td>
-                            <td><input type="text" style="width: 170px;" class="inputcss"></td>
+                            <td><input type="text" name="" style="width: 170px;" class="inputcss"></td>
                         </tr>
                         <tr>
                             <td>문의내용</td>
                             <td>
-                                <textarea></textarea>
+                                <textarea name="q_CONTENT"></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -82,18 +82,15 @@
                         </tr>
                     </tbody>
                 </table>
-                    
-                    
-
-
-                
             </div>
                 <!-- 글쓰기 버튼-->
                 <div>
-                    <input type="submit" value="저장" class="write_btn" onclick="location.href='QNAdetil.html'">
+                    <!-- <input type="submit" value="저장" class="write_btn" onclick="location.href='QNAinsert'"> --> 
+                    <button class="write_btn">저장</button>
                 </div>
         </div>
     </div>
+    </form>
    <!-- QNA 내용 끝-->
 </div>
 <!-- QNA 끝-->

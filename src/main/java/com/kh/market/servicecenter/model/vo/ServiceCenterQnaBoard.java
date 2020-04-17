@@ -2,124 +2,132 @@ package com.kh.market.servicecenter.model.vo;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ServiceCenterQnaBoard {
-	public int Q_NUM;
-	public String Q_TITLE;
-	public String Q_CONTENT;
-	public String Q_WRITER;
-	public int OR_NUM;
-	public String Q_STATUS;
-	public Date Q_CDATE;
-	public int Q_COUNT;
-	public int Q_RCOUNT;
-	public String Q_CATEGORY;
+	public int q_NUM;
+	public String q_TITLE;
+	public String q_CONTENT;
+	public String q_WRITER;
+	public int oR_NUM;
+	public String q_STATUS;
+	public Date q_CDATE;
+	public int q_COUNT;
+	public int q_RCOUNT;
+	public String q_CATEGORY;
 	
 	public ServiceCenterQnaBoard() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public ServiceCenterQnaBoard(int q_NUM, String q_TITLE, String q_CONTENT, String q_WRITER, int oR_NUM,
 			String q_STATUS, Date q_CDATE, int q_COUNT, int q_RCOUNT, String q_CATEGORY) {
 		super();
-		Q_NUM = q_NUM;
-		Q_TITLE = q_TITLE;
-		Q_CONTENT = q_CONTENT;
-		Q_WRITER = q_WRITER;
-		OR_NUM = oR_NUM;
-		Q_STATUS = q_STATUS;
-		Q_CDATE = q_CDATE;
-		Q_COUNT = q_COUNT;
-		Q_RCOUNT = q_RCOUNT;
-		Q_CATEGORY = q_CATEGORY;
+		this.q_NUM = q_NUM;
+		this.q_TITLE = q_TITLE;
+		this.q_CONTENT = q_CONTENT;
+		this.q_WRITER = q_WRITER;
+		this.oR_NUM = oR_NUM;
+		this.q_STATUS = q_STATUS;
+		this.q_CDATE = q_CDATE;
+		this.q_COUNT = q_COUNT;
+		this.q_RCOUNT = q_RCOUNT;
+		this.q_CATEGORY = q_CATEGORY;
 	}
 
 	public int getQ_NUM() {
-		return Q_NUM;
+		return q_NUM;
 	}
 
 	public void setQ_NUM(int q_NUM) {
-		Q_NUM = q_NUM;
+		this.q_NUM = q_NUM;
 	}
 
 	public String getQ_TITLE() {
-		return Q_TITLE;
+		return q_TITLE;
 	}
 
 	public void setQ_TITLE(String q_TITLE) {
-		Q_TITLE = q_TITLE;
+		this.q_TITLE = q_TITLE;
 	}
 
 	public String getQ_CONTENT() {
-		return Q_CONTENT;
+		return q_CONTENT;
 	}
 
 	public void setQ_CONTENT(String q_CONTENT) {
-		Q_CONTENT = q_CONTENT;
+		this.q_CONTENT = q_CONTENT;
 	}
 
 	public String getQ_WRITER() {
-		return Q_WRITER;
+		return q_WRITER;
 	}
 
 	public void setQ_WRITER(String q_WRITER) {
-		Q_WRITER = q_WRITER;
+		this.q_WRITER = q_WRITER;
 	}
 
-	public int getOR_NUM() {
-		return OR_NUM;
+	public int getoR_NUM() {
+		return oR_NUM;
 	}
 
-	public void setOR_NUM(int oR_NUM) {
-		OR_NUM = oR_NUM;
+	public void setoR_NUM(int oR_NUM) {
+		this.oR_NUM = oR_NUM;
 	}
 
 	public String getQ_STATUS() {
-		return Q_STATUS;
+		return q_STATUS;
 	}
 
 	public void setQ_STATUS(String q_STATUS) {
-		Q_STATUS = q_STATUS;
+		this.q_STATUS = q_STATUS;
 	}
 
 	public Date getQ_CDATE() {
-		return Q_CDATE;
+		return q_CDATE;
 	}
 
 	public void setQ_CDATE(Date q_CDATE) {
-		Q_CDATE = q_CDATE;
+		this.q_CDATE = q_CDATE;
 	}
 
 	public int getQ_COUNT() {
-		return Q_COUNT;
+		return q_COUNT;
 	}
 
 	public void setQ_COUNT(int q_COUNT) {
-		Q_COUNT = q_COUNT;
+		this.q_COUNT = q_COUNT;
 	}
 
 	public int getQ_RCOUNT() {
-		return Q_RCOUNT;
+		return q_RCOUNT;
 	}
 
 	public void setQ_RCOUNT(int q_RCOUNT) {
-		Q_RCOUNT = q_RCOUNT;
+		this.q_RCOUNT = q_RCOUNT;
 	}
 
 	public String getQ_CATEGORY() {
-		return Q_CATEGORY;
+		return q_CATEGORY;
 	}
 
 	public void setQ_CATEGORY(String q_CATEGORY) {
-		Q_CATEGORY = q_CATEGORY;
+		this.q_CATEGORY = q_CATEGORY;
 	}
 
 	@Override
 	public String toString() {
-		return "ServiceCenterQnaBoard [Q_NUM=" + Q_NUM + ", Q_TITLE=" + Q_TITLE + ", Q_CONTENT=" + Q_CONTENT
-				+ ", Q_WRITER=" + Q_WRITER + ", OR_NUM=" + OR_NUM + ", Q_STATUS=" + Q_STATUS + ", Q_CDATE=" + Q_CDATE
-				+ ", Q_COUNT=" + Q_COUNT + ", Q_RCOUNT=" + Q_RCOUNT + ", Q_CATEGORY=" + Q_CATEGORY + "]";
+		return "ServiceCenterQnaBoard [q_NUM=" + q_NUM + ", q_TITLE=" + q_TITLE + ", q_CONTENT=" + q_CONTENT
+				+ ", q_WRITER=" + q_WRITER + ", oR_NUM=" + oR_NUM + ", q_STATUS=" + q_STATUS + ", q_CDATE=" + q_CDATE
+				+ ", q_COUNT=" + q_COUNT + ", q_RCOUNT=" + q_RCOUNT + ", q_CATEGORY=" + q_CATEGORY + "]";
 	}
 	
+	
+	
+	
+
 	
 	
 }

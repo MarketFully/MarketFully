@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.market.common.Pagination_Notice;
@@ -29,6 +33,7 @@ import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
 /**
  * Handles requests for the application home page.
  */
+@SessionAttributes("loginUser")
 @Controller
 public class ServiceCenterController {
 	
@@ -96,6 +101,21 @@ public class ServiceCenterController {
 		mv.setViewName("servicecenter/QNA");
 		
 		return mv;
+	}
+	
+	@RequestMapping("QNAinsert")
+	public String insertBoard(ServiceCenterQnaBoard b, HttpServletRequest request,
+						@RequestParam(name="uploadFile",required=false) MultipartFile file) {
+		
+		System.out.println("#############################" + b);
+		
+		int result = sService.QNAinsert(b);
+		
+		if(result > 0) {
+			return "redirect:QNA";
+		}else {
+			return "common/errorPage";
+		}
 	}
 	
 	@RequestMapping("recipeSuggest")

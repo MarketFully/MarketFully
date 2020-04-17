@@ -73,9 +73,19 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping("QNAdetail")
-	public String QNAdetailView() { //QNA 상세보기로 이동하는 메소드
-
-		return "servicecenter/QNAdetail";
+	public ModelAndView QNAdetailView(ModelAndView mv, int bId,
+			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //QNA 상세보기로 이동하는 메소드
+		System.out.println("sikim qna controller bid : " + bId);
+		ServiceCenterQnaBoard b = sService.QNAselectBoard(bId);
+		if(b != null) {
+			mv.addObject("b",b)
+			  .addObject("currentPage",currentPage)
+			  .setViewName("servicecenter/QNAdetail");
+		}else {
+			mv.addObject("msg","게시글 상세조회 실패")
+			  .setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	@RequestMapping("suggestwriteDetail")

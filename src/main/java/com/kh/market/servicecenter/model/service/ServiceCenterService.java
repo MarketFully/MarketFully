@@ -19,4 +19,6 @@ public interface ServiceCenterService {
 	ArrayList<ServiceCenterQnaBoard> QnaselectList(ServiceCenterQnaPageInfo pi);
 
 	int QNAinsert(ServiceCenterQnaBoard b);
+
+	ServiceCenterQnaBoard QNAselectBoard(int bId);
 }

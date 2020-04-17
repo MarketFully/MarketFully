@@ -50,6 +50,16 @@ public class ServiceCenterDao {
 		return sqlSession.insert("ServiceCenterMapper.QNAinsert",b);
 	}
 
+	public int QNAupdateCount(int bId) {
+		
+		return sqlSession.update("ServiceCenterMapper.updateCount",bId);
+	}
+
+	public ServiceCenterQnaBoard QNAselectBoard(int bId) {
+		
+		return sqlSession.selectOne("ServiceCenterMapper.selectBoard",bId);
+	}
+
 	
 
 	

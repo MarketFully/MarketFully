@@ -54,9 +54,20 @@
 	<insert id="QNAinsert" parameterType="Qna">
 		INSERT INTO QNA_BOARD
 		VALUES(SEQ_QNA.NEXTVAL, #{q_TITLE},#{q_CONTENT},#{q_WRITER},#{oR_NUM},'Y',SYSDATE,#{q_COUNT},#{q_RCOUNT},#{q_CATEGORY})
-	
 	</insert>
 	
+	<update id="updateCount" parameterType="_int">
+		UPDATE QNA_BOARD
+		SET Q_COUNT = Q_COUNT +1
+		WHERE Q_NUM=#{bId}
+	</update>
+	
+	<select id="selectBoard" resultMap="QnaboardResultSet">
+		SELECT * 
+		FROM QNA_BOARD
+		WHERE Q_NUM=#{bId}
+		AND Q_STATUS='Y'
+	</select>
 </mapper>
 
 

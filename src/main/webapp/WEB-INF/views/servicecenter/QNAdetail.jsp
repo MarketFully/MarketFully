@@ -51,22 +51,22 @@
                     <tbody class="qwrite">
                         <tr>
                             <td>제목</td>
-                            <td><input type="text" class="inputcss" readonly></td>
+                            <td><input type="text" class="inputcss" readonly>${ b.q_TITLE }</td>
                         </tr>
                         <tr>
                             <td>문의종류</td>
                             <td>
-                                <input type="text" style="width: 170px;" class="inputcss" readonly>
+                                <input type="text" style="width: 170px;" class="inputcss" readonly>${ b.q_CATEGORY }
                             </td>
                         </tr>
                         <tr>
                             <td>주문번호</td>
-                            <td><input type="text" style="width: 170px;" class="inputcss" readonly></td>
+                            <td><input type="text" style="width: 170px;" class="inputcss" readonly>${ b.oR_NUM }</td>
                         </tr>
                         <tr>
                             <td>문의내용</td>
                             <td>
-                                <textarea readonly></textarea>
+                                <textarea readonly>${ b.q_CONTENT }</textarea>
                             </td>
                         </tr>
                         <tr>

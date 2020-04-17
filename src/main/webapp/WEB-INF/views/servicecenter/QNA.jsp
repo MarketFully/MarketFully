@@ -62,11 +62,15 @@
                     <tbody class="item">
                         <tr>
                             <td>${ b.q_NUM }</td>
+                        <c:url var="bdetail" value="QNAdetail">
+							<c:param name="bId" value="${ b.q_NUM }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+						</c:url>
                             <td>${ b.q_CATEGORY }</td>
-                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='QNAdetail'">${ b.q_TITLE }</td>
+                            <td class="tdtext" style="padding-left: 30px;"><a href="${ bdetail }">${ b.q_TITLE }</a> </td>
                             <td>${ b.q_WRITER }</td>
                             <td>${ b.q_CDATE }</td>
-                            <td>${ b.q_RCOUNT }</td>
+                            <td>${ b.q_COUNT }</td>
                         </tr>
                     </tbody>
                     </c:forEach>
@@ -93,7 +97,7 @@
 				[이전] &nbsp;
 		</c:if>
 			<c:if test="${ pi.currentPage ne 1 }">
-				<c:url var="before" value="RecipeUser">
+				<c:url var="before" value="QNAdetail">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
 				<a href="${ before }">[이전]</a> &nbsp;
@@ -106,7 +110,7 @@
 			</c:if>
 					
 			<c:if test="${ p ne pi.currentPage }">
-				<c:url var="pagination" value="RecipeUser">
+				<c:url var="pagination" value="QNAdetail">
 						<c:param name="currentPage" value="${ p }"/>
 					</c:url>
 					<a href="${ pagination }">${ p }</a> &nbsp;
@@ -118,7 +122,7 @@
 					[다음]
 			</c:if>
 			<c:if test="${ pi.currentPage ne pi.maxPage }">
-				<c:url var="after" value="RecipeUser">
+				<c:url var="after" value="QNAdetail">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url> 
 				<a href="${ after }">[다음]</a>

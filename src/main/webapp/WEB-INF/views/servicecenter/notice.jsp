@@ -60,11 +60,11 @@
                     <c:forEach var="b" items="${ list }">
                     <tbody class="item">
                         <tr>
-                            <td>${ b.NOTICE_NUM }</td>
-                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='noticeDetail'">${ b.NOTICE_TITLE }</td>
-                            <td>${ b.NOTICE_WRITER }</td>
-                            <td>${ b.NOTICE_CDATE }</td>
-                            <td>${ b.NOTICE_COUNT }</td>
+                            <td>${ b.notice_num }</td>
+                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='noticeDetail'">${ b.notice_title }</td>
+                            <td>${ b.notice_writer }</td>
+                            <td>${ b.notice_cdate }</td>
+                            <td>${ b.notice_count }</td>
                         </tr>
                     </tbody>
                     </c:forEach>

@@ -3,94 +3,96 @@ package com.kh.market.servicecenter.model.vo;
 import java.sql.Date;
 
 public class ServiceCenterNoticeBoard {
-	private int NOTICE_NUM;
-	private String NOTICE_TITLE;
-	private String NOTICE_CONTENT;
-	private String NOTICE_WRITER;
-	private Date NOTICE_CDATE;
-	private String NOTICE_STATUS;
-	private int NOTICE_COUNT;
+	private int notice_num;
+	private String notice_title;
+	private String notice_content;
+	private String notice_writer;
+	private Date notice_cdate;
+	private String notice_status;
+	private int notice_count;
 	
 	public ServiceCenterNoticeBoard() {
 		super();
-		
+		// TODO Auto-generated constructor stub
 	}
 
-	public ServiceCenterNoticeBoard(int nOTICE_NUM, String nOTICE_TITLE, String nOTICE_CONTENT, String nOTICE_WRITER,
-			Date nOTICE_CDATE, String nOTICE_STATUS, int nOTICE_COUNT) {
+	public ServiceCenterNoticeBoard(int notice_num, String notice_title, String notice_content, String notice_writer,
+			Date notice_cdate, String notice_status, int notice_count) {
 		super();
-		NOTICE_NUM = nOTICE_NUM;
-		NOTICE_TITLE = nOTICE_TITLE;
-		NOTICE_CONTENT = nOTICE_CONTENT;
-		NOTICE_WRITER = nOTICE_WRITER;
-		NOTICE_CDATE = nOTICE_CDATE;
-		NOTICE_STATUS = nOTICE_STATUS;
-		NOTICE_COUNT = nOTICE_COUNT;
+		this.notice_num = notice_num;
+		this.notice_title = notice_title;
+		this.notice_content = notice_content;
+		this.notice_writer = notice_writer;
+		this.notice_cdate = notice_cdate;
+		this.notice_status = notice_status;
+		this.notice_count = notice_count;
 	}
 
-	public int getNOTICE_NUM() {
-		return NOTICE_NUM;
+	public int getNotice_num() {
+		return notice_num;
 	}
 
-	public void setNOTICE_NUM(int nOTICE_NUM) {
-		NOTICE_NUM = nOTICE_NUM;
+	public void setNotice_num(int notice_num) {
+		this.notice_num = notice_num;
 	}
 
-	public String getNOTICE_TITLE() {
-		return NOTICE_TITLE;
+	public String getNotice_title() {
+		return notice_title;
 	}
 
-	public void setNOTICE_TITLE(String nOTICE_TITLE) {
-		NOTICE_TITLE = nOTICE_TITLE;
+	public void setNotice_title(String notice_title) {
+		this.notice_title = notice_title;
 	}
 
-	public String getNOTICE_CONTENT() {
-		return NOTICE_CONTENT;
+	public String getNotice_content() {
+		return notice_content;
 	}
 
-	public void setNOTICE_CONTENT(String nOTICE_CONTENT) {
-		NOTICE_CONTENT = nOTICE_CONTENT;
+	public void setNotice_content(String notice_content) {
+		this.notice_content = notice_content;
 	}
 
-	public String getNOTICE_WRITER() {
-		return NOTICE_WRITER;
+	public String getNotice_writer() {
+		return notice_writer;
 	}
 
-	public void setNOTICE_WRITER(String nOTICE_WRITER) {
-		NOTICE_WRITER = nOTICE_WRITER;
+	public void setNotice_writer(String notice_writer) {
+		this.notice_writer = notice_writer;
 	}
 
-	public Date getNOTICE_CDATE() {
-		return NOTICE_CDATE;
+	public Date getNotice_cdate() {
+		return notice_cdate;
 	}
 
-	public void setNOTICE_CDATE(Date nOTICE_CDATE) {
-		NOTICE_CDATE = nOTICE_CDATE;
+	public void setNotice_cdate(Date notice_cdate) {
+		this.notice_cdate = notice_cdate;
 	}
 
-	public String getNOTICE_STATUS() {
-		return NOTICE_STATUS;
+	public String getNotice_status() {
+		return notice_status;
 	}
 
-	public void setNOTICE_STATUS(String nOTICE_STATUS) {
-		NOTICE_STATUS = nOTICE_STATUS;
+	public void setNotice_status(String notice_status) {
+		this.notice_status = notice_status;
 	}
 
-	public int getNOTICE_COUNT() {
-		return NOTICE_COUNT;
+	public int getNotice_count() {
+		return notice_count;
 	}
 
-	public void setNOTICE_COUNT(int nOTICE_COUNT) {
-		NOTICE_COUNT = nOTICE_COUNT;
+	public void setNotice_count(int notice_count) {
+		this.notice_count = notice_count;
 	}
 
 	@Override
 	public String toString() {
-		return "ServiceCenterNoticeBoard [NOTICE_NUM=" + NOTICE_NUM + ", NOTICE_TITLE=" + NOTICE_TITLE
-				+ ", NOTICE_CONTENT=" + NOTICE_CONTENT + ", NOTICE_WRITER=" + NOTICE_WRITER + ", NOTICE_CDATE="
-				+ NOTICE_CDATE + ", NOTICE_STATUS=" + NOTICE_STATUS + ", NOTICE_COUNT=" + NOTICE_COUNT + "]";
+		return "ServiceCenterNoticeBoard [notice_num=" + notice_num + ", notice_title=" + notice_title
+				+ ", notice_content=" + notice_content + ", notice_writer=" + notice_writer + ", notice_cdate="
+				+ notice_cdate + ", notice_status=" + notice_status + ", notice_count=" + notice_count + "]";
 	}
 	
 	
+	
+
 	
 }

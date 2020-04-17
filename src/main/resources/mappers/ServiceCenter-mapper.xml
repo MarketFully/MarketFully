@@ -3,13 +3,13 @@
 <mapper namespace="ServiceCenterMapper">
 	<!-- resultMap -->
 	<resultMap type="Notice" id="NoticeboardResultSet">
-		<id property="NOTICE_NUM" column="NOTICE_NUM"/>
-		<result property="NOTICE_TITLE" column="NOTICE_TITLE"/>
-		<result property="NOTICE_CONTENT" column="NOTICE_CONTENT"/>
-		<result property="NOTICE_WRITER" column="NOTICE_WRITER"/>
-		<result property="NOTICE_CDATE" column="NOTICE_CDATE"/>
-		<result property="NOTICE_STATUS" column="NOTICE_STATUS"/>
-		<result property="NOTICE_COUNT" column="NOTICE_COUNT"/>	
+		<id property="notice_num" column="NOTICE_NUM"/>
+		<result property="notice_title" column="NOTICE_TITLE"/>
+		<result property="notice_content" column="NOTICE_CONTENT"/>
+		<result property="notice_writer" column="NOTICE_WRITER"/>
+		<result property="notice_cdate" column="NOTICE_CDATE"/>
+		<result property="notice_status" column="NOTICE_STATUS"/>
+		<result property="notice_count" column="NOTICE_COUNT"/>	
 	</resultMap>
 	
 	<resultMap type="Qna" id="QnaboardResultSet">

@@ -9,6 +9,7 @@ import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.recipe.model.vo.SearchInfo;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService{
@@ -83,6 +84,18 @@ public class BoardServiceImpl implements BoardService{
 	public int getTvListCount(int mc_cate_num) {
 		
 		return bDao.getTvListCount(mc_cate_num);
+	}
+
+	@Override
+	public int getTvSearchListCount(SearchInfo si) {
+		
+		return bDao.getTvSearchListCount(si);
+	}
+
+	@Override
+	public ArrayList<Board> TvSearchList(PageInfo pi, SearchInfo si) {
+		
+		return bDao.tvSearchList(pi, si);
 	}
 
 }

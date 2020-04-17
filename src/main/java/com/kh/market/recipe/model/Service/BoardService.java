@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.recipe.model.vo.SearchInfo;
 
 public interface BoardService {
 	
@@ -39,5 +40,18 @@ public interface BoardService {
 	Board USERselectBoard(int bId);
 
 	Board TVselectBoard(int bId);
+
+	/**tv서치 리스트 카운트
+	 * @param si
+	 * @return
+	 */
+	int getTvSearchListCount(SearchInfo si);
+
+	/**tv서치 리스트
+	 * @param pi
+	 * @param si
+	 * @return
+	 */
+	ArrayList<Board> TvSearchList(PageInfo pi, SearchInfo si);
 	
 }

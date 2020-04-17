@@ -177,9 +177,32 @@
 		</if>
 	</select>
 	
+	<select id="tvSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM TV_MENU_BOARD
+		WHERE TMB_STATUS='Y'
+		<if test="mc_cate_num !=0">
+			AND MC_CATE_NUM= #{mc_cate_num}
+		</if>
+		<choose>
+			<when test="src_cate.equals('title')">
+				AND TMB_TITLE LIKE '%'|| #{src_input} || '%'
+			</when>
+		</choose>
+	</select>
 	
-	
-	
+	<select id="tvSearchList" resultMap="tvBoardResultSet">
+		SELECT * FROM TV_MENU_BOARD WHERE TMB_STATUS='Y'
+		<if test="mc_cate_num !=0">
+			AND MC_CATE_NUM= #{mc_cate_num}
+		</if>
+		<choose>
+			<when test="src_cate.equals('title')">
+				AND TMB_TITLE LIKE '%'|| #{src_input} || '%'
+			</when>
+		</choose>
+		ORDER BY TMB_NUM DESC
+	</select>
 	
 	
 	

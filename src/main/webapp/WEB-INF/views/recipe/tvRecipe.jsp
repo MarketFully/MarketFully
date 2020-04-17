@@ -126,7 +126,7 @@
         .btn{pointer-events:none}
         
         
-        .btn-success{color:#fff;background-color:#28a745;border-color:#28a745}
+        .btn-success{color:#fff;background-color:#2e8b57;border-color:#2e8b57}
         .btn-success:hover{color:#fff;background-color:#218838;border-color:#1e7e34}
         .btn-success.focus,.btn-success:focus{box-shadow:0 0 0 .2rem rgba(72,180,97,.5)}
         .btn-success.disabled,.btn-success:disabled{color:#fff;background-color:#28a745;border-color:#28a745}
@@ -203,7 +203,7 @@
 		    	<li>
 		    		<form action="tvBoardList" method="post" >
 			    		<input type="hidden" value="0" name="mc_cate_num">
-			    		<button id="tvCateBtn" class="btn btn-default" name="allCate">전체</button>
+			    		<button id="tvCateBtn" class="btn btn-default" name="allCate" style="font-family: MapoPeacefull;">전체</button>
 			    	</form>
 		    	</li>
 		    	<!-- 레시피 목록 반복문으로 돌려서 카테고리를 만든다.-->
@@ -211,7 +211,7 @@
 			    		<li>
 			    			<form action="tvBoardList" method="post" >
 			    				<input type="hidden" value="${clist.mc_cate_num}" name="mc_cate_num">
-			    				<button id="tvCateBtn" class="btn btn-default">${clist.mc_name }</button>
+			    				<button id="tvCateBtn" class="btn btn-default" style="font-family: MapoPeacefull;">${clist.mc_name }</button>
 			    				&nbsp;&nbsp;
 			    			</form>
 			    		</li>
@@ -237,7 +237,12 @@
 	                    <tr>
 	                     
 	                        <td>${b.MB_NUM }</td>
-	                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle">"${b.MB_TITLE }" (${b.MB_RCOUNT }) </p></td>
+	                        <c:url var="bdetail" value="RecipeDetail">
+								<c:param name="bId" value="${ b.MB_NUM }"/>
+								<c:param name="currentPage" value="${ pi.currentPage }"/>
+								<c:param name="TvOrUser" value="${ TvOrUser }"/>
+							</c:url>
+	                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.MB_TITLE }</a> (${b.MB_RCOUNT })</p></td>
 	                        <td>${b.MB_WRITER }</td>
 	                        <td>${b.MB_CDATE }</td>
 	                        <td>${b.MB_COUNT }</td>
@@ -259,9 +264,11 @@
 		</c:if>
 		
 		<c:if test="${ pi.currentPage ne 1 }">
-			<c:url var="before" value="tvBoardList">
+			<c:url var="before" value="${pageValue }">
 				<c:param name="mc_cate_num" value="${mc_cate_num }"/>
 				<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				<c:param name="src_cate" value="${ si.src_cate }"/>
+				<c:param name="src_input" value="${ si.src_input }"/>
 			</c:url>
 			<a href="${ before }">[이전]</a> &nbsp;
 		</c:if>
@@ -273,13 +280,15 @@
 			</c:if>
 
 			<c:if test="${ p ne pi.currentPage }">
-				<c:url var="pagination" value="tvBoardList">
+				<c:url var="pagination" value="${pageValue }">
 						<c:param name="currentPage" value="${ p }"/>
 						<c:param name="mc_cate_num" value="${mc_cate_num }"/>
-					</c:url>
-					<a href="${ pagination }" >${ p }</a> &nbsp;
-				</c:if>
-			</c:forEach>
+						<c:param name="src_cate" value="${ si.src_cate }"/>
+						<c:param name="src_input" value="${ si.src_input }"/>
+				</c:url>
+				<a href="${ pagination }" >${ p }</a> &nbsp;
+			</c:if>
+		</c:forEach>
 
 
 		<!-- [다음] -->
@@ -287,9 +296,11 @@
 					[다음]
 			</c:if>
 			<c:if test="${ pi.currentPage ne pi.maxPage }">
-				<c:url var="after" value="tvBoardList">
+				<c:url var="after" value="${pageValue }">
 					<c:param name="mc_cate_num" value="${mc_cate_num }"/>
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					<c:param name="src_cate" value="${ si.src_cate }"/>
+					<c:param name="src_input" value="${ si.src_input }"/>
 				</c:url> 
 				<a href="${ after }">[다음]</a>
 			</c:if>    
@@ -299,13 +310,21 @@
 
     <!--검색창-->
     <fieldset>
-    	<select>
-    		<option value="title" selected>제목</option>
-    	</select>
-        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
-        <a href="javascript:;" class="btn_srch">검색</a>
+    	<form id="src_form" action="tvSearchList" method="post">
+	    	<select name="src_cate">
+	    		<option value="title" selected>제목</option>
+	    	</select>
+	    	<input type="hidden" name="mc_cate_num" value="${ mc_cate_num}">
+	        <input type="text" name="src_input" class="tbox" placeholder="검색어를 입력해주세요" id="keyword">
+	        <a href="javascript:SearchBtn()" class="btn_srch">검색</a>
+        </form>
     </fieldset>
     <!-- 검색창 ends-->
-
+<script>
+	function SearchBtn(){ //HTML을 최대한 유지하기 위해 a태그로 submit을 해준다.
+		
+		$('#src_form').submit();
+	}
+</script>
 </body>
 </html>

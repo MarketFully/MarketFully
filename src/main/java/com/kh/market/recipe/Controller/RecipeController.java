@@ -21,6 +21,7 @@ import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.recipe.model.vo.SearchInfo;
 
 /**
  * Handles requests for the application home page.
@@ -111,6 +112,9 @@ public class RecipeController {
 	  
 	  mv.addObject("mc_cate_num", mc_cate_num);
 		mv.addObject("pi",pi);
+		mv.addObject("pageValue", "tvBoardList");
+		mv.addObject("TvOrUser", "tv");
+		
 	  mv.setViewName("recipe/tvRecipe");
 	  
 	  
@@ -126,27 +130,99 @@ public class RecipeController {
 			
 		if(mc_cate_num == -1) {
 			//오류 페이지로 
+
+			mv.setViewName("index.jsp");			
+			return mv;
 			
+		}else {
+			//전체 페이지
+			System.out.println("tvBoardList입니다.----------------");
+			int listCount = bService.getTvListCount(mc_cate_num);
+			System.out.println("listCount : "+ listCount);
 			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
+			ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
+			
+			System.out.println("blist : "+ blist);
+			System.out.println("mc_cate_num : "+ mc_cate_num);
+			System.out.println("pi : "+pi);
+			mv.addObject("blist",blist);
+			mv.addObject("mc_cate_num", mc_cate_num);
+			mv.addObject("pi",pi);
+			mv.addObject("pageValue", "tvBoardList");
+			mv.addObject("TvOrUser", "tv");
+			
+			mv.setViewName("recipe/tvRecipe");
+			
+			return mv;
 		}
+	}
+	
+	
+	@RequestMapping("tvSearchList")
+	public ModelAndView tvRecipeSrc(ModelAndView mv
+							, @RequestParam(defaultValue="-1")int mc_cate_num	//값이 -1이면 에러 
+							, @RequestParam(defaultValue="-1") String src_cate	//값이 -1이면 에러
+							, @RequestParam(defaultValue="") String src_input	// 값이 ""이면 그냥 리스트로 보낸다.
+							, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			
+			) {	//tc 레시피 검색 결과 리스트
 		
-		//전체 페이지
-		System.out.println("tvBoardList입니다.----------------");
-		int listCount = bService.getTvListCount(mc_cate_num);
+		//예외 처리 (오류페이지는 없으니까 처리 안함)
+//		if(src_input.equals("")) {
+//			//값이 ""없으면 그냥 전체 리스트를 띄운다.
+//			System.out.println("tvSearchList입니다. 공백으로 인해 전체 리스트 띄우기----------------");
+//			int listCount = bService.getTvListCount(0);
+//			System.out.println("listCount : "+ listCount);
+//			
+//			PageInfo pi = Pagination.getPageInfo(1, listCount);
+//			
+//			ArrayList<Board> blist = bService.TvBoardList(pi, 0);
+//			
+//			System.out.println("blist : "+ blist);
+//			System.out.println("mc_cate_num : "+ 0);
+//			System.out.println("pi : "+pi);
+//			mv.addObject("blist",blist);
+//			mv.addObject("mc_cate_num", 0);
+//			mv.addObject("pi",pi);
+//			mv.addObject("pageValue", "tvBoardList");
+//			
+//			mv.setViewName("recipe/tvRecipe");
+//			
+//			return mv;
+//		}
+		
+		
+		
+		// 시작
+		System.out.println("tvSearchList입니다.----------------");
+		
+		SearchInfo si = new SearchInfo();
+		
+		System.out.println("mc_cate_num "+mc_cate_num);
+		System.out.println("src_cate "+src_cate);
+		System.out.println("src_input "+src_input);
+		
+		si.setMc_cate_num(mc_cate_num);
+		si.setSrc_cate(src_cate);
+		si.setSrc_input(src_input);
+		
+		
+		int listCount = bService.getTvSearchListCount(si);
+		
 		System.out.println("listCount : "+ listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
+		ArrayList<Board> blist = bService.TvSearchList(pi, si);
 		
-		System.out.println("blist : "+ blist);
-		System.out.println("mc_cate_num : "+ mc_cate_num);
-		System.out.println("pi : "+pi);
 		mv.addObject("blist",blist);
 		mv.addObject("mc_cate_num", mc_cate_num);
 		mv.addObject("pi",pi);
-		
+		mv.addObject("si",si);
+		mv.addObject("pageValue", "tvSearchList");
+		mv.addObject("TvOrUser", "tv");
 		mv.setViewName("recipe/tvRecipe");
 		
 		return mv;

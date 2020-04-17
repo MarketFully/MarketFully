@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.recipe.model.vo.SearchInfo;
 
 @Repository("bDao")
 public class BoardDao {
@@ -50,9 +51,18 @@ public class BoardDao {
 	}
 	
 	
+	public int getTvSearchListCount(SearchInfo si) {
+		return sqlSession.selectOne("TVboardMapper.tvSearchListCount", si);
+	}
 	
 	
-	
+	public ArrayList<Board> tvSearchList(PageInfo pi, SearchInfo si) {
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("TVboardMapper.tvSearchList",si,rowBounds);
+	}
 	
 	
 	

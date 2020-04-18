@@ -63,7 +63,7 @@
                     <a href="#"><img src="resources/img/recipe13.png" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.MB_TITLE }</a></h4>
+                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
                         <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
                     </div>
                     <div class="Rcard-footer">

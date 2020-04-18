@@ -20,7 +20,7 @@
        <div class="inner_snb">
            <ul class="list_menu_left">
                <li>
-                   <a href="mypageorder">주문 내역</a>
+                   <a href="myorderlist.bo?mem_num=${loginUser.mem_num}">주문 내역</a>
                </li>
                <li class="on">
                    <a href="mypagereview">상품후기</a>
@@ -29,7 +29,7 @@
                    <a href="mypagepoint">적립금</a>
                </li>
                <li> 
-                   <a href="mypageloverecipe">찜한 레시피</a>
+                   <a href="mypageloverecipe.bo?mem_num=${loginUser.mem_num}">찜한 레시피</a>
                </li>
                <li>
                     <a href="mypagechange">개인 정보 수정</a>

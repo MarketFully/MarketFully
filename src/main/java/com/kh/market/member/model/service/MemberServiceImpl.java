@@ -1,11 +1,17 @@
 package com.kh.market.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.market.member.model.dao.MemberDao;
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MypageOrderPageInfo;
+import com.kh.market.member.model.vo.MypageloverecipePageInfo;
+import com.kh.market.mirotic.model.vo.Mirotic;
 
 
 @Service("mService")
@@ -82,5 +88,37 @@ public class MemberServiceImpl implements MemberService{
 	public int changePwd(Member m) {
 		return mDao.changePwd(m);
 	}
+	
+	// 마이페이지 주문 내역 리스트 갯수 조회
+		@Override
+		public int getOrderListCount(int mem_num) {
+			return mDao.getOrderListCount(mem_num);
+		}
+
+		// 마이페이지 주문 내역 리스트 조회
+		@Override
+		public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi) {
+			return mDao.selectOrderList(pi);
+		}
+
+		// 마이페이지 찜한 레시피 리스트 갯수 조회
+		@Override
+		public int getRecipeListCount(int mem_num) {
+			return mDao.getRecipeListCount(mem_num);
+		}
+
+
+		// 마이페이지 찜한 레시피 리스트 조회
+		@Override
+		public ArrayList<Favorite> selectRecipeList(Member m, MypageloverecipePageInfo pi) {
+			return mDao.selectRecipeList(m,pi);
+		}
+
+		// 마이페이지 찜한 레시피 전체 삭제
+		@Override
+		public int deleteRecipeList(int mem_num) {
+			return mDao.deleteRecipeList(mem_num);
+		}
+
 
 }

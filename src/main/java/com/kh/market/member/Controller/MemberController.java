@@ -1,6 +1,7 @@
 package com.kh.market.member.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,9 +21,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.market.common.Pagination_Myloverecipe;
+import com.kh.market.common.Pagination_Myorder;
 import com.kh.market.member.model.service.MailService;
 import com.kh.market.member.model.service.MemberService;
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MypageOrderPageInfo;
+import com.kh.market.member.model.vo.MypageloverecipePageInfo;
+import com.kh.market.mirotic.model.vo.Mirotic;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -288,41 +295,41 @@ public class MemberController {
 			
 		}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
 	@RequestMapping("basket")
 	public String basketView() { // 장바구로 이동하는 메소드
 
 		return "member/basket";
 	}
 	
-	@RequestMapping("mypageorder")
-	public String mypageordertView() { // 마이페이지 주문내역으로 이동하는 메소드(마이페이지 첫화면)
-
-		return "member/mypageorder";
+	// 마이페이지 주문 내역 리스트 페이지처리/ 목록
+	@RequestMapping("myorderlist.bo")
+	public ModelAndView myorderList(ModelAndView mv,
+							@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage,
+							@RequestParam(value="mem_num") int mem_num) {
+				
+		System.out.println(currentPage);
+		
+		int listCount = mService.getOrderListCount(mem_num);
+		
+		System.out.println("listCount : " + listCount);
+		
+		MypageOrderPageInfo pi = Pagination_Myorder.getPageInfo(currentPage,listCount);
+		
+		ArrayList<Mirotic> list = mService.selectOrderList(pi);
+		
+		ArrayList<Mirotic> listtemp = new ArrayList<Mirotic>(); // 새 저장 공간 형성  --1
+		
+		for(int i = 0 ; i < list.size(); i++) {// 전체 리스트를 가져와서
+			if(list.get(i).getMem_num()==mem_num) { // 만약 전체 리스트의 i 번째와 너가 로그인페이지에서 가져온 mem_num이 일치할경우
+				listtemp.add(list.get(i));	// --1 에서 임시로 만든 저장공간에 해당하는 i번쨰 데이터 add
+			}
+		}
+		
+		mv.addObject("list", listtemp);
+		mv.addObject("pi", pi);
+		mv.setViewName("member/mypageorder");
+		
+		return mv;
 	}
 	
 	@RequestMapping("mypagereview")
@@ -337,10 +344,53 @@ public class MemberController {
 		return "member/mypagepoint";
 	}
 	
-	@RequestMapping("mypageloverecipe")
-	public String mypageloverecipeView() { // 마이페이지 찜한레시피로 이동하는 메소드
+	// 마이페이지 찜한레시피 페이징처리 / 목록 
+	@RequestMapping("mypageloverecipe.bo")
+	public ModelAndView myloverecipeList(ModelAndView mv,
+			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage,
+			@RequestParam(value="mem_num") int mem_num) {
 
-		return "member/mypageloverecipe";
+	System.out.println(currentPage);
+	
+	int listCount = mService.getRecipeListCount(mem_num);
+	
+	System.out.println("listCount : " + listCount);
+	
+	MypageloverecipePageInfo pi = Pagination_Myloverecipe.getPageInfo(currentPage,listCount);
+	System.out.println(pi);
+	
+	Member m = new Member();
+	m.setMem_num(mem_num);
+	
+	ArrayList<Favorite> flist = mService.selectRecipeList(m,pi);
+	
+	System.out.println(flist);
+	
+	mv.addObject("flist", flist);
+	mv.addObject("pi",pi);
+	mv.setViewName("member/mypageloverecipe");
+	
+	return mv;
+	
+	}
+	
+	// 마이페이지 찜한레시피 전체 삭제
+	@RequestMapping(value="myrecipedelete.bo" ,method=RequestMethod.POST)
+	@ResponseBody
+	public String boardDelete(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="mem_num") int mem_num) {
+		
+		int result = mService.deleteRecipeList(mem_num);
+		
+		String a="";
+		if(result > 0) {
+			System.out.println("찜한 레시피 전체삭제 성공");
+			a="ok";
+		}else {
+			System.out.println("찜한 레시피 전체삭제 실패");
+			a="no";
+		}
+		return a;
 	}
 	
 	@RequestMapping("mypagechange")
@@ -366,5 +416,4 @@ public class MemberController {
 
 		return "member/informationchange";
 	}
-
 }

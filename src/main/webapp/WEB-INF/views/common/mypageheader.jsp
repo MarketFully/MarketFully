@@ -18,11 +18,11 @@
         <div id="topContent">
             <div id="user">
                 <span id="gradeArea">
-                    <span id="grade">${ loginUser.MEM_GRADE }</span>
+                    <span id="grade">${ loginUser.mem_grade }</span>
                 </span> 
                 <div id="nameArea" style="margin-left:0px;">
                 	<div style="margin: 10px;">
-                		<label id="lblname" style="position: relative; top: 1.5px;">${ loginUser.MEM_NAME }</label> 
+                		<label id="lblname" style="position: relative; top: 1.5px;">${ loginUser.mem_name }</label> 
                 		<label style="font-size: 14px;margin-top: 14px;position: relative;top: 3.5px;">님</label><br>
                 	</div>
                  	<br><br>

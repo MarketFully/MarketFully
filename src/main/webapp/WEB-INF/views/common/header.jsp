@@ -25,7 +25,9 @@
                 </c:if>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자</li> 
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='basket'">장바구니</li> 
-                <li class="menu_login" style="cursor: pointer;" onclick="location.href='mypageorder'">마이페이지</li>
+                <c:if test="${ !empty sessionScope.loginUser }">
+                <li class="menu_login" style="cursor: pointer;" onclick="location.href='myorderlist.bo?mem_num=${loginUser.mem_num}'">마이페이지</li>
+                </c:if>
                 <c:if test="${ !empty sessionScope.loginUser }">
                 	<c:url var="logout" value="logout.do"/>
                 	<li class="menu_login" style="cursor: pointer;" onclick="location.href='${logout}'">로그아웃</li>

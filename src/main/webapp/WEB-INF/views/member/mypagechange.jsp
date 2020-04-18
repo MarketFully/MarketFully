@@ -21,7 +21,7 @@
        <div class="inner_snb">
            <ul class="list_menu_left">
                <li>
-                   <a href="mypageorder">주문 내역</a>
+                    <a href="myorderlist.bo?mem_num=${loginUser.mem_num}">주문 내역</a>
                </li>
                <li>
                    <a href="mypagereview">상품후기</a>
@@ -30,7 +30,7 @@
                   <a href="mypagepoint">적립금</a>
                </li>
                <li> 
-                    <a href="mypageloverecipe">찜한 레시피</a>
+                     <a href="mypageloverecipe.bo?mem_num=${loginUser.mem_num}">찜한 레시피</a>
                </li>
                <li class="on">
                     <a href="mypagechange">개인 정보 수정</a>
@@ -54,7 +54,7 @@
             <table style="margin: 0 255px 0 255px;">
                 <tr>
                     <td style="width: 100px;"> <div class="tit_id">아이디</div></td>
-                    <td style="width: 200px;"><span style="float:none;margin-right:0px;" class="txt_id">${ sessionScope.loginUser.MEM_ID }</span></td>
+                    <td style="width: 200px;"><span style="float:none;margin-right:0px;" class="txt_id">${ sessionScope.loginUser.mem_id }</span></td>
                 </tr>
                 <tr>
                     <td style="width: 100px;"><div class="tit_pw">비밀번호</div></td>
@@ -79,7 +79,7 @@
   <script>
   	$("#okbtn").click(function(){
   		var pwd1 = $("#confirm_password").val();
-  		var pwd2 = ${ sessionScope.loginUser.MEM_PWD };
+  		var pwd2 = ${ sessionScope.loginUser.mem_pwd };
   		
   		
   		if(pwd1 != ""){

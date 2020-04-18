@@ -16,6 +16,9 @@
 		<typeAlias type="com.kh.market.product.model.vo.Product" alias="product"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard" alias="Notice"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard" alias="Qna"/>
+		<typeAlias type="com.kh.market.mirotic.model.vo.Mirotic" alias="Mirotic"/>
+		<typeAlias type="com.kh.market.member.model.vo.Favorite" alias="Favorite"/>
+		
 		
 <!-- 	<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
 	</typeAliases>
@@ -35,6 +38,7 @@
 		<mapper resource="mappers/USERboard-mapper.xml"/>
 		<mapper resource="mappers/product-mapper.xml"/>
 		<mapper resource="mappers/ServiceCenter-mapper.xml"/>
+		<mapper resource="mappers/mirotic-mapper.xml"/>
 	</mappers>
 	
 	

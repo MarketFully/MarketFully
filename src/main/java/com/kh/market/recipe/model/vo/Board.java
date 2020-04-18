@@ -6,22 +6,118 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Board {
-	private int MB_NUM;
-	private String MB_TITLE;
-	private String MB_CONTENT;
-	private Date MB_CDATE;
-	private String MB_WRITER;
-	private String MB_IMAGE;
-	private int MB_THANK;
-	private int MB_COUNT;
-	private int MB_RCOUNT;
-	private String MB_STATUS;
-	private String MB_TYPE;
-	private int MC_CATE_NUM;
 	
+	private int mb_num;
+	private String mb_title;
+	private String mb_content;
+	private Date mb_cdate;
+	private String mb_writer;
+	private String mb_image;
+	private int mb_thank;
+	private int mb_count;
+	private int mb_rcount;
+	private String mb_status;
+	private String mb_type;
+	private int mc_cate_num;
+
 	private Menu_Category mc;
 	
-	
+	public int getMb_num() {
+		return mb_num;
+	}
+
+	public void setMb_num(int mb_num) {
+		this.mb_num = mb_num;
+	}
+
+	public String getMb_title() {
+		return mb_title;
+	}
+
+	public void setMb_title(String mb_title) {
+		this.mb_title = mb_title;
+	}
+
+	public String getMb_content() {
+		return mb_content;
+	}
+
+	public void setMb_content(String mb_content) {
+		this.mb_content = mb_content;
+	}
+
+	public Date getMb_cdate() {
+		return mb_cdate;
+	}
+
+	public void setMb_cdate(Date mb_cdate) {
+		this.mb_cdate = mb_cdate;
+	}
+
+	public String getMb_writer() {
+		return mb_writer;
+	}
+
+	public void setMb_writer(String mb_writer) {
+		this.mb_writer = mb_writer;
+	}
+
+	public String getMb_image() {
+		return mb_image;
+	}
+
+	public void setMb_image(String mb_image) {
+		this.mb_image = mb_image;
+	}
+
+	public int getMb_thank() {
+		return mb_thank;
+	}
+
+	public void setMb_thank(int mb_thank) {
+		this.mb_thank = mb_thank;
+	}
+
+	public int getMb_count() {
+		return mb_count;
+	}
+
+	public void setMb_count(int mb_count) {
+		this.mb_count = mb_count;
+	}
+
+	public int getMb_rcount() {
+		return mb_rcount;
+	}
+
+	public void setMb_rcount(int mb_rcount) {
+		this.mb_rcount = mb_rcount;
+	}
+
+	public String getMb_status() {
+		return mb_status;
+	}
+
+	public void setMb_status(String mb_status) {
+		this.mb_status = mb_status;
+	}
+
+	public String getMb_type() {
+		return mb_type;
+	}
+
+	public void setMb_type(String mb_type) {
+		this.mb_type = mb_type;
+	}
+
+	public int getMc_cate_num() {
+		return mc_cate_num;
+	}
+
+	public void setMc_cate_num(int mc_cate_num) {
+		this.mc_cate_num = mc_cate_num;
+	}
+
 	public Menu_Category getMc() {
 		return mc;
 	}
@@ -30,132 +126,36 @@ public class Board {
 		this.mc = mc;
 	}
 
-	public int getMC_CATE_NUM() {
-		return MC_CATE_NUM;
+	@Override
+	public String toString() {
+		return "Board [mb_num=" + mb_num + ", mb_title=" + mb_title + ", mb_content=" + mb_content + ", mb_cdate="
+				+ mb_cdate + ", mb_writer=" + mb_writer + ", mb_image=" + mb_image + ", mb_thank=" + mb_thank
+				+ ", mb_count=" + mb_count + ", mb_rcount=" + mb_rcount + ", mb_status=" + mb_status + ", mb_type="
+				+ mb_type + ", mc_cate_num=" + mc_cate_num + ", mc=" + mc + "]";
 	}
 
-	public void setMC_CATE_NUM(int mC_CATE_NUM) {
-		MC_CATE_NUM = mC_CATE_NUM;
+	public Board(int mb_num, String mb_title, String mb_content, Date mb_cdate, String mb_writer, String mb_image,
+			int mb_thank, int mb_count, int mb_rcount, String mb_status, String mb_type, int mc_cate_num,
+			Menu_Category mc) {
+		super();
+		this.mb_num = mb_num;
+		this.mb_title = mb_title;
+		this.mb_content = mb_content;
+		this.mb_cdate = mb_cdate;
+		this.mb_writer = mb_writer;
+		this.mb_image = mb_image;
+		this.mb_thank = mb_thank;
+		this.mb_count = mb_count;
+		this.mb_rcount = mb_rcount;
+		this.mb_status = mb_status;
+		this.mb_type = mb_type;
+		this.mc_cate_num = mc_cate_num;
+		this.mc = mc;
 	}
 
 	public Board() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Board(int mB_NUM, String mB_TITLE, String mB_CONTENT, Date mB_CDATE, String mB_WRITER, String mB_IMAGE,
-			int mB_THANK, int mB_COUNT, int mB_RCOUNT, String mB_STATUS, String mB_TYPE) {
-		super();
-		MB_NUM = mB_NUM;
-		MB_TITLE = mB_TITLE;
-		MB_CONTENT = mB_CONTENT;
-		MB_CDATE = mB_CDATE;
-		MB_WRITER = mB_WRITER;
-		MB_IMAGE = mB_IMAGE;
-		MB_THANK = mB_THANK;
-		MB_COUNT = mB_COUNT;
-		MB_RCOUNT = mB_RCOUNT;
-		MB_STATUS = mB_STATUS;
-		MB_TYPE = mB_TYPE;
-	}
-
-	public int getMB_NUM() {
-		return MB_NUM;
-	}
-
-	public void setMB_NUM(int mB_NUM) {
-		MB_NUM = mB_NUM;
-	}
-
-	public String getMB_TITLE() {
-		return MB_TITLE;
-	}
-
-	public void setMB_TITLE(String mB_TITLE) {
-		MB_TITLE = mB_TITLE;
-	}
-
-	public String getMB_CONTENT() {
-		return MB_CONTENT;
-	}
-
-	public void setMB_CONTENT(String mB_CONTENT) {
-		MB_CONTENT = mB_CONTENT;
-	}
-
-	public Date getMB_CDATE() {
-		return MB_CDATE;
-	}
-
-	public void setMB_CDATE(Date mB_CDATE) {
-		MB_CDATE = mB_CDATE;
-	}
-
-	public String getMB_WRITER() {
-		return MB_WRITER;
-	}
-
-	public void setMB_WRITER(String mB_WRITER) {
-		MB_WRITER = mB_WRITER;
-	}
-
-	public String getMB_IMAGE() {
-		return MB_IMAGE;
-	}
-
-	public void setMB_IMAGE(String mB_IMAGE) {
-		MB_IMAGE = mB_IMAGE;
-	}
-
-	public int getMB_THANK() {
-		return MB_THANK;
-	}
-
-	public void setMB_THANK(int mB_THANK) {
-		MB_THANK = mB_THANK;
-	}
-
-	public int getMB_COUNT() {
-		return MB_COUNT;
-	}
-
-	public void setMB_COUNT(int mB_COUNT) {
-		MB_COUNT = mB_COUNT;
-	}
-
-	public int getMB_RCOUNT() {
-		return MB_RCOUNT;
-	}
-
-	public void setMB_RCOUNT(int mB_RCOUNT) {
-		MB_RCOUNT = mB_RCOUNT;
-	}
-
-	public String getMB_STATUS() {
-		return MB_STATUS;
-	}
-
-	public void setMB_STATUS(String mB_STATUS) {
-		MB_STATUS = mB_STATUS;
-	}
-
-	public String getMB_TYPE() {
-		return MB_TYPE;
-	}
-
-	public void setMB_TYPE(String mB_TYPE) {
-		MB_TYPE = mB_TYPE;
-	}
-
-	@Override
-	public String toString() {
-		return "Board [MB_NUM=" + MB_NUM + ", MB_TITLE=" + MB_TITLE + ", MB_CONTENT=" + MB_CONTENT + ", MB_CDATE="
-				+ MB_CDATE + ", MB_WRITER=" + MB_WRITER + ", MB_IMAGE=" + MB_IMAGE + ", MB_THANK=" + MB_THANK
-				+ ", MB_COUNT=" + MB_COUNT + ", MB_RCOUNT=" + MB_RCOUNT + ", MB_STATUS=" + MB_STATUS + ", MB_TYPE="
-				+ MB_TYPE + "]";
-	}
-
-	
-	
-	
 }
-

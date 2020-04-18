@@ -1,122 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-<!-- 	<resultMap id="memberResultSet" type="Member">
-		<id property="id" column="ID"/>
-		<result property="pwd" column="PWD"/>
-		<result property="name" column="NAME"/>
-		<result property="email" column="EMAIL"/>
-		<result property="gender" column="GENDER"/>
-		<result property="age" column="AGE"/>
-		<result property="phone" column="PHONE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="enrollDate" column="ENROLL_DATE"/>
-		<result property="updateDate" column="UPDATE_DATE"/>
-		<result property="mStatus" column="M_STATUS"/>
-	</resultMap> -->
-	
-	<resultMap id="memberResultSet" type="Member">
-		<id property="mem_num" column="MEM_NUM"/>
-		<result property="mem_id" column="MEM_ID"/>
-		<result property="mem_pwd" column="MEM_PWD"/>
-		<result property="mem_email" column="MEM_EMAIL"/>
-		<result property="mem_phone" column="MEM_PHONE"/>
-		<result property="mem_addr" column="MEM_ADDR"/>
-		<result property="mem_name" column="MEM_NAME"/>
-		<result property="mem_gender" column="MEM_GENDER"/>
-		<result property="mem_birth" column="MEM_BIRTH"/>
-		<result property="mem_point" column="MEM_POINT"/>
-		<result property="mem_profile" column="MEM_PROFILE"/>
-		<result property="mem_status" column="MEM_STATUS"/>
-		<result property="shipping_code" column="SHIPPING_CODE"/>
-		<result property="mem_grade" column="MEM_GRADE"/>
-		<result property="mem_cert" column="MEM_CERT"/>
-		<result property="mem_sms_agree" column="MEM_SMS_AGREE"/>
-		<result property="mem_email_agree" column="MEM_EMAIL_AGREE"/>
-	</resultMap>
-	
-	<!-- 로그인 -->
-	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
-		SELECT * 
-		FROM MEMBER
-		WHERE MEM_ID=#{mem_id}
-		AND MEM_PWD=#{mem_pwd}
-		AND MEM_STATUS='Y'
-	</select>
-	
-	<!-- 아이디 체크 -->
-	<select id="idCheck" parameterType="string" resultType="_int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE MEM_ID=#{mem_id}
-	</select>
-	
-	
-	<!-- 회원가입 -->
-	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-		VALUES(SEQ_MEM_NUM.nextval,#{mem_id},#{mem_pwd},#{mem_email},#{mem_phone},#{mem_addr},#{mem_name},#{mem_gender},TO_DATE(#{mem_birth},'YYMMDD'),0,NULL,'Y',0,'SILVER','N',#{mem_sms_agree},#{mem_email_agree})
-	</insert>
-	
-	<!-- 회원가입 이메일 인증  -->
-	<update id="registSuccess" parameterType="Member">
-		UPDATE MEMBER
-		SET MEM_CERT = 'Y'
-		WHERE MEM_ID = #{mem_id}
-	</update>
-	
-	<!-- 회원 정보 수정 -->
-	<update id="updateMember" parameterType="Member">
-		UPDATE MEMBER
-		SET 
-		MEM_PWD=#{mem_pwd},
-		MEM_NAME=#{mem_name},
-		MEM_EMAIL=#{mem_email},
-		MEM_PHONE=#{mem_phone},
-		MEM_GENDER=#{mem_gender},
-		MEM_BIRTH=TO_DATE(#{mem_brith},'YYMMDD'),
-		MEM_SMS_AGREE=#{mem_sms_agree},
-		MEM_EMAIL_AGREE=#{mem_email_agree}
-		WHERE MEM_ID=#{mem_id}
-	</update>
-	
-	<!-- 회원 탈퇴 -->
-	<update id="deleteMember" parameterType="string">
-		UPDATE MEMBER
-		SET MEM_STATUS='N'
-		WHERE MEM_ID=#{mem_id}
-	</update>
-	
-	<!-- 아이디 찾기 -->
-	<select id="findId" parameterType="Member" resultMap="memberResultSet">
-		SELECT *
-		FROM MEMBER
-		WHERE MEM_NAME = #{mem_name}
-		AND MEM_EMAIL = #{mem_email}
-		AND ROWNUM = 1
-	</select>
-	
-	<!-- 비밀번호 찾기 -->
-	<select id="pwdfind" parameterType="Member" resultMap="memberResultSet">
-		SELECT *
-		FROM MEMBER
-		WHERE MEM_NAME=#{mem_name}
-		AND MEM_ID=#{mem_id}
-		AND MEM_EMAIL=#{mem_email}
-	</select>
-	
-	<!-- 임시비밀번호로 pwd 재설정 -->
-	<update id="changePwd" parameterType="Member">
-		UPDATE MEMBER
-		SET MEM_PWD = #{mem_pwd}
-		WHERE MEM_ID=#{mem_id}
-	</update>
-	
-	
-	
+<!--    <resultMap id="memberResultSet" type="Member">
+      <id property="id" column="ID"/>
+      <result property="pwd" column="PWD"/>
+      <result property="name" column="NAME"/>
+      <result property="email" column="EMAIL"/>
+      <result property="gender" column="GENDER"/>
+      <result property="age" column="AGE"/>
+      <result property="phone" column="PHONE"/>
+      <result property="address" column="ADDRESS"/>
+      <result property="enrollDate" column="ENROLL_DATE"/>
+      <result property="updateDate" column="UPDATE_DATE"/>
+      <result property="mStatus" column="M_STATUS"/>
+   </resultMap> -->
+   
+   <resultMap id="memberResultSet" type="Member">
+      <id property="mem_num" column="MEM_NUM"/>
+      <result property="mem_id" column="MEM_ID"/>
+      <result property="mem_pwd" column="MEM_PWD"/>
+      <result property="mem_email" column="MEM_EMAIL"/>
+      <result property="mem_phone" column="MEM_PHONE"/>
+      <result property="mem_addr" column="MEM_ADDR"/>
+      <result property="mem_name" column="MEM_NAME"/>
+      <result property="mem_gender" column="MEM_GENDER"/>
+      <result property="mem_birth" column="MEM_BIRTH"/>
+      <result property="mem_point" column="MEM_POINT"/>
+      <result property="mem_profile" column="MEM_PROFILE"/>
+      <result property="mem_status" column="MEM_STATUS"/>
+      <result property="shipping_code" column="SHIPPING_CODE"/>
+      <result property="mem_grade" column="MEM_GRADE"/>
+      <result property="mem_cert" column="MEM_CERT"/>
+      <result property="mem_sms_agree" column="MEM_SMS_AGREE"/>
+      <result property="mem_email_agree" column="MEM_EMAIL_AGREE"/>
+   </resultMap>
+   
+      <resultMap id="miroticResultSet" type="Mirotic">
+      <id property="or_num" column="OR_NUM"/>
+      <result property="mb_num" column="MB_NUM"/>
+      <result property="mb_each" column="MB_EACH"/>
+      <result property="pr_code" column="PR_CODE"/>
+      <result property="pr_each" column="PR_EACH"/>
+      <result property="or_total" column="OR_TOTAL"/>
+      <result property="or_date" column="OR_DATE"/>
+      <result property="or_status" column="OR_STATUS"/>
+      <result property="sender_name" column="SENDER_NAME"/>
+      <result property="sender_addr" column="SENDER_ADDR"/>
+      <result property="sender_phone" column="SENDER_PHONE"/>
+      <result property="shipping_code" column="SHIPPING_CODE"/>
+      <result property="mem_num" column="MEM_NUM"/>
+
+   
+      <association javaType="Product" property="product">
+         <id property="pr_code" column="PR_CODE"/>
+         <result property="pr_name" column="PR_NAME"/>
+         <result property="original_file_name" column="ORIGINAL_FILE_NAME"/>
+      </association>
+      
+   </resultMap>
+   
+   <resultMap id="favoriteResultSet" type="Favorite">
+      <id property="mem_num" column="MEM_NUM"/>
+      <id property="mb_bo_num" column="MB_BO_NUM"/>
+      <id property="mb_num" column="MB_NUM"/>
+      
+   <association javaType="Board" property="Tboard">
+      <id property="mb_num" column="MB_BO_NUM"/>
+      <result property="mb_title" column="TMB_TITLE"/>
+      <result property="mb_content" column="TMB_CONTENT"/>
+      <result property="mb_cdate" column="TMB_CDATE"/>
+      <result property="mb_writer" column="TMB_WRITER"/>
+      <result property="mb_image" column="TMB_IMAGE"/>
+      <result property="mb_thank" column="TMB_THANK"/>
+      <result property="mb_count" column="TMB_COUNT"/>
+      <result property="mb_rcount" column="TMB_RCOUNT"/>
+      <result property="mb_status" column="TMB_STATUS"/>
+      <result property="mb_type" column="TMB_TYPE"/>
+   </association>
+      
+   <association javaType="Board" property="Uboard">
+      <id property="mb_num" column="MB_BO_NUM"/>
+      <result property="mb_title" column="UMB_TITLE"/>
+      <result property="mb_content" column="UMB_CONTENT"/>
+      <result property="mb_cdate" column="UMB_CDATE"/>
+      <result property="umb_writer" column="UMB_WRITER"/>
+      <result property="mb_image" column="UMB_IMAGE"/>
+      <result property="mb_thank" column="UMB_THANK"/>
+      <result property="mb_count" column="UMB_COUNT"/>
+      <result property="mb_rcount" column="UMB_RCOUNT"/>
+      <result property="mb_status" column="UMB_STATUS"/>
+      <result property="mb_type" column="UMB_TYPE"/>
+   </association>
+      
+   </resultMap>
+   
+   <!-- 로그인 -->
+   <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+      SELECT * 
+      FROM MEMBER
+      WHERE MEM_ID=#{mem_id}
+      AND MEM_PWD=#{mem_pwd}
+      AND MEM_STATUS='Y'
+   </select>
+   
+   <!-- 아이디 체크 -->
+   <select id="idCheck" parameterType="string" resultType="_int">
+      SELECT COUNT(*)
+      FROM MEMBER
+      WHERE MEM_ID=#{mem_id}
+   </select>
+   
+   
+   <!-- 회원가입 -->
+   <insert id="insertMember" parameterType="Member">
+      INSERT INTO MEMBER
+      VALUES(SEQ_MEM_NUM.nextval,#{mem_id},#{mem_pwd},#{mem_email},#{mem_phone},#{mem_addr},#{mem_name},#{mem_gender},TO_DATE(#{mem_birth},'YYMMDD'),0,NULL,'Y',0,'SILVER','N',#{mem_sms_agree},#{mem_email_agree})
+   </insert>
+   
+   <!-- 회원가입 이메일 인증  -->
+   <update id="registSuccess" parameterType="Member">
+      UPDATE MEMBER
+      SET MEM_CERT = 'Y'
+      WHERE MEM_ID = #{mem_id}
+   </update>
+   
+   <!-- 회원 정보 수정 -->
+   <update id="updateMember" parameterType="Member">
+      UPDATE MEMBER
+      SET 
+      MEM_PWD=#{mem_pwd},
+      MEM_NAME=#{mem_name},
+      MEM_EMAIL=#{mem_email},
+      MEM_PHONE=#{mem_phone},
+      MEM_GENDER=#{mem_gender},
+      MEM_BIRTH=TO_DATE(#{mem_birth},'YYMMDD'),
+      MEM_SMS_AGREE=#{mem_sms_agree},
+      MEM_EMAIL_AGREE=#{mem_email_agree}
+      WHERE MEM_ID=#{mem_id}
+   </update>
+   
+   <!-- 회원 탈퇴 -->
+   <update id="deleteMember" parameterType="string">
+      UPDATE MEMBER
+      SET MEM_STATUS='N'
+      WHERE MEM_ID=#{mem_id}
+   </update>
+   
+   <!-- 아이디 찾기 -->
+   <select id="findId" parameterType="Member" resultMap="memberResultSet">
+      SELECT *
+      FROM MEMBER
+      WHERE MEM_NAME = #{mem_name}
+      AND MEM_EMAIL = #{mem_email}
+      AND ROWNUM = 1
+   </select>
+   
+   <!-- 비밀번호 찾기 -->
+   <select id="pwdfind" parameterType="Member" resultMap="memberResultSet">
+      SELECT *
+      FROM MEMBER
+      WHERE MEM_NAME=#{mem_name}
+      AND MEM_ID=#{mem_id}
+      AND MEM_EMAIL=#{mem_email}
+   </select>
+   
+   <!-- 임시비밀번호로 pwd 재설정 -->
+   <update id="changePwd" parameterType="Member">
+      UPDATE MEMBER
+      SET MEM_PWD = #{mem_pwd}
+      WHERE MEM_ID=#{mem_id}
+   </update>
+   
+   <!-- 마이페이지 주문 내역 리스트 갯수 조회 -->
+   <select id="getOrderListCount" resultType="_int">
+      SELECT COUNT(*)
+      FROM MIROTIC
+        WHERE MEM_NUM=#{mem_num}
+   </select>
+   
+   <!-- 마이페이지 주문 내역 리스트 조회 -->
+   <select id="selectOrderList" resultMap="miroticResultSet">
+      SELECT MI.OR_NUM, MI.OR_TOTAL, MI.OR_STATUS, MI.OR_DATE, PR.PR_NAME, PR.ORIGINAL_FILE_NAME , MI.MEM_NUM
+      FROM MIROTIC MI
+      LEFT JOIN PRODUCT PR
+      ON MI.PR_CODE = PR.PR_CODE
+      
+   </select>
+   
+   <!-- 마이페이지  찜한레시피 갯수 조회 -->
+   <select id="getRecipeListCount" resultType="_int">
+      SELECT COUNT(*) 
+      FROM FAVORITE
+      WHERE MEM_NUM=#{mem_numm}
+   </select>
+
+   <!-- 마이페이지 찜한레시피 리스트 조회  -->
+   <select id="selectRecipeList" resultMap="favoriteResultSet">
+      SELECT * FROM FAVORITE 
+      LEFT JOIN tv_menu_board ON favorite.mb_bo_num = tv_menu_board.tmb_num
+      LEFT JOIN user_menu_board ON favorite.mb_bo_num = user_menu_board.umb_num
+      WHERE MEM_NUM = #{mem_num}
+   </select>
+   
+   <!-- 마이페이지 찜한레시피 전체 삭제 -->
+   <delete id="deleteRecipeList" parameterType="_int">
+      DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num}
+   </delete>
+   
 </mapper>
-
-
 
 
 

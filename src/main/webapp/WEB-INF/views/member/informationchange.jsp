@@ -52,7 +52,7 @@
             <table class="tbl">
                 <tr>
                     <td class="td1">아이디*</td>         
-                    <td class="td2"><input type="text" name="MEM_ID" class="input" value="${ loginUser.MEM_ID }" style="padding: 0 9px; width: 280px; border: 1px solid #d4d4d4; color: #d4d4d4;" readonly></td>
+                    <td class="td2"><input type="text" name="mem_id" class="input" value="${ loginUser.mem_id }" style="padding: 0 9px; width: 280px; border: 1px solid #d4d4d4; color: #d4d4d4;" readonly></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
@@ -64,7 +64,7 @@
                 </tr>
                  <tr>
                     <td class="td1">새 비밀번호</td>
-                    <td class="td2"><input type="password" name="MEM_PWD" id="MEM_PWD" class="input" style="padding: 0 9px; width: 280px;"></td>
+                    <td class="td2"><input type="password" name="mem_pwd" id="MEM_PWD" class="input" style="padding: 0 9px; width: 280px;"></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
@@ -77,17 +77,17 @@
                 </tr>
                 <tr>
                     <td class="td1">이름*</td>
-                    <td class="td2"><input type="text" name="MEM_NAME" class="input" value="${ loginUser.MEM_NAME }" style="padding: 0 9px; width: 280px;"></td>
+                    <td class="td2"><input type="text" name="mem_name" class="input" value="${ loginUser.mem_name }" style="padding: 0 9px; width: 280px;"></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
                     <td class="td1">이메일*</td>
-                    <td class="td2"><input type="text" name="MEM_EMAIL" class="input" value="${ loginUser.MEM_EMAIL }" style="padding: 0 9px; width: 280px;"></td>
+                    <td class="td2"><input type="text" name="mem_email" class="input" value="${ loginUser.mem_email }" style="padding: 0 9px; width: 280px;"></td>
                     <td class="td3"><button id="emailbtn" onclick="location.href='#'" class="btn">인증번호받기</button></td>
                 </tr>
                 <tr>
                     <td class="td1">휴대폰*</td>
-                    <td class="td2"><input type="text" name="MEM_PHONE" class="input" value="${ loginUser.MEM_PHONE }" style="padding: 0 9px; width: 280px;"></td>
+                    <td class="td2"><input type="text" name="mem_phone" class="input" value="${ loginUser.mem_phone }" style="padding: 0 9px; width: 280px;"></td>
                     <td class="td3"></td>
                 </tr>
             </table>
@@ -102,17 +102,17 @@
                     <td class="td1">성별</td>
                     <td class="td2">
                     <c:choose>
-					<c:when test="${ loginUser.MEM_GENDER eq '남' }">	
-                        <input type="radio" name="MEM_GENDER" id="man" checked style=" position: relative; top: 1.5px;" value="남"/><label for="man" style="position: relative;top: -1.5px;font-size:13px;" >남자</label>&nbsp;
-                        <input type="radio" name="MEM_GENDER" id="woman"  style=" position: relative; top: 1.5px;"  value="여"/><label for="woman" style="position: relative;top: -1.5px;font-size:13px;">여자</label>
+					<c:when test="${ loginUser.mem_gender eq '남' }">	
+                        <input type="radio" name="mem_gender" id="man" checked style=" position: relative; top: 1.5px;" value="남"/><label for="man" style="position: relative;top: -1.5px;font-size:13px;" >남자</label>&nbsp;
+                        <input type="radio" name="mem_gender" id="woman"  style=" position: relative; top: 1.5px;"  value="여"/><label for="woman" style="position: relative;top: -1.5px;font-size:13px;">여자</label>
                 	</c:when>
-                	<c:when test="${ loginUser.MEM_GENDER eq '여' }">
-                        <input type="radio" name="MEM_GENDER" id="man" style=" position: relative; top: 1.5px;" value="남"/><label for="man" style="position: relative;top: -1.5px;font-size:13px;">남자</label>&nbsp;
-                        <input type="radio" name="MEM_GENDER" id="woman" checked style=" position: relative; top: 1.5px;" value="여"/><label for="woman" style="position: relative;top: -1.5px;font-size:13px;">여자</label>
+                	<c:when test="${ loginUser.mem_gender eq '여' }">
+                        <input type="radio" name="mem_gender" id="man" style=" position: relative; top: 1.5px;" value="남"/><label for="man" style="position: relative;top: -1.5px;font-size:13px;">남자</label>&nbsp;
+                        <input type="radio" name="mem_gender" id="woman" checked style=" position: relative; top: 1.5px;" value="여"/><label for="woman" style="position: relative;top: -1.5px;font-size:13px;">여자</label>
            			</c:when>
            			<c:otherwise>
-           				<input type="radio" name="MEM_GENDER" id="man" style=" position: relative; top: 1.5px;" value="남"/><label for="man" style="position: relative;top: -1.5px;font-size:13px;">남자</label>&nbsp;
-                        <input type="radio" name="MEM_GENDER" id="woman" style=" position: relative; top: 1.5px;" value="여"/><label for="woman" style="position: relative;top: -1.5px;font-size:13px;">여자</label>
+           				<input type="radio" name="mem_gender" id="man" style=" position: relative; top: 1.5px;" value="남"/><label for="man" style="position: relative;top: -1.5px;font-size:13px;">남자</label>&nbsp;
+                        <input type="radio" name="mem_gender" id="woman" style=" position: relative; top: 1.5px;" value="여"/><label for="woman" style="position: relative;top: -1.5px;font-size:13px;">여자</label>
                         </c:otherwise>
 					</c:choose>
                     </td>
@@ -121,7 +121,7 @@
 
 				<tr>
                     <td class="td1">생년월일</td>
-                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YYMMDD" value="${ loginUser.MEM_BIRTH }" style="padding: 0 9px; width: 280px;"></td>
+                    <td class="td2"><input type="text" name="mem_birth" class="input" placeholder="  YYMMDD" value="${ loginUser.mem_birth }" style="padding: 0 9px; width: 280px;"></td>
                     <td class="td3"></td>
                 </tr>  
             </table>
@@ -135,40 +135,40 @@
 
 			<div class="check_view" id="view_check">
 				<label class="select_check check_agree "></label>
-					<c:if test="${loginUser.MEM_SMS_AGREE eq 'Y' && loginUser.MEM_EMAIL_AGREE eq 'Y'}">
+					<c:if test="${loginUser.mem_sms_agree eq 'Y' && loginUser.mem_email_agree eq 'Y'}">
 						<input type="checkbox" id="sms_email" checked name="marketing">
 					</c:if>
-					<c:if test="${loginUser.MEM_SMS_AGREE ne 'Y' || loginUser.MEM_EMAIL_AGREE ne 'Y'}">
+					<c:if test="${loginUser.mem_sms_agree ne 'Y' || loginUser.mem_email_agree ne 'Y'}">
 						<input type="checkbox" id="sms_email" name="marketing">
 					</c:if>
 					<label for="sms_email">무료배송, 할인쿠폰 등 혜택/정보 수신</label> <span class="sub" style="float: left;"></span>(선택)
 				<div class="check_event email_sms" style="margin-left: 30px;margin-top:5px;">
 					<label class="select_check check_agree"  style="margin-right: 5px;"></label>
-						<c:if test="${loginUser.MEM_SMS_AGREE eq 'Y'}">
+						<c:if test="${loginUser.mem_sms_agree eq 'Y'}">
 							<input type="checkbox" id="smsok" checked class="styled-checkbox-black">
 						</c:if>
-						<c:if test="${loginUser.MEM_SMS_AGREE ne 'Y'}">
+						<c:if test="${loginUser.mem_sms_agree ne 'Y'}">
 							<input type="checkbox" id="smsok" class="styled-checkbox-black">
 						</c:if>
 						<label for="smsok">SMS</label>				
 					<label class="select_check check_agree"></label>
-						<c:if test="${loginUser.MEM_EMAIL_AGREE eq 'Y'}">
+						<c:if test="${loginUser.mem_email_agree eq 'Y'}">
 							<input type="checkbox" id="emailok" checked class="styled-checkbox-black">
 						</c:if>
-						<c:if test="${loginUser.MEM_EMAIL_AGREE ne 'Y'}">
+						<c:if test="${loginUser.mem_email_agree ne 'Y'}">
 							<input type="checkbox" id="emailok" class="styled-checkbox-black">
 						</c:if>
 						<label for="emailok">이메일</label>
 				</div>
 			</div>
-			 <input type="hidden" id="input_sms" class="checkcbox" checked name="MEM_SMS_AGREE">
-             <input type="hidden" id="input_email" class="checkcbox"  name="MEM_EMAIL_AGREE"> 
+			 <input type="hidden" id="input_sms" class="checkcbox" checked name="mem_sms_agree">
+             <input type="hidden" id="input_email" class="checkcbox"  name="mem_sms_agree"> 
 
         </div>
         
         <div id="avoidDbl" class="after" style="text-align:center;">
         	<c:url var="mdelete" value="mdelete.do">
-				<c:param name="id" value="${ loginUser.MEM_ID }"/>
+				<c:param name="id" value="${ loginUser.mem_id }"/>
 			</c:url>
 			<%-- <input type="button" onclick="location.href='${ mdelete }';">탈퇴하기</button> --%>
             <input type="button" id="dropbtn" value="탈퇴하기"></button>&nbsp;&nbsp;
@@ -189,7 +189,7 @@
             	$.ajax({
                 	url:"mdelete.do"
                 	, type:"post"
-                	, data:{id:"${loginUser.MEM_ID}"}
+                	, data:{id:"${loginUser.mem_id}"}
                 	, success:function(){
                 		//alert("성공");
                 		window.location.replace("home.do");
@@ -269,7 +269,7 @@
 		$.ajax({ 
 			type:"POST", 
 			url: "pwCheck.do", 
-			data : { MEM_PWD: MEM_PWD }, 
+			data : { mem_pwd: MEM_PWD }, 
 			success:function(result){
 				if(result == true){ 
 					pwCheckF.innerHTML = "유효성 체크 문제 없음"; 
@@ -286,7 +286,7 @@
 
 		$("#pwd").change(function(){
 	  		var pwd1 = $("#pwd").val();
-	  		var pwd2 = ${ sessionScope.loginUser.MEM_PWD  };
+	  		var pwd2 = ${ sessionScope.loginUser.mem_pwd  };
 	  		
 	  		if(pwd1 != ""){
 	  			if(pwd1 == pwd2){
@@ -302,7 +302,7 @@
 		    	var pwd2 = $("#MEM_PWD").val(); // 새 비밀번호
 		    	var pwd3 = $("#MEM_PWD1").val(); // 새 비밀번호 확인
 		    	
-		    	var pwd4 = ${ sessionScope.loginUser.MEM_PWD };
+		    	var pwd4 = ${ sessionScope.loginUser.mem_pwd };
 		    	
 	    		if(pwd1 == "" && pwd2 == "" && pwd3 == ""){ //세칸 다 비었을 경우
 	    			 $('#MEM_PWD').val(pwd4);		

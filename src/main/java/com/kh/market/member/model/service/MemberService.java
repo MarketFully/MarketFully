@@ -1,6 +1,12 @@
 package com.kh.market.member.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MypageOrderPageInfo;
+import com.kh.market.member.model.vo.MypageloverecipePageInfo;
+import com.kh.market.mirotic.model.vo.Mirotic;
 
 public interface MemberService {
 
@@ -73,5 +79,39 @@ public interface MemberService {
 	 */
 	int changePwd(Member m);
 	
+	/**
+	 * 마이페이지 주문 내역 리스트 갯수 조회
+	 * @param mem_num 
+	 * @return
+	 */
+	int getOrderListCount(int mem_num);
+
+	/**
+	 * 마이페이지 주문 내역 리스트 조회
+	 * @param pi
+	 * @return
+	 */
+	ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi);
+
+	/**
+	 * 마이페이지 찜한 레시피 리스트 갯수 조회
+	 * @return
+	 */
+	int getRecipeListCount(int mem_num);
+
+	/**
+	 * 마이페이지 찜한 레시피 리스트 조회
+	 * @param pi 
+	 * @param string
+	 * @return
+	 */
+	ArrayList<Favorite> selectRecipeList(Member m, MypageloverecipePageInfo pi);
+
+	/**
+	 * 마이페이지 찜한 레시피 전체 삭제
+	 * @param mem_num
+	 * @return
+	 */
+	int deleteRecipeList(int mem_num);
 
 }

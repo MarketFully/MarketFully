@@ -236,9 +236,9 @@
                 	<c:forEach var="b" items="${blist}">
 	                    <tr>
 	                     
-	                        <td>${b.MB_NUM }</td>
+	                        <td>${b.mb_num }</td>
 	                        <c:url var="bdetail" value="RecipeDetail">
-								<c:param name="bId" value="${ b.MB_NUM }"/>
+								<c:param name="bId" value="${ b.mb_num }"/>
 								<c:param name="currentPage" value="${ pi.currentPage }"/>
 								<c:param name="TvOrUser" value="${ TvOrUser }"/>
 							</c:url>

@@ -3,17 +3,17 @@
 <mapper namespace="TVboardMapper">
 	<!-- resultMap -->
 	<resultMap type="Board" id="boardResultSet">
-		<id property="MB_NUM" column="TMB_NUM"/>
-		<result property="MB_TITLE" column="TMB_TITLE"/>
-		<result property="MB_CONTENT" column="TMB_CONTENT"/>
-		<result property="MB_CDATE" column="TMB_CDATE"/>
-		<result property="MB_WRITER" column="TMB_WRITER"/>
-		<result property="MB_IMAGE" column="TMB_IMAGE"/>
-		<result property="MB_THANK" column="TMB_THANK"/>
-		<result property="MB_COUNT" column="TMB_COUNT"/>
-		<result property="MB_RCOUNT" column="TMB_RCOUNT"/>
-		<result property="MB_STATUS" column="TMB_STATUS"/>
-		<result property="MB_TYPE" column="TMB_TYPE"/>
+		<id property="mb_num" column="TMB_NUM"/>
+		<result property="mb_title" column="TMB_TITLE"/>
+		<result property="mb_content" column="TMB_CONTENT"/>
+		<result property="mb_cdate" column="TMB_CDATE"/>
+		<result property="mb_writer" column="TMB_WRITER"/>
+		<result property="mb_image" column="TMB_IMAGE"/>
+		<result property="mb_thank" column="TMB_THANK"/>
+		<result property="mb_count" column="TMB_COUNT"/>
+		<result property="mb_rcount" column="TMB_RCOUNT"/>
+		<result property="mb_status" column="TMB_STATUS"/>
+		<result property="mb_type" column="TMB_TYPE"/>
 	</resultMap>
 	
 	<resultMap type="TBoard" id="tvBoardResultSet">

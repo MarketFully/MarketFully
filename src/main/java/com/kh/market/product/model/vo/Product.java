@@ -1,36 +1,97 @@
 package com.kh.market.product.model.vo;
 
 public class Product {
-	private int PR_CODE;
-	private String PR_CATE1;
-	private String PR_CATE2;
-	private String PR_NAME;
-	private int PR_PRICE;
-	private String PR_CONTENT;
-	private int PR_CARLORY;
-	private String PR_FROM;
-	private String PR_SIZE;
-	private int PR_ENTITY; 
+	private int pr_code;
+	private String pr_cate1;
+	private String pr_cate2;
+	private String pr_name;
+	private int pr_price;
+	private String pr_content;
+	private int pr_carlory;
+	private String pr_from;
+	private String pr_size;
+	private int pr_entity;
 	private String originalFileName;
 	private String renameFileName;
-	
 
-	public Product(int pR_CODE, String pR_CATE1, String pR_CATE2, String pR_NAME, int pR_PRICE, String pR_CONTENT,
-			int pR_CARLORY, String pR_FROM, String pR_SIZE, int pR_ENTITY, String originalFileName,
-			String renameFileName) {
-		super();
-		PR_CODE = pR_CODE;
-		PR_CATE1 = pR_CATE1;
-		PR_CATE2 = pR_CATE2;
-		PR_NAME = pR_NAME;
-		PR_PRICE = pR_PRICE;
-		PR_CONTENT = pR_CONTENT;
-		PR_CARLORY = pR_CARLORY;
-		PR_FROM = pR_FROM;
-		PR_SIZE = pR_SIZE;
-		PR_ENTITY = pR_ENTITY;
-		this.originalFileName = originalFileName;
-		this.renameFileName = renameFileName;
+	public int getPr_code() {
+		return pr_code;
+	}
+
+	public void setPr_code(int pr_code) {
+		this.pr_code = pr_code;
+	}
+
+	public String getPr_cate1() {
+		return pr_cate1;
+	}
+
+	public void setPr_cate1(String pr_cate1) {
+		this.pr_cate1 = pr_cate1;
+	}
+
+	public String getPr_cate2() {
+		return pr_cate2;
+	}
+
+	public void setPr_cate2(String pr_cate2) {
+		this.pr_cate2 = pr_cate2;
+	}
+
+	public String getPr_name() {
+		return pr_name;
+	}
+
+	public void setPr_name(String pr_name) {
+		this.pr_name = pr_name;
+	}
+
+	public int getPr_price() {
+		return pr_price;
+	}
+
+	public void setPr_price(int pr_price) {
+		this.pr_price = pr_price;
+	}
+
+	public String getPr_content() {
+		return pr_content;
+	}
+
+	public void setPr_content(String pr_content) {
+		this.pr_content = pr_content;
+	}
+
+	public int getPr_carlory() {
+		return pr_carlory;
+	}
+
+	public void setPr_carlory(int pr_carlory) {
+		this.pr_carlory = pr_carlory;
+	}
+
+	public String getPr_from() {
+		return pr_from;
+	}
+
+	public void setPr_from(String pr_from) {
+		this.pr_from = pr_from;
+	}
+
+	public String getPr_size() {
+		return pr_size;
+	}
+
+	public void setPr_size(String pr_size) {
+		this.pr_size = pr_size;
+	}
+
+	public int getPr_entity() {
+		return pr_entity;
+	}
+
+	public void setPr_entity(int pr_entity) {
+		this.pr_entity = pr_entity;
 	}
 
 	public String getOriginalFileName() {
@@ -49,112 +110,35 @@ public class Product {
 		this.renameFileName = renameFileName;
 	}
 
+	public Product(int pr_code, String pr_cate1, String pr_cate2, String pr_name, int pr_price, String pr_content,
+			int pr_carlory, String pr_from, String pr_size, int pr_entity, String originalFileName,
+			String renameFileName) {
+		super();
+		this.pr_code = pr_code;
+		this.pr_cate1 = pr_cate1;
+		this.pr_cate2 = pr_cate2;
+		this.pr_name = pr_name;
+		this.pr_price = pr_price;
+		this.pr_content = pr_content;
+		this.pr_carlory = pr_carlory;
+		this.pr_from = pr_from;
+		this.pr_size = pr_size;
+		this.pr_entity = pr_entity;
+		this.originalFileName = originalFileName;
+		this.renameFileName = renameFileName;
+	}
+
 	public Product() {
 		super();
-	}
-
-	public int getPR_CODE() {
-		return PR_CODE;
-	}
-
-	public void setPR_CODE(int pR_CODE) {
-		PR_CODE = pR_CODE;
-	}
-
-	public String getPR_CATE1() {
-		return PR_CATE1;
-	}
-
-	public void setPR_CATE1(String pR_CATE1) {
-		PR_CATE1 = pR_CATE1;
-	}
-
-	public String getPR_CATE2() {
-		return PR_CATE2;
-	}
-
-	public void setPR_CATE2(String pR_CATE2) {
-		PR_CATE2 = pR_CATE2;
-	}
-
-	public String getPR_NAME() {
-		return PR_NAME;
-	}
-
-	public void setPR_NAME(String pR_NAME) {
-		PR_NAME = pR_NAME;
-	}
-
-	public int getPR_PRICE() {
-		return PR_PRICE;
-	}
-
-	public void setPR_PRICE(int pR_PRICE) {
-		PR_PRICE = pR_PRICE;
-	}
-
-	public String getPR_CONTENT() {
-		return PR_CONTENT;
-	}
-
-	public void setPR_CONTENT(String pR_CONTENT) {
-		PR_CONTENT = pR_CONTENT;
-	}
-
-	public int getPR_CARLORY() {
-		return PR_CARLORY;
-	}
-
-	public void setPR_CARLORY(int pR_CARLORY) {
-		PR_CARLORY = pR_CARLORY;
-	}
-
-	public String getPR_FROM() {
-		return PR_FROM;
-	}
-
-	public void setPR_FROM(String pR_FROM) {
-		PR_FROM = pR_FROM;
-	}
-
-	public String getPR_SIZE() {
-		return PR_SIZE;
-	}
-
-	public void setPR_SIZE(String pR_SIZE) {
-		PR_SIZE = pR_SIZE;
-	}
-
-	public Product(int pR_CODE, String pR_CATE1, String pR_CATE2, String pR_NAME, int pR_PRICE, String pR_CONTENT,
-			int pR_CARLORY, String pR_FROM, String pR_SIZE, int pR_ENTITY) {
-		super();
-		PR_CODE = pR_CODE;
-		PR_CATE1 = pR_CATE1;
-		PR_CATE2 = pR_CATE2;
-		PR_NAME = pR_NAME;
-		PR_PRICE = pR_PRICE;
-		PR_CONTENT = pR_CONTENT;
-		PR_CARLORY = pR_CARLORY;
-		PR_FROM = pR_FROM;
-		PR_SIZE = pR_SIZE;
-		PR_ENTITY = pR_ENTITY;
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "Product [PR_CODE=" + PR_CODE + ", PR_CATE1=" + PR_CATE1 + ", PR_CATE2=" + PR_CATE2 + ", PR_NAME="
-				+ PR_NAME + ", PR_PRICE=" + PR_PRICE + ", PR_CONTENT=" + PR_CONTENT + ", PR_CARLORY=" + PR_CARLORY
-				+ ", PR_FROM=" + PR_FROM + ", PR_SIZE=" + PR_SIZE + ", PR_ENTITY=" + PR_ENTITY + "]";
+		return "Product [pr_code=" + pr_code + ", pr_cate1=" + pr_cate1 + ", pr_cate2=" + pr_cate2 + ", pr_name="
+				+ pr_name + ", pr_price=" + pr_price + ", pr_content=" + pr_content + ", pr_carlory=" + pr_carlory
+				+ ", pr_from=" + pr_from + ", pr_size=" + pr_size + ", pr_entity=" + pr_entity + ", originalFileName="
+				+ originalFileName + ", renameFileName=" + renameFileName + "]";
 	}
-
-	public int getPR_ENTITY() {
-		return PR_ENTITY;
-	}
-
-	public void setPR_ENTITY(int pR_ENTITY) {
-		PR_ENTITY = pR_ENTITY;
-	}
-
-
 
 }

@@ -37,8 +37,8 @@
         <h2>로그인</h2><br>
         <form id="frm" onsubmit="false" method="post">
         <div id="login_write" style="margin-bottom : 100px;"> 
-            <input type="text" name="MEM_ID" class="input" placeholder="    아이디를 입력해주세요"><br><br>
-            <input type="password" name="MEM_PWD" class="input" placeholder="    비밀번호를 입력해주세요"><br><br>
+            <input type="text" name="mem_id" class="input" placeholder="    아이디를 입력해주세요"><br><br>
+            <input type="password" name="mem_pwd" class="input" placeholder="    비밀번호를 입력해주세요"><br><br>
             <span id="find">
                 <button id="idfind" >아이디 찾기</button> |
                 <button id="pwdfind" >비밀번호 찾기</button>

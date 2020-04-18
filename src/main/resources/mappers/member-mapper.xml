@@ -16,31 +16,31 @@
 	</resultMap> -->
 	
 	<resultMap id="memberResultSet" type="Member">
-		<id property="MEM_NUM" column="MEM_NUM"/>
-		<id property="MEM_ID" column="MEM_ID"/>
-		<id property="MEM_PWD" column="MEM_PWD"/>
-		<id property="MEM_EMAIL" column="MEM_EMAIL"/>
-		<id property="MEM_PHONE" column="MEM_PHONE"/>
-		<id property="MEM_ADDR" column="MEM_ADDR"/>
-		<id property="MEM_NAME" column="MEM_NAME"/>
-		<id property="MEM_GENDER" column="MEM_GENDER"/>
-		<id property="MEM_BIRTH" column="MEM_BIRTH"/>
-		<id property="MEM_POINT" column="MEM_POINT"/>
-		<id property="MEM_PROFILE" column="MEM_PROFILE"/>
-		<id property="MEM_STATUS" column="MEM_STATUS"/>
-		<id property="SHIPPING_CODE" column="SHIPPING_CODE"/>
-		<id property="MEM_GRADE" column="MEM_GRADE"/>
-		<id property="MEM_CERT" column="MEM_CERT"/>
-		<id property="MEM_SMS_AGREE" column="MEM_SMS_AGREE"/>
-		<id property="MEM_EMAIL_AGREE" column="MEM_EMAIL_AGREE"/>
+		<id property="mem_num" column="MEM_NUM"/>
+		<result property="mem_id" column="MEM_ID"/>
+		<result property="mem_pwd" column="MEM_PWD"/>
+		<result property="mem_email" column="MEM_EMAIL"/>
+		<result property="mem_phone" column="MEM_PHONE"/>
+		<result property="mem_addr" column="MEM_ADDR"/>
+		<result property="mem_name" column="MEM_NAME"/>
+		<result property="mem_gender" column="MEM_GENDER"/>
+		<result property="mem_birth" column="MEM_BIRTH"/>
+		<result property="mem_point" column="MEM_POINT"/>
+		<result property="mem_profile" column="MEM_PROFILE"/>
+		<result property="mem_status" column="MEM_STATUS"/>
+		<result property="shipping_code" column="SHIPPING_CODE"/>
+		<result property="mem_grade" column="MEM_GRADE"/>
+		<result property="mem_cert" column="MEM_CERT"/>
+		<result property="mem_sms_agree" column="MEM_SMS_AGREE"/>
+		<result property="mem_email_agree" column="MEM_EMAIL_AGREE"/>
 	</resultMap>
 	
 	<!-- 로그인 -->
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		SELECT * 
 		FROM MEMBER
-		WHERE MEM_ID=#{MEM_ID}
-		AND MEM_PWD=#{MEM_PWD}
+		WHERE MEM_ID=#{mem_id}
+		AND MEM_PWD=#{mem_pwd}
 		AND MEM_STATUS='Y'
 	</select>
 	
@@ -48,22 +48,21 @@
 	<select id="idCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
-		WHERE MEM_ID=#{MEM_ID}
+		WHERE MEM_ID=#{mem_id}
 	</select>
 	
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES(SEQ_MEM_NUM.nextval,#{MEM_ID},#{MEM_PWD},#{MEM_EMAIL},#{MEM_PHONE},#{MEM_ADDR},#{MEM_NAME},#{MEM_GENDER},TO_DATE(#{MEM_BIRTH},'YYMMDD'),0,NULL,'Y',0,'SILVER','N',#{MEM_SMS_AGREE},#{MEM_EMAIL_AGREE})
-		
+		VALUES(SEQ_MEM_NUM.nextval,#{mem_id},#{mem_pwd},#{mem_email},#{mem_phone},#{mem_addr},#{mem_name},#{mem_gender},TO_DATE(#{mem_birth},'YYMMDD'),0,NULL,'Y',0,'SILVER','N',#{mem_sms_agree},#{mem_email_agree})
 	</insert>
 	
 	<!-- 회원가입 이메일 인증  -->
 	<update id="registSuccess" parameterType="Member">
 		UPDATE MEMBER
 		SET MEM_CERT = 'Y'
-		WHERE MEM_ID = #{MEM_ID}
+		WHERE MEM_ID = #{mem_id}
 	</update>
 	
 <!-- 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
@@ -110,46 +109,47 @@
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER
 		SET 
-		MEM_PWD=#{MEM_PWD},
-		MEM_NAME=#{MEM_NAME},
-		MEM_EMAIL=#{MEM_EMAIL},
-		MEM_PHONE=#{MEM_PHONE},
-		MEM_GENDER=#{MEM_GENDER},
-		MEM_BIRTH=TO_DATE(#{MEM_BIRTH},'YYMMDD'),
-		MEM_SMS_AGREE=#{MEM_SMS_AGREE},
-		MEM_EMAIL_AGREE=#{MEM_EMAIL_AGREE}
-		WHERE MEM_ID=#{MEM_ID}
+		MEM_PWD=#{mem_pwd},
+		MEM_NAME=#{mem_name},
+		MEM_EMAIL=#{mem_email},
+		MEM_PHONE=#{mem_phone},
+		MEM_GENDER=#{mem_gender},
+		MEM_BIRTH=TO_DATE(#{mem_brith},'YYMMDD'),
+		MEM_SMS_AGREE=#{mem_sms_agree},
+		MEM_EMAIL_AGREE=#{mem_email_agree}
+		WHERE MEM_ID=#{mem_id}
 	</update>
 	
 	<!-- 회원 탈퇴 -->
 	<update id="deleteMember" parameterType="string">
 		UPDATE MEMBER
 		SET MEM_STATUS='N'
-		WHERE MEM_ID=#{MEM_ID}
+		WHERE MEM_ID=#{mem_id}
 	</update>
 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="Member" resultMap="memberResultSet">
 		SELECT *
 		FROM MEMBER
-		WHERE MEM_NAME = #{MEM_NAME}
-		AND MEM_EMAIL = #{MEM_EMAIL}
+		WHERE MEM_NAME = #{mem_name}
+		AND MEM_EMAIL = #{mem_email}
+		AND ROWNUM = 1
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
 	<select id="pwdfind" parameterType="Member" resultMap="memberResultSet">
 		SELECT *
 		FROM MEMBER
-		WHERE MEM_NAME=#{MEM_NAME}
-		AND MEM_ID=#{MEM_ID}
-		AND MEM_EMAIL=#{MEM_EMAIL}
+		WHERE MEM_NAME=#{mem_name}
+		AND MEM_ID=#{mem_id}
+		AND MEM_EMAIL=#{mem_email}
 	</select>
 	
 	<!-- 임시비밀번호로 pwd 재설정 -->
 	<update id="changePwd" parameterType="Member">
 		UPDATE MEMBER
-		SET MEM_PWD = #{MEM_PWD}
-		WHERE MEM_ID=#{MEM_ID}
+		SET MEM_PWD = #{mem_pwd}
+		WHERE MEM_ID=#{mem_id}
 	</update>
 	
 	

@@ -13,10 +13,10 @@ public interface MemberService {
 
 	/**
 	 * 2. id 중복체크 
-	 * @param MEM_ID
+	 * @param mem_id
 	 * @return
 	 */
-	int idCheck(String MEM_ID);
+	int idCheck(String mem_id);
 
 	/**
 	 * 3. 회원 가입
@@ -27,10 +27,10 @@ public interface MemberService {
 	
 	/**
 	 * 4.이메일 인증 후 DB 값 변경
-	 * @param mEM_ID
+	 * @param mem_id
 	 * @return
 	 */
-	Member changeMemcert(String mEM_ID);
+	Member changeMemcert(String mem_id);
 	
 
 	/**
@@ -66,9 +66,9 @@ public interface MemberService {
 	
 	/**
 	 * 7. 임시 비밀번호 (비밀번호 값 변경)
-	 * @param mEM_NAME
-	 * @param mEM_ID
-	 * @param mEM_EMAIL
+	 * @param mem_name
+	 * @param mem_id
+	 * @param mem_email
 	 * @return
 	 */
 	int changePwd(Member m);

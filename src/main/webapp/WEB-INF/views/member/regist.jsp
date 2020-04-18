@@ -102,7 +102,7 @@ span.error {
             <table class="tbl">
                 <tr>
                     <td class="td1">아이디*</td>         
-                    <td class="td2"><input type="text" name="MEM_ID" id="MEM_ID" class="input" placeholder="  아이디" required></td>
+                    <td class="td2"><input type="text" name="mem_id" id="MEM_ID" class="input" placeholder="  아이디" required></td>
                     <td style="padding-left: 20px;">
                     	<span class="guide ok" style="color: green;display:none;">사용가능</span>
                     	<span class="guide error" style="color: red;display:none;">사용 불가능</span>
@@ -111,7 +111,7 @@ span.error {
                 </tr>
                 <tr>
                     <td class="td1">비밀번호*</td>
-                    <td class="td2"><input type="password" name="MEM_PWD" id="MEM_PWD" class="input" placeholder="  비밀번호(8자이상)" required ></td>
+                    <td class="td2"><input type="password" name="mem_pwd" id="MEM_PWD" class="input" placeholder="  비밀번호(8자이상)" required ></td>
                     <!-- <td class="td3"></td> -->
                 </tr>
                     <td class="td1">비밀번호확인*</td>
@@ -124,12 +124,12 @@ span.error {
                 </tr>
                 <tr>
                     <td class="td1">이름*</td>
-                    <td class="td2"><input type="text" name="MEM_NAME" class="input" placeholder="  이름" required ></td>
+                    <td class="td2"><input type="text" name="mem_name" class="input" placeholder="  이름" required ></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
                     <td class="td1">이메일*</td>
-                    <td class="td2"><input type="text" name="MEM_EMAIL" class="input" placeholder="  이메일" required ></td>
+                    <td class="td2"><input type="text" name="mem_email" class="input" placeholder="  이메일" required ></td>
 <!--                     <td class="td3"><button id="emailbtn" onclick="location.href='main.html'" class="btn">인증번호받기</button></td> -->
                 </tr>
 <!--                 <tr>
@@ -140,7 +140,7 @@ span.error {
                 </tr> -->
                 <tr>
                     <td class="td1">휴대폰*</td>
-                    <td class="td2"><input type="text" name="MEM_PHONE" class="input" placeholder="  휴대폰" required></td>
+                    <td class="td2"><input type="text" name="mem_phone" class="input" placeholder="  휴대폰" required></td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
@@ -167,18 +167,18 @@ span.error {
                     <td class="td2">
                         <input type="radio" name="gender" id="man"/><label for="man">남자</label>&nbsp;
                         <input type="radio" name="gender" id="woman"/><label for="woman">여자</label>
-                        <input type="hidden" name="MEM_GENDER" id="people_mem">
+                        <input type="hidden" name="mem_gender" id="people_mem">
                     </td>
                     <td class="td3"></td>
                 </tr>
                 <tr>
                     <td class="td1">생년월일</td>
-                    <td class="td2"><input type="text" name="MEM_BIRTH" class="input" placeholder="  YY/MM/DD"></td>
+                    <td class="td2"><input type="text" name="mem_birth" class="input" placeholder="  YY/MM/DD"></td>
                     <td class="td3"></td>
                 </tr>                  
             </table>
-            	  <input type="hidden" id="input_check6" class="checkcbox"  name="MEM_SMS_AGREE">
-                  <input type="hidden" id="input_check7" class="checkcbox"  name="MEM_EMAIL_AGREE"> 
+            	  <input type="hidden" id="input_check6" class="checkcbox"  name="mem_sms_agree">
+                  <input type="hidden" id="input_check7" class="checkcbox"  name="mem_email_agree"> 
             </form>
         	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
             <hr>
@@ -325,6 +325,7 @@ span.error {
 			$("#postcodify_search_button").postcodifyPopUp();
 		});
 		
+		
 		// 이메일 중복확인
 		function validate(){
 			// 아이디 중복 체크 여부 
@@ -340,7 +341,7 @@ span.error {
 		$(function(){
 			$("#MEM_ID").on("keyup",function(){
 				var MEM_ID = $(this).val();
-				console.log(MEM_ID);
+				
 				if(MEM_ID.length < 4){
 					$(".guide").hide();
 					$('#idDuplicateCheck').val(0);
@@ -350,7 +351,7 @@ span.error {
 				
 				$.ajax({
 					url:"idCheck.do",
-					data:{MEM_ID:MEM_ID},
+					data:{mem_id:MEM_ID},
 					type:"post",
 					success:function(data){
 						console.log(data);
@@ -405,7 +406,7 @@ span.error {
 			$.ajax({ 
 				type:"POST", 
 				url: "pwCheck.do", 
-				data : { MEM_PWD: MEM_PWD }, 
+				data : { mem_pwd: MEM_PWD }, 
 				success:function(result){
 					if(result == true){ 
 						pwCheckF.innerHTML = "유효성 체크 문제 없음"; 

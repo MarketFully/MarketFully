@@ -27,9 +27,9 @@ public class MemberServiceImpl implements MemberService{
 
 	// 아이디 중복 체크
 	@Override
-	public int idCheck(String MEM_ID) {
-		System.out.println(MEM_ID);
-		return mDao.idCheck(MEM_ID);
+	public int idCheck(String mem_id) {
+		System.out.println(mem_id);
+		return mDao.idCheck(mem_id);
 
 	}
 
@@ -43,8 +43,8 @@ public class MemberServiceImpl implements MemberService{
 	
 	// 회원가입 이메일인증 후 DB 변경 
 	@Override
-	public Member changeMemcert(String mEM_ID) {
-		Member Memcert = mDao.changeMemcert(mEM_ID);
+	public Member changeMemcert(String mem_id) {
+		Member Memcert = mDao.changeMemcert(mem_id);
 		
 		return Memcert;
 	}

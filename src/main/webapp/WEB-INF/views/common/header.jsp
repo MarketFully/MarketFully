@@ -21,7 +21,7 @@
                 	<li class="menu_login" style="cursor: pointer;" onclick="location.href='login'">로그인</li>
                 </c:if>
                 <c:if test="${ !empty sessionScope.loginUser }">
-                	<li class="menu_login"><c:out value="${ loginUser.MEM_NAME }님 환영합니다!" /> </li>
+                	<li class="menu_login"><c:out value="${ loginUser.mem_name }님 환영합니다!" /> </li>
                 </c:if>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자</li> 
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='basket'">장바구니</li> 

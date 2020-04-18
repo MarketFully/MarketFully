@@ -18,8 +18,8 @@ public class MemberDao {
 	}
 
 	//아이디 중복 체크
-	public int idCheck(String MEM_ID) {
-		return sqlSession.selectOne("memberMapper.idCheck",MEM_ID);
+	public int idCheck(String mem_id) {
+		return sqlSession.selectOne("memberMapper.idCheck",mem_id);
 	}
 
 	// 회원가입
@@ -28,8 +28,8 @@ public class MemberDao {
 	}
 	
 	// 이메일 인증 후 DB 값 변경 
-	public Member changeMemcert(String mEM_ID) {
-		return (Member)sqlSession.selectOne("memberMapper.registSuccess",mEM_ID);
+	public Member changeMemcert(String mem_id) {
+		return (Member)sqlSession.selectOne("memberMapper.registSuccess",mem_id);
 	}
 	
 	// 회원 탈퇴 

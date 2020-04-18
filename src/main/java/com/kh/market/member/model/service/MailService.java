@@ -6,9 +6,9 @@ import com.kh.market.member.model.vo.Member;
 
 public interface MailService {
 
-	public void mailSendWithUserKey(String mem_EMAIL , String MEM_ID, HttpServletRequest request);
+	public void mailSendWithUserKey(String mem_email , String mem_id, HttpServletRequest request);
 
-	public void mailsendWithPassword(String mEM_NAME, String mEM_ID, String mEM_EMAIL, HttpServletRequest request);
+	public void mailsendWithPassword(String mem_name, String mem_id, String mem_email, HttpServletRequest request);
 
 	
 

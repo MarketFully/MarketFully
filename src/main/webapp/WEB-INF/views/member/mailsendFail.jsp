@@ -13,7 +13,7 @@
 	<div style="margin-bottom:150px;margin-top:50px;">
 <!-- 		<a><img src="resources/img/logo.jpg" style="height: 80px; margin-left: 10px;" /></a> <br> -->
 		<br>
-		<h3>안녕하세요,&nbsp;${ MEM_ID } 님</h3>
+		<h3>안녕하세요,&nbsp;${ mem_id } 님</h3>
 		<br>
 		<p>환영합니다!</p>
 		<br>
@@ -21,7 +21,7 @@
 		<br>
 		<p>이메일 인증을 하셔야  홈페이지 내의 모든 서비스를 이용하실 수 있습니다.</p>
 		<p>이메일 주소를 다시 한 번 확인하여주세요!</p>
-		<br><a href="${pageContext.request.contextPath}/rsinsert.do?MEM_ID=${ MEM_ID }&MEM_EMAIL=${MEM_EMAIL}">이메일 재인증</a>
+		<br><a href="${pageContext.request.contextPath}/rsinsert.do?mem_id=${ mem_id }&mem_email=${mem_email}">이메일 재인증</a>
 	</div>
 </body>
 </html>

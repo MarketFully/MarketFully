@@ -18,7 +18,7 @@
         	<legend><h2>아이디 찾기</h2></legend>
         		<div id="loginfind_write" style="max-width:450px;">
             		<div>
-            			<p style="margin-bottom: 30px;">회원님의 아이디는   ${ idfind.MEM_ID } 입니다.</p>
+            			<p style="margin-bottom: 30px;">회원님의 아이디는   ${ idfind.mem_id } 입니다.</p>
             		</div>
         		</div>
         </fieldset>

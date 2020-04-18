@@ -7,226 +7,208 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Member {
-	private int MEM_NUM;
-	private String MEM_ID;
-	private String MEM_PWD;
-	private String MEM_EMAIL;
-	private String MEM_PHONE;
-	private String MEM_ADDR;
-	private String MEM_NAME;
-	private String MEM_GENDER;
-	private String MEM_BIRTH;
-	private int MEM_POINT;
-	private String MEM_PROFILE;
-	private String MEM_STATUS;
-	private int SHIPPING_CODE;
-	private String MEM_GRADE;
-	private String MEM_CERT;
-	private String MEM_SMS_AGREE;
-	private String MEM_EMAIL_AGREE;
+	private int mem_num;
+	private String mem_id;
+	private String mem_pwd;
+	private String mem_email;
+	private String mem_phone;
+	private String mem_addr;
+	private String mem_name;
+	private String mem_gender;
+	private String mem_birth;
+	private int mem_point;
+	private String mem_profile;
+	private String mem_status;
+	private int shipping_code;
+	private String mem_grade;
+	private String mem_cert;
+	private String mem_sms_agree;
+	private String mem_email_agree;
 	
 	public Member() {
 		super();
 	}
 
 	
-	public Member(String mEM_ID, String mEM_EMAIL, String mEM_NAME) {
+	
+	public Member(String mem_id, String mem_email, String mem_name) {
 		super();
-		MEM_ID = mEM_ID;
-		MEM_EMAIL = mEM_EMAIL;
-		MEM_NAME = mEM_NAME;
+		this.mem_id = mem_id;
+		this.mem_email = mem_email;
+		this.mem_name = mem_name;
 	}
 
-	
-	public Member(int mEM_NUM, String mEM_ID, String mEM_PWD, String mEM_EMAIL, String mEM_PHONE, String mEM_ADDR,
-			String mEM_NAME, String mEM_GENDER, String mEM_BIRTH, int mEM_POINT, String mEM_PROFILE, String mEM_STATUS,
-			int sHIPPING_CODE, String mEM_GRADE, String mEM_CERT, String mEM_SMS_AGREE, String mEM_EMAIL_AGREE) {
+
+
+	public Member(int mem_num, String mem_id, String mem_pwd, String mem_email, String mem_phone, String mem_addr,
+			String mem_name, String mem_gender, String mem_birth, int mem_point, String mem_profile, String mem_status,
+			int shipping_code, String mem_grade, String mem_cert, String mem_sms_agree, String mem_email_agree) {
 		super();
-		MEM_NUM = mEM_NUM;
-		MEM_ID = mEM_ID;
-		MEM_PWD = mEM_PWD;
-		MEM_EMAIL = mEM_EMAIL;
-		MEM_PHONE = mEM_PHONE;
-		MEM_ADDR = mEM_ADDR;
-		MEM_NAME = mEM_NAME;
-		MEM_GENDER = mEM_GENDER;
-		MEM_BIRTH = mEM_BIRTH;
-		MEM_POINT = mEM_POINT;
-		MEM_PROFILE = mEM_PROFILE;
-		MEM_STATUS = mEM_STATUS;
-		SHIPPING_CODE = sHIPPING_CODE;
-		MEM_GRADE = mEM_GRADE;
-		MEM_CERT = mEM_CERT;
-		MEM_SMS_AGREE = mEM_SMS_AGREE;
-		MEM_EMAIL_AGREE = mEM_EMAIL_AGREE;
+		this.mem_num = mem_num;
+		this.mem_id = mem_id;
+		this.mem_pwd = mem_pwd;
+		this.mem_email = mem_email;
+		this.mem_phone = mem_phone;
+		this.mem_addr = mem_addr;
+		this.mem_name = mem_name;
+		this.mem_gender = mem_gender;
+		this.mem_birth = mem_birth;
+		this.mem_point = mem_point;
+		this.mem_profile = mem_profile;
+		this.mem_status = mem_status;
+		this.shipping_code = shipping_code;
+		this.mem_grade = mem_grade;
+		this.mem_cert = mem_cert;
+		this.mem_sms_agree = mem_sms_agree;
+		this.mem_email_agree = mem_email_agree;
 	}
 
-
-	public int getMEM_NUM() {
-		return MEM_NUM;
+	public int getMem_num() {
+		return mem_num;
 	}
 
-	public void setMEM_NUM(int mEM_NUM) {
-		MEM_NUM = mEM_NUM;
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
 	}
 
-	public String getMEM_ID() {
-		return MEM_ID;
+	public String getMem_id() {
+		return mem_id;
 	}
 
-	public void setMEM_ID(String mEM_ID) {
-		MEM_ID = mEM_ID;
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 
-	public String getMEM_PWD() {
-		return MEM_PWD;
+	public String getMem_pwd() {
+		return mem_pwd;
 	}
 
-	public void setMEM_PWD(String mEM_PWD) {
-		MEM_PWD = mEM_PWD;
+	public void setMem_pwd(String mem_pwd) {
+		this.mem_pwd = mem_pwd;
 	}
 
-	public String getMEM_EMAIL() {
-		return MEM_EMAIL;
+	public String getMem_email() {
+		return mem_email;
 	}
 
-	public void setMEM_EMAIL(String mEM_EMAIL) {
-		MEM_EMAIL = mEM_EMAIL;
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
 	}
 
-	public String getMEM_PHONE() {
-		return MEM_PHONE;
+	public String getMem_phone() {
+		return mem_phone;
 	}
 
-	public void setMEM_PHONE(String mEM_PHONE) {
-		MEM_PHONE = mEM_PHONE;
+	public void setMem_phone(String mem_phone) {
+		this.mem_phone = mem_phone;
 	}
 
-	public String getMEM_ADDR() {
-		return MEM_ADDR;
+	public String getMem_addr() {
+		return mem_addr;
 	}
 
-	public void setMEM_ADDR(String mEM_ADDR) {
-		MEM_ADDR = mEM_ADDR;
+	public void setMem_addr(String mem_addr) {
+		this.mem_addr = mem_addr;
 	}
 
-	public String getMEM_NAME() {
-		return MEM_NAME;
+	public String getMem_name() {
+		return mem_name;
 	}
 
-	public void setMEM_NAME(String mEM_NAME) {
-		MEM_NAME = mEM_NAME;
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
 	}
 
-	public String getMEM_GENDER() {
-		return MEM_GENDER;
+	public String getMem_gender() {
+		return mem_gender;
 	}
 
-	public void setMEM_GENDER(String mEM_GENDER) {
-		MEM_GENDER = mEM_GENDER;
+	public void setMem_gender(String mem_gender) {
+		this.mem_gender = mem_gender;
 	}
 
-
-
-	public String getMEM_BIRTH() {
-		return MEM_BIRTH;
+	public String getMem_birth() {
+		return mem_birth;
 	}
 
-
-	public void setMEM_BIRTH(String mEM_BIRTH) {
-		
-		if(mEM_BIRTH.length()>8) {
-			mEM_BIRTH=mEM_BIRTH.replaceAll("[^0-9]", "");
-			mEM_BIRTH=mEM_BIRTH.substring(2,8);
-			
-			System.out.println("setter mEM_BIRTH : "+ mEM_BIRTH);
-		}
-		
-		MEM_BIRTH = mEM_BIRTH;
+	public void setMem_birth(String mem_birth) {
+		this.mem_birth = mem_birth;
 	}
 
-
-	public int getMEM_POINT() {
-		return MEM_POINT;
+	public int getMem_point() {
+		return mem_point;
 	}
 
-	public void setMEM_POINT(int mEM_POINT) {
-		MEM_POINT = mEM_POINT;
+	public void setMem_point(int mem_point) {
+		this.mem_point = mem_point;
 	}
 
-	public String getMEM_PROFILE() {
-		return MEM_PROFILE;
+	public String getMem_profile() {
+		return mem_profile;
 	}
 
-	public void setMEM_PROFILE(String mEM_PROFILE) {
-		MEM_PROFILE = mEM_PROFILE;
+	public void setMem_profile(String mem_profile) {
+		this.mem_profile = mem_profile;
 	}
 
-	public String getMEM_STATUS() {
-		return MEM_STATUS;
+	public String getMem_status() {
+		return mem_status;
 	}
 
-	public void setMEM_STATUS(String mEM_STATUS) {
-		MEM_STATUS = mEM_STATUS;
+	public void setMem_status(String mem_status) {
+		this.mem_status = mem_status;
 	}
 
-	public int getSHIPPING_CODE() {
-		return SHIPPING_CODE;
+	public int getShipping_code() {
+		return shipping_code;
 	}
 
-	public void setSHIPPING_CODE(int sHIPPING_CODE) {
-		SHIPPING_CODE = sHIPPING_CODE;
+	public void setShipping_code(int shipping_code) {
+		this.shipping_code = shipping_code;
 	}
 
-	public String getMEM_GRADE() {
-		return MEM_GRADE;
+	public String getMem_grade() {
+		return mem_grade;
 	}
 
-	public void setMEM_GRADE(String mEM_GRADE) {
-		MEM_GRADE = mEM_GRADE;
-	}
-	
-	
-
-	public String getMEM_CERT() {
-		return MEM_CERT;
+	public void setMem_grade(String mem_grade) {
+		this.mem_grade = mem_grade;
 	}
 
-
-	public void setMEM_CERT(String mEM_CERT) {
-		MEM_CERT = mEM_CERT;
+	public String getMem_cert() {
+		return mem_cert;
 	}
 
-
-	public String getMEM_SMS_AGREE() {
-		return MEM_SMS_AGREE;
+	public void setMem_cert(String mem_cert) {
+		this.mem_cert = mem_cert;
 	}
 
-
-	public void setMEM_SMS_AGREE(String mEM_SMS_AGREE) {
-		MEM_SMS_AGREE = mEM_SMS_AGREE;
+	public String getMem_sms_agree() {
+		return mem_sms_agree;
 	}
 
-
-	public String getMEM_EMAIL_AGREE() {
-		return MEM_EMAIL_AGREE;
+	public void setMem_sms_agree(String mem_sms_agree) {
+		this.mem_sms_agree = mem_sms_agree;
 	}
 
-
-	public void setMEM_EMAIL_AGREE(String mEM_EMAIL_AGREE) {
-		MEM_EMAIL_AGREE = mEM_EMAIL_AGREE;
+	public String getMem_email_agree() {
+		return mem_email_agree;
 	}
 
+	public void setMem_email_agree(String mem_email_agree) {
+		this.mem_email_agree = mem_email_agree;
+	}
 
 	@Override
 	public String toString() {
-		return "Member [MEM_NUM=" + MEM_NUM + ", MEM_ID=" + MEM_ID + ", MEM_PWD=" + MEM_PWD + ", MEM_EMAIL=" + MEM_EMAIL
-				+ ", MEM_PHONE=" + MEM_PHONE + ", MEM_ADDR=" + MEM_ADDR + ", MEM_NAME=" + MEM_NAME + ", MEM_GENDER="
-				+ MEM_GENDER + ", MEM_BIRTH=" + MEM_BIRTH + ", MEM_POINT=" + MEM_POINT + ", MEM_PROFILE=" + MEM_PROFILE
-				+ ", MEM_STATUS=" + MEM_STATUS + ", SHIPPING_CODE=" + SHIPPING_CODE + ", MEM_GRADE=" + MEM_GRADE
-				+ ", MEM_CERT=" + MEM_CERT + ", MEM_SMS_AGREE=" + MEM_SMS_AGREE + ", MEM_EMAIL_AGREE=" + MEM_EMAIL_AGREE
+		return "Member [mem_num=" + mem_num + ", mem_id=" + mem_id + ", mem_pwd=" + mem_pwd + ", mem_email=" + mem_email
+				+ ", mem_phone=" + mem_phone + ", mem_addr=" + mem_addr + ", mem_name=" + mem_name + ", mem_gender="
+				+ mem_gender + ", mem_birth=" + mem_birth + ", mem_point=" + mem_point + ", mem_profile=" + mem_profile
+				+ ", mem_status=" + mem_status + ", shipping_code=" + shipping_code + ", mem_grade=" + mem_grade
+				+ ", mem_cert=" + mem_cert + ", mem_sms_agree=" + mem_sms_agree + ", mem_email_agree=" + mem_email_agree
 				+ "]";
 	}
 
+	
 	
 }

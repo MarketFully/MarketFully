@@ -42,27 +42,29 @@ public class MemberController {
 //		return "member/login";
 //	}
 
-	//로그인1
-	   @RequestMapping(value="login.do",method= RequestMethod.POST) 
-	   public String memberLogin(Member m , Model model) {
-	      
-	      Member loginUser = mService.loginMember(m);
-	      
-	      if(loginUser != null) {
-	         if(loginUser.getMEM_CERT().equals("Y")) {
-	        	 model.addAttribute("loginUser", loginUser);
-	            return "redirect:index.jsp";         
-	         }else {
-	        	 model.addAttribute("MEM_ID",loginUser.getMEM_ID());
-	        	 model.addAttribute("MEM_EMAIL",loginUser.getMEM_EMAIL());
-	            return "member/mailsendFail";
-	         }
-	      }else {
-	         model.addAttribute("msg", "로그인실패!!");
-	         return "";
-	      }
-	   }
+	// 로그인1
+	@RequestMapping(value = "login.do", method = RequestMethod.POST)
+	public String memberLogin(Member m, Model model) {
 
+		Member loginUser = mService.loginMember(m);
+
+		if (loginUser != null) {
+			if (loginUser.getMem_cert().equals("Y")) {
+				model.addAttribute("loginUser", loginUser);
+				return "redirect:index.jsp";
+			} else {
+				model.addAttribute("mem_id", loginUser.getMem_id());
+				model.addAttribute("mem_email", loginUser.getMem_email());
+				return "member/mailsendFail";
+			}
+		} else {
+			model.addAttribute("msg", "로그인실패!!");
+			return "";
+		}
+	}
+
+	
+	
 	//로그인2
 	@RequestMapping("login")
 	public String loginView() { // 회원가입 페이지로 이동하는 메소드
@@ -86,8 +88,8 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@RequestMapping("idCheck.do")
-	public String idCheck(String MEM_ID) throws IOException{
-		int result = mService.idCheck(MEM_ID);
+	public String idCheck(String mem_id) throws IOException{
+		int result = mService.idCheck(mem_id);
 		
 		if(result > 0) {
 			return "fail";
@@ -99,7 +101,7 @@ public class MemberController {
 	// 비밀번호 체크
 	@ResponseBody
 	@RequestMapping(value="pwCheck.do", method = RequestMethod.POST)
-	public boolean PwCheck(String MEM_PWD) {
+	public boolean PwCheck(String mem_pwd) {
 		logger.info("PwCheck");
 		
 		boolean check = false;
@@ -107,7 +109,7 @@ public class MemberController {
 		String pw_chk = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*?&`~'\"+=])[A-Za-z[0-9]$@$!%*?&`~'\"+=]{6,18}$";
 		
 		Pattern pattern_symbol = Pattern.compile(pw_chk);
-		Matcher matcher_symbol = pattern_symbol.matcher(MEM_PWD);
+		Matcher matcher_symbol = pattern_symbol.matcher(mem_pwd);
 		
 		if(matcher_symbol.find()) {
 			check = true;
@@ -135,7 +137,7 @@ public class MemberController {
 		System.out.println(post+","+address1+"," +address2);
 		
 		if(!post.equals("")) {
-			m.setMEM_ADDR(post+","+address1+"," +address2);
+			m.setMem_addr(post+","+address1+"," +address2);
 		}
 		
 		int result = mService.insertMember(m);
@@ -154,19 +156,19 @@ public class MemberController {
 	// 회원가입 메일 인증1
 		@RequestMapping(value="sinsert.do", method = RequestMethod.POST)
 		public String mailSend(Member m, Model model, HttpServletRequest request) {
-			
-			mailsender.mailSendWithUserKey(m.getMEM_EMAIL(),m.getMEM_ID(),request);
+			//(m.getMEM_EMAIL(),m.getMEM_ID(),request);
+			mailsender.mailSendWithUserKey(m.getMem_email(),m.getMem_id(),request);
 			
 			return "redirect:index.jsp";
 		}
 		
 		// 회원가입 메일 인증2
 		@RequestMapping(value = "registSuccess" , method = RequestMethod.GET)
-		public String registSuccess(@RequestParam("user_id")String MEM_ID) { 
+		public String registSuccess(@RequestParam("user_id")String mem_id) { 
 					
-			System.out.println(MEM_ID);
+			System.out.println(mem_id);
 			
-			Member loginUser = mService.changeMemcert(MEM_ID);
+			Member loginUser = mService.changeMemcert(mem_id);
 			
 			return "member/registSuccess";
 		}
@@ -174,11 +176,11 @@ public class MemberController {
 		
 		// 이메일 재인증
 		@RequestMapping(value="rsinsert.do", method = RequestMethod.GET)
-		public String mailreSend(@RequestParam("MEM_ID") String MEM_ID,
-								 @RequestParam("MEM_EMAIL") String MEM_EMAIL,Model model,
-								 HttpServletRequest request) {
+		public String mailreSend(@RequestParam("mem_id") String mem_id,
+								 @RequestParam("mem_email") String mem_email,
+								 Model model, HttpServletRequest request) {
 			
-			mailsender.mailSendWithUserKey(MEM_EMAIL,MEM_ID,request);
+			mailsender.mailSendWithUserKey(mem_email,mem_id,request);
 			
 			return "redirect:index.jsp";
 		}
@@ -275,8 +277,7 @@ public class MemberController {
 				System.out.println(userList);
 				mav.setViewName("member/pwdfindconfirm");
 				mav.addObject("pwdfind",userList);
-				
-				mailsender.mailsendWithPassword(m.getMEM_NAME(), m.getMEM_ID(), m.getMEM_EMAIL(), request);
+				mailsender.mailsendWithPassword(m.getMem_name(),m.getMem_id(),m.getMem_email(),request);
 				
 				return mav;
 			}else {

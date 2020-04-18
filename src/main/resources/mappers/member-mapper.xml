@@ -65,46 +65,6 @@
 		WHERE MEM_ID = #{mem_id}
 	</update>
 	
-<!-- 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
-	암호화 전
-		SELECT *
-		FROM MEMBER
-		WHERE ID=#{id}
-		AND PWD=#{pwd}
-		AND M_STATUS='Y'
-		
-		 암호화 후
-		 SELECT *
-		 FROM MEMBER
-		 WHERE ID=#{id}
-		 AND M_STATUS='Y'
-	</select> -->
-	<!-- 
-	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-		VALUES(#{id},#{pwd},#{name},#{email},#{gender},
-		#{age},#{phone},#{address},SYSDATE,SYSDATE,default)
-	</insert>
-	
-	<update id="updateMember" parameterType="Member">
-		UPDATE MEMBER
-		SET EMAIL=#{email},AGE=#{age},PHONE=#{phone},ADDRESS=#{address}
-		,UPDATE_DATE=SYSDATE
-		WHERE ID=#{id}
-	</update>
-	
-	<update id="deleteMember" parameterType="string">
-		UPDATE MEMBER
-		SET M_STATUS='N'
-		WHERE ID=#{id}
-	</update>
-	 -->
-<!-- 	<select id="idCheck" parameterType="string" resultType="_int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE id=#{id}
-	</select> -->
-	
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER

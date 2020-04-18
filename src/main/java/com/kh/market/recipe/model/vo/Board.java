@@ -40,7 +40,6 @@ public class Board {
 
 	public Board() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Board(int mB_NUM, String mB_TITLE, String mB_CONTENT, Date mB_CDATE, String mB_WRITER, String mB_IMAGE,

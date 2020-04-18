@@ -323,10 +323,27 @@
 
     <!--검색창-->
     <fieldset>
-        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
-        <a href="javascript:;" class="btn_srch">검색</a>
+    	<form id="src_form" action="userSearchList" method="post">
+    		<select name="mc_cate_num">
+	    		<option value="101" selected>전체</option>
+	    		<option value="102" >한식</option>
+	    		<option value="103" >양식</option>
+	    		<option value="104" >일식</option>
+	    		<option value="105" >중식</option>
+	    		<option value="106" >기타</option>
+	    	</select>
+        	<input type="hidden" name="mc_cate_num" value="${ mc_cate_num}">
+	        <input type="text" name="src_input" class="tbox" placeholder="검색어를 입력해주세요" id="keyword">
+	        <a href="javascript:SearchBtn()" class="btn_srch">검색</a>
+        </form>
     </fieldset>
     <!-- 검색창 ends-->
+<script>
+	function SearchBtn(){ //HTML을 최대한 유지하기 위해 a태그로 submit을 해준다.
+		
+		$('#src_form').submit();
+	}
+</script>
 
 
 	</div>

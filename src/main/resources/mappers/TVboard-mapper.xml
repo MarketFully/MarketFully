@@ -138,9 +138,11 @@
 	</select>
 	
 	<select id="TvCateList" resultMap="mcResultSet">
+	<![CDATA[
 		SELECT *
 		FROM MENU_CATEGORY
-		WHERE MC_STATUS='Y'
+		WHERE MC_STATUS='Y' AND MC_CATE_NUM <= 100
+	]]>
 	</select>
 	
 	<select id="tvBoardList" parameterType="_int" resultMap="tvBoardResultSet">

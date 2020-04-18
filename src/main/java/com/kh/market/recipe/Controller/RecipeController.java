@@ -228,6 +228,43 @@ public class RecipeController {
 		return mv;
 	}
 	
+	@RequestMapping("userSearchList")
+	public ModelAndView userRecipeSrc(ModelAndView mv
+							, @RequestParam(defaultValue="-1")int mc_cate_num	//값이 -1이면 에러 
+							, @RequestParam(defaultValue="") String src_input	// 값이 ""이면 그냥 리스트로 보낸다.
+							, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			
+			) {	
+		// 시작
+		System.out.println("tvSearchList입니다.----------------");
+		
+		SearchInfo si = new SearchInfo();
+		
+		System.out.println("src_cate "+mc_cate_num);
+		System.out.println("src_input "+src_input);
+		
+		si.setMc_cate_num(mc_cate_num);
+		si.setSrc_input(src_input);
+		
+		
+		int listCount = bService.getUserSearchListCount(si);
+		
+		System.out.println("listCount : "+ listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> list = bService.UserSearchList(pi, si);
+		
+		mv.addObject("list",list);
+		mv.addObject("mc_cate_num", mc_cate_num);
+		mv.addObject("pi",pi);
+		mv.addObject("si",si);
+//		mv.addObject("pageValue", "tvSearchList");
+//		mv.addObject("TvOrUser", "tv");
+		mv.setViewName("recipe/userRecipe");
+		
+		return mv;
+	}
 	
 	
 	@RequestMapping("RecipeUser")

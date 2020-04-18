@@ -134,7 +134,24 @@
 		AND UMB_STATUS='Y'
 	</select>
 	
+	<select id="userSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM USER_MENU_BOARD
+		WHERE UMB_STATUS='Y'
+		<if test="mc_cate_num != 101">
+			AND MC_CATE_NUM= #{mc_cate_num}
+		</if>
+			AND UMB_TITLE LIKE '%'|| #{src_input} || '%'
+	</select>
 	
+	<select id="userSearchList" resultMap="boardResultSet">
+		SELECT * FROM USER_MENU_BOARD WHERE UMB_STATUS='Y'
+		<if test="mc_cate_num !=101">
+			AND MC_CATE_NUM= #{mc_cate_num}
+		</if>
+		AND UMB_TITLE LIKE '%'|| #{src_input} || '%'
+		ORDER BY UMB_NUM DESC
+	</select>
 	
 	
 	

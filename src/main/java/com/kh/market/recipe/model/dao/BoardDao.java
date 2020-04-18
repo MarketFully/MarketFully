@@ -110,7 +110,20 @@ public class BoardDao {
 		
 		return sqlSession.update("TVboardMapper.updateCount",bId);
 	}
+	
+	public int getUserSearchListCount(SearchInfo si) {
+		
+		return sqlSession.selectOne("USERboardMapper.userSearchListCount", si);
+	}
 
+
+	public ArrayList<Board> userSearchList(PageInfo pi, SearchInfo si) {
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("USERboardMapper.userSearchList",si,rowBounds);
+	}
 
 	public ArrayList<Board> MainRandomselectList() {
 		

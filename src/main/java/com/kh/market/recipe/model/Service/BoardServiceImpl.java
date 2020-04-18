@@ -97,6 +97,18 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bDao.tvSearchList(pi, si);
 	}
+	
+	@Override
+	public int getUserSearchListCount(SearchInfo si) {
+		
+		return bDao.getUserSearchListCount(si);
+	}
+
+	@Override
+	public ArrayList<Board> UserSearchList(PageInfo pi, SearchInfo si) {
+		
+		return bDao.userSearchList(pi, si);
+	}
 
 	@Override
 	public ArrayList<Board> MainRandomselectList() {

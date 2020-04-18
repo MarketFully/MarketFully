@@ -53,5 +53,7 @@ public interface BoardService {
 	 * @return
 	 */
 	ArrayList<Board> TvSearchList(PageInfo pi, SearchInfo si);
+
+	ArrayList<Board> MainRandomselectList();
 	
 }

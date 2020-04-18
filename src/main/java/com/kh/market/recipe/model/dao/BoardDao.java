@@ -112,6 +112,12 @@ public class BoardDao {
 	}
 
 
+	public ArrayList<Board> MainRandomselectList() {
+		
+		return (ArrayList)sqlSession.selectList("TVboardMapper.MainRandomselectList");
+	}
+
+
 
 
 	

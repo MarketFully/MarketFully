@@ -25,19 +25,19 @@
            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img class="d-block w-100" src="resources/img/slide1.png" alt="First slide">
+                <img class="d-block w-100" src="resources/img/main/main_slide3.png" alt="First slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="resources/img/slide2.png" alt="Second slide">
+                <img class="d-block w-100" src="resources/img/main/main_slide1.png" alt="Second slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="resources/img/slide3.png" alt="Third slide">
+                <img class="d-block w-100" src="resources/img/main/main_slide4.png" alt="Third slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="resources/img/slide4.png" alt="Fourth slide">
+                <img class="d-block w-100" src="resources/img/main/main_slide2.png" alt="Fourth slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="resources/img/slide5.png" alt="Fifth slide">
+                <img class="d-block w-100" src="resources/img/main/main_slide5.png" alt="Fifth slide">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -56,14 +56,14 @@
                 <p class="RContent">이 레시피 어때요?</p>
             </div>
           </div>
-
           <div class="row">
+		  <c:forEach var="b" items="${ mainrandomlist }">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="Rcard h-500 w-100">
                     <a href="#"><img src="resources/img/recipe13.png" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
+                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.MB_TITLE }</a></h4>
                         <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
                     </div>
                     <div class="Rcard-footer">
@@ -72,54 +72,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe1.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe2.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe3.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-
+		  </c:forEach>
           </div>
-
           <!-- 최근에 본 레시피 -->
 
           <div class="recentRecipe">

@@ -98,4 +98,10 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.tvSearchList(pi, si);
 	}
 
+	@Override
+	public ArrayList<Board> MainRandomselectList() {
+		
+		return bDao.MainRandomselectList();
+	}
+
 }

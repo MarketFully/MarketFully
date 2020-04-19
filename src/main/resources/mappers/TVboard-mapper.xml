@@ -8,7 +8,8 @@
 		<result property="mb_content" column="TMB_CONTENT"/>
 		<result property="mb_cdate" column="TMB_CDATE"/>
 		<result property="mb_writer" column="TMB_WRITER"/>
-		<result property="mb_image" column="TMB_IMAGE"/>
+		<result property="mb_origin" column="TMB_ORIGIN"/>
+		<result property="mb_rename" column="TMB_RENAME"/>
 		<result property="mb_thank" column="TMB_THANK"/>
 		<result property="mb_count" column="TMB_COUNT"/>
 		<result property="mb_rcount" column="TMB_RCOUNT"/>
@@ -40,7 +41,8 @@
 		<result property="mb_content" column="TMB_CONTENT"/>
 		<result property="mb_cdate" column="TMB_CDATE"/>
 		<result property="mb_writer" column="TMB_WRITER"/>
-		<result property="mb_image" column="TMB_IMAGE"/>
+		<result property="mb_origin" column="TMB_ORIGIN"/>
+		<result property="mb_rename" column="TMB_RENAME"/>
 		<result property="mb_thank" column="TMB_THANK"/>
 		<result property="mb_count" column="TMB_COUNT"/>
 		<result property="mb_rcount" column="TMB_RCOUNT"/>
@@ -72,7 +74,8 @@
 		<result property="mb_content" column="TMB_CONTENT"/>
 		<result property="mb_cdate" column="TMB_CDATE"/>
 		<result property="mb_writer" column="TMB_WRITER"/>
-		<result property="mb_image" column="TMB_IMAGE"/>
+		<result property="mb_origin" column="TMB_ORIGIN"/>
+		<result property="mb_rename" column="TMB_RENAME"/>
 		<result property="mb_thank" column="TMB_THANK"/>
 		<result property="mb_count" column="TMB_COUNT"/>
 		<result property="mb_rcount" column="TMB_RCOUNT"/>
@@ -109,6 +112,7 @@
 	<select id="selectListBoardReply" resultMap="BoardReplyMap" parameterType="_int">
 		SELECT * FROM TV_MENU_REPLY
 		WHERE TMB_NUM= #{value}
+		ORDER BY TMR_NUM
 	</select>
 
 	<resultMap type="BoardExp" id="BoardExpMap">

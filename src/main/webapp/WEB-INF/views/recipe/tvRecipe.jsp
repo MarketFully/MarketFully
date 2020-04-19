@@ -136,7 +136,6 @@
         .btn-success:not(:disabled):not(.disabled):active:focus,.show>
         .btn-success.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(72,180,97,.5)}
         
-        
 	</style>
     <link rel="stylesheet" href="resources/css/header.css">
     <link rel="stylesheet" href="resources/css/toptenrecipe.css">
@@ -242,7 +241,12 @@
 								<c:param name="currentPage" value="${ pi.currentPage }"/>
 								<c:param name="TvOrUser" value="${ TvOrUser }"/>
 							</c:url>
-	                        <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.mb_title}</a> (${b.mb_rcount})</p></td>
+	                        <td class="menu">
+	                        	<img src="resources/img/tvRecipe/${b.getMb_rename() }" class="mimg" style="">
+	                        	<p class="mtitle">
+	                        		<a href="${ bdetail }">${ b.mb_title}</a> (${b.mb_rcount})
+	                        	</p>
+                        	</td>
 	                        <td>${b.mb_writer}</td>
 	                        <td>${b.mb_cdate }</td>
 	                        <td>${b.mb_count }</td>

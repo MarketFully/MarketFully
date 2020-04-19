@@ -50,7 +50,7 @@
                 <div class="sectionInner">
 
                     <div class="detailImg">
-                        <img src="resources/img/detail.jpg">
+                        <img src="resources/img/tvRecipe/${b.getMb_rename() }" style="width:400px;">
                         <div>
                             <img src="resources/img/heart.png" class="choice">
                         </div>
@@ -142,55 +142,18 @@
                     <ul class="recipe_cotent">
                         <li class="recipe_tab">레시피내용</li>
                     </ul>
-                        <div class="turn"><p style="margin-left: 10px;">조리순서</p></div>
-                        <div class="step1">
-                            <div class="countR">1.</div>
-                            <div class="step1ment">대파는 송송 썬 후 달군 팬에 식용유를 넉넉히 두르고 대파를 넣어 볶는다.</div>
-                            <div class="stem1img"><img src="resources/img/recipe14.png" class="foodR"></div>
-                        </div>
+                    	<div class="turn"><p style="margin-left: 10px;">조리순서</p></div>
+                    	
+                    	<c:forEach var="be" items="${b.getBelist() }">
+                       		<div class="step1">
+	                            <div class="countR">${be.getSeq() } .</div>
+	                            <div class="step1ment">${be.getContent() }</div>
+	                            <div class="stem1img"><img src="resources/img/tvRecipe/${be.getRename()}" class="foodR"></div>
+	                        </div>
+                    	</c:forEach>
+                       
 
-                        <div class="step2">
-                            <div class="countR">2.</div>
-                            <div class="step2ment">파향이 나오면 다진 김치를 넣어 볶는다.</div>
-                            <div class="stem2img"><img src="resources/img/recipe3.png" class="foodR"></div>
-                        </div>
-
-                        <div class="step3">
-                            <div class="countR">3.</div>
-                            <div class="step3ment">팬 가장자리에 간장과 설탕을 넣어 볶는다.</div>
-                            <div class="stem3img"><img src="resources/img/recipe4.png" class="foodR"></div>
-                        </div>
-
-                        <div class="step4">
-                            <div class="countR">4.</div>
-                            <div class="step4ment">마지막으로 고춧가루를 넣고 볶아 김치밥 베이스를 만든다.</div>
-                            <div class="stem4img"><img src="resources/img/recipe7.png" class="foodR"></div>
-                        </div>
-
-                        <div class="step5">
-                            <div class="countR">5.</div>
-                            <div class="step5ment">볼에 밥과 김치밥 베이스를 넣고 잘 비벼준다.</div>
-                            <div class="stem5img"><img src="resources/img/recipe9.png" class="foodR"></div>
-                        </div>
-
-                        <div class="step6">
-                            <div class="countR">6.</div>
-                            <div class="step6ment">기름을 두른 팬에 비벼진 밥을 눌어 붙도록 넓게 펴준다.</div>
-                            <div class="stem6img"><img src="resources/img/recipe6.png" class="foodR"></div>
-                       </div>
-
-                        <div class="step7">
-                            <div class="countR">7.</div>
-                            <div class="step7ment">피자치즈를 한쪽면에 올리고 뚜껑을 닫아 30초 정도 익힌다.</div>
-                            <div class="stem7img"><img src="resources/img/recipe13.png" class="foodR"></div>
-                        </div>
-
-                        <div class="step8">
-                            <div class="countR">8.</div>
-                            <div class="step8ment">김치밥을 반으로 접어 그릇에 담은 뒤 김가루와 옥수수통조림을 곁들여 완성한다.</div>
-                            <div class="stem8img"><img src="resources/img/recipe14.png" class="foodR"></div>
-                        </div>
-                </div>
+                </div> <!-- class="recipe_view" -->
 
                 <div>
                     <ul class="recipe_cotent">
@@ -200,27 +163,15 @@
                 </div>
                      <!-- 댓글 -->
                      <div id="tab1" class="reply current">
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">1111111</p>
+                     
+                     <c:forEach var="br" items="${b.getBrlist() }">
+                     	<div class="reply_body">
+                            <h4 class="reply_head"><b class="reply_name">${br.getWriter()} 님</b>2020-03-24</h4>
+                            <p class="reply_main">${br.getContent() }</p>
                         </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">222222</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">333333</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">4444444</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">5555555</p>
-                        </div>
+                     </c:forEach>
 
+                        
                         <div> 
                             <input type="button" value="댓글" class="btn" onclick="location.href=''">
                         </div>

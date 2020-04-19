@@ -8,7 +8,12 @@
 		<result property="MB_CONTENT" column="UMB_CONTENT"/>
 		<result property="MB_CDATE" column="UMB_CDATE"/>
 		<result property="MB_WRITER" column="UMB_WRITER"/>
-		<result property="MB_IMAGE" column="UMB_IMAGE"/>
+		
+		<!-- 바꾼 부분 표시해주려고 공백 넣어놨는데 이거 다 대문잔대 이거 안바꾼듯? -->
+		<result property="mb_origin" column="UMB_ORIGIN"/>
+		<result property="mb_rename" column="UMB_RENAME"/>
+		
+		
 		<result property="MB_THANK" column="UMB_THANK"/>
 		<result property="MB_COUNT" column="UMB_COUNT"/>
 		<result property="MB_RCOUNT" column="UMB_RCOUNT"/>

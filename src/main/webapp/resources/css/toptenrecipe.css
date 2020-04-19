@@ -214,6 +214,8 @@ fieldset {
 .mimg{
     float: left;
     margin-left: 20px;
+    width:100px;
+    height:100px;
 }
 .menu{
     padding-bottom: 20px;

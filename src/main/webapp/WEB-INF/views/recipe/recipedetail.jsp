@@ -58,134 +58,84 @@
 
                     
                     <div class="goods_name">
-                        <h3 class="name">${ b.MB_TITLE }</h3>
+                        <h3 class="name">${ b.mb_title}</h3>
                         <div class="good_list">
                             <ul>
                                 <li>
                                     <div class="ment">조회수</div>
-                                    <div class="ment_sub">${b.MB_COUNT }</div>
+                                    <div class="ment_sub">${b.mb_count}</div>
                                 </li>
                                 <li>
                                     <div class="ment">추천수</div>
-                                    <div class="ment_sub">${ b.MB_THANK }</div>
+                                    <div class="ment_sub">${ b.mb_thank }</div>
                                 </li>
 
                                 <li>
-                                    <div class="ment">영양성분</div>
-                                        <div class="ment_sub">
-                                        <table style="border-collapse: collapse;">
-                                        <tr style="border-bottom:2px solid #2f2f30;" id="tabletr">
-                                            <th id="viewtable">재료</th>
-                                            <th id="viewtable">량</th>
-                                            <th id="viewtable">칼로리</th>
-                                        </tr>
-                                        <tr id="showtable">
-                                           <td>다진김치</td>
-                                           <td>1/3컵 (80g)</td>
-                                           <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>피자치즈</td>
-                                            <td>1/2컵(50g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>대파</td>
-                                            <td>1/2컵(15g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>밥</td>
-                                            <td>1공기(200g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>옥수수콘</td>
-                                            <td>1/2 컵(30g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>김가루</td>
-                                            <td>1/2컵(3g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>진간장</td>
-                                            <td>1큰술(10ml)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>황설탕</td>
-                                            <td>1작은술(3g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>고춧가루</td>
-                                            <td>1큰술(5g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>식용유</td>
-                                            <td>1큰술(12ml)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>깨</td>
-                                            <td>1꼬집(1g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        </table>
-                                    </div>
+                                    <div class="ment">${b.mb_content}</div>
                                 </li>
+                                
+                                <br>
+                                <br><br>
+                                
                                 <li>
-                                    <div class="ment">상품</div>
-                                    
-                                    <div class="ment_sub1">
-                                        <div> 
-                                          
-                                            <input type="checkbox" name="product" id="source" value="source" class="check">
-                                            <label for = "source">샘표 - 맛간장</label>
-                                            
-                                            <div class="proCount">
-                                                <div class="product_count">
-                                                    <button onclick="form_btn(-1)" class="count_btn">-</button>
-                                                    <input type="text" id="text" value="1" style="width: 30px;" class="input_num">
-                                                    <button onclick="form_btn(1)" class="count_btn">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                	<table style="width:100%;">
+                                		<thead>
+	                                		<tr>
+	                                			<th class="col" style="width:340px;">상품</th>
+	                                			<th class="col" style="width:100px;">가격</th>
+	                                			<th class="col" style="width:100px;">수량</th>
+	                                		</tr>
+                                		</thead>
+                                		<tbody>
+                                			<c:forEach var="bp" items="${b.getBplist() }">
+		                                		<tr id="product${bp.getPrd().getPr_code() }">
+		                                			<td style="padding-top:17px">
+			                                            <input type="checkbox" name="product" id="source" value="source" class="check"/>
+			                                            <input type="hidden" value="${bp.getPrd().getPr_code() }" name="pr_code" id="pr_code"/>
+			                                            <input type="hidden" value="${bp.getPrd().getPr_price() }" name="pr_price" id="pr_price"/>
+			                                            <label for = "source" style="font-size:16px;">${bp.getPrd().getPr_name() }</label>
+		                                            </td>
+		                                            <td>
+			                                            <label for = "source" style="font-size:16px;" id ="total_price">${bp.getPrd().getPr_price() }</label>
+			                                            <label for = "source" style="font-size:16px;">원</label>
+				                                    </td>
+				                                    <td>        
+			                                            <div class="proCount">
+			                                                <div class="product_count">
+			                                                    <button onclick="form_btn(-1, ${bp.getPrd().getPr_code() })" class="count_btn">-</button>
+			                                                    <input type="text" id="text" value="1" style="width: 30px;" class="input_num">
+			                                                    <button onclick="form_btn(1, ${bp.getPrd().getPr_code() })" class="count_btn">+</button>
+			                                                </div>
+			                                            </div>
+		                                			</td>
+	                                			</tr>
+                                           </c:forEach>
+                                		</tbody>
+                                	</table>
 
-                                        <div>
-                                            <input type="checkbox" name="product" id="cheese" value="cheese"  class="check">
-                                            <label for="cheese">서울우유 - 체다슬라이스 치즈</label>
-                                            <div class="proCount">
-                                                <div class="product_count">
-                                                    <button onclick="form_btn1(-1)" class="count_btn">-</button>
-                                                    <input type="text" id="text1" value="1" style="width: 30px;" class="input_num">
-                                                    <button onclick="form_btn1(1)" class="count_btn">+</button>
-                                                </div>
-                                            </div>
-                                        </div>             
-                                    </div>
                                 </li>
                                 <li>
                                     <div class="price">
                                         <span class="total">합계 :</span>
                                         <span class="price">
-                                            <strong>50000</strong>
+                                            <strong  id="total">0</strong>
                                             <strong>원</strong>
                                         </span>
                                     </div>
                                 </li>
+                                
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
-                                        <input type="submit" value="장바구니에 담기" class="bag">
+                                        <input type="button" onclick="" value="장바구니에 담기" class="bag">
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                
+                
+                
                 <!-- 레시피 상단부분 (info) end -->
                 <!-- 레시피 내용 s-->
                 <div class="recipe_view">
@@ -311,42 +261,66 @@
     <!-- boardDetail end-->
 
     <script>
-        // 탭 메뉴 스크립트
-        $(function() {
-			$('ul.recipe_cotent li').click(function() {
-				var activeTab = $(this).attr('data-tab');
-				$('ul.recipe_cotent li').removeClass('current');
-				$('.reply').removeClass('current');
-				$(this).addClass('current');
-				$('#' + activeTab).addClass('current');
-			})
-		});
-
 
          // 폼값 증가&감소
-         function form_btn(n){
+         function form_btn(n, pr_code){
             
-            var text = document.getElementById("text"); // 폼 선택
-            text_val = parseInt(text.value); // 폼 값을 숫자열로 변환
+        	 var selector = "product"+pr_code+" td";
+            
+            text_val = Number($('#'+selector).children().children().children('#text').val()); // 폼 값을 숫자열로 변환
             text_val += n; // 계산
-            text.value = text_val; // 계산된 값을 바꾼다
             
-            if(text_val <= 0){
-               text.value = 1;   // 만약 값이 0 이하면 1로 되돌려준다, 1보다 작은 수는 나타나지 않게하기 위해   
+            console.log(text_val);
+            
+            if(text_val < 0){
+               text_val = 0;   // 만약 값이 0 미만이면 0로 되돌려준다, 1보다 작은 수는 나타나지 않게하기 위해   
             }
-        }
+            
+            $('#'+selector).children().children().children('#text').val(text_val); // 수량을 바꾼다    
+         
+            var total_price = Number($('#'+selector).children('#pr_price').val())*text_val
+            console.log('상품 총 가격 : '+total_price);
+            $('#'+selector).children('#total_price').text(total_price);
+            
+            total_val();
+            
+        }	//form_btn
 
-        function form_btn1(n){
-            
-            var text = document.getElementById("text1"); // 폼 선택
-            text_val = parseInt(text1.value); // 폼 값을 숫자열로 변환
-            text_val += n; // 계산
-            text1.value = text_val; // 계산된 값을 바꾼다
-            
-            if(text_val <= 0){
-               text1.value = 1;   // 만약 값이 0 이하면 1로 되돌려준다, 1보다 작은 수는 나타나지 않게하기 위해   
-            }
+        
+        // 가격을 계산하는 함수
+        function total_val(){
+        	
+        	var total=0;
+        	console.log('-- 가격 갱신 --');
+        	
+        	$.each($('label#total_price'), function(index, item){
+        		console.log(index+'번째 상품 갱신된 가격 : '+ $(item).text());
+        		total= Number($(item).text())+total;
+        	})
+        	
+        	console.log('계산된 total : '+total);
+        	$('#total').text(total);
         }
+        
+        
+        
+        
+         //화면이 나오면 토탈값을 계산해준다.
+         $(function(){
+        	 
+        	 var total=0;
+        	 
+        	 console.log('-- 처음 total계산 --');
+        	 $.each($('input#pr_price'), function(index, item){
+        		 console.log(index+'번째 상품 가격 : '+ Number($(item).val()));
+        		 total = total + Number($(item).val());
+        	 });
+        	 
+        	 console.log('계산된 total : '+ total);
+        	 
+        	 $('#total').text(total);
+         });
+
     </script>
 </body>
 </html>

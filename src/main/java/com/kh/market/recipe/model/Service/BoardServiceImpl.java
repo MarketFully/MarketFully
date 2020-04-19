@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;

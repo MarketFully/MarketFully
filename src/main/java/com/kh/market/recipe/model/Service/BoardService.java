@@ -2,7 +2,9 @@ package com.kh.market.recipe.model.Service;
 
 import java.util.ArrayList;
 
+import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;

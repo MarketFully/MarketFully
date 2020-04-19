@@ -1,6 +1,7 @@
 package com.kh.market.recipe.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ public class Board {
 	private int mc_cate_num;
 
 	private Menu_Category mc;
+	
 	
 	public int getMb_num() {
 		return mb_num;
@@ -56,6 +58,36 @@ public class Board {
 
 	public String getMb_writer() {
 		return mb_writer;
+	}
+
+	private ArrayList<BoardReply> brlist;	//��ۿ�
+	private ArrayList<BoardExp> belist;	//�����
+	private ArrayList<BoardProduct> bplist; //��ǰ��
+	
+	
+
+	public ArrayList<BoardReply> getBrlist() {
+		return brlist;
+	}
+
+	public void setBrlist(ArrayList<BoardReply> brlist) {
+		this.brlist = brlist;
+	}
+
+	public ArrayList<BoardExp> getBelist() {
+		return belist;
+	}
+
+	public void setBelist(ArrayList<BoardExp> belist) {
+		this.belist = belist;
+	}
+
+	public ArrayList<BoardProduct> getBplist() {
+		return bplist;
+	}
+
+	public void setBplist(ArrayList<BoardProduct> bplist) {
+		this.bplist = bplist;
 	}
 
 	public void setMb_writer(String mb_writer) {
@@ -126,12 +158,15 @@ public class Board {
 		this.mc = mc;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Board [mb_num=" + mb_num + ", mb_title=" + mb_title + ", mb_content=" + mb_content + ", mb_cdate="
 				+ mb_cdate + ", mb_writer=" + mb_writer + ", mb_image=" + mb_image + ", mb_thank=" + mb_thank
 				+ ", mb_count=" + mb_count + ", mb_rcount=" + mb_rcount + ", mb_status=" + mb_status + ", mb_type="
-				+ mb_type + ", mc_cate_num=" + mc_cate_num + ", mc=" + mc + "]";
+				+ mb_type + ", mc_cate_num=" + mc_cate_num + ", mc=" + mc + ", brlist=" + brlist + ", belist=" + belist
+				+ ", bplist=" + bplist + "]";
 	}
 
 	public Board(int mb_num, String mb_title, String mb_content, Date mb_cdate, String mb_writer, String mb_image,

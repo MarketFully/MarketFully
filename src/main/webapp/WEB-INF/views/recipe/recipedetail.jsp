@@ -6,10 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="resources/css/header.css">
-    <link rel="stylesheet" href="resources/css/boarddetail.css">
+	<link rel="stylesheet" href="resources/css/boarddetail.css">
+
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script> <!-- 탭 메뉴 -->
+
     <title>Document</title>
     <style>
         .product_count{
@@ -36,6 +39,32 @@
             display: inline; 
             /* float: right; */
         }
+        
+                /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */                          
+        }
+        
+        	
+        	
     </style>
 </head>
 <body>
@@ -126,7 +155,9 @@
                                 
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
-                                        <input type="button" onclick="" value="장바구니에 담기" class="bag">
+                                        <!-- <a href="#myModal" rel="modal:open" class="bag">장바구니에 담기</a> -->
+                                        <a href="#" onclick="saveRecipe();" class="bag">장바구니에 담기</a>
+                                        
                                     </div>
                                 </li>
                             </ul>
@@ -211,6 +242,28 @@
     </div>
     <!-- boardDetail end-->
 
+
+	<div id="myCart1" class="modal">
+		<p>장바구니 모달창</p>
+		<a href="#" rel="modal:close">계속 쇼핑하기</a>
+		<a href="#">결제하기</a>
+	</div>
+
+
+
+	
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>                                                               
+        <p>Some text in the Modal..</p>
+      </div>
+
+    </div>
+
+
+
     <script>
 
          // 폼값 증가&감소
@@ -272,6 +325,15 @@
         	 $('#total').text(total);
          });
 
+         
+         //장바구니 function
+         function saveRecipe(){
+        	 
+        	 console.log('saveRecipe my Modal display none으로 바꿔줌');
+        	 
+        	 $('#myModal').css("display", "block");
+        	 
+         }
     </script>
 </body>
 </html>

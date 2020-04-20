@@ -254,10 +254,10 @@
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
-                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.MB_TITLE }</a> </p></td>
-                    <td>${ b.MB_WRITER }</td>
-                    <td>${ b.MB_CDATE }</td>
-                    <td>${ b.MB_COUNT }</td>
+                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.mb_title }</a> </p></td>
+                    <td>${ b.mb_writer }</td>
+                    <td>${ b.mb_cdate }</td>
+                    <td>${ b.mb_count }</td>
                 </tr>
             </tbody>
             </c:forEach>

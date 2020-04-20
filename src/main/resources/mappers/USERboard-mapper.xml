@@ -3,22 +3,22 @@
 <mapper namespace="USERboardMapper">
 	<!-- resultMap -->
 	<resultMap type="Board" id="boardResultSet">
-		<id property="MB_NUM" column="UMB_NUM"/>
-		<result property="MB_TITLE" column="UMB_TITLE"/>
-		<result property="MB_CONTENT" column="UMB_CONTENT"/>
-		<result property="MB_CDATE" column="UMB_CDATE"/>
-		<result property="MB_WRITER" column="UMB_WRITER"/>
+		<id property="mb_num" column="UMB_NUM"/>
+		<result property="mb_title" column="UMB_TITLE"/>
+		<result property="mb_content" column="UMB_CONTENT"/>
+		<result property="mb_cdate" column="UMB_CDATE"/>
+		<result property="mb_writer" column="UMB_WRITER"/>
 		
 		<!-- 바꾼 부분 표시해주려고 공백 넣어놨는데 이거 다 대문잔대 이거 안바꾼듯? -->
 		<result property="mb_origin" column="UMB_ORIGIN"/>
 		<result property="mb_rename" column="UMB_RENAME"/>
 		
 		
-		<result property="MB_THANK" column="UMB_THANK"/>
-		<result property="MB_COUNT" column="UMB_COUNT"/>
-		<result property="MB_RCOUNT" column="UMB_RCOUNT"/>
-		<result property="MB_STATUS" column="UMB_STATUS"/>
-		<result property="MB_TYPE" column="UMB_TYPE"/>
+		<result property="mb_thank" column="UMB_THANK"/>
+		<result property="mb_count" column="UMB_COUNT"/>
+		<result property="mb_rcount" column="UMB_RCOUNT"/>
+		<result property="mb_status" column="UMB_STATUS"/>
+		<result property="mb_type" column="UMB_TYPE"/>
 	</resultMap>
 
 	

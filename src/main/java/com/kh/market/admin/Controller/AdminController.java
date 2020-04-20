@@ -18,15 +18,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.market.admin.model.Service.CategoryService;
+import com.kh.market.admin.model.vo.AdminProductPageInfo;
+import com.kh.market.admin.model.vo.AdminProductPagnation;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
-
+import com.kh.market.product.model.service.ProductService;
+import com.kh.market.product.model.vo.Product;
 @Controller
 public class AdminController {
  
 	
 	@Autowired
 	private CategoryService cService;
+	
+	@Autowired
+	private ProductService pService;
 	
 	@RequestMapping(value="cateupload.do",method=RequestMethod.GET)
 	public String admin_cateupload(Model mv,
@@ -39,11 +45,7 @@ public class AdminController {
 			@RequestParam(value="parentmaincode") String parentmaincode) {
 		
 		int delete = cService.deleteCategory();
-		if(delete>0) {
-			System.out.println("삭제 성공");
-		}else {
-			System.out.println("삭제 실패");
-		}
+	
 		
 		String[] maincodearr = catecode.split(",");
 		String[] mainnamearr = catename.split(",");
@@ -55,11 +57,7 @@ public class AdminController {
 			System.out.println("catecode : " + maincodearr[i] + ", catename :  " + mainnamearr[i]);
 			int mainupdate = cService.updateCategory(c);
 			
-			if(mainupdate>0) {
-				System.out.println("메인 카테고리 인서트 성공");
-			}else {
-				System.out.println("메인 카테고리 인서트 실패");
-			}
+			
 		}
 		
 		/////////////////////////////////////////////
@@ -78,13 +76,38 @@ public class AdminController {
 			SubCategory sc = new SubCategory(parentmaincodearr[i],subcatecodearr[i],subcatenamearr[i],subcateY_indexarr[i]);
 			int updatesub = cService.updatesubCategory(sc);
 		}
-		
-		
 		return "admin/adminmain"; 
 		
 	}
 	
 	
+	@RequestMapping("AdminProductDetail")
+	public ModelAndView Admin_ProductDetail(@RequestParam("pr_code") int PR_CODE,
+			ModelAndView mv) {
+		Product p = new Product();
+		p.setPr_code(PR_CODE);
+		
+		p = pService.getProductOne(p);
+		
+		mv.addObject("p",p).setViewName("admin/adminproductdetail");
+		
+		return mv;
+	}
+	
+
+	
+	@RequestMapping("AdminProductmodify")
+	public ModelAndView Admin_Productmodify(@RequestParam("pr_code") int PR_CODE,
+			ModelAndView mv) {
+		Product p = new Product();
+		p.setPr_code(PR_CODE);
+		
+		p = pService.getProductOne(p);
+		
+		mv.addObject("p",p).setViewName("admin/adminproduct_modify");
+		
+		return mv;
+	}
 	
 	@RequestMapping("adminmain")
 	public String admin_mainView() {
@@ -100,7 +123,7 @@ public class AdminController {
 			System.out.println(mc.toString());
 			//maincatearr.add()
 			if(mc!=null) {
-				mv.addObject("maincate", mc) //메인카테고리
+				mv.addObject("maincate", mc) //硫붿씤移댄뀒怨좊━
 				.setViewName("admin/admincategory");
 				
 			}
@@ -121,7 +144,7 @@ public class AdminController {
 			gson.toJson(sc,response.getWriter());
 			
 		}
-	 @RequestMapping("adminsubgory") //json 으로 subcategory 반환
+	 @RequestMapping("adminsubgory") //json 이용한 서브 카테고리 가져오기
 		public void admin_subcategoryView(HttpServletResponse response) throws JsonIOException, IOException {
 			
 			ArrayList<SubCategory> sc = cService.selectSubCategoryList();
@@ -135,7 +158,7 @@ public class AdminController {
 	 
 
 	 
-	 @RequestMapping("adminmaincategory") //json 으로 subcategory 반환
+	 @RequestMapping("adminmaincategory") //json으로 서브 카테고리 가져오기
 		public void admin_maincategoryView(HttpServletResponse response) throws JsonIOException, IOException {
 			
 			ArrayList<MainCategory> mc = cService.selectMainCategoryList();
@@ -172,8 +195,28 @@ public class AdminController {
 		  }
 	  
 	  @RequestMapping("adminproduct_list")
-	  public String adminprodutct_ListView() { 
-		  return "admin/adminproduct_list"; 
+	  public ModelAndView adminprodutct_ListView(ModelAndView mv,
+			  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { 
+		  
+		  System.out.println(currentPage);
+		  
+		  int listCount=pService.getListCount();
+		  
+		  System.out.println("listCount = " + listCount);
+		  
+		  AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
+		  
+		  ArrayList<Product> list = pService.getProductList(pi);
+		  
+		  System.out.println(list);
+		  
+		  if(list!=null) {
+			  mv.addObject("list",list)
+			  .addObject("pi",pi)
+			  .setViewName("admin/adminproduct_list");
+		  }
+		  return mv; 
+		  
 		  }
 	  @RequestMapping("categorysee")
 	  public String admincategory_seeView() {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="UTF-8">
 
@@ -45,159 +46,77 @@
             <%@include file="../common/adminheader.jsp" %>
 <hr><br>
             <h1>상품 리스트</h1>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product.png" class="Rcard-img-top" style="width: 90%;"></a>
+			<div class="row">
 
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19 </p>
-                        </div>
-                    </div>
-                </div>
+				<c:forEach var="R" begin="0" end="8" step="1">
+					<c:if test="${list[R]!=null }">
+						<div class="col-lg-3 col-md-6 mb-4">
+							<div class="Rcard h-500 w-100">
+								<a href="AdminProductDetail?pr_code=${list[R].pr_code }"><img src="resources/img/Productuploadimg/${list[R].renameFileName }"
+									class="Rcard-img-top" style="width: 90%;"></a>
 
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product1.png" class="Rcard-img-top" style="width: 90%;"></a>
+								<div class="Rcard-body">
+									<h4 class="Rcard-title">
+										<a href="AdminProductDetail?pr_code=${list[R].pr_code }"
+										 style="text-decoration: none;">${list[R].pr_name }</a>
+									</h4>
+									<p class="Rcard-text">남은 재고 : ${list[R].pr_entity }개 &nbsp;&nbsp; 가격 : ${list[R].pr_price } 원</p>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<c:if test="${list[R]==null }">
+						<div class="col-lg-3 col-md-6 mb-4">
+							
+						</div>
+					</c:if>
+				<c:if test="${R ==3}">
+					</div>
+					<div class=row>
+				</c:if>
+				</c:forEach>
+			</div>
 
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product2.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product4.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product1.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product2.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product4.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product1.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product2.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="Rcard h-500 w-100">
-                        <a href="#"><img src="resources/img/product4.png" class="Rcard-img-top" style="width: 90%;"></a>
-
-                        <div class="Rcard-body">
-                            <h4 class="Rcard-title"><a href="#" style="text-decoration: none;" >상품명 1</a></h4>
-                            <p class="Rcard-text">남은 재고 : 0개 // 상품등록일 : 2020/03/19</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="mdl-button mdl-js-button mdl-button--raised">
-                &lt;
-              </button>&nbsp;
-              <button class="mdl-button mdl-js-button mdl-button--raised">
-                1
-              </button>&nbsp;<button class="mdl-button mdl-js-button mdl-button--raised">
-                2
-              </button>&nbsp;<button class="mdl-button mdl-js-button mdl-button--raised">
-                3
-              </button>&nbsp;<button class="mdl-button mdl-js-button mdl-button--raised">
-                4
-              </button>&nbsp;<button class="mdl-button mdl-js-button mdl-button--raised">
-                5
-              </button> &nbsp; <button class="mdl-button mdl-js-button mdl-button--raised">
-                &gt;
-              </button>
+			
+              
+              <c:if test="${ pi.currentPage eq 1 }">
+					<button class="mdl-button mdl-js-button mdl-button--raised">이전</button>
+				</c:if>
+				<c:if test="${ pi.currentPage ne 1 }">
+					<c:url var="before" value="adminproduct_list">
+						<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+					</c:url>
+					<button class="mdl-button mdl-js-button mdl-button--raised" onclick="location.href='${ before }'">이전</button> 
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<button class="mdl-button mdl-js-button mdl-button--raised">${ p }</button>
+					</c:if>
+					
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="adminproduct_list">
+							<c:param name="currentPage" value="${ p }"/>
+						</c:url>
+						<button class="mdl-button mdl-js-button mdl-button--raised"
+						 onclick="location.href='${ pagination }'">
+						 ${ p }
+						</button>
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pi.currentPage eq pi.maxPage }">
+					<button class="mdl-button mdl-js-button mdl-button--raised">다음</button>
+				</c:if>
+				<c:if test="${ pi.currentPage ne pi.maxPage }">
+					<c:url var="after" value="adminproduct_list">
+						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					</c:url> 
+					<button class="mdl-button mdl-js-button mdl-button--raised" onclick='location.href="${ after }"'>다음</button>
+				</c:if>
         </div>
         <br><br>
         <div>

@@ -4,6 +4,7 @@
 <%@page import="com.kh.market.admin.model.Service.CategoryServiceImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -114,6 +115,13 @@ $(function(){
 					break;
 				}
 			}
+				for(var i = 0 ; i < subdatalist.length;i++){
+					if(subdatalist[i].upcate== "${p.pr_cate1}" && subdatalist[i].catecode2){
+						document.getElementById("subcate").innerHTML=subdatalist[i].catename2;
+						break;
+					}
+				}
+			
 		},error:function(request, status, errorData){
 			alert("error code : " + request.status + "\n"
 					+ "message : " + request.responseText
@@ -130,10 +138,16 @@ $(function(){
 		success:function(data){
 			maindatalist=data;
 			for(var i = 0 ; i < maindatalist.length;i++){
-		  	str += '<a onclick="changemaincategory(this);" style="cursor: pointer;">'+maindatalist[i].catename1+'</a>';
-		  	str += '<input type="hidden" value='+maindatalist[i].catecode1+'>';
+				if(maindatalist[i].catecode1 == "${p.pr_cate1}"){
+					document.getElementById("maincate").innerHTML=maindatalist[i].catename1;
+					break;
+				}
 			}
-			document.getElementById("maincatelist").innerHTML = str;
+			for(var i = 0 ; i < maindatalist.length;i++){
+			  	str += '<a onclick="changemaincategory(this);" style="cursor: pointer;">'+maindatalist[i].catename1+'</a>';
+			  	str += '<input type="hidden" value='+maindatalist[i].catecode1+'>';
+				}
+				document.getElementById("maincatelist").innerHTML = str;
 		},error:function(request, status, errorData){
 			alert("error code : " + request.status + "\n"
 					+ "message : " + request.responseText
@@ -170,13 +184,13 @@ $(function(){
 
 		<div class="row">
 			<div class="col-lg-12">
-			 <form action="Productinsert.do" method="post" id=pfrm enctype="multipart/form-data"> 
-			
+			 <form action="AdminProductupdate.do" method="post" id=pfrm enctype="multipart/form-data"> 
+				<input type="hidden" name="pr_code" value="${p.pr_code }">
 				<h3>상품 등록하기</h3>
 				<div class="card mt-4">
-					<img id="img" src=""
+					<img id="img" src="resources/img/Productuploadimg/${p.renameFileName }"
 						style="width: 50%; border: 1px solid gray;"> 
-						<input name="uploadimg" type="file" id="input_img" placeholder="">  <br>
+						<input name="uploadimg" type="file" id="input_img" placeholder="" value="${p.renameFileName }">  <br>
 					<div class="list-group" style="width: 30%;">
 						<div class="dropdown">
 							<button id="maincate" class="list-group-item dropbtn"
@@ -188,7 +202,7 @@ $(function(){
 
 						</div>
 ↓
-						<div id=subonoff class="dropdown" style="display: none;">
+						<div id=subonoff class="dropdown" style="">
 							<button id="subcate" id="subcate" class="list-group-item dropbtn"
 								onclick="return false;" style="width: 100%;">하위 카테고리</button>
 							<div id="subcatelist" class="dropdown-content"
@@ -216,19 +230,18 @@ $(function(){
 										상품 명 :</td>
 								</p>
 								<td><p class="card-text">
-										<input type=text class="inputcss" value="" name="pr_name"
+										<input type=text class="inputcss" value="${p.pr_name }" name="pr_name"
 											placeholder="상품명을 기입해주세요.">
 									</p></td>
 							</tr>
-							
 							<tr
 								style="border-top: 1px solid #e9e9e9; border-bottom: 1px solid #e9e9e9;">
 								<td style="background: #f7f7f7"><p class="card-text">
-										가격 :</td>
+										가격 : </td>
 								</p>
 								<td><p class="card-text">
-										<input type=text class="inputcss" value="" name="pr_price"
-											placeholder="(원)">
+										<input type=text class="inputcss" value="${p.pr_price}" name="pr_price"
+											placeholder="가격을 기입해주세요.">
 									</p></td>
 							</tr>
 							<tr style="border-top: 1px solid #e9e9e9; border-bottom: 1px solid #e9e9e9;">
@@ -237,7 +250,7 @@ $(function(){
 								</td>
 								<td>
 									<p class="card-text">
-										<input type=text class="inputcss" value="0" name="pr_size"
+										<input type=text class="inputcss" value="${p.pr_size }" name="pr_size"
 											placeholder="상품용량을 기입해주세요.">
 									</p>
 								</td>
@@ -249,7 +262,7 @@ $(function(){
 								</td>
 								<td>
 									<p class="card-text">
-										<input type='number' class="inputcss" value="0"
+										<input type='number' class="inputcss" value="${p.pr_entity }"
 											name="pr_entity" placeholder="재고를 기입해주세요.">
 									</p>
 								</td>
@@ -262,13 +275,11 @@ $(function(){
 								</td>
 								<td>
 									<p class="card-text">
-										<input type=NUMBER class="inputcss" value="0" name="pr_carlory"
+										<input type=NUMBER class="inputcss" value="${p.pr_carlory }" name="pr_carlory"
 											placeholder="상품 열량을 입력해주세요.">
 									</p>
 								</td>
 							</tr>
-							
-							
 							
 							<tr
 								style="border-top: 1px solid #e9e9e9; border-bottom: 1px solid #e9e9e9;">
@@ -278,10 +289,7 @@ $(function(){
 								<td>
 									<p class="card-text">
 										<textarea name="pr_content" id="" cols="30" rows="10" class="inputcss" style="height: 200px; width: 90%;" name=PR_CONTENT>
-1. 오뚜기 케찹은 진한 케찹으로 우리 입맛에 맞는 우리의 자랑 대한민국 대표 케찹입니다.
-2. 새콤 달콤한 오뚜기 케찹은 빨갛게 잘 익은 신선한 토마토만을 사용하여 만들어 깊고 진한 맛을 더했습니다.
-3. 오뚜기 토마토 케찹의 붉은색은 토마토에 들어 있는 라이코펜(lycopene) 성분입니다.
-4. 샐러드, 볶음밥, 계란후라이, 튀김류 등 어느 음식과도 잘 어울립니다.
+${p.pr_content }
                   </textarea>
 									</p>
 
@@ -295,9 +303,7 @@ $(function(){
 								<td>
 									<p class="card-text">
 										<textarea name="pr_from" id="" cols="30" rows="10" class="inputcss"
-											style="height: 200px; width: 90%;">
-토마토페이스트43.8%[외국산(미국,칠레,중국 등)], 정제수, 물엿, 설탕, 발효식초(주정,발효영양원), 정제소금(국산), 잔탄검, 케챂향신료[천연향신료(육두구:인도네시아산),양파분(미국산)] [토마토 함유] *토마토페이스트 함량은 가용성고형분 25%기준임.
-                  </textarea>
+											style="height: 200px; width: 90%;">${p.pr_from }</textarea>
 									</p>
 
 								</td>
@@ -306,11 +312,11 @@ $(function(){
 
 					</div>
 				</div>
-				<input type="hidden" name="pr_cate1" id="PR_CATE1" value="">
-				<input type="hidden" name="pr_cate2" id="PR_CATE2" value="">
+				<input type="hidden" name="pr_cate1" id="PR_CATE1" value="${p.pr_cate1 }">
+				<input type="hidden" name="pr_cate2" id="PR_CATE2" value="${p.pr_cate2 }">
  				<!-- /.card -->
 				<center>
-					<button class="btn btn-success">상품 등록하기</button>
+					<button class="btn btn-success">상품 수정하기</button>
 				</center>
 				<!-- /.card -->
 				</form>

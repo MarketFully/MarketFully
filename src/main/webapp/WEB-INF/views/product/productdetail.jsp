@@ -58,7 +58,6 @@
         <div class="boardDetail">
             <div class="sectionView">
                 <div class="sectionInner">
-
                     <div class="detailImg">
                         <img src="resources/img/detail.jpg">
                         <div>

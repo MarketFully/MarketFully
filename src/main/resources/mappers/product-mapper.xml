@@ -18,6 +18,10 @@
 	</resultMap>
 	
 	
+	<select id ="getListCount" resultType="_int">
+SELECT COUNT(*) FROM PRODUCT
+</select>
+
 	<insert id="insertproduct" parameterType="Product">
 		INSERT INTO PRODUCT
 		VALUES (#{pr_code},#{pr_cate1},#{pr_cate2},
@@ -27,19 +31,31 @@
 		
 	</insert>
 	
-	<!-- <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
-	암호화 전
-		SELECT *
-		FROM MEMBER
-		WHERE ID=#{id}
-		AND PWD=#{pwd}
-		AND M_STATUS='Y'
-		
-		 암호화 후
-		 SELECT *
-		 FROM MEMBER
-		 WHERE ID=#{id}
-		 AND M_STATUS='Y'
-	</select>-->
 	
+	<select id="selectOne" parameterType="Product" resultMap="productResultSet">
+	SELECT * FROM PRODUCT
+	WHERE PR_CODE = #{pr_code}
+	</select>
+	
+	<select id="selectList" resultMap="productResultSet">
+	SELECT * FROM PRODUCT
+	ORDER BY PR_CODE DESC
+	</select>
+	
+	<update id="updateOne" parameterType="Product">
+	UPDATE PRODUCT
+	SET 
+	PR_CATE1=#{pr_cate1},
+	PR_CATE2=#{pr_cate2},
+	PR_NAME=#{pr_name},
+	PR_PRICE=#{pr_price},
+	PR_CONTENT=#{pr_content},
+	PR_FROM=#{pr_from},
+	PR_SIZE=#{pr_size},
+	ORIGINAL_FILE_NAME=#{originalFileName},
+	RENAME_FILE_NAME=#{renameFileName}
+	WHERE PR_CODE = #{pr_code}
+	
+	
+	</update>
 </mapper>

@@ -1,6 +1,17 @@
 package com.kh.market.product.model.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Product {
+	@Override
+	public String toString() {
+		return "Product [pr_code=" + pr_code + ", pr_cate1=" + pr_cate1 + ", pr_cate2=" + pr_cate2 + ", pr_name="
+				+ pr_name + ", pr_price=" + pr_price + ", pr_content=" + pr_content + ", pr_carlory=" + pr_carlory
+				+ ", pr_from=" + pr_from + ", pr_size=" + pr_size + ", pr_entity=" + pr_entity + ", originalFileName="
+				+ originalFileName + ", renameFileName=" + renameFileName + "]";
+	}
+
 	private int pr_code;
 	private String pr_cate1;
 	private String pr_cate2;
@@ -131,14 +142,6 @@ public class Product {
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "Product [pr_code=" + pr_code + ", pr_cate1=" + pr_cate1 + ", pr_cate2=" + pr_cate2 + ", pr_name="
-				+ pr_name + ", pr_price=" + pr_price + ", pr_content=" + pr_content + ", pr_carlory=" + pr_carlory
-				+ ", pr_from=" + pr_from + ", pr_size=" + pr_size + ", pr_entity=" + pr_entity + ", originalFileName="
-				+ originalFileName + ", renameFileName=" + renameFileName + "]";
 	}
 
 }

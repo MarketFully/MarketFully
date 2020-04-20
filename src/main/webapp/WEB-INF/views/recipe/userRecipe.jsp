@@ -321,17 +321,18 @@
 
     </div> 
     <!-- 페이징처리 end-->
-
+<%String A = request.getParameter("mc_cate_num"); %>
     <!--검색창-->
     <fieldset>
+    
     	<form id="src_form" action="userSearchList" method="post">
-    		<select name="mc_cate_num">
-	    		<option value="101" selected>전체</option>
-	    		<option value="102" >한식</option>
-	    		<option value="103" >양식</option>
-	    		<option value="104" >일식</option>
-	    		<option value="105" >중식</option>
-	    		<option value="106" >기타</option>
+    		<select name="mc_cate_num">	    	
+	    		<option value="101" <% if(A.equals ("101")) {%>selected<%}%>>전체</option>
+	    		<option value="102" <% if(A.equals ("102")) {%>selected<%} %>>한식</option>
+	    		<option value="103" <% if(A.equals ("103")) {%>selected<%}%>>양식</option>
+	    		<option value="104" <% if(A.equals ("104")) {%>selected<%}%>>일식</option>
+	    		<option value="105" <% if(A.equals ("105")) {%>selected<%}%>>중식</option>
+	    		<option value="106" <% if(A.equals ("106")) {%>selected<%}%>>기타</option>
 	    	</select>
         	<input type="hidden" name="mc_cate_num" value="${ mc_cate_num}">
 	        <input type="text" name="src_input" class="tbox" placeholder="검색어를 입력해주세요" id="keyword">

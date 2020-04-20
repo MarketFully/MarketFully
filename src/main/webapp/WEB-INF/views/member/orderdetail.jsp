@@ -240,7 +240,7 @@
                                         <span style="margin-right:0px;" class="txt">삭제하기</span>
                                     </button>
                                 </span> 
-                                <span style="margin-right:0px;" class="name">[Dole] 실속 바나나 1.1kg</span>
+                                <span style="margin-right:0px;float:none;" class="name">[Dole] 실속 바나나 1.1kg</span>
                                 <div class="option">
                                     <span style="margin-right:0px;" class="count">
                                         <button type="button" class="btn down" id="down">수량내리기</button> 
@@ -257,14 +257,14 @@
                     <div class="total">
                         <div class="price">
                             <strong class="tit" style="padding: 7px;">합계</strong>
-                            <span style="margin-right:0px;" class="sum">
-                                <span style="margin-right:0px;" class="num" >2980</span> 
-                                <span style="margin-right:0px;" class="won">원</span>
+                            <span style="margin-right:0px;float: none;" class="sum">
+                                <span style="margin-right:0px;float: none;" class="num" >2980</span> 
+                                <span style="margin-right:0px;float: none;" class="won">원</span>
                             </span>
                         </div> 
                         <p class="txt_point" style="margin-bottom: 25px;">
-                            <span style="margin-right:0px;" class="ico">적립</span> 
-                            <span style="margin-right:0px;" class="point">구매 시 
+                            <span style="margin-right:0px;float: none;" class="ico">적립</span> 
+                            <span style="margin-right:0px;float: none;" class="point">구매 시 
                                 <strong class="emph">15원 적립</strong>
                             </span>
                         </p>

@@ -66,8 +66,7 @@ public class MemberController {
 			}
 		} else {
 			model.addAttribute("msg", "로그인실패!!");
-			model.addAttribute("url","login");
-			return "member/loginfail";
+			return "";
 		}
 	}
 
@@ -366,8 +365,25 @@ public class MemberController {
 	ArrayList<Favorite> flist = mService.selectRecipeList(m,pi);
 	
 	System.out.println(flist);
+	listCount=0;
+	for(int i = 0 ; i < flist.size();i++) {//TV게시판 갯수 증가
+		if ((flist.get(i).getMe_num() == 1)  && (flist.get(i).getTboard().getMb_status().equals("Y")))
+		{
+			listCount++;
+		}
+	}
+	
+	for(int i = 0 ; i < flist.size();i++) {//유저 게시판 갯수 증가
+		if ((flist.get(i).getMe_num() == 2)  && (flist.get(i).getUboard().getMb_status().equals("Y")))
+		{
+			listCount++;
+		}
+	}
+	
+	System.out.println(listCount);
 	
 	mv.addObject("flist", flist);
+	mv.addObject("listCount",listCount);
 	mv.addObject("pi",pi);
 	mv.setViewName("member/mypageloverecipe");
 	
@@ -378,7 +394,7 @@ public class MemberController {
 	// 마이페이지 찜한레시피 전체 삭제
 	@RequestMapping(value="myrecipedelete.bo" ,method=RequestMethod.POST)
 	@ResponseBody
-	public String boardDelete(ModelAndView mv,HttpServletRequest request,
+	public String myloverecipeDelete(ModelAndView mv,HttpServletRequest request,
 			@RequestParam(value="mem_num") int mem_num) {
 		
 		int result = mService.deleteRecipeList(mem_num);
@@ -389,6 +405,56 @@ public class MemberController {
 			a="ok";
 		}else {
 			System.out.println("찜한 레시피 전체삭제 실패");
+			a="no";
+		}
+		return a;
+	}
+	
+	
+	@RequestMapping(value="mypageheader.do" ,method=RequestMethod.POST)
+	@ResponseBody
+	public int mypageheaderCount(HttpServletRequest request,
+			@RequestParam(value="mem_num") int mem_num) {
+		
+		Member m = new Member();
+		m.setMem_num(mem_num);
+		
+		ArrayList<Favorite> flist = mService.selectRecipeList(m);
+		
+		System.out.println(flist);
+		int listCount=0;
+		for(int i = 0 ; i < flist.size();i++) {//TV게시판 갯수 증가
+			if ((flist.get(i).getMe_num() == 1)  && (flist.get(i).getTboard().getMb_status().equals("Y")))
+			{
+				listCount++;
+			}
+		}
+		
+		for(int i = 0 ; i < flist.size();i++) {//유저 게시판 갯수 증가
+			if ((flist.get(i).getMe_num() == 2)  && (flist.get(i).getUboard().getMb_status().equals("Y")))
+			{
+				listCount++;
+			}
+		}
+		
+		return listCount;
+	}
+	
+	
+	// 마이페이지 찜한레시피 선택 삭제
+	@RequestMapping(value="myrecipeonedelete.bo",method=RequestMethod.POST)
+	@ResponseBody
+	public String myloverecipeOneDelete(ModelAndView mv,HttpServletRequest request,Favorite f)
+			{
+		
+		int result = mService.oneDeleteRecipeList(f);
+		
+		String a="";
+		if(result > 0) {
+			System.out.println("찜한 레시피 선택삭제 성공");
+			a="ok";
+		}else {
+			System.out.println("찜한 레시피 선택삭제 실패");
 			a="no";
 		}
 		return a;

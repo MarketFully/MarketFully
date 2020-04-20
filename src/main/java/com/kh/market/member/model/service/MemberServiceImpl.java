@@ -119,6 +119,19 @@ public class MemberServiceImpl implements MemberService{
 		public int deleteRecipeList(int mem_num) {
 			return mDao.deleteRecipeList(mem_num);
 		}
+		
+		// 마이페이지 찜한 레시피 선택 삭제
+		@Override
+		public int oneDeleteRecipeList(Favorite f) {
+			return mDao.oneDeleteRecipeList(f);
+		}
+
+		// 마이페이지 헤더 찜한레시피 수 증가
+		@Override
+		public ArrayList<Favorite> selectRecipeList(Member m) {
+			return mDao.selectRecipeList(m);
+		}
+
 
 
 }

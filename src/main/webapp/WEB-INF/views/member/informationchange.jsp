@@ -12,7 +12,7 @@
     <script src="resources/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-      <!-- 헤더부분-->W
+      <!-- 헤더부분-->
       <%@include file="../common/mypageheader.jsp" %>
 
     <!--마이페이지 왼쪽 부분-->

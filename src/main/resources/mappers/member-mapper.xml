@@ -62,7 +62,7 @@
    <resultMap id="favoriteResultSet" type="Favorite">
       <id property="mem_num" column="MEM_NUM"/>
       <id property="mb_bo_num" column="MB_BO_NUM"/>
-      <id property="mb_num" column="MB_NUM"/>
+      <id property="me_num" column="MB_NUM"/>
       
    <association javaType="Board" property="Tboard">
       <id property="mb_num" column="MB_BO_NUM"/>
@@ -83,7 +83,7 @@
       <result property="mb_title" column="UMB_TITLE"/>
       <result property="mb_content" column="UMB_CONTENT"/>
       <result property="mb_cdate" column="UMB_CDATE"/>
-      <result property="umb_writer" column="UMB_WRITER"/>
+      <result property="mb_writer" column="UMB_WRITER"/>
       <result property="mb_image" column="UMB_IMAGE"/>
       <result property="mb_thank" column="UMB_THANK"/>
       <result property="mb_count" column="UMB_COUNT"/>
@@ -201,10 +201,20 @@
       LEFT JOIN user_menu_board ON favorite.mb_bo_num = user_menu_board.umb_num
       WHERE MEM_NUM = #{mem_num}
    </select>
-   
+   <select id="selectAllRecipeList" resultMap="favoriteResultSet">
+        SELECT * FROM FAVORITE 
+      LEFT JOIN tv_menu_board ON favorite.mb_bo_num = tv_menu_board.tmb_num
+      LEFT JOIN user_menu_board ON favorite.mb_bo_num = user_menu_board.umb_num
+      WHERE MEM_NUM = #{mem_num}
+   </select>
    <!-- 마이페이지 찜한레시피 전체 삭제 -->
    <delete id="deleteRecipeList" parameterType="_int">
       DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num}
+   </delete>
+   
+   <!-- 마이페이지 찜한레시피 선택 삭제 -->
+   <delete id="oneDeleteRecipeList" parameterType="Favorite">
+      DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num} AND MB_BO_NUM = #{mb_bo_num} AND MB_NUM = #{me_num}
    </delete>
    
 </mapper>

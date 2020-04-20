@@ -54,12 +54,7 @@
 <body>
 	<!-- 헤더부분-->
 	<%@include file="../common/mypageheader.jsp"%>
-
-	<%-- <c:url var="bdetail" value="myorderlist.bo">
-		<c:param name="mem_num" value="${loginUser.mem_num}"/>
-	</c:url> --%>
-
-
+	
 	<!--마이페이지 왼쪽 부분-->
 	<div class="page_aticle aticle_type2">
 		<div id="snb" class="snb_my">
@@ -80,7 +75,7 @@
 
 		<!--찜한 레시피 내용부분-->
 		<div class="page_section section_myinfo">
-			<form action="myrecipedelete.bo" method="post" id="recipeForm">
+			<form id="recipeForm">
 				<div class="head_aticle">
 					<h2 class="tit">
 						찜한 레시피
@@ -91,6 +86,7 @@
 					</h2>
 
 				</div>
+				
 
 				<div id="main">
 					<div id="content">
@@ -107,13 +103,18 @@
 									</tr>
 								</thead>
 							</table>
-							<div id="viewGoods" style="font-family: MapoPeacefull;">
+						
+							<div id="viewGoods" style="font-family: MapoPeacefull;">								
 								<div>
 									<div class="view_goods">
+									<c:if test="${ pi.listCount == 0}">
+									<div style="border-bottom: 1px solid #dddfe1;padding: 50px 0;font-size: 13px;color: #757575;text-align: center;">
+										찜한 레시피가 없습니다.
+									</div>
+									</c:if>
 										<c:forEach var="re" items="${ flist }">
 											<table class="tbl_goods goods" id="tdl" id="l_table">
-												<c:if
-													test='${re.me_num eq 1 && re.getTboard().mb_status.equals("Y")}'>
+												<c:if test='${re.me_num eq 1 && re.getTboard().mb_status.equals("Y")}'>
 													<tbody>
 
 														<tr class="tr_food">
@@ -138,13 +139,15 @@
 															<td class="goods_info"
 																style="width: 100px; text-align: center;">
 																<button type="button" class="btn_delete" id="sel_delete"
-																	style="margin-top: 6px; border-radius: 5px; background: #fff; border: 1px solid gray; width: 70px; height: 28px; font-weight: bold; font-size: 10px; font-family: MapoPeacefull;">삭제</button>
+																	style="margin-top: 6px; border-radius: 5px; background: #fff; 
+																	border: 1px solid gray; width: 70px; height: 28px; font-weight: bold;
+																	 font-size: 10px; font-family: MapoPeacefull;"
+																	 onclick="test3(${re.mb_bo_num },${re.me_num });">삭제</button>
 															</td>
 
 														</tr>
 												</c:if>
-												<c:if
-													test='${re.me_num eq 2 && re.getUboard().mb_status.equals("Y")}'>
+												<c:if test='${re.me_num eq 2 && re.getUboard().mb_status.equals("Y")}'>
 													<tbody>
 
 														<tr class="tr_food">
@@ -168,7 +171,12 @@
 															<td class="goods_info"
 																style="width: 100px; text-align: center;">
 																<button type="button" class="btn_delete" id="sel_delete"
-																	style="margin-top: 6px; border-radius: 5px; background: #fff; border: 1px solid gray; width: 70px; height: 28px; font-weight: bold; font-size: 10px; font-family: MapoPeacefull;">삭제</button>
+																	style="margin-top: 6px; border-radius: 5px; background: #fff;
+																	 border: 1px solid gray; width: 70px; height: 28px; font-weight:
+																	  bold; font-size: 10px; font-family: MapoPeacefull;"
+																	  onclick="test3(${re.mb_bo_num },${re.me_num });">삭제</button>
+																	  <%-- <input type="hidden" value="${re.mb_bo_num }">
+																	  <input type="hidden" value="${re.me_num }"> --%>
 															</td>
 
 														</tr>
@@ -184,6 +192,7 @@
 					</div>
 				</div>
 				<!-- 페이징 처리 -->
+				<c:if test="${ pi.listCount > 0}">
 				<div class="pagination">
 
 					<c:if test="${ pi.currentPage eq 1 }">
@@ -228,6 +237,7 @@
 							alt="이전 페이지로 이동" class="prevpage_img" style="margin-left: 10px"></a>
 					</c:if>
 				</div>
+				</c:if>
 			</form>
 		</div>
 
@@ -253,7 +263,7 @@
 		});
 	</script>
 
-	<script>
+	<!-- <script>
 		//선택삭제
 		$('.btn_delete').click(function() {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
@@ -262,49 +272,81 @@
 				return false;
 			}
 		});
-	</script>
+	</script> -->
 
 	<!-- 찜한리스트 전체 삭제  -->
 	<script>
-		$("#all_delete")
-				.click(
-						function() {
-							$('#recipeFrom')
-									.attr('action', 'myrecipedelete.bo');
-							if (confirm("정말 전체삭제 하시겠습니까??") == true) { //확인
-								$
-										.ajax({
-											url : "myrecipedelete.bo",
-											type : "post",
-											data : {
-												mem_num : "${loginUser.mem_num}"
-											},
-											dataType : "text",
-											success : function(data) {
-												if (data == "ok") {
-
-													window.location
-															.replace("mypageloverecipe.bo?mem_num=${loginUser.mem_num}");
-												} else {
-
-													window.location
-															.replace("mypageloverecipe.bo?mem_num=${loginUser.mem_num}");
-												}
-											},
-											error : function(request, status,
-													errorData) {
-												alert("error code : "
-														+ request.status + "\n"
-														+ "message: "
-														+ request.responseText
-														+ "error : "
-														+ errorData);
-											}
-										})
-							} else { //취소
-								return false;
+		$("#all_delete").click(
+			function() {
+				$('#recipeFrom')
+						.attr('action', 'myrecipedelete.bo');
+				if (confirm("정말 전체삭제 하시겠습니까??") == true) { //확인
+					$.ajax({
+						url : "myrecipedelete.bo",
+						type : "post",
+						data : {
+							mem_num : "${loginUser.mem_num}"
+						},
+						dataType : "text",
+						success : function(data) {
+							if (data == "ok") {
+								window.location.replace("mypageloverecipe.bo?mem_num=${loginUser.mem_num}");
+							} else {
+								window.location.replace("mypageloverecipe.bo?mem_num=${loginUser.mem_num}");
 							}
-						});
+						},
+						error : function(request, status,
+								errorData) {
+							alert("error code : "
+									+ request.status + "\n"
+									+ "message: "
+									+ request.responseText
+									+ "error : "
+									+ errorData);
+						}
+					})
+				} else { //취소
+					return false;
+				}
+			});
+	</script>
+	
+	<script>
+	function test3(mb_bo_num,me_num){
+		$('#recipeFrom')
+				.attr('action', 'myrecipeonedelete.bo');
+		if (confirm("정말 삭제 하시겠습니까??") == true) { //확인
+			$.ajax({
+				url : "myrecipeonedelete.bo",
+				type : "post",
+				data : {
+					mem_num : "${loginUser.mem_num}",
+					mb_bo_num : mb_bo_num,
+					me_num :  me_num
+				},
+				dataType : "text",
+				success : function(data) {
+					if (data == "ok") {
+						window.location.replace("mypageloverecipe.bo?mem_num=${loginUser.mem_num}");
+					} else {
+						window.location.replace("mypageloverecipe.bo?mem_num=${loginUser.mem_num}");
+					}
+				},
+				error : function(request, status,
+						errorData) {
+					alert("error code : "
+							+ request.status + "\n"
+							+ "message: "
+							+ request.responseText
+							+ "error : "
+							+ errorData);
+				}
+			})
+		} else { //취소
+			return false;
+		}
+	
+	}
 	</script>
 
 </body>

@@ -10,6 +10,34 @@
     <link rel="stylesheet" href="resources/css/basket.css">
     <script src="resources/js/jquery-3.4.1.min.js"></script>
 </head>
+
+<script>
+
+$.ajax({
+	url : "mypageheader.do",
+	type : "post",
+	data : {
+		mem_num : "${loginUser.mem_num}"
+	},
+	dataType : "text",
+	success : function(data) {
+			document.getElementById("goodnum").innerHTML=data;
+	},
+	error : function(request, status,
+			errorData) {
+		alert("error code : "
+				+ request.status + "\n"
+				+ "message: "
+				+ request.responseText
+				+ "error : "
+				+ errorData);
+	}
+})
+
+
+</script>
+
+
 <body>
       <!-- 헤더부분-->
       <%@include file="../common/header.jsp" %>

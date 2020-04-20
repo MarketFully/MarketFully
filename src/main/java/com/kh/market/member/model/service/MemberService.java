@@ -108,10 +108,24 @@ public interface MemberService {
 	ArrayList<Favorite> selectRecipeList(Member m, MypageloverecipePageInfo pi);
 
 	/**
+	 * 마이페이지 헤더 찜한레시피 수 증가
+	 * @param m
+	 * @return
+	 */
+	ArrayList<Favorite> selectRecipeList(Member m);
+	
+	/**
 	 * 마이페이지 찜한 레시피 전체 삭제
 	 * @param mem_num
 	 * @return
 	 */
 	int deleteRecipeList(int mem_num);
+	
 
+	/**
+	 * 마이페이지 찜한 레시피 선택 삭제
+	 * @param f
+	 * @return
+	 */
+	int oneDeleteRecipeList(Favorite f);
 }

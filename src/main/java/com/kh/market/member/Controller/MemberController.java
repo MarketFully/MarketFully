@@ -66,7 +66,8 @@ public class MemberController {
 			}
 		} else {
 			model.addAttribute("msg", "로그인실패!!");
-			return "";
+			model.addAttribute("url","login");
+			return "member/loginfail";
 		}
 	}
 

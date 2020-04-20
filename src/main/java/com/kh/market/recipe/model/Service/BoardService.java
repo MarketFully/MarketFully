@@ -62,4 +62,15 @@ public interface BoardService {
 
 	ArrayList<Board> MainRandomselectList();
 	
+	//유저 레시피 한식 4개 불러오기
+	ArrayList<Board> UserselectList_ko();
+	//유저 레시피 양식 4개 불러오기
+	ArrayList<Board> UserselectList_en();
+	//유저 레시피 일식 4개 불러오기
+	ArrayList<Board> UserselectList_jp();
+	//유저 레시피 중식 4개 불러오기
+	ArrayList<Board> UserselectList_ch();
+	//유저 레시피 기타 4개 불러오기
+	ArrayList<Board> UserselectList_etc();
+	
 }

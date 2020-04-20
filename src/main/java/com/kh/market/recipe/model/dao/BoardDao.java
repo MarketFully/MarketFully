@@ -132,6 +132,29 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("TVboardMapper.MainRandomselectList");
 	}
 
+	//유저 레시피 한식 4개 불러오기
+	public ArrayList<Board> UserselectList_ko() {
+		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList_ko");
+	}
+	//유저 레시피 양식 4개 불러오기
+	public ArrayList<Board> UserselectList_en() {
+		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList_en");
+	}
+	//유저 레시피 일식 4개 불러오기
+	public ArrayList<Board> UserselectList_jp() {
+		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList_jp");
+	}
+	//유저 레시피 중식 4개 불러오기
+	public ArrayList<Board> UserselectList_ch() {
+		
+		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList_ch");
+	}
+	//유저 레시피 기타 4개 불러오기
+	public ArrayList<Board> UserselectList_etc() {
+		
+		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList_etc");
+	}
+
 
 
 

@@ -117,5 +117,33 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bDao.MainRandomselectList();
 	}
+	
+	//유저 레시피 한식 4개 불러오기
+	@Override
+	public ArrayList<Board> UserselectList_ko() {
+		return bDao.UserselectList_ko();
+	}
+	//유저 레시피 양식 4개 불러오기
+	@Override
+	public ArrayList<Board> UserselectList_en() {
+		return bDao.UserselectList_en();
+	}
+	//유저 레시피 일식 4개 불러오기
+	@Override
+	public ArrayList<Board> UserselectList_jp() {
+		return bDao.UserselectList_jp();
+	}
+	//유저 레시피 중식 4개 불러오기
+	@Override
+	public ArrayList<Board> UserselectList_ch() {
+		// TODO Auto-generated method stub
+		return bDao.UserselectList_ch();
+	}
+	//유저 레시피 가터 4개 불러오기
+	@Override
+	public ArrayList<Board> UserselectList_etc() {
+		// TODO Auto-generated method stub
+		return bDao.UserselectList_etc();
+	}
 
 }

@@ -236,11 +236,11 @@ public class RecipeController {
 			
 			) {	
 		// 시작
-		System.out.println("tvSearchList입니다.----------------");
+		System.out.println("userSearchList입니다.----------------");
 		
 		SearchInfo si = new SearchInfo();
 		
-		System.out.println("src_cate "+mc_cate_num);
+		System.out.println("mc_cate_num "+mc_cate_num);
 		System.out.println("src_input "+src_input);
 		
 		si.setMc_cate_num(mc_cate_num);
@@ -267,7 +267,7 @@ public class RecipeController {
 	}
 	
 	
-	@RequestMapping("RecipeUser")
+/*	@RequestMapping("RecipeUser") // 사용자 레시피1
 	public ModelAndView recipeUserView(ModelAndView mv, 
 									@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { // 사용자 레시피
 		
@@ -284,10 +284,31 @@ public class RecipeController {
 		mv.addObject("list", list);
 		mv.addObject("TvOrUser", "user");
 		mv.addObject("pi",pi);
-		mv.setViewName("recipe/userRecipe");
+		mv.setViewName("recipe/temp_userRecipe");
 		
 		return mv;
+	}*/
+	
+	@RequestMapping("RecipeUser") // 사용자 레시피 2
+	public ModelAndView recipeUserView(ModelAndView mv) { 
+		System.out.println("contorler");
 		
+		ArrayList<Board> kolist = bService.UserselectList_ko();
+		ArrayList<Board> enlist = bService.UserselectList_en();
+		ArrayList<Board> jplist = bService.UserselectList_jp();
+		ArrayList<Board> chlist = bService.UserselectList_ch();
+		ArrayList<Board> etclist = bService.UserselectList_etc();
+		
+		mv.addObject("kolist", kolist);
+		mv.addObject("enlist", enlist);
+		mv.addObject("jplist", jplist);
+		mv.addObject("chlist", chlist);
+		mv.addObject("etclist", etclist);
+		
+		mv.addObject("TvOrUser", "user");
+		mv.setViewName("recipe/temp_userRecipe");
+		
+		return mv; 
 	}
 	
 	@RequestMapping("RecipeList")

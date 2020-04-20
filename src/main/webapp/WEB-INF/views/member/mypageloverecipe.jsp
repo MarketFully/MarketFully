@@ -126,10 +126,16 @@
 																	onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"
 																	style="width: 85px; height: 85px; padding-left: 25px;"></a>
 															</td>
+															  <c:url var="bdetail" value="RecipeDetail">
+																<c:param name="bId" value="${ re.getTboard().mb_num }"/>
+																<c:param name="currentPage" value="${ pi.currentPage }"/>
+																<c:param name="TvOrUser" value="tv"/>
+															</c:url>
 															<td class="goods_info"
-																style="width: 300px; text-align: center;"><label
+																style="width: 300px; text-align: center;">
+																<label
 																class="name"
-																style="vertical-align: middle; font-weight: normal;">${re.getTboard().mb_title}</label>
+																style="vertical-align: middle; font-weight: normal;"><a href="${ bdetail }">${re.getTboard().mb_title}</a> </label>
 															</td>
 															<td class="goods_info"
 																style="width: 200px; text-align: center; font-size: 14px;">
@@ -158,11 +164,16 @@
 																	onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"
 																	style="width: 85px; height: 85px; padding-left: 25px;"></a>
 															</td>
+															<c:url var="bdetail" value="RecipeDetail">
+																<c:param name="bId" value="${ re.getUboard().mb_num }"/>
+																<c:param name="currentPage" value="${ pi.currentPage }"/>
+																<c:param name="TvOrUser" value="user"/>
+															</c:url>
 															<td class="goods_info"
 																style="width: 300px; text-align: center;"><label
 																class="name"
-																style="vertical-align: middle; font-weight: normal;">${re.getUboard().mb_title}</label>
-															</td>
+																style="vertical-align: middle; font-weight: normal;"><a href="${ bdetail }">${re.getUboard().mb_title}</a></label>
+															</td>		
 															<td class="goods_info"
 																style="width: 200px; text-align: center; font-size: 14px;">
 																<label>사용자 레시피</label>
@@ -175,8 +186,7 @@
 																	 border: 1px solid gray; width: 70px; height: 28px; font-weight:
 																	  bold; font-size: 10px; font-family: MapoPeacefull;"
 																	  onclick="test3(${re.mb_bo_num },${re.me_num });">삭제</button>
-																	  <%-- <input type="hidden" value="${re.mb_bo_num }">
-																	  <input type="hidden" value="${re.me_num }"> --%>
+															
 															</td>
 
 														</tr>

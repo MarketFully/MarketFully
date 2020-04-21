@@ -233,6 +233,18 @@
 		]]>
 	</select>
 	
+	<update id="TVheartPlus" parameterType="_int">
+		UPDATE TV_MENU_BOARD
+		SET TMB_THANK = TMB_THANK +1
+		WHERE TMB_NUM=#{MB_NUM}
+	</update>
+	
+	<update id="TVheartMinus" parameterType="_int">
+		UPDATE TV_MENU_BOARD
+		SET TMB_THANK = TMB_THANK -1
+		WHERE TMB_NUM=#{MB_NUM}
+	</update>
+	
 	
 	
 </mapper>

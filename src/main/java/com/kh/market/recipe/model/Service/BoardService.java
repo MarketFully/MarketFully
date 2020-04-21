@@ -72,5 +72,13 @@ public interface BoardService {
 	ArrayList<Board> UserselectList_ch();
 	//유저 레시피 기타 4개 불러오기
 	ArrayList<Board> UserselectList_etc();
+	//유저 좋아요 더하기
+	int USERheartPlus(int bId);
+	//TV 좋아요 더하기
+	int TVheartPlus(int bId);
+
+	int USERheartMinus(int bId);
+
+	int TVheartMinus(int bId);
 	
 }

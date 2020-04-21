@@ -60,14 +60,14 @@
 		  <c:forEach var="b" items="${ mainrandomlist }">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe13.png" class="Rcard-img-top"></a>
+                    <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
                         <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
+                        <p class="Rcard-text">"${ b.mb_content }"</p>
                     </div>
                     <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
+                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">${ b.mb_thank }</small><br>
                         <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
                     </div>
                 </div>

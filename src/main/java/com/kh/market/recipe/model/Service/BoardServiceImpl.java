@@ -141,5 +141,25 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return bDao.UserselectList_etc();
 	}
+	//유저 좋아요 더하기 
+	@Override
+	public int USERheartPlus(int bId) {
+		return bDao.USERheartPlus(bId);
+	}
+	//TV 좋아요 더하기
+	@Override
+	public int TVheartPlus(int bId) {
+		return bDao.TVheartPlus(bId);
+	}
+
+	@Override
+	public int USERheartMinus(int bId) {
+		return bDao.USERheartMinus(bId);
+	}
+
+	@Override
+	public int TVheartMinus(int bId) {
+		return bDao.TVheartMinus(bId);
+	}
 
 }

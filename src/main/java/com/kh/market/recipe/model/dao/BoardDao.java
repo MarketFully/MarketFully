@@ -154,7 +154,24 @@ public class BoardDao {
 		
 		return (ArrayList)sqlSession.selectList("USERboardMapper.UserselectList_etc");
 	}
+	
+	//좋아요 더하기
+	public int USERheartPlus(int bId) {
+		return sqlSession.insert("USERboardMapper.USERheartPlus",bId);
+	}
 
+	public int TVheartPlus(int bId) {
+		return sqlSession.insert("TVboardMapper.TVheartPlus",bId);
+	}
+
+	public int USERheartMinus(int bId) {
+		return sqlSession.insert("USERboardMapper.USERheartMinus",bId);
+	}
+
+
+	public int TVheartMinus(int bId) {
+		return sqlSession.insert("TVboardMapper.TVheartMinus",bId);
+	}
 
 
 

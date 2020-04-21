@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -329,6 +332,8 @@ public class RecipeController {
 			if(b != null) {
 				mv.addObject("b",b).addObject("me_num", 2)
 				  .addObject("currentPage",currentPage)
+				  .addObject("bId",bId)
+				  .addObject("TvOrUser",TvOrUser)
 				  .setViewName("recipe/recipedetail");
 			}else {
 				mv.addObject("msg","게시글 상세조회 실패")
@@ -340,6 +345,8 @@ public class RecipeController {
 			if(b != null) {
 				mv.addObject("b",b).addObject("me_num", 1)
 				  .addObject("currentPage",currentPage)
+				  .addObject("bId",bId)
+				  .addObject("TvOrUser",TvOrUser)
 				  .setViewName("recipe/recipedetail");
 			}else {
 				mv.addObject("msg","게시글 상세조회 실패")
@@ -349,6 +356,53 @@ public class RecipeController {
 		
 		
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("heartplus")
+	public String heartcheck(Board b,HttpServletRequest request,int bId,String TvOrUser) { 
+		
+		System.out.println("heart TvOrUser : " + TvOrUser);
+		
+		if(TvOrUser.equals("user")) {
+			
+			int result = bService.USERheartPlus(bId);
+			if(result > 0) {
+				return "ok";
+			}else {
+				return "fail";
+			}
+		}else {
+			int result = bService.TVheartPlus(bId);
+			if(result > 0) {
+				return "ok";
+			}else {
+				return "fail";
+			}
+		}
+	}
+	@ResponseBody
+	@RequestMapping("heartminus")
+	public String heartcheck2(Board b,HttpServletRequest request,int bId,String TvOrUser) { 
+		
+		System.out.println("heart TvOrUser : " + TvOrUser);
+		
+		if(TvOrUser.equals("user")) {
+			
+			int result = bService.USERheartMinus(bId);
+			if(result > 0) {
+				return "ok";
+			}else {
+				return "fail";
+			}
+		}else {
+			int result = bService.TVheartMinus(bId);
+			if(result > 0) {
+				return "ok";
+			}else {
+				return "fail";
+			}
+		}
 	}
 
 }

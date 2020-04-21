@@ -205,5 +205,17 @@
 		]]>
 	</select>
 	
+	<update id="USERheartPlus" parameterType="_int">
+		UPDATE USER_MENU_BOARD
+		SET UMB_THANK = UMB_THANK +1
+		WHERE UMB_NUM=#{MB_NUM}
+	</update>
+	
+	<update id="USERheartMinus" parameterType="_int">
+		UPDATE USER_MENU_BOARD
+		SET UMB_THANK = UMB_THANK -1
+		WHERE UMB_NUM=#{MB_NUM}
+	</update>
+	
 	
 </mapper>

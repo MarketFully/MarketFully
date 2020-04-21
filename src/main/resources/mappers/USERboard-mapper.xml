@@ -8,100 +8,91 @@
 		<result property="mb_content" column="UMB_CONTENT"/>
 		<result property="mb_cdate" column="UMB_CDATE"/>
 		<result property="mb_writer" column="UMB_WRITER"/>
-		
-		<!-- 바꾼 부분 표시해주려고 공백 넣어놨는데 이거 다 대문잔대 이거 안바꾼듯? -->
 		<result property="mb_origin" column="UMB_ORIGIN"/>
 		<result property="mb_rename" column="UMB_RENAME"/>
-		
-		
 		<result property="mb_thank" column="UMB_THANK"/>
 		<result property="mb_count" column="UMB_COUNT"/>
 		<result property="mb_rcount" column="UMB_RCOUNT"/>
 		<result property="mb_status" column="UMB_STATUS"/>
 		<result property="mb_type" column="UMB_TYPE"/>
 	</resultMap>
-
 	
-<!-- 	<resultMap type="Reply" id="replyResultSet">
-		<id property="rId" column="RID"/>
-		<result property="rContent" column="RCONTENT"/>
-		<result property="refBid" column="REF_BID"/>
-		<result property="rWriter" column="RWRITER"/>
-		<result property="rCreateDate" column="R_CREATE_DATE"/>
-		<result property="rModifyDate" column="R_MODIFY_DATE"/>
-		<result property="rStatus" column="R_STATUS"/>
+	<resultMap type="Product" id="productResultMap">
+		<id property="pr_code" column="PR_CODE"/>
+		<result property="pr_cate1" column="PR_CATE1"/>
+		<result property="pr_cate2" column="PR_CATE2"/>
+		<result property="pr_name" column="PR_NAME"/>
+		<result property="pr_price" column="PR_PRICE"/>
+		<result property="pr_content" column="PR_CONTENT"/>
+		<result property="pr_carlory" column="PR_CARLORY"/>
+		<result property="pr_from" column="PR_FROM"/>
+		<result property="pr_size" column="PR_SIZE"/>
+		<result property="pr_entity" column="PR_ENTITY"/>
+		<result property="originalFileName" column="ORIGINAL_FILE_NAME"/>
+		<result property="renameFileName" column="RENAME_FILE_NAME"/>
 	</resultMap>
 	
+	<resultMap type="DetailBoard" id="DetailBoardResultSet">
+		<id property="mb_num" column="UMB_NUM"/>
+		<result property="mb_title" column="UMB_TITLE"/>
+		<result property="mb_content" column="UMB_CONTENT"/>
+		<result property="mb_cdate" column="UMB_CDATE"/>
+		<result property="mb_writer" column="UMB_WRITER"/>
+		<result property="mb_origin" column="UMB_ORIGIN"/>
+		<result property="mb_rename" column="UMB_RENAME"/>
+		<result property="mb_thank" column="UMB_THANK"/>
+		<result property="mb_count" column="UMB_COUNT"/>
+		<result property="mb_rcount" column="UMB_RCOUNT"/>
+		<result property="mb_status" column="UMB_STATUS"/>
+		<result property="mb_type" column="UMB_TYPE"/>
+		<result property="mc_cate_num" column="MC_CATE_NUM"/>
+		
+		<collection property="brlist"
+					ofType="BoardReply"
+					select="selectListBoardReply"
+					column="UMB_NUM"
+					/>
+		<collection property="belist"
+					ofType="BoardExp"
+					select="selectListBoardExp"
+					column="UMB_NUM"
+					/>
+		<collection property="bplist"
+					ofType="BoardProduct"
+					select="selectListBoardProduct"
+					column="UMB_NUM"
+					/>
+	</resultMap>
+
+	<resultMap type="BoardReply" id="BoardReplyMap">
+		<id property="rId" column="UMR_NUM"></id>
+		<result property="bId" column="UMB_NUM"></result>
+		<result property="content" column="UMR_CONTENT"></result>
+		<result property="writer" column="UMR_WRITER"></result>
+		<result property="cdate" column="UMR_CDATE"></result>
+		<result property="thank" column="UMR_THANK"></result>
+	</resultMap>
 	
-	<select id="getListCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM BOARD
-		WHERE B_STATUS='Y'
+	<resultMap type="BoardExp" id="BoardExpMap">
+		<result property="bId" column="UMB_NUM"/>
+		<result property="origin" column="UME_ORIGIN"></result>
+		<result property="rename" column="UME_RENAME"></result>
+		<result property="content" column="UME_CONTENT"></result>
+		<result property="seq" column="UME_SEQ"></result>
+	</resultMap>
+	
+	<resultMap type="BoardProduct" id="BoardProductMap">
+		<result property="bId" column="UMB_NUM"/>
+		<result property="pcode" column="PR_CODE"></result>
+		<result property="peach" column="PR_EACH"></result>
+		<association property="prd" select="selectOneProduct"
+				javaType="product" column="{pcode = PR_CODE}"/>
+	</resultMap>
+	
+	<select id="selectOneProduct" resultMap="productResultMap">
+		SELECT * FROM PRODUCT
+		WHERE PR_CODE = #{pcode}
 	</select>
-	
-	<select id="selectList" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD
-		WHERE B_STATUS='Y'
-		ORDER BY BID DESC
-	</select>
-	
-	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO BOARD
-		VALUES(SEQ_BID.NEXTVAL, #{bTitle},#{bWriter},#{bContent},#{originalFileName},#{renameFileName},
-				DEFAULT,SYSDATE,SYSDATE,DEFAULT)
-	
-	</insert>
-	
-	<update id="updateCount" parameterType="_int">
-		UPDATE BOARD
-		SET BCOUNT = BCOUNT +1
-		WHERE BID=#{bId}
-	</update>
-	
-	<select id="selectBoard" resultMap="boardResultSet">
-		SELECT * 
-		FROM BOARD
-		WHERE BID=#{bId}
-		AND B_STATUS='Y'
-	</select>
-	
-	<update id="updateBoard" parameterType="Board">
-		UPDATE BOARD
-		SET BTITLE=#{bTitle},BCONTENT=#{bContent},
-			ORIGINAL_FILENAME=#{originalFileName},RENAME_FILENAME=#{renameFileName},
-			B_MODIFY_DATE=SYSDATE
-		WHERE BID=#{bId}
-	</update>
-	
-	<update id="deleteBoard" parameterType="_int">
-		UPDATE BOARD
-		SET B_STATUS='N'
-		WHERE BID=#{bId}
-	</update>
-	
-	<select id="selectTopList" resultMap="boardResultSet">
-		<![CDATA[
-		SELECT *
-		FROM (SELECT *
-		 	  FROM BOARD
-		 	  ORDER BY BID DESC)
-		WHERE ROWNUM <= 5	
-		]]>
-	</select>
-	
-	<select id="selectReplyList" resultMap="replyResultSet" parameterType="_int">
-		SELECT *
-		FROM REPLY
-		WHERE REF_BID=#{bId}
-		AND R_STATUS ='Y'
-		ORDER BY RID DESC
-	</select>
-	
-	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY VALUES
-		(SEQ_RID.NEXTVAL,#{rContent},#{refBid},#{rWriter},SYSDATE,SYSDATE,DEFAULT)
-	</insert> -->
 	
 	<select id="UserTop10selectList" resultMap="boardResultSet">
 		<![CDATA[
@@ -132,11 +123,27 @@
 		WHERE UMB_NUM=#{MB_NUM}
 	</update>
 	
-	<select id="selectBoard" resultMap="boardResultSet">
+	<select id="selectBoard" resultMap="DetailBoardResultSet">
 		SELECT * 
 		FROM USER_MENU_BOARD
 		WHERE UMB_NUM=#{MB_NUM}
 		AND UMB_STATUS='Y'
+	</select>
+	
+	<select id="selectListBoardReply" resultMap="BoardReplyMap" parameterType="_int">
+		SELECT * FROM USER_MENU_REPLY
+		WHERE UMB_NUM= #{value}
+		ORDER BY UMR_NUM
+	</select>
+	
+	<select id="selectListBoardExp" resultMap="BoardExpMap" parameterType="_int">
+		SELECT * FROM USER_MENU_EXPLAIN
+		WHERE UMB_NUM= #{value}
+	</select>
+	
+	<select id="selectListBoardProduct" resultMap="BoardProductMap" parameterType="_int">
+		SELECT * FROM USER_MENU_PRODUCT
+		WHERE UMB_NUM= #{value}
 	</select>
 	
 	<select id="userSearchListCount" resultType="_int">

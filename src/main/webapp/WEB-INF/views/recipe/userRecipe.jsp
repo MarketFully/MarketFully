@@ -254,7 +254,12 @@
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
-                    <td class="menu"><img src="resources/img/menu1.png" class="mimg"><p class="mtitle"><a href="${ bdetail }">${ b.mb_title }</a> </p></td>
+                    <td class="menu">
+                    	<img src="resources/img/tvRecipe/${b.getMb_rename() }" class="mimg">
+                    	<p class="mtitle">
+                    		<a href="${ bdetail }">${ b.mb_title }</a> 
+                    		</p>
+                    </td>
                     <td>${ b.mb_writer }</td>
                     <td>${ b.mb_cdate }</td>
                     <td>${ b.mb_count }</td>

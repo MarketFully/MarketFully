@@ -255,7 +255,7 @@
 
      <!-- 상품 -->
      <!-- 고기 -->
-     <div class="product_title" onclick="location.href='userSearchList?mc_cate_num='+102">
+     <div class="product_title" onclick="location.href='userSearchList?mc_cate_num=102&TvOrUser=user'">
         <img src="resources/img/korea.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
         한식
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
@@ -264,11 +264,11 @@
 		<c:forEach var="b" items="${ kolist }">
 	        <div class="col-lg-3 col-md-6 mb-4" style="cursor: pointer;"  onclick="location.href='Productdetail'">
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/product.png" class="Rcard-img-top"></a>
+	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	            
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
-	                    <p class="Rcard-text">10000원</p>
+	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
@@ -280,7 +280,7 @@
       
       <!-- 과일 -->
 
-      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num='+103">
+      <div class="product_title" onclick="location.href='userSearchListmc_cate_num=103&TvOrUser=user'">
         <img src="resources/img/usa.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
         양식
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
@@ -290,11 +290,11 @@
         <c:forEach var="b" items="${ enlist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/product.png" class="Rcard-img-top"></a>
+	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	            
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
-	                    <p class="Rcard-text">10000원</p>
+	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
@@ -306,7 +306,7 @@
       <hr style="width: 1100px; border: 1px dashed #dcdcdc;">
 
       <!-- 채소 -->
-      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num='+104">
+      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num=104&TvOrUser=user'">
         <img src="resources/img/japan.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
         일식
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
@@ -316,11 +316,11 @@
         <c:forEach var="b" items="${ jplist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/product.png" class="Rcard-img-top"></a>
+	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	            
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
-	                    <p class="Rcard-text">10000원</p>
+	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
@@ -333,7 +333,7 @@
 
       <!-- 소스 . 면. .오일-->
 
-      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num='+105">
+      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num=105&TvOrUser=user'">
         <img src="resources/img/china.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
         중식
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
@@ -343,11 +343,11 @@
         <c:forEach var="b" items="${ chlist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/product.png" class="Rcard-img-top"></a>
+	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	            
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
-	                    <p class="Rcard-text">10000원</p>
+	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
@@ -359,7 +359,7 @@
 
       <!--수산 해산 건어물 -->
 
-      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num='+106">
+      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num=106&TvOrUser=user'">
         <img src="resources/img/world.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
         기타
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
@@ -369,11 +369,11 @@
         <c:forEach var="b" items="${ etclist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/product.png" class="Rcard-img-top"></a>
+	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	            
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
-	                    <p class="Rcard-text">10000원</p>
+	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>

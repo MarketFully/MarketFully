@@ -232,7 +232,7 @@ public class RecipeController {
 	public ModelAndView userRecipeSrc(ModelAndView mv
 							, @RequestParam(defaultValue="-1")int mc_cate_num	//값이 -1이면 에러 
 							, @RequestParam(defaultValue="") String src_input	// 값이 ""이면 그냥 리스트로 보낸다.
-							, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+							, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage, String TvOrUser
 			
 			) {	
 		// 시작
@@ -260,7 +260,7 @@ public class RecipeController {
 		mv.addObject("pi",pi);
 		mv.addObject("si",si);
 //		mv.addObject("pageValue", "tvSearchList");
-//		mv.addObject("TvOrUser", "tv");
+		mv.addObject("TvOrUser", "user");
 		mv.setViewName("recipe/userRecipe");
 		
 		return mv;

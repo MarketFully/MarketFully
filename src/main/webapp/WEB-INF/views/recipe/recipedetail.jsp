@@ -60,7 +60,21 @@
             margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
             border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */                          
+            width: 20%; /* Could be more or less, depending on screen size */                          
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
         
         	
@@ -122,7 +136,7 @@
 			                                            <input type="checkbox" name="product" id="source" value="source" class="check"/>
 			                                            <input type="hidden" value="${bp.getPrd().getPr_code() }" name="pr_code" id="pr_code"/>
 			                                            <input type="hidden" value="${bp.getPrd().getPr_price() }" name="pr_price" id="pr_price"/>
-			                                            <label for = "source" style="font-size:16px;">${bp.getPrd().getPr_name() }</label>
+			                                            <label for = "source" style="font-size:16px;" name="pr_name" id="pr_name">${bp.getPrd().getPr_name() }</label>
 		                                            </td>
 		                                            <td>
 			                                            <label for = "source" style="font-size:16px;" id ="total_price">${bp.getPrd().getPr_price() }</label>
@@ -132,7 +146,7 @@
 			                                            <div class="proCount">
 			                                                <div class="product_count">
 			                                                    <button onclick="form_btn(-1, ${bp.getPrd().getPr_code() })" class="count_btn">-</button>
-			                                                    <input type="text" id="text" value="1" style="width: 30px;" class="input_num">
+			                                                    <input type="text" id="pr_each" value="1" style="width: 30px;" class="input_num">
 			                                                    <button onclick="form_btn(1, ${bp.getPrd().getPr_code() })" class="count_btn">+</button>
 			                                                </div>
 			                                            </div>
@@ -155,7 +169,6 @@
                                 
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
-                                        <!-- <a href="#myModal" rel="modal:open" class="bag">장바구니에 담기</a> -->
                                         <a href="#" onclick="saveRecipe();" class="bag">장바구니에 담기</a>
                                         
                                     </div>
@@ -243,21 +256,15 @@
     <!-- boardDetail end-->
 
 
-	<div id="myCart1" class="modal">
-		<p>장바구니 모달창</p>
-		<a href="#" rel="modal:close">계속 쇼핑하기</a>
-		<a href="#">결제하기</a>
-	</div>
 
-
-
-	
+	<!-- myModal 장바구니 -->
     <div id="myModal" class="modal">
  
       <!-- Modal content -->
       <div class="modal-content">
-        <span class="close">&times;</span>                                                               
-        <p>Some text in the Modal..</p>
+        <p>장바구니에 등록되었습니다.</p>
+        <button onclick="basket">장바구니로 이동하기</button>
+        <button id="modalClose">계속하기</button>
       </div>
 
     </div>
@@ -271,7 +278,7 @@
             
         	 var selector = "product"+pr_code+" td";
             
-            text_val = Number($('#'+selector).children().children().children('#text').val()); // 폼 값을 숫자열로 변환
+            text_val = Number($('#'+selector).children().children().children('#pr_each').val()); // 폼 값을 숫자열로 변환
             text_val += n; // 계산
             
             console.log(text_val);
@@ -280,7 +287,7 @@
                text_val = 0;   // 만약 값이 0 미만이면 0로 되돌려준다, 1보다 작은 수는 나타나지 않게하기 위해   
             }
             
-            $('#'+selector).children().children().children('#text').val(text_val); // 수량을 바꾼다    
+            $('#'+selector).children().children().children('#pr_each').val(text_val); // 수량을 바꾼다    
          
             var total_price = Number($('#'+selector).children('#pr_price').val())*text_val
             console.log('상품 총 가격 : '+total_price);
@@ -323,17 +330,92 @@
         	 console.log('계산된 total : '+ total);
         	 
         	 $('#total').text(total);
+        	 
+        	 
+        	 console.log('${loginUser}');
          });
 
+         
+         var modal = document.getElementById('myModal');
+         var close = document.getElementById("modalClose");
          
          //장바구니 function
          function saveRecipe(){
         	 
-        	 console.log('saveRecipe my Modal display none으로 바꿔줌');
+        	 //넘겨야될 값을 배열로 만든다.
+        	 var prcodeArr = [];	//상품코드
+        	 var prnameArr = [];	//상품이름
+        	 var prpriceArr= [];	//상품가격
+        	 var preachArr = [];	//상품 갯수
         	 
-        	 $('#myModal').css("display", "block");
+        	 $('table tbody tr td').children('#pr_code').each(function(index){
+        		 prcodeArr[index] = $(this).val();
+        	 })
         	 
-         }
+        	 $('table tbody tr td').children('#pr_name').each(function(index){
+        		 prnameArr[index]=$(this).text();
+        	 })
+        	 
+        	 $('table tbody tr td').children('#pr_price').each(function(index){
+        		 prpriceArr[index]=$(this).val();
+        	 })
+        	 
+        	 $('table tbody tr td div div').children('#pr_each').each(function(index){
+        		 preachArr[index]=$(this).val();
+        	 })
+        	 
+        	 
+        	 console.log('test prcodeArr : '+prcodeArr);
+        	 console.log('test prnameArr : '+prnameArr);
+        	 console.log('test prpriceArr : '+prpriceArr);
+        	 console.log('test preachArr : '+preachArr);
+        	 
+        	 console.log(typeof(prcodeArr));
+
+        	 $.ajax({
+        		url:"myCart"
+ 				, data:{ bTitle : '${b.mb_title}'
+        	 			, bId: '${b.mb_num}' 
+        	 			, me_num : '${me_num}'
+ 						, 'prcodeArr' : prcodeArr
+ 						, prnameArr : prnameArr
+ 						, prpriceArr : prpriceArr
+ 						, preachArr : preachArr
+ 						, loginUser : '${loginUser}'
+ 				}
+        	 	, dataType:"text"
+ 				, type:"post"
+ 				, success:function(data){
+ 					//성 공 시 모달창 띄우기
+ 					console.log('success : '+data);
+ 		        	 $('#myModal').css("display", "block"); 					
+ 				}
+        	 	, error:function(request,status,error){
+        	 		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        	 	}
+        	 });
+        	 
+
+        	 
+         }//saveRecipe
+         
+         
+         
+	        // When the user clicks on <span> (x), close the modal
+	        close.onclick = function() {
+	            modal.style.display = "none";
+	        }
+	 
+	        // When the user clicks anywhere outside of the modal, close it
+	        window.onclick = function(event) {
+	            if (event.target == modal) {
+	                modal.style.display = "none";
+	            }
+	        }
+
+
+         
+         
     </script>
 </body>
 </html>

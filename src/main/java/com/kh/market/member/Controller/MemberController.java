@@ -2,10 +2,12 @@ package com.kh.market.member.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,17 +23,20 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.market.common.Pagination_Myloverecipe;
 import com.kh.market.common.Pagination_Myorder;
 import com.kh.market.member.model.service.MailService;
 import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser","cartList"})
 @Controller
 public class MemberController {
 	
@@ -296,11 +301,98 @@ public class MemberController {
 			
 		}
 	
+		
+		
+		
+		
+		
+		
+	@RequestMapping("myCart")
+	@ResponseBody
+	public String insertCart(
+					String bTitle
+					, int bId		//게시판 번호
+					, int me_num	//게시판 분류
+					, @RequestParam(value="prcodeArr[]")List<String> prcodeArr
+					, @RequestParam(value="prnameArr[]")List<String> prnameArr
+					, @RequestParam(value="prpriceArr[]")List<String> prpriceArr
+					, @RequestParam(value="preachArr[]")List<String> preachArr
+					, Member loginUser
+				
+			) { // 장바구로 이동하는 메소드
+
+		//데이터 확인
+//		System.out.println("bTitle :"+bTitle+", bId : "+bId);
+//		System.out.println("prcodeArr : "+prcodeArr);
+//		System.out.println("prnameArr : "+prnameArr);
+//		System.out.println("prpriceArr : "+prpriceArr);
+//		System.out.println("preachArr : "+preachArr);
+		System.out.println("loginUser : "+ loginUser);
+		System.out.println("me_num : "+me_num);
+		
+		System.out.println("prcodeArr.size() : "+prcodeArr.size());
+		System.out.println("prcodeArr.get(0) : "+ prcodeArr.get(0));
+		System.out.println("Integer.parseInt(prcodeArr[i]) : "+ Integer.parseInt(prcodeArr.get(0)));
+		
+		
+		ArrayList<MyBag> cartList = new ArrayList();
+		int result =0;
+		
+		//로그인인 경우
+		if(loginUser != null) {
+			for(int i =0; i<prcodeArr.size(); i++) {
+				MyBag mybag = new MyBag(bId, me_num);
+				mybag.setPr_code(Integer.parseInt(prcodeArr.get(i)));
+				mybag.setPr_each(Integer.parseInt(preachArr.get(i)));
+				mybag.setMem_num(loginUser.getMem_num());
+				cartList.add(mybag);
+			} //for
+			
+			//db에 저장
+			result = mService.setMyBagList(cartList);
+			
+		}else { //비로그인인 경우
+			for(int i =0; i<prcodeArr.size(); i++) {
+				MyBag mybag = new MyBag(bId, me_num);
+				mybag.setPr_code(Integer.parseInt(prcodeArr.get(i)));
+				mybag.setPr_each(Integer.parseInt(preachArr.get(i)));
+				cartList.add(mybag);
+				result+=1;
+			}//for
+		} //if else
+		
+		
+		//작업완료후 결과 리턴
+		
+		
+		String comment="";
+		if(result > 0) {
+			comment = "미션 success";
+		}else {
+			comment = "미션 fail";
+		}//if else
+		System.out.println("comment : "+ comment);
+		
+		
+		return comment;
+		
+	}//insertCart
+	
+	
+	
 	@RequestMapping("basket")
 	public String basketView() { // 장바구로 이동하는 메소드
 
 		return "member/basket";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 마이페이지 주문 내역 리스트 페이지처리/ 목록
 	@RequestMapping("myorderlist.bo")

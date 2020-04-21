@@ -327,7 +327,7 @@ public class RecipeController {
 			Board b = bService.USERselectBoard(bId);
 			System.out.println("@@@@ b : " + b);
 			if(b != null) {
-				mv.addObject("b",b)
+				mv.addObject("b",b).addObject("me_num", 2)
 				  .addObject("currentPage",currentPage)
 				  .setViewName("recipe/recipedetail");
 			}else {
@@ -338,7 +338,7 @@ public class RecipeController {
 			Board b = bService.TVselectBoard(bId);
 			System.out.println("@@@@ b : " + b);
 			if(b != null) {
-				mv.addObject("b",b)
+				mv.addObject("b",b).addObject("me_num", 1)
 				  .addObject("currentPage",currentPage)
 				  .setViewName("recipe/recipedetail");
 			}else {

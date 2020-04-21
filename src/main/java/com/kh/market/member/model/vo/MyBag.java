@@ -3,9 +3,10 @@ package com.kh.market.member.model.vo;
 public class MyBag {
 	
 	private int mem_num; //회원 번호
+	
 	private int mb_bo_num; // 게시판 번호
-	private int mb_num; //게시판 분류
-	private int mb_each; //게시판 수량
+	private int me_num; //게시판 분류
+	
 	private int pr_code; //상품 코드
 	private int pr_each; //상품 수량
 	
@@ -22,17 +23,12 @@ public class MyBag {
 		this.mb_bo_num = mb_bo_num;
 	}
 	public int getMb_num() {
-		return mb_num;
+		return me_num;
 	}
 	public void setMb_num(int mb_num) {
-		this.mb_num = mb_num;
+		this.me_num = mb_num;
 	}
-	public int getMb_each() {
-		return mb_each;
-	}
-	public void setMb_each(int mb_each) {
-		this.mb_each = mb_each;
-	}
+
 	public int getPr_code() {
 		return pr_code;
 	}
@@ -47,19 +43,23 @@ public class MyBag {
 	}
 	@Override
 	public String toString() {
-		return "MyBag [mem_num=" + mem_num + ", mb_bo_num=" + mb_bo_num + ", mb_num=" + mb_num + ", mb_each=" + mb_each
+		return "MyBag [mem_num=" + mem_num + ", mb_bo_num=" + mb_bo_num + ", me_num=" + me_num
 				+ ", pr_code=" + pr_code + ", pr_each=" + pr_each + "]";
 	}
-	public MyBag(int mem_num, int mb_bo_num, int mb_num, int mb_each, int pr_code, int pr_each) {
-		super();
+	public MyBag(int mem_num, int mb_bo_num, int me_num, int pr_code, int pr_each) {
 		this.mem_num = mem_num;
 		this.mb_bo_num = mb_bo_num;
-		this.mb_num = mb_num;
-		this.mb_each = mb_each;
+		this.me_num = me_num;
 		this.pr_code = pr_code;
 		this.pr_each = pr_each;
 	}
 	
 	public MyBag() {}
+	public MyBag(int mb_bo_num, int me_num) {
+		this.mb_bo_num = mb_bo_num;
+		this.me_num = me_num;
+	}
+	
+	
 	
 }

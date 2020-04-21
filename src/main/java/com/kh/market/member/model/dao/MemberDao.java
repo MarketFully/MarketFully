@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
@@ -105,6 +106,19 @@ public class MemberDao {
 	//마이페이지 헤더에 찜한갯수 세기
 	public ArrayList<Favorite> selectRecipeList(Member m) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllRecipeList",m);
+	}
+
+	
+	//장바구니에 리스트 저장
+	public int setMyBagList(ArrayList<MyBag> cartList) {
+		
+		int result = 0;
+		
+		for(MyBag mybag : cartList) {
+			result += sqlSession.insert("memberMapper.setMyBagList", mybag);
+		}
+		System.out.println("mDao setMyBagList result : "+result);
+		return result;
 	}
 
 }

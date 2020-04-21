@@ -94,6 +94,17 @@
       
    </resultMap>
    
+   
+   <resultMap type="MyBag" id="MyBagResultSet">
+   		<result property="mem_num" column="MEM_NUM"/>
+   		<result property="mb_bo_num" column="MB_BO_NUM"/>
+   		<result property="me_num" column="MB_NUM"/>
+   		<result property="pr_code" column="PR_CODE"/>
+   		<result property="pr_each" column="PR_EACH"/>
+   </resultMap>
+   
+   
+   
    <!-- 로그인 -->
    <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
       SELECT * 
@@ -216,6 +227,17 @@
    <delete id="oneDeleteRecipeList" parameterType="Favorite">
       DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num} AND MB_BO_NUM = #{mb_bo_num} AND MB_NUM = #{me_num}
    </delete>
+   
+   <!-- 장바구니 테이블 -->
+   <insert id="setMyBagList" parameterType="MyBag">
+      INSERT INTO MYBAG
+      VALUES(	#{mem_num},
+      			#{mb_bo_num},
+      			#{me_num},
+      			#{pr_code},
+      			#{pr_each}
+      		)
+   </insert>
    
 </mapper>
 

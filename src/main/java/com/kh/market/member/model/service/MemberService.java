@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
@@ -128,4 +129,11 @@ public interface MemberService {
 	 * @return
 	 */
 	int oneDeleteRecipeList(Favorite f);
+
+	/**
+	 * 장바구니 저장
+	 * @param cartList
+	 * @return
+	 */
+	int setMyBagList(ArrayList<MyBag> cartList);
 }

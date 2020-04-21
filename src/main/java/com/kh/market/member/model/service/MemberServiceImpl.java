@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.market.member.model.dao.MemberDao;
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
@@ -130,6 +131,11 @@ public class MemberServiceImpl implements MemberService{
 		@Override
 		public ArrayList<Favorite> selectRecipeList(Member m) {
 			return mDao.selectRecipeList(m);
+		}
+
+		@Override
+		public int setMyBagList(ArrayList<MyBag> cartList) {
+			return mDao.setMyBagList(cartList);
 		}
 
 

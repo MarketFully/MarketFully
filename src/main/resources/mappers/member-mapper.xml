@@ -124,7 +124,7 @@
    <!-- Product매핑용 -->
    <select id="selectOneProduct" resultMap="productResultMap">
    		SELECT * FROM PRODUCT
-		WHERE PR_CODE = ${pcode}
+		WHERE PR_CODE = #{pcode}
    </select>
    
    <!-- 로그인 -->
@@ -290,7 +290,7 @@
                on ( MEM_NUM = #{mem_num}
                		AND MB_BO_NUM = #{mb_bo_num}
                     AND MB_NUM=#{me_num}  
-                    AND a.exam_no=#{examNo}) 
+                    AND PR_CODE=#{pr_code}) 
              WHEN MATCHED THEN
              UPDATE SET
                  PR_EACH= PR_EACH + #{pr_each}

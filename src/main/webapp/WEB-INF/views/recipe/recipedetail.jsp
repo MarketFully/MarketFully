@@ -78,7 +78,38 @@
         }
         
         	
-        	
+        tab_menu li:last-child a {
+		    border-left: 0 none;
+		}
+		.tab_menu li {
+		    float: left;
+		    width: 410px;
+		    height: 50px;
+		    background-color: #fff;
+		    list-style:none;
+		}
+		.tab_menu .on a {
+		    border-bottom: 2px solid #2e8b57;
+		    font-weight: 700;
+		    color: #2e8b57;
+		}
+		.tab_menu a {
+		    display: block;
+		    overflow: hidden;
+		    width: 99%;
+		    height: 100%;
+		    border: 1px solid #dddfe1;
+		    font-size: 14px;
+		    color: #666;
+		    line-height: 44px;
+		    text-align: center;
+		}
+		.tab_span{
+			float:none;
+			margin-right:0px;
+		}
+		a { 
+		text-decoration:none 
     </style>
 </head>
 <body>
@@ -200,11 +231,16 @@
 
                 </div> <!-- class="recipe_view" -->
 
-                <div>
-                    <ul class="recipe_cotent">
-                        <li class="recipe_reply current" data-tab="tab1">댓글</li>
-                        <li class="recipe_reply" data-tab="tab2" style="border-right: 1px solid #2e8b57;">후기</li>
+                 <div style="height: 52px;border-bottom: 1px solid #2e8b57;">
+                    <ul class="tab_menu" style="margin_bottom:10px; margin-left: -39px;">
+                        <li class="on" id="before_li" style="width:120px; cursor:pointer;">
+                        	<a href="javascript:;" id="before">댓글<span class="tab_span">(1)</span></a>
+                        </li>
+                        <li id="after_li" style="border-right: 1px solid #2e8b57; width:120px; cursor:pointer;">
+                        	<a href="javascript:;" id="after">요리후기<span class="tab_span">(1)</span></a>
+                        </li>
                     </ul>
+                    
                 </div>
                      <!-- 댓글 -->
                      <div id="tab1" class="reply current">
@@ -467,35 +503,55 @@
 	         }
 
 
-	         // 댓글등록
-	 		$("#replybtn").on("click",function(){
-	 				var content = $("#content").val();
-	 				var mb_num = ${b.mb_num};	
-	 				var writer = "<%=  ((Member)session.getAttribute("loginUser")).getMem_id()%>";
-	 				var TvOrUser = '${TvOrUser}';
-	 				 
-	 				if(content == ""){
-	 					alert("댓글을 작성해주세요.");
-	 					return;
-	 				}
-	 				
-	 				$.ajax({
-	 					url:"insertReply",
-	 					data:{content:content,bId:mb_num,writer:writer,TvOrUser:TvOrUser},
-	 					type:"post",
-	 					success:function(data){
-	 							if(data == "success"){
+	      // 댓글등록
+	          $("#replybtn").on("click",function(){
+       var content = $("#content").val();
+       var mb_num = ${b.mb_num};   
+       var writer =  '${ loginUser.mem_id }';
+       var TvOrUser = '${TvOrUser}';
+       
+       if(writer == "" ){
+          alert("로그인을 해주세요.")
+          return;
+       }else  if(content == ""){                  
+          alert("댓글을 작성해주세요.");
+          return;
+       }
+			
+			$.ajax({
+				url:"insertReply",
+				data:{content:content,bId:mb_num,writer:writer,TvOrUser:TvOrUser},
+				type:"post",
+				success:function(data){
+						if(data == "success"){
 
-	 								window.location.reload();								  
-	 								$("#content").val("");
-	 							}
-	 					},error:function(){
-	 						console.log("등록 실패");
-	 					}
-	 			});
-	 				
-	 		});
-         
-    </script>
+							window.location.reload();								  
+							$("#content").val("");
+						}
+				},error:function(){
+					console.log("등록 실패");
+				}
+		});
+			
+	});
+
+	</script>
+	
+	<!-- tab 기능-->
+	<script>
+	$('#before').click(function() {
+	$('li').removeClass('on');
+	$('#before_li').addClass('on');  
+	$('#tab2').css('display','none');
+	$('#tab1').css('display','block');
+	});
+	
+	$('#after').click(function() {
+	$('li').removeClass('on');
+	$('#after_li').addClass('on');   
+	$('#tab1').css('display','none');
+	$('#tab2').css('display','block');
+	});
+	</script>
 </body>
 </html>

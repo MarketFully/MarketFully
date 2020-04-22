@@ -54,7 +54,8 @@
             </ul>
         </div>
 
-		<form action="suggestwrite.do" method="post" enctype="multipart/form-data">
+		<form action="suggestwriteUpdate.do" method="post" enctype="multipart/form-data">
+		<input type=hidden name="rb_num" value="${rcb.rb_num }">
         <div class="Ncontent">
             <div class="Ncontent_div">
          
@@ -62,7 +63,7 @@
                     <tbody class="Rwrite">
                         <tr>
                             <td>제목</td>
-                            <td><input type="text" class="inputcss" name="rb_title"></td>
+                            <td><input type="text" class="inputcss" name="rb_title" value="${ rcb.rb_title }"></td>
                         </tr>
                         <tr>
                         	<td>작성자</td>
@@ -71,7 +72,7 @@
                         <tr>
                             <td>카테고리</td>
                             <td>
-                                <select name="rb_foodcategory">
+                                <select name="rb_foodcategory" value="${ rcb.rb_foodcategory }">
                                     <option value="한식">한식</option>
                                     <option value="양식">양식</option>
                                     <option value="일식">일식</option>
@@ -81,21 +82,32 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>문의내용</td>
+                            <td>제안내용</td>
                             <td>
-                                <textarea name="rb_content"></textarea>
+                                <textarea name="rb_content" >${rcb.rb_content}</textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>첨부파일</td>
-                            <td><input type="file" style="font-family: MapoPeacefull;" name="uploadFile"></td>
+                            <td>
+                            	<input type="file" style="font-family: MapoPeacefull;" name="uploadFile">
+                            	<c:if test="${!empty rcb.rb_file }">
+                            		<a href="${contextPath}/resources/recipesuggestuploadFiles/${rcb.rb_refile}" 
+                            		download="${rcb.rb_file }">${rcb.rb_file}</a>
+                            	</c:if>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
                 <!-- 글쓰기 버튼-->
                 <div>
-                    <input type="submit" value="저장" class="write_btn" onclick="location.href='recipeSuggest'">
+<%--                 	<c:url var="suggestwriteUpdateForm" value="suggestwriteUpdate.do">
+                		<c:param name="rb_num" value="${rcb.rb_num }"/>
+                	</c:url> 
+                	 onclick="location.href='${suggestwriteUpdateForm}'"--%>
+                    <input type="submit" value="저장" class="write_btn">
+                    <a href="javascript:history.go(-2);" class="write_btn" style="font-weight: 400; margin-right: 10px;">목록</a>
                 </div>
         </div>
         </form>

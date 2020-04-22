@@ -92,76 +92,75 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// 마이페이지 주문 내역 리스트 갯수 조회
-		@Override
-		public int getOrderListCount(int mem_num) {
-			return mDao.getOrderListCount(mem_num);
-		}
+	@Override
+	public int getOrderListCount(int mem_num) {
+		return mDao.getOrderListCount(mem_num);
+	}
 
-		// 마이페이지 주문 내역 리스트 조회
-		@Override
-		public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi) {
-			return mDao.selectOrderList(pi);
-		}
+	// 마이페이지 주문 내역 리스트 조회
+	@Override
+	public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi) {
+		return mDao.selectOrderList(pi);
+	}
 
-		// 마이페이지 찜한 레시피 리스트 갯수 조회
-		@Override
-		public int getRecipeListCount(int mem_num) {
-			return mDao.getRecipeListCount(mem_num);
-		}
+	// 마이페이지 찜한 레시피 리스트 갯수 조회
+	@Override
+	public int getRecipeListCount(int mem_num) {
+		return mDao.getRecipeListCount(mem_num);
+	}
 
+	// 마이페이지 찜한 레시피 리스트 조회
+	@Override
+	public ArrayList<Favorite> selectRecipeList(Member m, MypageloverecipePageInfo pi) {
+		return mDao.selectRecipeList(m, pi);
+	}
 
-		// 마이페이지 찜한 레시피 리스트 조회
-		@Override
-		public ArrayList<Favorite> selectRecipeList(Member m, MypageloverecipePageInfo pi) {
-			return mDao.selectRecipeList(m,pi);
-		}
+	// 마이페이지 찜한 레시피 전체 삭제
+	@Override
+	public int deleteRecipeList(int mem_num) {
+		return mDao.deleteRecipeList(mem_num);
+	}
 
-		// 마이페이지 찜한 레시피 전체 삭제
-		@Override
-		public int deleteRecipeList(int mem_num) {
-			return mDao.deleteRecipeList(mem_num);
-		}
+	// 마이페이지 찜한 레시피 선택 삭제
+	@Override
+	public int oneDeleteRecipeList(Favorite f) {
+		return mDao.oneDeleteRecipeList(f);
+	}
+
+	// 마이페이지 헤더 찜한레시피 수 증가
+	@Override
+	public ArrayList<Favorite> selectRecipeList(Member m) {
+		return mDao.selectRecipeList(m);
+	}
+
+	@Override
+	public int setMyBagList(ArrayList<MyBag> cartList) {
+		return mDao.setMyBagList(cartList);
+	}
+
+	@Override
+	public Product selectOneProduct(int pcode) {
 		
-		// 마이페이지 찜한 레시피 선택 삭제
-		@Override
-		public int oneDeleteRecipeList(Favorite f) {
-			return mDao.oneDeleteRecipeList(f);
-		}
+		return mDao.selectOneProduct(pcode);
+	}
 
-		// 마이페이지 헤더 찜한레시피 수 증가
-		@Override
-		public ArrayList<Favorite> selectRecipeList(Member m) {
-			return mDao.selectRecipeList(m);
-		}
+	@Override
+	public int deleteMybag(MyBag mybag) {
 
-		@Override
-		public int setMyBagList(ArrayList<MyBag> cartList) {
-			return mDao.setMyBagList(cartList);
-		}
+		return mDao.deleteMybag(mybag);
+	}
 
-		@Override
-		public Product selectOneProduct(int pcode) {
-			// TODO Auto-generated method stub
-			return mDao.selectOneProduct(pcode);
-		}
+	@Override
+	public ArrayList<MyBag> selectListProduct(Member loginUser) {
+		
+		return mDao.selectListProduct(loginUser);
+	}
 
-		@Override
-		public int deleteMybag(MyBag mybag) {
-			
-			return mDao.deleteMybag(mybag);
-		}
+	@Override
+	public int selectDeleteMybag(MyBag mybag) {
 
-		@Override
-		public ArrayList<MyBag> selectListProduct(Member loginUser) {
-			// TODO Auto-generated method stub
-			return mDao.selectListProduct(loginUser);
-		}
-
-		@Override
-		public int selectDeleteMybag(MyBag mybag) {
-
-			return mDao.selectDeleteMybag(mybag);
-		}
+		return mDao.selectDeleteMybag(mybag);
+	}
 
 
 

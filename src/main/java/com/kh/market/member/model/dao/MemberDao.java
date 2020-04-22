@@ -104,6 +104,7 @@ public class MemberDao {
 	public int oneDeleteRecipeList(Favorite f) {
 		return sqlSession.delete("memberMapper.oneDeleteRecipeList",f);
 	}
+	
 	//마이페이지 헤더에 찜한갯수 세기
 	public ArrayList<Favorite> selectRecipeList(Member m) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllRecipeList",m);

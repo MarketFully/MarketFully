@@ -25,6 +25,27 @@
 		<result property="q_CATEGORY" column="Q_CATEGORY"/>
 	</resultMap>
 	
+	<!-- RecipeSuggest -->
+	<resultMap type="REQUEST_BOARD" id="requestResultSet">
+		<id property="rb_num" column="RB_NUM"/>
+		<result property="rb_title" column="RB_TITLE"/>
+		<result property="rb_foodcategory" column="RB_FOODCATEGORY"/>
+		<result property="rb_content" column="RB_CONTENT"/>
+		<result property="rb_writer" column="RB_WRITER"/>
+		<result property="rb_date" column="RB_DATE"/>
+		<result property="rb_file" column="RB_FILE"/>
+		<result property="rb_refile" column="RB_REFILE"/>
+		<result property="rb_thank" column="RB_THANK"/>
+		<result property="rb_nothank" column="RB_NOTHANK"/>
+		<result property="rb_status" column="RB_STATUS"/>
+		<result property="rb_count" column="RB_COUNT"/>		
+	</resultMap>
+	
+	<resultMap type="BoardLike" id="boardLikeResultSet">
+		<id property="mem_num" column="MEM_NUM"/>
+		<result property="rb_num" column="RB_NUM"/>
+	</resultMap>
+	
 	<select id="getListCountNotice" resultType="_int">
 		SELECT COUNT(*)
 		FROM NOTICE
@@ -68,6 +89,84 @@
 		WHERE Q_NUM=#{bId}
 		AND Q_STATUS='Y'
 	</select>
+	
+	<!-- 레시피 제안 -->
+	<select id="getRSlistCountRecipeSuggest" resultType="_int">
+		SELECT COUNT(*)
+		FROM REQUEST_BOARD
+		WHERE RB_STATUS='Y'
+	</select>
+	
+	<select id="recipeSuggestselectList" resultMap="requestResultSet">
+		SELECT *
+		FROM REQUEST_BOARD
+		WHERE RB_STATUS='Y'
+		ORDER BY RB_NUM DESC
+	</select>
+	
+	<!-- 레시피 제안 작성  -->
+	<insert id="insertSuggestWrite" parameterType="REQUEST_BOARD">
+		INSERT INTO REQUEST_BOARD
+		VALUES(SEQ_RB_NUM.NEXTVAL,#{rb_title}, #{rb_foodcategory}, #{rb_content}, #{rb_writer}, SYSDATE ,#{rb_file},#{rb_refile},0,0,'Y',0)
+	</insert>
+	
+	<!-- 레시피 제안 조회수  -->
+	<update id="updatecountSuggestWrite" parameterType="_int">
+		UPDATE REQUEST_BOARD
+		SET RB_COUNT = RB_COUNT + 1
+		WHERE RB_NUM = #{rb_num}
+	</update>
+	
+	<!-- 레시피 제안 상세보기 -->
+	<select  id="selectSuggestWrite" resultMap="requestResultSet">
+		SELECT *
+		FROM REQUEST_BOARD RB
+		WHERE RB_NUM=#{rb_num}
+		AND RB_STATUS='Y'
+	</select>
+	
+	<!-- 레시피 제안 삭제 -->
+	<update id="deleteSuggestWrite" parameterType="_int" >
+		UPDATE REQUEST_BOARD
+		SET RB_STATUS='N'
+		WHERE RB_NUM=#{rb_num}
+	</update>
+	
+	<!-- 레시피 제안 수정 -->
+	<update id="updateSuggestWrite" parameterType="REQUEST_BOARD">
+		UPDATE REQUEST_BOARD
+		SET RB_TITLE=#{rb_title},RB_FOODCATEGORY=#{rb_foodcategory},RB_CONTENT=#{rb_content},RB_FILE=#{rb_file},RB_REFILE=#{rb_refile}
+		WHERE RB_NUM=#{rb_num}
+	</update>
+	
+	<!-- 레시피 제안 좋아요 값 -->
+	<update id="RecipeLikey" parameterType="REQUEST_BOARD">
+		UPDATE REQUEST_BOARD
+		SET RB_THANK = (SELECT COUNT(*)
+		FROM BOARDLIKE
+		WHERE RB_NUM = #{rb_num})
+		WHERE RB_NUM = #{rb_num}
+	</update>
+	
+	<!-- 레시피 제안 좋아요 -->
+	<insert id="RecipeCreateLike" parameterType="BoardLike">
+		INSERT INTO BOARDLIKE
+		VALUES(#{mem_num},#{rb_num})
+	</insert>
+	
+	<!-- 해당 글을 좋아요 눌렀었던 적이 있는지 체크 -->
+	<select id="RecipecheckLike" resultType="_int" parameterType="BoardLike">
+	SELECT COUNT(*) FROM BOARDLIKE
+	WHERE MEM_NUM = #{mem_num}
+	AND RB_NUM = #{rb_num}
+	</select>
+	
+	<!-- 레시피 제안 취소 -->
+	<delete id="RecipedeleteLike" parameterType="BoardLike">
+		DELETE FROM BOARDLIKE
+		WHERE MEM_NUM = #{mem_num}
+		AND RB_NUM = #{rb_num}
+	</delete>
 </mapper>
 
 

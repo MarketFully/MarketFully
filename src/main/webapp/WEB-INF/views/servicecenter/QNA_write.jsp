@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/myPage.css"> <!-- 나중에 정리해서 삭제 -->
-    <link rel="stylesheet" href="css/QNA_write.css">
+    <link rel="stylesheet" href="resources/css/header.css">
+    <link rel="stylesheet" href="resources/css/myPage.css"> <!-- 나중에 정리해서 삭제 -->
+    <link rel="stylesheet" href="resources/css/QNA_write.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <title>Document</title>
 </head>

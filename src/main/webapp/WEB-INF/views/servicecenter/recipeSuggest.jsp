@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +50,7 @@
         <div>
             <ul style="font-size: 0.85em; margin-bottom: 20px;">
                 <li> ▶ 필요한 레시피나 알고싶은 레시피를 마켓풀리에 제안해주세요.</li>
-                <li> ▶ 고객님의 의견을 빠르게 반영하여 더욱 편리하 마켓풀리가 되겠습니다.</li>
+                <li> ▶ 고객님의 의견을 빠르게 반영하여 더욱 편리한 마켓풀리가 되겠습니다.</li>
                 <li> ▶ 담당 MD가 제안해주신 의견은 실시간으로 모니터링할 예정이나, 별도 답변 안내는 되지 않음을 양해부탁드립니다.</li>
             </ul>
         </div>
@@ -63,81 +64,27 @@
                             <th class="colT">제목</th>
                             <th class="col">작성자</th>
                             <th class="col">작성일</th>
+                            <th class="col">조회수</th>
+                            <th class="col">추천수</th>
                         </tr>
                     </thead>
                     
+                    <c:forEach var="r" items="${ RSlist }">
                     <tbody class="item">
                         <tr>
-                            <td>1</td>
-                            <td>한식</td>
-                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='suggestwriteDetail'">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>user01</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>한식</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>user02</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>양식</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>user03</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>양식</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>user04</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>5</td> 
-                            <td>기타</td>
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>user05</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>중식</td>
-                            <td class="tdtext" style="padding-left: 30px;">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>user06</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>중식</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>user07</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>일식</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>user08</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>기타</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>user09</td>
-                            <td>2020.2.6</td>
-                        </tr>
-                        <tr>
-                            <td>10</td> 
-                            <td>한식</td>
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>user10</td>
-                            <td>2020.2.6</td>
+                            <td>${ r.rb_num }</td>
+                            <td>${ r.rb_foodcategory }</td>
+                            <c:url var="recipewritedetail" value="suggestwriteDetail">
+								<c:param name="rb_num" value="${r.rb_num}"/>
+							</c:url>
+                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='${recipewritedetail}'">${ r.rb_title }</td>
+                            <td>${ r.rb_writer }</td>
+                            <td>${ r.rb_date }</td>
+                            <td>${ r.rb_count }</td>
+                            <td>${ r.rb_thank }</td>
                         </tr>
                     </tbody>
+                    </c:forEach>
                 </table>
 <!-- 
                 <fieldset>
@@ -145,12 +92,53 @@
                     <button type="submit" class="btn_srch">검색</a>
                 </fieldset> -->
 
-                <ul class="pagination"></ul>  
+				<!-- 페이징 처리 -->
+                <div class="pagination">
+                
+                	<!-- 이전 -->
+                	<c:if test="${ rpi.currentPage eq 1}">
+                		<img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img" style="width:25px;height:25px; cursor:pointer;vertical-align: middle;">
+                	</c:if>
+                		<c:if test="${ rpi.currentPage ne 1 }">
+                			<c:url var="before" value="recipeSuggest">
+                				<c:param name="currentPage" value="${ rpi.currentPage -1 }"/>
+                			</c:url>
+                			<a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+                		</c:if>
+                	
+                	<!-- 페이지 -->
+					<c:forEach var="p" begin="${ rpi.startPage }" end="${ rpi.endPage }">
+					<c:if test="${ p eq rpi.currentPage }">
+						<font color="#2e8b57" size="4"><b>${ p }</b></font>
+					</c:if>
+							
+					<c:if test="${ p ne rpi.currentPage }">
+						<c:url var="pagination" value="recipeSuggest">
+								<c:param name="currentPage" value="${ p }"/>
+							</c:url>
+							<a href="${ pagination }">${ p }</a> &nbsp;
+						</c:if>
+					</c:forEach>
+		        	
+		        	<!-- 다음   -->
+		        	<c:if test="${ rpi.currentPage eq rpi.maxPage }"> 
+		        		<img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img" style="width:25px;height:25px;cursor:pointer;vertical-align: middle;" >
+		        	</c:if>
+		        		<c:if test="${ rpi.currentPage ne rpi.maxPage }">
+		        			<c:url var="after" value="recipeSuggest">
+		        				<c:param name="currentPage" value="${ rpi.currentPage + 1 }"/>
+		        			</c:url>
+		        			<a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+		        		</c:if>
+                </div>  
             </div>
+            
                 <!-- 글쓰기 버튼-->
+                <c:if test="${ !empty sessionScope.loginUser }">
                 <div>
-                    <input type="submit" value="글작성" class="write_btn" onclick="location.href='suggestwrite.html'">
+                    <input type="submit" value="글작성" class="write_btn" onclick="location.href='suggestwrite'">
                 </div>
+                </c:if>
         </div>
     </div>
    <!-- QNA 내용 끝-->

@@ -1,5 +1,7 @@
 package com.kh.market.member.model.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -58,18 +60,26 @@ public class MailServiceImpl implements MailService{
 
 
 	@Override
-	public void mailSendWithUserKey(String mem_email , String mem_id, HttpServletRequest request) {
-		
-		String key = getKey(false,20);
+	public void mailSendWithUserKey(String mem_email, String mem_id, HttpServletRequest request) {
+
+		InetAddress inetAddress = null;
+		try {
+			inetAddress = InetAddress.getLocalHost();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		String key = getKey(false, 20);
 
 		System.out.println("memmail" + mem_email + "Key" + key);
-		
-		MimeMessage mail = mailsender.createMimeMessage();
-		String htmlStr = "<h2>안녕하세요 MS :p MarketFully 입니다!</h2><br><br>" 
-				+ "<h3>" + mem_id + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
-				+ "<a href='http://localhost:"+request.getServerPort() + request.getContextPath() + "/registSuccess?user_id="+ mem_id +"&user_key="+key+"'>인증하기</a></p>"
-				+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 
+		MimeMessage mail = mailsender.createMimeMessage();
+		String htmlStr = "<h2>안녕하세요 MS :p MarketFully 입니다!</h2><br><br>" + "<h3>" + mem_id + "님</h3>"
+				+ "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " + "<a href='http://" + inetAddress.getHostAddress() + ":"
+				+ request.getServerPort() + request.getContextPath() + "/registSuccess?user_id=" + mem_id + "&user_key="
+				+ key + "'>인증하기</a></p>" + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+				// 메일안될경우 inetAddress.getHostAddress()를 "localhost" 텍스트로 변경하면됨
 		try {
 			mail.setSubject("[본인인증] MS :p MarketFully 회원가입 인증메일입니다", "utf-8");
 			mail.setText(htmlStr, "utf-8", "html");
@@ -77,13 +87,20 @@ public class MailServiceImpl implements MailService{
 			mailsender.send(mail);
 		} catch (MessagingException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
-
 
 	// 비밀번호 찾기 이메일인증
 	@Override
 	public void mailsendWithPassword(String mem_name, String mem_id, String mem_email, HttpServletRequest request) {
+		
+		InetAddress inetAddress = null;
+	      try {
+	         inetAddress = InetAddress.getLocalHost();
+	      } catch (UnknownHostException e1) {
+	         // TODO Auto-generated catch block
+	         e1.printStackTrace();
+	      }
 		
 		String key = getKey(false,20);
 
@@ -93,7 +110,7 @@ public class MailServiceImpl implements MailService{
 		String htmlStr = "<h2>안녕하세요 '"+ mem_name +"' 님</h2><br><br>" 
 				+ "<p>비밀번호 찾기를 신청해주셔서 임시 비밀번호를 발급해드렸습니다.</p>"
 				+ "<p>임시로 발급 드린 비밀번호는 <h2 style='color : green'>'" + key +"'</h2>이며 로그인 후 마이페이지에서 비밀번호를 변경해주시면 됩니다.</p><br>"
-				+ "<a href='http://localhost:"+request.getServerPort() + request.getContextPath() + "/login.do"+"'> :p 로그인</a></p>"
+				+ "<a href='http://"+inetAddress.getHostAddress()+":"+request.getServerPort() + request.getContextPath() + "/login.do"+"'> :p 로그인</a></p>"
 				+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 
 		try {

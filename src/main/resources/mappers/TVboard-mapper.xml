@@ -146,7 +146,7 @@
 
 	<select id="selectListBoardReply" resultMap="BoardReplyMap" parameterType="_int">
 		SELECT * FROM TV_MENU_REPLY
-		WHERE TMB_NUM= #{value}
+		WHERE TMB_NUM= #{value} AND TMR_STATUS='Y'
 		ORDER BY TMR_NUM
 	</select>
 
@@ -297,6 +297,11 @@
       VALUES(SEQ_TMR.nextval,#{bId},#{content},#{writer},SYSDATE,0,'Y')
    </insert>
 	
-	
+	<!-- tv레시피 댓글 삭제 -->
+	<update id="tvDeleteReply" parameterType="_int">
+		UPDATE TV_MENU_REPLY
+		SET TMR_STATUS='N'
+		WHERE TMR_NUM=#{rId}
+	</update>
 	
 </mapper>

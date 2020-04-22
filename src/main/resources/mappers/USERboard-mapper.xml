@@ -167,7 +167,7 @@
 	
 	<select id="selectListBoardReply" resultMap="BoardReplyMap" parameterType="_int">
 		SELECT * FROM USER_MENU_REPLY
-		WHERE UMB_NUM= #{value}
+		WHERE UMB_NUM= #{value} AND UMR_STATUS='Y'
 		ORDER BY UMR_NUM
 	</select>
 	
@@ -267,6 +267,13 @@
       INSERT INTO USER_MENU_REPLY
       VALUES(SEQ_UMR.nextval,#{bId},#{content},#{writer},SYSDATE,0,'Y')
 	</insert>
+	
+	<!-- user 레시피 댓글 삭제 -->
+	<update id="userDeleteReply" parameterType="_int">
+		UPDATE USER_MENU_REPLY
+		SET UMR_STATUS='N'
+		WHERE UMR_NUM=#{rId}
+	</update>
 	
 	<select id="MainRandomselectList2" resultMap="boardResultSet">
 		<![CDATA[

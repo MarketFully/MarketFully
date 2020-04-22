@@ -461,5 +461,31 @@ public class RecipeController {
 			}
 		}
 	}
+	
+	// 레시피 댓글 삭제
+	@RequestMapping("deleteReply")
+	public String deleteReply(Model model,int rId,int bId,String TvOrUser, HttpServletRequest request) {
+
+		if(TvOrUser.equals("user")) {
+			int result = bService.userDeleteReply(rId);
+			
+			if(result > 0) {
+				return "redirect:RecipeDetail?bId="+bId+"&TvOrUser="+TvOrUser;
+			}else {
+				model.addAttribute("msg","삭제 시 실패");
+				return "common/errorPage";
+			}
+		}else {
+			int result = bService.tvDeleteReply(rId);
+			
+			if(result > 0) {
+				return "redirect:RecipeDetail?bId="+bId+"&TvOrUser="+TvOrUser;
+			}else {
+				model.addAttribute("msg","삭제 시 실패");
+				return "common/errorPage";
+			}
+		}
+		
+	}
 
 }

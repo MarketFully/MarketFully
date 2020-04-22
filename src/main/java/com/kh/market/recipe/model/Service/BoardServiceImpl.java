@@ -183,6 +183,18 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.tvInsertReply(r);
 		
 	}
+	
+	// user 게시판 댓글 삭제
+	@Override
+	public int userDeleteReply(int rId) {
+		return bDao.userDeleteReply(rId);
+	}
+
+	// tv 게시판 댓글 삭제
+	@Override
+	public int tvDeleteReply(int rId) {
+		return bDao.tvDeleteReply(rId);
+	}
 
 
 

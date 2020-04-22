@@ -109,7 +109,17 @@
 			margin-right:0px;
 		}
 		a { 
-		text-decoration:none 
+		text-decoration:none;
+		}
+		#deletebtn{
+			float:right;
+	        font-weight: lighter;
+	        font-size: 13px;
+	        cursor:pointer;
+	        border: 0px solid;
+	        background: white;
+	        font-family: MapoPeacefull;outline: none;
+	    }
     </style>
 </head>
 <body>
@@ -247,9 +257,20 @@
                      <!-- 댓글 -->
                      <div id="tab1" class="reply current">
                      
-                     <c:forEach var="br" items="${b.getBrlist() }">
+                       <c:forEach var="br" items="${b.getBrlist() }">
                      	<div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">${br.getWriter()} 님</b>2020-03-24</h4>
+                     	
+                            <h4 class="reply_head"><b class="reply_name">${br.getWriter()} 님</b>${br.cdate}     
+                     	 	<input type="text" name="rId" value="${br.rId}" hidden>
+                     	 	<c:url var="deleteReply" value="deleteReply">
+								<c:param name="rId" value="${br.rId}"/>
+								<c:param name="bId" value="${b.mb_num}"/>
+								<c:param name="TvOrUser" value="${ TvOrUser }"/>
+							</c:url>
+                            <c:if test="${ loginUser.mem_id eq br.getWriter()}">
+                             	<input type="button" value="삭제"  id="deletebtn" onclick="if(confirm('정말 삭제 하시겠습니까??') == true){ location.href='${deleteReply}';}">
+                            </c:if>
+                            </h4>
                             <p class="reply_main">${br.getContent() }</p>
                         </div>
                      </c:forEach>

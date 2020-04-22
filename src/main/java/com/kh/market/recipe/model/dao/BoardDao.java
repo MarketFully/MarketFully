@@ -191,12 +191,17 @@ public class BoardDao {
 		return sqlSession.insert("TVboardMapper.tvInsertReply", r);
 
 	}
-
-
-
-
-
-
 	
+	// user 댓글 삭제
+	public int userDeleteReply(int rId) {
+		return sqlSession.update("USERboardMapper.userDeleteReply", rId);
+	}
+
+
+	// tv 댓글 삭제
+	public int tvDeleteReply(int rId) {
+		return sqlSession.update("TVboardMapper.tvDeleteReply", rId);
+	}
+
 	
 }

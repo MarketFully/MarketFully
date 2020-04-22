@@ -84,10 +84,17 @@ public interface BoardService {
 
 	int TVheartMinus(Favorite f);
 
+	// user레시피 댓글 등록
 	int userInsertReply(BoardReply r);
 
+	// tv레시피 댓글 등록
 	int tvInsertReply(BoardReply r);
+	
+	// user레시피 댓글 삭제
+	int userDeleteReply(int rId);
 
+	// tv레시피 댓글 삭제
+	int tvDeleteReply(int rId);
 	
 	
 }

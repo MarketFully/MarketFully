@@ -116,7 +116,7 @@ public class MemberDao {
 		int result = 0;
 		
 		for(MyBag mybag : cartList) {
-			result += sqlSession.insert("memberMapper.setMyBagList", mybag);
+			result += sqlSession.insert("memberMapper.mergeMybag", mybag);
 		}
 		System.out.println("mDao setMyBagList result : "+result);
 		return result;

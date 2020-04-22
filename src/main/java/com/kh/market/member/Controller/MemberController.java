@@ -473,6 +473,9 @@ public class MemberController {
 //		System.out.println("cartList : "+loginUser.getClist());
 		System.out.println("cartList : "+ cartList);
 		
+		m.addAttribute("loginUser", loginUser);
+		m.addAttribute("cartList", cartList);
+		
 		return "member/basket";
 	}
 	

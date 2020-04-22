@@ -63,6 +63,7 @@ public interface BoardService {
 	ArrayList<Board> UserSearchList(PageInfo pi, SearchInfo si);
 
 	ArrayList<Board> MainRandomselectList();
+	ArrayList<Board> MainRandomselectList2();
 	
 	//유저 레시피 한식 4개 불러오기
 	ArrayList<Board> UserselectList_ko();
@@ -86,5 +87,7 @@ public interface BoardService {
 	int userInsertReply(BoardReply r);
 
 	int tvInsertReply(BoardReply r);
+
+	
 	
 }

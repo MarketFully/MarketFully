@@ -116,6 +116,12 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.MainRandomselectList();
 	}
 	
+	@Override
+	public ArrayList<Board> MainRandomselectList2() {
+		
+		return bDao.MainRandomselectList2();
+	}
+	
 	//유저 레시피 한식 4개 불러오기
 	@Override
 	public ArrayList<Board> UserselectList_ko() {
@@ -177,6 +183,8 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.tvInsertReply(r);
 		
 	}
+
+
 
 
 }

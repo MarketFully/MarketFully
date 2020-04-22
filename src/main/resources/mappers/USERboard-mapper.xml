@@ -267,4 +267,12 @@
       INSERT INTO USER_MENU_REPLY
       VALUES(SEQ_UMR.nextval,#{bId},#{content},#{writer},SYSDATE,0,'Y')
 	</insert>
+	
+	<select id="MainRandomselectList2" resultMap="boardResultSet">
+		<![CDATA[
+			SELECT * FROM (SELECT * FROM USER_MENU_BOARD
+			ORDER BY UMB_THANK DESC)
+			WHERE ROWNUM <= 4
+		]]>
+	</select>
 </mapper>

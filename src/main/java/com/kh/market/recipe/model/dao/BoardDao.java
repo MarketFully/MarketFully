@@ -133,6 +133,11 @@ public class BoardDao {
 		
 		return (ArrayList)sqlSession.selectList("TVboardMapper.MainRandomselectList");
 	}
+	
+	public ArrayList<Board> MainRandomselectList2() {
+		
+		return (ArrayList)sqlSession.selectList("USERboardMapper.MainRandomselectList2");
+	}
 
 	//유저 레시피 한식 4개 불러오기
 	public ArrayList<Board> UserselectList_ko() {
@@ -186,6 +191,9 @@ public class BoardDao {
 		return sqlSession.insert("TVboardMapper.tvInsertReply", r);
 
 	}
+
+
+
 
 
 

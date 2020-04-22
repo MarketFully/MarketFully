@@ -60,10 +60,15 @@
 		  <c:forEach var="b" items="${ mainrandomlist }">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top"></a>
+                	    <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+						</c:url>
+                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
+                        <h4 class="Rcard-title"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
                         <p class="Rcard-text">"${ b.mb_content }"</p>
                     </div>
                     <div class="Rcard-footer">
@@ -74,6 +79,38 @@
             </div>
 		  </c:forEach>
           </div>
+          
+        <!-- 최근 뜨고 있는 레시피-->
+        <div class="RecentBest">
+            <div class="RTitle">
+                <p class="RContent">최근 뜨는 레시피</p>
+            </div>
+          </div>
+
+          <div class="row">
+		  <c:forEach var="b" items="${ mainrandomlist2 }">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="Rcard h-500 w-100">
+                        <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+						</c:url>
+                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top"></a>
+                
+                    <div class="Rcard-body">
+                        <h4 class="Rcard-title"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
+                        <p class="Rcard-text">"${ b.mb_content }"</p>
+                    </div>
+                    <div class="Rcard-footer">
+                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">${ b.mb_thank }</small><br>
+                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
+                    </div>
+                </div>
+            </div>
+		  </c:forEach>
+        </div>
+          
           <!-- 최근에 본 레시피 -->
 
           <div class="recentRecipe">
@@ -181,76 +218,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- 최근 뜨고 있는 레시피-->
-        <div class="RecentBest">
-            <div class="RTitle">
-                <p class="RContent">최근 뜨는 레시피</p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe10.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe11.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe12.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/recipe14.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">9999</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
         </div>
     </div>
 

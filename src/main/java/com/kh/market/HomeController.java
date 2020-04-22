@@ -40,9 +40,13 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		ArrayList<Board> mainrandomlist = bService.MainRandomselectList();
-		System.out.println("sikim mainrandomlist : " + mainrandomlist);
+		ArrayList<Board> mainrandomlist = bService.MainRandomselectList(); //이 레시피 어때요?
+		ArrayList<Board> mainrandomlist2 = bService.MainRandomselectList2(); // 최근 뜨는 레시피
+		
+		//System.out.println("sikim mainrandomlist : " + mainrandomlist);
 		mv.addObject("mainrandomlist", mainrandomlist);
+		mv.addObject("mainrandomlist2", mainrandomlist2);
+		
 		model.addAttribute("serverTime", formattedDate );
 		
 		return mv;

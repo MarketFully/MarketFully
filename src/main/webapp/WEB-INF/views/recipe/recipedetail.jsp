@@ -246,7 +246,7 @@
                  <div style="height: 52px;border-bottom: 1px solid #2e8b57;">
                     <ul class="tab_menu" style="margin_bottom:10px; margin-left: -39px;">
                         <li class="on" id="before_li" style="width:120px; cursor:pointer;">
-                        	<a href="javascript:;" id="before">댓글<span class="tab_span">(1)</span></a>
+                        	<a href="javascript:;" id="before">댓글<span class="tab_span">(${b.getBrlist().size()})</span></a>
                         </li>
                         <li id="after_li" style="border-right: 1px solid #2e8b57; width:120px; cursor:pointer;">
                         	<a href="javascript:;" id="after">요리후기<span class="tab_span">(1)</span></a>

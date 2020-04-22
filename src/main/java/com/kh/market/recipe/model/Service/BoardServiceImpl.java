@@ -9,6 +9,7 @@ import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardProduct;
+import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;
@@ -161,5 +162,20 @@ public class BoardServiceImpl implements BoardService{
 	public int TVheartMinus(int bId) {
 		return bDao.TVheartMinus(bId);
 	}
+	
+	// user 게시판 댓글 추가
+	@Override
+	public int userInsertReply(BoardReply r) {
+		return bDao.userInsertReply(r);
+	}
+
+
+	// tv 게시판 댓글 추가
+	@Override
+	public int tvInsertReply(BoardReply r) {
+		return bDao.tvInsertReply(r);
+		
+	}
+
 
 }

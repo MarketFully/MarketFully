@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+      pageEncoding="UTF-8" import="com.kh.market.member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -217,9 +217,14 @@
                      </c:forEach>
 
                         
-                        <div> 
-                            <input type="button" value="댓글" class="btn" onclick="location.href=''">
-                        </div>
+                         <div>
+					            <div><p style="border-bottom: 2px solid #2e8b57; font-size: 20px; text-align:left;padding-bottom: 10px;"><strong>댓글</strong></p></div>
+					            <div class="re">
+					                <textarea id="content" style=" resize: none; width: 800px; height: 50px; font-family: MapoPeacefull; border: 1px solid #dedede; border-radius: 5px;"></textarea>
+					                 <input type="button" value="등록" class="btn" id="replybtn"onclick="''" 
+					                 style="float: none;margin-top: 0px;border-radius: 5px;margin-left: 15px;cursor:pointer;width:80px">
+					            </div>
+					        </div>
                     </div>
                      <!-- 후기 -->
                     <div id="tab2" class="reply">
@@ -461,7 +466,34 @@
 	         }
 
 
-         
+	         // 댓글등록
+	 		$("#replybtn").on("click",function(){
+	 				var content = $("#content").val();
+	 				var mb_num = ${b.mb_num};	
+	 				var writer = "<%=  ((Member)session.getAttribute("loginUser")).getMem_id()%>";
+	 				var TvOrUser = '${TvOrUser}';
+	 				 
+	 				if(content == ""){
+	 					alert("댓글을 작성해주세요.");
+	 					return;
+	 				}
+	 				
+	 				$.ajax({
+	 					url:"insertReply",
+	 					data:{content:content,bId:mb_num,writer:writer,TvOrUser:TvOrUser},
+	 					type:"post",
+	 					success:function(data){
+	 							if(data == "success"){
+
+	 								window.location.reload();								  
+	 								$("#content").val("");
+	 							}
+	 					},error:function(){
+	 						console.log("등록 실패");
+	 					}
+	 			});
+	 				
+	 		});
          
     </script>
 </body>

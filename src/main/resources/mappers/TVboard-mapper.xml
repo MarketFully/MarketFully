@@ -245,6 +245,12 @@
 		WHERE TMB_NUM=#{MB_NUM}
 	</update>
 	
+	<!-- tv레시피 댓글 -->
+	 <insert id="tvInsertReply"  parameterType="BoardReply">
+      INSERT INTO TV_MENU_REPLY
+      VALUES(SEQ_TMR.nextval,#{bId},#{content},#{writer},SYSDATE,0,'Y')
+   </insert>
+	
 	
 	
 </mapper>

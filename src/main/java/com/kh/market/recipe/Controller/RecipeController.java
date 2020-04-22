@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.market.common.Pagination;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;
@@ -399,6 +400,33 @@ public class RecipeController {
 			int result = bService.TVheartMinus(bId);
 			if(result > 0) {
 				return "ok";
+			}else {
+				return "fail";
+			}
+		}
+	}
+	
+	// 레시피 댓글 등록
+	@RequestMapping("insertReply")
+	@ResponseBody
+	public String insertReply(BoardReply r,String TvOrUser) {
+		System.out.println("TvOrUser qqq: " + TvOrUser);
+		
+		if(TvOrUser.equals("user")) {
+			int result = bService.userInsertReply(r);
+			System.out.println("TvOrUser : " + TvOrUser);
+	
+			if(result > 0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}else {
+			int result = bService.tvInsertReply(r);
+			System.out.println("TvOrUser : " + TvOrUser);
+	
+			if(result > 0) {
+				return "success";
 			}else {
 				return "fail";
 			}

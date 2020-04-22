@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardProduct;
+import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;
@@ -80,5 +81,9 @@ public interface BoardService {
 	int USERheartMinus(int bId);
 
 	int TVheartMinus(int bId);
+
+	int userInsertReply(BoardReply r);
+
+	int tvInsertReply(BoardReply r);
 	
 }

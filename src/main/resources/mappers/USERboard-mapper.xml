@@ -217,5 +217,9 @@
 		WHERE UMB_NUM=#{MB_NUM}
 	</update>
 	
-	
+	<!-- user레시피 댓글 -->
+	<insert id="userInsertReply"  parameterType="BoardReply">
+      INSERT INTO USER_MENU_REPLY
+      VALUES(SEQ_UMR.nextval,#{bId},#{content},#{writer},SYSDATE,0,'Y')
+	</insert>
 </mapper>

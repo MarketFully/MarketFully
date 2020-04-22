@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardProduct;
+import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;
@@ -171,6 +172,18 @@ public class BoardDao {
 
 	public int TVheartMinus(int bId) {
 		return sqlSession.insert("TVboardMapper.TVheartMinus",bId);
+	}
+
+
+	// user 댓글 등록
+	public int userInsertReply(BoardReply r) {
+		return sqlSession.insert("USERboardMapper.userInsertReply", r);
+	}
+
+	// tv 댓글 등록
+	public int tvInsertReply(BoardReply r) {
+		return sqlSession.insert("TVboardMapper.tvInsertReply", r);
+
 	}
 
 

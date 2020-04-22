@@ -89,6 +89,41 @@
 				javaType="product" column="{pcode = PR_CODE}"/>
 	</resultMap>
 	
+		<resultMap id="favoriteResultSet" type="Favorite">
+      <id property="mem_num" column="MEM_NUM"/>
+      <id property="mb_bo_num" column="MB_BO_NUM"/>
+      <id property="me_num" column="MB_NUM"/>
+      
+   <association javaType="Board" property="Tboard">
+      <id property="mb_num" column="MB_BO_NUM"/>
+      <result property="mb_title" column="TMB_TITLE"/>
+      <result property="mb_content" column="TMB_CONTENT"/>
+      <result property="mb_cdate" column="TMB_CDATE"/>
+      <result property="mb_writer" column="TMB_WRITER"/>
+      <result property="mb_image" column="TMB_IMAGE"/>
+      <result property="mb_thank" column="TMB_THANK"/>
+      <result property="mb_count" column="TMB_COUNT"/>
+      <result property="mb_rcount" column="TMB_RCOUNT"/>
+      <result property="mb_status" column="TMB_STATUS"/>
+      <result property="mb_type" column="TMB_TYPE"/>
+   </association>
+      
+   <association javaType="Board" property="Uboard">
+      <id property="mb_num" column="MB_BO_NUM"/>
+      <result property="mb_title" column="UMB_TITLE"/>
+      <result property="mb_content" column="UMB_CONTENT"/>
+      <result property="mb_cdate" column="UMB_CDATE"/>
+      <result property="mb_writer" column="UMB_WRITER"/>
+      <result property="mb_image" column="UMB_IMAGE"/>
+      <result property="mb_thank" column="UMB_THANK"/>
+      <result property="mb_count" column="UMB_COUNT"/>
+      <result property="mb_rcount" column="UMB_RCOUNT"/>
+      <result property="mb_status" column="UMB_STATUS"/>
+      <result property="mb_type" column="UMB_TYPE"/>
+   </association>
+      
+   </resultMap>
+	
 	<select id="selectOneProduct" resultMap="productResultMap">
 		SELECT * FROM PRODUCT
 		WHERE PR_CODE = #{pcode}
@@ -205,17 +240,27 @@
 		]]>
 	</select>
 	
-	<update id="USERheartPlus" parameterType="_int">
-		UPDATE USER_MENU_BOARD
-		SET UMB_THANK = UMB_THANK +1
-		WHERE UMB_NUM=#{MB_NUM}
-	</update>
+	<update id="USERheartPlus" parameterType="Favorite">
+	<![CDATA[
+		BEGIN
+    		INSERT INTO FAVORITE VALUES(#{mem_num},#{mb_bo_num} ,#{me_num});
+    		UPDATE USER_MENU_BOARD
+        	SET UMB_THANK= UMB_THANK+1
+        	WHERE UMB_NUM = #{mb_bo_num};
+		END;
+	]]>
+	</update> 
 	
-	<update id="USERheartMinus" parameterType="_int">
-		UPDATE USER_MENU_BOARD
-		SET UMB_THANK = UMB_THANK -1
-		WHERE UMB_NUM=#{MB_NUM}
-	</update>
+	<update id="USERheartMinus" parameterType="Favorite">
+	<![CDATA[
+		BEGIN
+    		DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num} AND MB_BO_NUM = #{mb_bo_num} AND MB_NUM = #{me_num};
+    		UPDATE USER_MENU_BOARD
+        	SET UMB_THANK= UMB_THANK-1
+        	WHERE UMB_NUM = #{mb_bo_num};
+		END;
+	]]>
+	</update> 
 	
 	<!-- user레시피 댓글 -->
 	<insert id="userInsertReply"  parameterType="BoardReply">

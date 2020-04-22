@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardProduct;
@@ -157,21 +158,21 @@ public class BoardDao {
 	}
 	
 	//좋아요 더하기
-	public int USERheartPlus(int bId) {
-		return sqlSession.insert("USERboardMapper.USERheartPlus",bId);
+	public int USERheartPlus(Favorite f) {
+		return sqlSession.insert("USERboardMapper.USERheartPlus",f);
 	}
 
-	public int TVheartPlus(int bId) {
-		return sqlSession.insert("TVboardMapper.TVheartPlus",bId);
+	public int TVheartPlus(Favorite f) {
+		return sqlSession.insert("TVboardMapper.TVheartPlus",f);
 	}
 
-	public int USERheartMinus(int bId) {
-		return sqlSession.insert("USERboardMapper.USERheartMinus",bId);
+	public int USERheartMinus(Favorite f) {
+		return sqlSession.insert("USERboardMapper.USERheartMinus",f);
 	}
 
 
-	public int TVheartMinus(int bId) {
-		return sqlSession.insert("TVboardMapper.TVheartMinus",bId);
+	public int TVheartMinus(Favorite f) {
+		return sqlSession.insert("TVboardMapper.TVheartMinus",f);
 	}
 
 

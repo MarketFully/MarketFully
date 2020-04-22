@@ -2,6 +2,7 @@ package com.kh.market.recipe.model.Service;
 
 import java.util.ArrayList;
 
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardProduct;
@@ -74,13 +75,13 @@ public interface BoardService {
 	//유저 레시피 기타 4개 불러오기
 	ArrayList<Board> UserselectList_etc();
 	//유저 좋아요 더하기
-	int USERheartPlus(int bId);
+	int USERheartPlus(Favorite f);
 	//TV 좋아요 더하기
-	int TVheartPlus(int bId);
+	int TVheartPlus(Favorite f);
 
-	int USERheartMinus(int bId);
+	int USERheartMinus(Favorite f);
 
-	int TVheartMinus(int bId);
+	int TVheartMinus(Favorite f);
 
 	int userInsertReply(BoardReply r);
 

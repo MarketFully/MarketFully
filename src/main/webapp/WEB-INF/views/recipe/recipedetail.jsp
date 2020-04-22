@@ -126,8 +126,10 @@
                     <div class="detailImg">
                         <img src="resources/img/tvRecipe/${b.getMb_rename() }" style="width:400px;">
                         <div>
-                            <img src="resources/img/heart.png" onclick="heartplus();" id="choice" class="choice">
-                            <img src="resources/img/korea.png" onclick="heartminus();" id="unchoice" class="choice" style="display: none">
+                        <c:if test="${ !empty sessionScope.loginUser }">
+                            <img src="resources/img/unheart.png" onclick="heartplus();" id="choice" class="choice">
+                            <img src="resources/img/heart.png" onclick="heartminus();" id="unchoice" class="choice" style="display: none">
+                        </c:if>
                         </div>
                     </div>
 
@@ -459,13 +461,15 @@
 	         function heartplus(){
 	        	 //var bId = ${bId};
 	  			 var TvOrUser = '${TvOrUser}';
+	  			 var mem_num =  '${ loginUser.mem_num }';
+	  			 
 	        	 console.log("test plus");
 	        	 $('#choice').css("display", "none");
 	        	 $('#unchoice').css("display", "block");
 	        	 $.ajax({
 	        		 type:"POST", 
 	        		 url: "heartplus",
-	        		 data : { bId : ${bId}, TvOrUser : TvOrUser },
+	        		 data : { bId : ${bId}, TvOrUser : TvOrUser, mem_num : mem_num},
 	 				success:function(result){
 						if(result == 'ok'){ 
 							console.log('좋아요 더하기 성공');
@@ -475,20 +479,21 @@
 					}, 
 				error:function(request,status,error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					} 
+					}
 	        	 });
 	        	 
 			 }
 	         
 	         function heartminus(){
 	        	 var TvOrUser = '${TvOrUser}';
+	        	 var mem_num =  '${ loginUser.mem_num }';
 	        	 console.log("test minus");
 	        	 $('#unchoice').css("display", "none");
 	        	 $('#choice').css("display", "block");
 	        	 $.ajax({
 	        		 type:"POST", 
 	        		 url: "heartminus",
-	        		 data : { bId : ${bId}, TvOrUser : TvOrUser },
+	        		 data : { bId : ${bId}, TvOrUser : TvOrUser,mem_num : mem_num },
 	 				success:function(result){
 						if(result == 'ok'){ 
 							console.log('좋아요 빼기 성공');

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
@@ -144,23 +145,23 @@ public class BoardServiceImpl implements BoardService{
 	}
 	//유저 좋아요 더하기 
 	@Override
-	public int USERheartPlus(int bId) {
-		return bDao.USERheartPlus(bId);
+	public int USERheartPlus(Favorite f) {
+		return bDao.USERheartPlus(f);
 	}
 	//TV 좋아요 더하기
 	@Override
-	public int TVheartPlus(int bId) {
-		return bDao.TVheartPlus(bId);
+	public int TVheartPlus(Favorite f) {
+		return bDao.TVheartPlus(f);
 	}
 
 	@Override
-	public int USERheartMinus(int bId) {
-		return bDao.USERheartMinus(bId);
+	public int USERheartMinus(Favorite f) {
+		return bDao.USERheartMinus(f);
 	}
 
 	@Override
-	public int TVheartMinus(int bId) {
-		return bDao.TVheartMinus(bId);
+	public int TVheartMinus(Favorite f) {
+		return bDao.TVheartMinus(f);
 	}
 	
 	// user 게시판 댓글 추가

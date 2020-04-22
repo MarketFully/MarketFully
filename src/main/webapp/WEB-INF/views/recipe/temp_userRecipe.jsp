@@ -260,14 +260,19 @@
         한식
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
     </div>
+    	                   
       <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px; margin-bottom: 30px;">
 		<c:forEach var="b" items="${ kolist }">
-	        <div class="col-lg-3 col-md-6 mb-4" style="cursor: pointer;"  onclick="location.href='Productdetail'">
+	        <div class="col-lg-3 col-md-6 mb-4" >
+	        	     <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
-	            
+	                <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	                <div class="Rcard-body">
-	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
+	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
@@ -280,25 +285,29 @@
       
       <!-- 과일 -->
 
-      <div class="product_title" onclick="location.href='userSearchListmc_cate_num=103&TvOrUser=user'">
+      <div class="product_title" onclick="location.href='userSearchList?mc_cate_num=103&TvOrUser=user'">
         <img src="resources/img/usa.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
         양식
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
         </div>
 
       <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px; margin-bottom: 30px;">
-        <c:forEach var="b" items="${ enlist }">
+		<c:forEach var="b" items="${ enlist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
+	        	     <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
-	            
+	                <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	                <div class="Rcard-body">
-	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
+	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
-        </c:forEach>
+		</c:forEach>
       </div>
 
       <!-- 과일 end-->
@@ -313,18 +322,22 @@
         </div>
 
       <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px; margin-bottom: 30px;">
-        <c:forEach var="b" items="${ jplist }">
+		<c:forEach var="b" items="${ jplist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
+	        	     <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
-	            
+	                <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	                <div class="Rcard-body">
-	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
+	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
-        </c:forEach>
+		</c:forEach>
       </div>
 
       <!-- 채소 end -->
@@ -340,18 +353,22 @@
         </div>
 
       <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px; margin-bottom: 30px;">
-        <c:forEach var="b" items="${ chlist }">
+		<c:forEach var="b" items="${ chlist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
+	        	     <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
-	            
+	                <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	                <div class="Rcard-body">
-	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
+	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
-        </c:forEach>
+		</c:forEach>
       </div>
       <!-- 소스 . 면. .오일 end -->
 
@@ -366,18 +383,22 @@
         </div>
 
       <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px; margin-bottom: 30px;">
-        <c:forEach var="b" items="${ etclist }">
+		<c:forEach var="b" items="${ etclist }">
 	        <div class="col-lg-3 col-md-6 mb-4" >
+	        	     <c:url var="bdetail" value="RecipeDetail">
+							<c:param name="bId" value="${ b.mb_num }"/>
+							<c:param name="currentPage" value="${ pi.currentPage }"/>
+							<c:param name="TvOrUser" value="${ TvOrUser }"/>
+					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="#"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
-	            
+	                <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename() }" class="Rcard-img-top"></a>
 	                <div class="Rcard-body">
-	                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${ b.mb_title }</a></h4>
+	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
 	                </div>
 	            </div>
 	        </div>
-         </c:forEach>
+		</c:forEach>
       </div>
 
       <!--수산 해산 건어물 end -->

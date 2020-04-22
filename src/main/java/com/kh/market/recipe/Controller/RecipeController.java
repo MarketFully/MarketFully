@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.market.common.Pagination;
+import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardReply;
@@ -361,20 +362,35 @@ public class RecipeController {
 	
 	@ResponseBody
 	@RequestMapping("heartplus")
-	public String heartcheck(Board b,HttpServletRequest request,int bId,String TvOrUser) { 
+	public String heartcheck(Board b,HttpServletRequest request,int bId,String TvOrUser, int mem_num) { 
 		
 		System.out.println("heart TvOrUser : " + TvOrUser);
+		System.out.println("heart mem_num : " + mem_num);
+		
+		int me_num; 
+		if(TvOrUser.equals("user")) {
+			me_num = 2;
+		}else {
+			me_num = 1;
+		}
+	
+		Favorite f = new Favorite();
+		f.setMem_num(mem_num);
+		f.setMb_bo_num(bId);
+		f.setMe_num(me_num);
 		
 		if(TvOrUser.equals("user")) {
 			
-			int result = bService.USERheartPlus(bId);
+			int result = bService.USERheartPlus(f);
+			System.out.println("@@@@@@@" + result);
 			if(result > 0) {
+				
 				return "ok";
 			}else {
 				return "fail";
 			}
 		}else {
-			int result = bService.TVheartPlus(bId);
+			int result = bService.TVheartPlus(f);
 			if(result > 0) {
 				return "ok";
 			}else {
@@ -384,20 +400,33 @@ public class RecipeController {
 	}
 	@ResponseBody
 	@RequestMapping("heartminus")
-	public String heartcheck2(Board b,HttpServletRequest request,int bId,String TvOrUser) { 
+	public String heartcheck2(Board b,HttpServletRequest request,int bId,String TvOrUser,int mem_num) { 
 		
 		System.out.println("heart TvOrUser : " + TvOrUser);
+		System.out.println("heart mem_num : " + mem_num);
+		
+		int me_num; 
+		if(TvOrUser.equals("user")) {
+			me_num = 2;
+		}else {
+			me_num = 1;
+		}
+		
+		Favorite f = new Favorite();
+		f.setMem_num(mem_num);
+		f.setMb_bo_num(bId);
+		f.setMe_num(me_num);
 		
 		if(TvOrUser.equals("user")) {
 			
-			int result = bService.USERheartMinus(bId);
+			int result = bService.USERheartMinus(f);
 			if(result > 0) {
 				return "ok";
 			}else {
 				return "fail";
 			}
 		}else {
-			int result = bService.TVheartMinus(bId);
+			int result = bService.TVheartMinus(f);
 			if(result > 0) {
 				return "ok";
 			}else {

@@ -157,7 +157,7 @@
  					console.log(data);
  					if(data == 1){
  						$('#goodBtn').prop("src","resources/img/likecolor.png");
- 					}else{
+ 					}else{ 
  						$('#goodBtn').prop("src","resources/img/like.png");
  					}
  				}

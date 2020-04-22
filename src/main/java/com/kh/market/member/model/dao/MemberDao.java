@@ -13,6 +13,7 @@ import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.product.model.vo.Product;
 
 @Repository("mDao")
 public class MemberDao {
@@ -119,6 +120,26 @@ public class MemberDao {
 		}
 		System.out.println("mDao setMyBagList result : "+result);
 		return result;
+	}
+
+	//상품코드에 맞는 상품을 불러오는 메소드
+	public Product selectOneProduct(int pcode) {
+		return sqlSession.selectOne("memberMapper.selectOneProduct", pcode);
+	}
+
+	public int deleteMybag(MyBag mybag) {
+		
+		return sqlSession.delete("memberMapper.deleteMybag", mybag);
+	}
+
+	public ArrayList<MyBag> selectListProduct(Member loginUser) {
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectListProduct",loginUser.getMem_num());
+	}
+
+	public int selectDeleteMybag(MyBag mybag) {
+
+		return sqlSession.delete("memberMapper.selectDeleteMybag", mybag);
 	}
 
 }

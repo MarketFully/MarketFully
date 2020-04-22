@@ -94,16 +94,38 @@
       
    </resultMap>
    
-   
-   <resultMap type="MyBag" id="MyBagResultSet">
+   <!-- 장바구니 -->
+   <resultMap id="MyBagResultMap" type="MyBag">
    		<result property="mem_num" column="MEM_NUM"/>
    		<result property="mb_bo_num" column="MB_BO_NUM"/>
    		<result property="me_num" column="MB_NUM"/>
    		<result property="pr_code" column="PR_CODE"/>
    		<result property="pr_each" column="PR_EACH"/>
+   		<association property="prd" select="selectOneProduct"
+   					javaType="Product" column="{pcode=PR_CODE}"/>
    </resultMap>
    
+   <!-- Product 상품 -->
+   	<resultMap type="Product" id="productResultMap">
+		<id property="pr_code" column="PR_CODE"/>
+		<result property="pr_cate1" column="PR_CATE1"/>
+		<result property="pr_cate2" column="PR_CATE2"/>
+		<result property="pr_name" column="PR_NAME"/>
+		<result property="pr_price" column="PR_PRICE"/>
+		<result property="pr_content" column="PR_CONTENT"/>
+		<result property="pr_carlory" column="PR_CARLORY"/>
+		<result property="pr_from" column="PR_FROM"/>
+		<result property="pr_size" column="PR_SIZE"/>
+		<result property="pr_entity" column="PR_ENTITY"/>
+		<result property="originalFileName" column="ORIGINAL_FILE_NAME"/>
+		<result property="renameFileName" column="RENAME_FILE_NAME"/>
+	</resultMap>
    
+   <!-- Product매핑용 -->
+   <select id="selectOneProduct" resultMap="productResultMap">
+   		SELECT * FROM PRODUCT
+		WHERE PR_CODE = ${pcode}
+   </select>
    
    <!-- 로그인 -->
    <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
@@ -212,6 +234,8 @@
       LEFT JOIN user_menu_board ON favorite.mb_bo_num = user_menu_board.umb_num
       WHERE MEM_NUM = #{mem_num}
    </select>
+   
+   
    <select id="selectAllRecipeList" resultMap="favoriteResultSet">
         SELECT * FROM FAVORITE 
       LEFT JOIN tv_menu_board ON favorite.mb_bo_num = tv_menu_board.tmb_num
@@ -228,6 +252,13 @@
       DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num} AND MB_BO_NUM = #{mb_bo_num} AND MB_NUM = #{me_num}
    </delete>
    
+   <delete id="deleteMybag" parameterType="MyBag">
+   	DELETE FROM MYBAG
+   	WHERE MB_NUM = #{me_num}
+  	AND MB_BO_NUM = #{mb_bo_num}
+  	AND PR_CODE = #{pr_code}
+   </delete>
+   
    <!-- 장바구니 테이블 -->
    <insert id="setMyBagList" parameterType="MyBag">
       INSERT INTO MYBAG
@@ -239,6 +270,36 @@
       		)
    </insert>
    
+   <select id="selectListProduct" parameterType="_int" resultMap="MyBagResultMap">
+   		SELECT * FROM MYBAG
+   		WHERE MEM_NUM = #{mem_num}
+   </select>
+   
+   <delete id="selectDeleteMybag" parameterType="MyBag">
+   		DELETE FROM MYBAG
+   		WHERE MEM_NUM=#{mem_num}
+   		AND MB_BO_NUM=#{mb_bo_num}
+   		AND MB_NUM = #{me_num}
+   		AND PR_CODE = #{pr_code}
+   </delete>
+   
+   <update id="mergeMybag" parameterType="MyBag">
+        <![CDATA[
+        MERGE INTO MYBAG m
+            USING dual
+               on ( MEM_NUM = #{mem_num}
+               		AND MB_BO_NUM = #{mb_bo_num}
+                    AND MB_NUM=#{me_num}  
+                    AND a.exam_no=#{examNo}) 
+             WHEN MATCHED THEN
+             UPDATE SET
+                 PR_EACH= PR_EACH + #{pr_each}
+              WHEN NOT MATCHED THEN
+                INSERT (MEM_NUM, MB_BO_NUM, MB_NUM, PR_CODE, PR_EACH) 
+                values (#{mem_num}, #{mb_bo_num}, #{me_num}, #{pr_code},#{pr_each})
+          ]]>
+    </update>
+
 </mapper>
 
 

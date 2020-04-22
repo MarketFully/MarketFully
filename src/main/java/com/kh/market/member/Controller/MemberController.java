@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,12 @@ public class MemberController {
 
 		if (loginUser != null) {
 			if (loginUser.getMem_cert().equals("Y")) {
+				System.out.println("------------------------login.do-------------------");
 				model.addAttribute("loginUser", loginUser);
+				ArrayList<MyBag> cartList = mService.selectListProduct(loginUser);
+				System.out.println("cartList : "+ cartList);
+				model.addAttribute("cartList", cartList);
+				System.out.println("login 성공");
 				return "redirect:index.jsp";
 			} else {
 				model.addAttribute("mem_id", loginUser.getMem_id());
@@ -317,10 +323,15 @@ public class MemberController {
 					, @RequestParam(value="prnameArr[]")List<String> prnameArr
 					, @RequestParam(value="prpriceArr[]")List<String> prpriceArr
 					, @RequestParam(value="preachArr[]")List<String> preachArr
-					, Member loginUser
+					, Model m
+					, HttpSession session
 				
 			) { // 장바구로 이동하는 메소드
 
+		System.out.println("-------myCart (insertCart)----------");
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
 		//데이터 확인
 //		System.out.println("bTitle :"+bTitle+", bId : "+bId);
 //		System.out.println("prcodeArr : "+prcodeArr);
@@ -345,6 +356,7 @@ public class MemberController {
 				mybag.setPr_code(Integer.parseInt(prcodeArr.get(i)));
 				mybag.setPr_each(Integer.parseInt(preachArr.get(i)));
 				mybag.setMem_num(loginUser.getMem_num());
+				mybag.setPrd(mService.selectOneProduct(Integer.parseInt(prcodeArr.get(i))));
 				cartList.add(mybag);
 			} //for
 			
@@ -356,6 +368,7 @@ public class MemberController {
 				MyBag mybag = new MyBag(bId, me_num);
 				mybag.setPr_code(Integer.parseInt(prcodeArr.get(i)));
 				mybag.setPr_each(Integer.parseInt(preachArr.get(i)));
+				mybag.setPrd(mService.selectOneProduct(Integer.parseInt(prcodeArr.get(i))));
 				cartList.add(mybag);
 				result+=1;
 			}//for
@@ -373,16 +386,93 @@ public class MemberController {
 		}//if else
 		System.out.println("comment : "+ comment);
 		
+		System.out.println("cartList : " + cartList);
+		
+		m.addAttribute("cartList", cartList);
 		
 		return comment;
 		
 	}//insertCart
 	
 	
+	//장바구니 비우기
+	@ResponseBody
+	@RequestMapping("clearMybag")
+	public String clearMybag(ArrayList<MyBag> cartList) {
+		
+		int result=0;
+		
+		for(MyBag mybag : cartList) {
+			result += mService.deleteMybag(mybag);
+		}
+		System.out.println("----- clearMybag------");
+		System.out.println("result : "+ result);
+		
+		String comment="";
+		
+//		if(result >0) {
+//			comment = "success";
+//		}else {
+//			comment = "fail";
+//		}
+		
+		
+		return comment;
+	}
+	
+	
+	@RequestMapping("selectDeleteMybag")
+	@ResponseBody
+	public String selectDeleteMybag(
+			int me_num, int mb_bo_num, int pr_code, int mem_num
+			,HttpSession session, Model m
+			) {
+		
+		System.out.println("-----selectDeleteMybag--------------");
+		System.out.println("me_num : "+ me_num);
+		System.out.println("mb_bo_num : "+ mb_bo_num);
+		System.out.println("pr_code : "+ pr_code);
+		System.out.println("mem_num : "+ mem_num);
+		int result=0;
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		System.out.println("loginUser : "+ loginUser);
+		
+		MyBag mybag = new MyBag();
+		mybag.setMe_num(me_num);
+		mybag.setMb_bo_num(mb_bo_num);
+		mybag.setPr_code(pr_code);
+		mybag.setMem_num(loginUser.getMem_num());
+		
+		System.out.println("mybag : "+ mybag);
+		result = mService.selectDeleteMybag(mybag);
+		
+		String comment="";
+		if(result>0) {
+			comment="success";
+		}else {
+			comment="fail";
+		}//if-else
+		
+		return "comment";
+	}
+	
 	
 	@RequestMapping("basket")
-	public String basketView() { // 장바구로 이동하는 메소드
-
+	public String basketView(HttpSession session, Model m) { // 장바구로 이동하는 메소드
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+//		m.addAttribute("cartList", loginUser.getClist());
+		ArrayList<MyBag> cartList =null;
+		if(loginUser != null) {
+			cartList = mService.selectListProduct(loginUser);
+		}
+		
+		System.out.println("-----basket----------");
+		System.out.println("loginUser : "+ loginUser);
+//		System.out.println("cartList : "+loginUser.getClist());
+		System.out.println("cartList : "+ cartList);
+		
 		return "member/basket";
 	}
 	

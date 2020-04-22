@@ -8,6 +8,7 @@ import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.product.model.vo.Product;
 
 public interface MemberService {
 
@@ -131,9 +132,37 @@ public interface MemberService {
 	int oneDeleteRecipeList(Favorite f);
 
 	/**
-	 * 장바구니 저장
+	 * 장바구니 insert메소드
 	 * @param cartList
 	 * @return
 	 */
 	int setMyBagList(ArrayList<MyBag> cartList);
+
+	/**
+	 * 상품코드(pcode)에 맞는 상품(Product)을 불러오는 메소드
+	 * @param parseInt
+	 * @return
+	 */
+	Product selectOneProduct(int pcode);
+
+	/**
+	 * mybag을 비우는 메소드
+	 * @param mybag
+	 * @return
+	 */
+	int deleteMybag(MyBag mybag);
+
+	/**
+	 * cartList를 불러옴
+	 * @param loginUser
+	 * @return
+	 */
+	ArrayList<MyBag> selectListProduct(Member loginUser);
+
+	/**
+	 * 장바구니 부분 삭제
+	 * @param mybag
+	 * @return
+	 */
+	int selectDeleteMybag(MyBag mybag);
 }

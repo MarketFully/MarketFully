@@ -1,5 +1,7 @@
 package com.kh.market.member.model.vo;
 
+import com.kh.market.product.model.vo.Product;
+
 public class MyBag {
 	
 	private int mem_num; //회원 번호
@@ -10,6 +12,29 @@ public class MyBag {
 	private int pr_code; //상품 코드
 	private int pr_each; //상품 수량
 	
+	private Product prd;
+	
+	public MyBag(int mem_num, int mb_bo_num, int me_num, int pr_code, int pr_each, Product prd) {
+		super();
+		this.mem_num = mem_num;
+		this.mb_bo_num = mb_bo_num;
+		this.me_num = me_num;
+		this.pr_code = pr_code;
+		this.pr_each = pr_each;
+		this.prd = prd;
+	}
+	public int getMe_num() {
+		return me_num;
+	}
+	public void setMe_num(int me_num) {
+		this.me_num = me_num;
+	}
+	public Product getPrd() {
+		return prd;
+	}
+	public void setPrd(Product prd) {
+		this.prd = prd;
+	}
 	public int getMem_num() {
 		return mem_num;
 	}
@@ -43,8 +68,8 @@ public class MyBag {
 	}
 	@Override
 	public String toString() {
-		return "MyBag [mem_num=" + mem_num + ", mb_bo_num=" + mb_bo_num + ", me_num=" + me_num
-				+ ", pr_code=" + pr_code + ", pr_each=" + pr_each + "]";
+		return "MyBag [mem_num=" + mem_num + ", mb_bo_num=" + mb_bo_num + ", me_num=" + me_num + ", pr_code=" + pr_code
+				+ ", pr_each=" + pr_each + ", prd=" + prd + "]";
 	}
 	public MyBag(int mem_num, int mb_bo_num, int me_num, int pr_code, int pr_each) {
 		this.mem_num = mem_num;

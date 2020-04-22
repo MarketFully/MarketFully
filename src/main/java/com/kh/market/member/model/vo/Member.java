@@ -2,8 +2,11 @@ package com.kh.market.member.model.vo;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
+
+import com.kh.market.recipe.model.vo.BoardReply;
 
 @Component
 public class Member {
@@ -26,7 +29,7 @@ public class Member {
 	private String mem_email_agree;
 	
 	public Member() {
-		super();
+
 	}
 
 	

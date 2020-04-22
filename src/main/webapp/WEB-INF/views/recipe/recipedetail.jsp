@@ -268,8 +268,9 @@
  
       <!-- Modal content -->
       <div class="modal-content">
+      	<label>여기에 대충 장바구니 정보 출력</label>
         <p>장바구니에 등록되었습니다.</p>
-        <button onclick="basket">장바구니로 이동하기</button>
+        <button onclick="location.href='basket'">장바구니로 이동하기</button>
         <button id="modalClose">계속하기</button>
       </div>
 
@@ -387,13 +388,13 @@
  						, prnameArr : prnameArr
  						, prpriceArr : prpriceArr
  						, preachArr : preachArr
- 						, loginUser : '${loginUser}'
  				}
         	 	, dataType:"text"
  				, type:"post"
  				, success:function(data){
  					//성 공 시 모달창 띄우기
  					console.log('success : '+data);
+ 					console.log('cartList : '+ '${cartList}');
  		        	 $('#myModal').css("display", "block"); 					
  				}
         	 	, error:function(request,status,error){

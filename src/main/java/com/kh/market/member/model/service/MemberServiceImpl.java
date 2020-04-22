@@ -13,6 +13,7 @@ import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.product.model.vo.Product;
 
 
 @Service("mService")
@@ -136,6 +137,30 @@ public class MemberServiceImpl implements MemberService{
 		@Override
 		public int setMyBagList(ArrayList<MyBag> cartList) {
 			return mDao.setMyBagList(cartList);
+		}
+
+		@Override
+		public Product selectOneProduct(int pcode) {
+			// TODO Auto-generated method stub
+			return mDao.selectOneProduct(pcode);
+		}
+
+		@Override
+		public int deleteMybag(MyBag mybag) {
+			
+			return mDao.deleteMybag(mybag);
+		}
+
+		@Override
+		public ArrayList<MyBag> selectListProduct(Member loginUser) {
+			// TODO Auto-generated method stub
+			return mDao.selectListProduct(loginUser);
+		}
+
+		@Override
+		public int selectDeleteMybag(MyBag mybag) {
+
+			return mDao.selectDeleteMybag(mybag);
 		}
 
 

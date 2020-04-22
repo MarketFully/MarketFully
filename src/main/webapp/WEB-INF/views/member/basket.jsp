@@ -52,55 +52,64 @@
                         <div class="view_goods"> 
                             <table class="tbl_goods goods" id="l_table">
                                 <tbody>
-                                    <tr>
-                                        <td header="thSelect" class="goods_check" style="width: 76px;">
-                                            <label class="label_check checked">
-                                            <input type="checkbox" name="" class="ico_check" value="5051" id="check1">
-                                            <label for="check1"></label>
-                                            </label></td> 
-                                        <td header="thInfo" class="goods_thumb" style="width: 100px;">
-                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="thumb">
-                                            <img src="https://img-cf.kurly.com/shop/data/goods/1481095558837i0.jpg" alt="상품이미지" onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"></a>
-                                        </td> 
-                                        <td header="thInfo" class="goods_info" style="width: 488px;"> 
-                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="name">[존쿡 델리미트] 바베큐 백립 450g (냉동)</a> 
-                                            <dl class="goods_cost" style="margin: 0px;"><dt class="screen_out">판매가격</dt> 
-                                                <dd class="selling_price">
-                                                    <span style="float:none;margin-right:0px;" class="num" style="font-size: 12px; font-weight: bold; margin-right: 0px;">15,000</span> 
-                                                    <span style="float:none;margin-right:0px;" class="txt"  style="font-size: 12px; font-weight: bold; margin-right: 0px;" >원</span>
-                                                </dd> 
-                                            </dl> 
-                                            <p class="txt txt_limit"></p> 
-                                        </td> 
-                                        <td header="thInfo" class="goods_condition" style="width: 112px;">
-                                            <div class="condition"></div>
-                                        </td> 
-                                        <td header="thCount" style="width: 86px;">
-                                            <div class="goods_quantity">
-                                                <div class="quantity" style="height: 22px;">
-                                                    <strong class="screen_out">수량</strong> 
-                                                    <button type="button" class="btn btn_reduce">
-                                                    <img src="resources/img/minus.png" alt="감소"></button> 
-                                                    <input type="text" readonly="readonly" class="inp_quantity" value="1"> 
-                                                    <button type="button" class="btn btn_rise">
-                                                        <img src="resources/img/plus.png" alt="추가"></button>
-                                                </div>
-                                            </div>
-                                        </td> 
-                                        <td header="thCost"  style="width: 110px;">
-                                            <dl class="goods_total">
-                                                <dt class="screen_out">합계</dt> 
-                                                <dd class="result">
-                                                    <span style="float:none;margin-right:0px;" class="num" style="margin: 0px;">15,000</span> 
-                                                    <span style="float:none;margin-right:0px;" class="txt" style="margin: 0px;">원</span>
-                                                </dd>
-                                            </dl>
-                                        </td > 
-                                        <td header="thDelete" class="goods_delete" style="width: auto;">
-                                            <button type="button" class="btn btn_delete" id="deletebtn">
-                                            <img src="https://res.kurly.com/pc/ico/1801/btn_close_24x24_514859.png" alt="삭제"></button>
-                                        </td>
-                                    </tr>
+                                	<c:if test="${ empty cartList}">
+                                   		<h1> 장바구니가 비었습니다. </h1>
+                                   	</c:if>
+                                	<c:forEach var="mybag" items="${cartList}" varStatus="index">
+	                                    <tr>
+	                                        <td header="thSelect" class="goods_check" style="width: 76px;">
+	                                            <label class="label_check checked">
+	                                            <input type="checkbox" name="" class="ico_check" id="check${index.index }">
+	                                            <label for="check${index.index }"></label>
+	                                            <input type="hidden" id="me_num" value="${mybag.me_num }"/>
+	                                            <input type="hidden" id="mb_bo_num" value="${mybag.mb_bo_num }"/>
+	                                            <input type="hidden" id="pr_code" value="${mybag.pr_code }"/>
+	                                            </label></td> 
+	                                        <td header="thInfo" class="goods_thumb" style="width: 100px;">
+	                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="thumb">
+	                                            <img src="https://img-cf.kurly.com/shop/data/goods/1481095558837i0.jpg" alt="상품이미지" onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"></a>
+	                                        </td> 
+	                                        <td header="thInfo" class="goods_info" style="width: 488px;"> 
+	                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="name">${mybag.getPrd().pr_name }</a> 
+	                                            <dl class="goods_cost" style="margin: 0px;"><dt class="screen_out"></dt> 
+	                                                <dd class="selling_price">
+	                                                    <span style="float:none;margin-right:0px;" class="num" style="font-size: 12px; font-weight: bold; margin-right: 0px;">${mybag.getPrd().pr_price}</span> 
+	                                                    <span style="float:none;margin-right:0px;" class="txt"  style="font-size: 12px; font-weight: bold; margin-right: 0px;" >원</span>
+	                                                </dd> 
+	                                            </dl> 
+	                                            <p class="txt txt_limit"></p> 
+	                                        </td> 
+	                                        <td header="thInfo" class="goods_condition" style="width: 112px;">
+	                                            <div class="condition"></div>
+	                                        </td> 
+	                                        <td header="thCount" style="width: 86px;">
+	                                            <div class="goods_quantity">
+	                                                <div class="quantity" style="height: 22px;">
+	                                                    <strong class="screen_out">수량</strong> 
+	                                                    <button type="button" class="btn btn_reduce">
+	                                                    <img src="resources/img/minus.png" alt="감소"></button> 
+	                                                    <input type="text" readonly="readonly" class="inp_quantity" value="${mybag.pr_each}" id="pr_each"> 
+	                                                    <button type="button" class="btn btn_rise">
+	                                                        <img src="resources/img/plus.png" alt="추가"></button>
+	                                                </div>
+	                                            </div>
+	                                        </td>
+	                                        <td header="thCost"  style="width: 110px;">
+	                                            <dl class="goods_total">
+	                                                <dt class="screen_out">합계</dt> 
+	                                                <dd class="result">
+	                                                	<input type="hidden" value="${mybag.getPrd().pr_price }" id="pr_price">
+	                                                    <span style="float:none;margin-right:0px;" class="num" style="margin: 0px;" id="total_price"></span> 
+	                                                    <span style="float:none;margin-right:0px;" class="txt" style="margin: 0px;">원</span>
+	                                                </dd>
+	                                            </dl>
+	                                        </td > 
+	                                        <td header="thDelete" class="goods_delete" style="width: auto;">
+	                                            <button type="button" class="btn btn_delete" id="deletebtn">
+	                                            <img src="https://res.kurly.com/pc/ico/1801/btn_close_24x24_514859.png" alt="삭제"></button>
+	                                        </td>
+	                                    </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>                        
@@ -117,20 +126,20 @@
                         <dl class="product_price--29YDGAO_uo">
                             <dt>총 상품금액</dt>
                             <dd style="margin-left: 0px;">
-                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;">15,000</span>원  
+                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;" id="total1">0</span>원  
                             </dd>
                         </dl>
                         <label style="font-size: 30px;font-weight:bold;padding-right: 54px;color: rgb(189, 187, 187);">+</label>
                         <dl class="product_price--29YDGAO_uo">
                             <dt>배송비</dt>
                             <dd style="margin-left: 0px;">
-                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;">0</span>원
+                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;">3000</span>원
                             </dd>
                         </dl>
                     </div>
                     <strong class="product_price_total--3usHUQ97oy">총 주문금액
                         <span style="float:none;margin-right:0px;" class="txt_point--bAwRwaaTcp">
-                            <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7">15,000</span>원
+                            <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" id="total2"></span>원
                         </span>
                     </strong>
                  </div>
@@ -170,23 +179,26 @@
     <!-- 수량 + / - -->
     <script>
         $(".btn_rise").click(function(){
-        var num = $(".inp_quantity").val();
-        var plusNum = Number(num) + 1;
-
-        $(".inp_quantity").val(plusNum);     
-        });
+	        var num = $(".inp_quantity").val();
+	        var plusNum = Number(num) + 1;
+	
+	        $(".inp_quantity").val(plusNum);
+	        
+	        calculate();
+        }); //btn_rise
         
         $(".btn_reduce").click(function(){
-        var num = $(".inp_quantity").val();
-        var minusNum = Number(num) - 1;  
-        
-            if(minusNum <= 0) {
-                $(".inp_quantity").val(num);
-            } else {
-                $(".inp_quantity").val(minusNum);          
-            }
+	        var num = $(".inp_quantity").val();
+	        var minusNum = Number(num) - 1;  
+	        
+	            if(minusNum <= 0) {
+	                $(".inp_quantity").val(num);
+	            } else {
+	                $(".inp_quantity").val(minusNum);          
+	            }
             
-        });
+            calculate();
+        }); //btn_reduce
     </script>
 
    <!--x 눌렀을때 삭제-->
@@ -194,7 +206,21 @@
     $("#l_table tr>td:last>#deletebtn")
      .on('click', function(){
          if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-             $(this).parent().parent().remove();
+
+         	$.ajax({
+         		url:"clearMybag"
+         		, data:{cartList : '${cartList}'}
+         		, type:"post"
+         		, success:function(data){
+         			console.log(data);
+         			$(this).parent().parent().remove();
+         		}//success
+         		, error:function(request, status, error){
+         			console.log('request :'+request);
+         			console.log('status :'+status);
+         			console.log('error :'+error);
+         		}//error
+         	});//ajax
          }else{   //취소
              return false;
          }  
@@ -206,13 +232,74 @@
          if (confirm("정말 삭제하시겠습니까??") == true){    //확인
                 //지금은 선택할게 하나니까 하나면 충분하지만 
                 //나중에는 반복문으로 prop('checked')가 true인 것을 전부 검색해서 다 지워야함
-                if($('#l_table tr').children().children().children().prop('checked')){
-                    $('#l_table tr').remove();
-                }//if
+                $.each($('#l_table tr'), function(index, item){
+                	if($(item).children().children().children().prop('checked')){
+                		var me_num = $(item).children().children().children('#me_num').val();
+                		var mb_bo_num = $(item).children().children().children('#mb_bo_num').val();
+                		var pr_code = $(item).children().children().children('#pr_code').val();
+                		
+                		if( ${loginUser.mem_num} > 0 ){ //로그인 중이면
+                			var mem_num = ${loginUser.mem_num};
+	                		$.ajax({
+	                			url:"selectDeleteMybag"
+	                			, data:{'me_num': me_num, 'mb_bo_num':mb_bo_num, 'pr_code':pr_code, 'mem_num':mem_num}
+	                			, method:"post"
+	                			, success:function(data){
+	                				console.log(data);
+	                			}//success
+	                			, error:function(request, status, error){
+	                				console.log('request :'+request);
+	                     			console.log('status :'+status);
+	                     			console.log('error :'+error);
+	                			}//error
+	                		}); //ajax
+	                		$(item).remove();
+                		}else{	//비로그인
+                			$(item).remove();
+                		}//if else loginUser!=null
+                	}// if checked
+                })//each
+                calculate();        
          }else{   //취소
              return false;
          }  
      });
+    
+    
+    
+    $(function(){
+    	console.log('비로그인 : ${loginUser.mem_num}');
+    	calculate();
+    });
+    
+    
+    //각 상품의 수량별로 가격을 계산하고 최종 가격등을 화면에 띄워줌
+    function calculate(){
+    	var total=0;
+    	
+    	$('input#pr_price').each(function(){
+			var price = $(this).val();
+			var each = 
+    		$(this).parent().parent().parent().parent().children('td[header=thCount]').children().children().children('#pr_each').val();
+			
+			
+    		console.log('가격 : '+ price);
+    		console.log('수량 : '+ each)
+    		
+    		var total_price = price*each;
+    		total += total_price;
+    		
+    		console.log('토탈 : '+total_price);
+    		
+    		$(this).siblings('#total_price').text(total_price);
+    		
+    	}); //each
+    	
+    	$('span#total1').text(total);
+    	$('span#total2').text(total+3000);
+    	
+    }//calculate
+    
      </script>
 </body>
 </html>

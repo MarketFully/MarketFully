@@ -84,12 +84,12 @@
 		.tab_menu li {
 		    float: left;
 		    width: 410px;
-		    height: 50px;
+		    height: 49px;
 		    background-color: #fff;
 		    list-style:none;
 		}
 		.tab_menu .on a {
-		    border-bottom: 2px solid #2e8b57;
+		    border-bottom: 4px solid #2e8b57;
 		    font-weight: 700;
 		    color: #2e8b57;
 		}
@@ -248,9 +248,7 @@
                         <li class="on" id="before_li" style="width:120px; cursor:pointer;">
                         	<a href="javascript:;" id="before">댓글<span class="tab_span">(${b.getBrlist().size()})</span></a>
                         </li>
-                        <li id="after_li" style="border-right: 1px solid #2e8b57; width:120px; cursor:pointer;">
-                        	<a href="javascript:;" id="after">요리후기<span class="tab_span">(1)</span></a>
-                        </li>
+                       
                     </ul>
                     
                 </div>
@@ -285,35 +283,6 @@
 					            </div>
 					        </div>
                     </div>
-                     <!-- 후기 -->
-                    <div id="tab2" class="reply">
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-
-                        <div> 
-                            <input type="button" value="후기" class="btn" onclick="location.href=''">
-                        </div>
-                    </div>
-
-
             </div>
             
         </div>
@@ -562,22 +531,6 @@
 	});
 
 	</script>
-	
-	<!-- tab 기능-->
-	<script>
-	$('#before').click(function() {
-	$('li').removeClass('on');
-	$('#before_li').addClass('on');  
-	$('#tab2').css('display','none');
-	$('#tab1').css('display','block');
-	});
-	
-	$('#after').click(function() {
-	$('li').removeClass('on');
-	$('#after_li').addClass('on');   
-	$('#tab1').css('display','none');
-	$('#tab2').css('display','block');
-	});
-	</script>
+
 </body>
 </html>

@@ -15,9 +15,9 @@ public class MiroticServiceImpl implements MiroticService{
 	private MiroticDAO mrtDao;
 	
 	@Override
-	public int updateCartlist(ArrayList<MyBag> cartList) {
+	public int updateCartlist(MyBag mybag) {
 		// TODO Auto-generated method stub
-		return mrtDao.updateCartList(cartList);
+		return mrtDao.updateCartList(mybag);
 	}
 
 

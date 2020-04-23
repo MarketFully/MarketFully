@@ -14,9 +14,9 @@ public class MiroticDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public int updateCartList(ArrayList<MyBag> cartList) {
+	public int updateCartList(MyBag mybag) {
 
-		return sqlSession.update("miroticMapper.updateCartList");
+		return sqlSession.update("miroticMapper.updateCartList", mybag);
 	}
 
 }

@@ -42,7 +42,7 @@
       <result property="mem_email_agree" column="MEM_EMAIL_AGREE"/>
    </resultMap>
 	
-	
+		
 	<!-- Query -->
 	<!-- 멤버 한명 셀렉트 -->
 	<select id="selectOneMember" resultMap="memberResultSet">
@@ -50,15 +50,11 @@
 		WHERE MEM_NUM = #{mem_num}
 	</select>
 	
-	<update id="updateCartList" parameterType="java.util.ArrayList">
-		<foreach collection="list" item="item" index="index">
-			UPDATE MYBAG
-			SET PR_CODE=#{item.pr_code}
-				, PR_EACH=#{item.pr_each}
-				, MB_BO_NUM=#{item.mb_bo_num}
-				, MB_NUM = #{item.mb_num}
-			WHERE MEM_NUM = #{item.mem_num}
-		</foreach>
+	<update id="updateCartList" parameterType="MyBag">
+		UPDATE MYBAG
+		SET PR_EACH = #{pr_each}
+		WHERE MEM_NUM = #{mem_num}
+		AND PR_CODE = #{pr_code}
 	</update>
 	
 	

@@ -23,7 +23,7 @@ public class MiroticController {
 	
 	@RequestMapping("miroticView")
 	@ResponseBody
-	public ModelAndView miroticView(ModelAndView mv
+	public String miroticView(ModelAndView mv
 								, HttpSession session
 								, @RequestBody ArrayList<MyBag> cartList
 							) {
@@ -34,18 +34,20 @@ public class MiroticController {
 		System.out.println("loginUser : "+ loginUser);
 		System.out.println("list  : "+cartList);
 	
+		
+		int result=0;
 		if(loginUser != null) { //회원이면 db에 업데이트 해준다.
 			System.out.println("회원입니다. : "+loginUser);
-			int result = mrtService.updateCartlist(cartList);
+			for(MyBag mybag : cartList) {
+				mybag.setMem_num(loginUser.getMem_num());
+				System.out.println("db작업 : "+mybag);
+				result += mrtService.updateCartlist(mybag);
+			}
 			System.out.println("result : "+result);
 		}
 		
 		mv.addObject("cartList", cartList);
 		
-		mv.setViewName("mirotic/miroticPage");
-		
-		
-		
-		return mv;
+		return "suc";
 	}
 }

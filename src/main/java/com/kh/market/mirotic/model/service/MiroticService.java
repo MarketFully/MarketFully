@@ -8,9 +8,9 @@ public interface MiroticService {
 
 	/**
 	 * 장바구니에서 받아온 값을 주문전에 db에 담는 메소드
-	 * @param cartList
+	 * @param mybag
 	 * @return
 	 */
-	int updateCartlist(ArrayList<MyBag> cartList);
+	int updateCartlist(MyBag mybag);
 
 }

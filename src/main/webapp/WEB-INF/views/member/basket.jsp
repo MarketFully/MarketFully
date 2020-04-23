@@ -365,7 +365,7 @@
    			, method:"post"
    			, success:function(data){
    				console.log(data);
-   				
+   				lcoation.href="miroticView"
    			}//success
    			, error:function(request, status, error){
    				console.log('request :'+request);

@@ -57,6 +57,52 @@
 		AND PR_CODE = #{pr_code}
 	</update>
 	
+	<insert id="insertMirotic" parameterType="Mirotic">
+		INSERT INTO MIROTIC
+		VALUES(SEQ_MIROTIC.NEXTVAL, 0, 0, #{pr_code}
+		, #{pr_each}, #{or_total}, SYSDATE, '0'
+		, #{sender_name}, #{sender_addr}, #{sender_phone}
+		, 0, #{mem_num})
+	</insert>
+	
+	<select id="selectOneMirotic" parameterType="Mirotic" resultType="_int">
+		SELECT OR_NUM FROM MIROTIC
+		WHERE SENDER_NAME = #{sender_name}
+		AND SENDER_PHONE=#{sender_phone}
+		AND SENDER_ADDR=#{sender_addr}
+		AND PR_CODE = #{pr_code}
+		AND PR_EACH = #{pr_each}
+	</select>
+	
+	<update id="updateMiroticSuccess" parameterType="Mirotic">
+		UPDATE MIROTIC
+		SET OR_STATUS = "입금확인 배송준비중"
+		WHERE SENDER_NAME = #{sender_name}
+		AND SENDER_PHONE=#{sender_phone}
+		AND SENDER_ADDR=#{sender_addr}
+		AND PR_CODE = #{pr_code}
+		AND PR_EACH = #{pr_each}
+	</update>
+	
+	<insert id="insertMiroticList" parameterType="java.Util.List">
+		<foreach collection="list" item="item" index="index" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO MIROTIC
+			VALUES(
+				  <choose>
+				    <when test="index == 0">
+				      SEQ_SHIPPING.NEXTVAL
+				    </when>
+				    <otherwise>
+				      SEQ_SHIPPING.CURRVAL
+				    </otherwise>
+				  </choose>
+				
+				, 0, 0, #{item.pr_code}
+			, #{item.pr_each}, #{item.or_total}, SYSDATE, '0'
+			, #{item.sender_name}, #{item.sender_addr}, #{item.sender_phone}
+			, 0, #{item.mem_num})
+		</foreach>
+	</insert>
 	
 </mapper>
 

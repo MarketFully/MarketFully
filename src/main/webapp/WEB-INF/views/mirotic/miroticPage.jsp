@@ -60,6 +60,8 @@
                                 		<c:set var="total_price" value="${mybag.getPrd().pr_price * mybag.pr_each }"/>
                                 		
 	                                    <tr>
+	                                    	<input type="hidden" id="pr_code" value="${mybag.pr_code }"/>
+	                                    	<input type="hidden" id="pr_each" value="${mybag.pr_each }"/>
 	                                        <td header="thSelect" class="goods_check" style="width: 76px;"></td> 
 	                                        <td header="thInfo" class="goods_thumb" style="width: 100px;">
 	                                            <a class="thumb">
@@ -343,9 +345,9 @@
     		
     		//로그인인 경우 주문자 정보 자동 완성
     		if(${!empty loginUser} ){
-    			$('#mem_name').val(${loginUser.mem_name});
-    			$('#mem_phone').val(${loginUser.mem_phone});
-    			$('#mem_email').val(${loginUser.mem_email});
+    			$('#mem_name').val('${loginUser.mem_name}');
+    			$('#mem_phone').val('${loginUser.mem_phone}');
+    			$('#mem_email').val('${loginUser.mem_email}');
     		}//if
     		
     	});
@@ -388,37 +390,46 @@
     	  
     	  
     	  
-    	  //결제 준비
+    	  //결제 관련 정보
     	  var pg_val='danal';
     	  var pay_method_val='card';
-    	  var order_val=0;
+    	  var order_val=0;	//ajax처리후 완성
     	  var amount_val=0;
-    	  var name_val=$('#mem_name').val();
-    	  var phone_val=01044112349;
-    	  var addr_val='test';
-    	  var zip_val=12345;
-    	  
     	  $('span#total_price').each(function(index, item){
     		  amount_val += Number($(item).text());
     		  console.log('amount_val : '+amount_val);
     	  })
     	  
+    	  //보내는 사람 관련 정보
+    	  var or_total = amount_val; //총 가격
+    		var sender_name = $('#mem_name').val(); //이름
+    		var sender_phone = $('#mem_phone').val();//번호
+    		var sender_addr = $('#address1').val(); // 주소
+    	  
+    	  
+    	  
+    	  
+		// 받는 사람 정보    	  
+    	  var name_val=$('#sender_name').val();
+    	  var phone_val=$('#sender_phone').val();;
+    	  var addr_val=$('#address2').val();;
+    	  var zip_val=$('#postcode2').val();;
+    	  
+    	  
     	  
     	  var orderList=[];
-    	  $.each($(), function(index, item){
+    	  $.each($('table.tbl_goods tr'), function(index, item){
     		  orderList.push({
-  	        		'pr_code' : pr_code //상품코드
-  	        		, 'pr_each' : pr_each //상품수량
-  	        		, 'or_total' : amount_val //총 가격
-  	        		, 'sender_name' : sender_name 
-  	        		, 'sender_phone' : sender_phone
-  	        		, 'sender_addr' : sender_addr
-  	        		, 'zip_val' : zip_val
-  	        		, 
-    		  })
+  	        		'pr_code' : $(item).children('#pr_code').val() //상품코드
+  	        		, 'pr_each' : $(item).children('#pr_each').val()//상품수량
+	        		, 'or_total' : amount_val //총 가격
+  	        		, 'sender_name' : sender_name //보내느 사람 이름
+  	        		, 'sender_phone' : sender_phone //번호
+  	        		, 'sender_addr' : sender_addr // 주소
+    		  });
     	  })//each
     	  
-    	  
+    	  console.log('보내는 자료 : '+orderList);
     	  
     	  //결제 
     	  //결제 정보를 db에 입력한다.
@@ -431,7 +442,6 @@
         	        	, success:function(data){
         	        		//성공시 결제 메소드를 호출한다. 
         	        		consoel.log('success : '+ data);
-        	        		
         	        		order_val = data;
         	        		console.log('amount_val : '+amount_val+'\n order_val : '+order_val+'\n name_val : '+name_val
         	        				+'\n phone_val : '+phone_val+'\n addr_val :'+addr_val+'\n zip_val : '+zip_val);
@@ -483,7 +493,7 @@
         	        	, success:function(data){
         	        		consoel.log(data);
         	        		alert('결제가 완료되었습니다.');
-        	        		location.href="";
+        	        		location.href="myorderlist.bo";
         	        	}//success
         	        	, error:function(request,status, error){
         	        		console.log('에라');

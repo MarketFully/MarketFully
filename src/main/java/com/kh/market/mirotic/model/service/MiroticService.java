@@ -3,6 +3,7 @@ package com.kh.market.mirotic.model.service;
 import java.util.ArrayList;
 
 import com.kh.market.member.model.vo.MyBag;
+import com.kh.market.mirotic.model.vo.Mirotic;
 
 public interface MiroticService {
 
@@ -12,5 +13,33 @@ public interface MiroticService {
 	 * @return
 	 */
 	int updateCartlist(MyBag mybag);
+
+	/**
+	 * 주문 정보 입력
+	 * @param mrt
+	 * @return
+	 */
+	int insertMirotic(Mirotic mrt);
+
+	/**
+	 * 주문조회
+	 * @param mirotic
+	 * @return
+	 */
+	int selectOneMirotic(Mirotic mirotic);
+
+	/**
+	 * 성공 업데이트
+	 * @param mrt
+	 * @return
+	 */
+	int updateMiroticSuccess(Mirotic mrt);
+
+	/**
+	 * 주문 리스트 입력
+	 * @param mrtList
+	 * @return
+	 */
+	int insertMiroticList(ArrayList<Mirotic> mrtList);
 
 }

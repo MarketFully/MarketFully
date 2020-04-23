@@ -13,7 +13,8 @@
     
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script> <!-- 탭 메뉴 -->
-    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
      <!-- 헤더부분-->
@@ -50,6 +51,45 @@
                         <div class="view_goods"> 
                             <table class="tbl_goods goods">
                                 <tbody>
+                                 
+                                	<c:forEach var="mybag" items="${cartList}" varStatus="index">
+	                                    <tr>
+	                                        <td header="thSelect" class="goods_check" style="width: 76px;"></td> 
+	                                        <td header="thInfo" class="goods_thumb" style="width: 100px;">
+	                                            <a class="thumb">
+	                                            <img src="https://img-cf.kurly.com/shop/data/goods/1481095558837i0.jpg" alt="상품이미지" onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"></a>
+	                                        </td> 
+	                                        <td header="thInfo" class="goods_info" style="width: 488px;"> 
+	                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="name">${mybag.getPrd().pr_name }</a> 
+	                                            <dl class="goods_cost" style="margin: 0px;"><dt class="screen_out"></dt> 
+	                                                <dd class="selling_price">
+	                                                    <span style="float:none;margin-right:0px;" class="num" style="font-size: 12px; font-weight: bold; margin-right: 0px;">${mybag.getPrd().pr_price}</span> 
+	                                                    <span style="float:none;margin-right:0px;" class="txt"  style="font-size: 12px; font-weight: bold; margin-right: 0px;" >원</span>
+	                                                </dd> 
+	                                            </dl> 
+	                                            <p class="txt txt_limit"></p> 
+	                                        </td> 
+	                                        <td header="thInfo" class="goods_condition" style="width: 112px;">
+	                                            <div class="condition"></div>
+	                                        </td> 
+	                                        <td header="thCount" style="width: 86px;">
+	                                        </td>
+	                                        <td header="thCost"  style="width: 110px;">
+	                                            <dl class="goods_total">
+	                                                <dt class="screen_out">합계</dt> 
+	                                                <dd class="result">
+	                                                	<input type="hidden" value="${mybag.getPrd().pr_price }" id="pr_price">
+	                                                    <span style="float:none;margin-right:0px;" class="num" style="margin: 0px;" id="total_price"></span> 
+	                                                    <span style="float:none;margin-right:0px;" class="txt" style="margin: 0px;">원</span>
+	                                                </dd>
+	                                            </dl>
+	                                        </td > 
+	                                        <td style="width: auto;">
+	                                        </td>
+	                                    </tr>
+                                    </c:forEach>
+                                	
+                                
                                     <tr>
                                         <td header="thSelect" class="goods_check" style="width: 76px;"></td>
                                         <td header="thInfo" class="goods_thumb" style="width: 100px;">
@@ -80,6 +120,8 @@
                                         </td > 
                                         <td  style="width: auto;"></td>
                                     </tr>
+                                     
+                                    
                                 </tbody>
                             </table>
                         </div>                        
@@ -346,7 +388,7 @@
     
         
       //주문결제
-        function mirotic(){
+        function cashbtn(){
         	var IMP = window.IMP; // 생략가능
         	IMP.init('imp98905663');
         	

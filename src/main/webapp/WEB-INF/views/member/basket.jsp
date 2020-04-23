@@ -358,14 +358,14 @@
     	
     	//회원인 경우 현재 list를 MyBag에 업데이트 해서 그 값을 이용함
     	 $.ajax({	
-   			url:"miroticView"
+   			url:"updateCart"
    			, data: JSON.stringify(list)
-   			, dataType : "json"
+   			, dataType : "text"
    			, contentType : "application/json"
    			, method:"post"
    			, success:function(data){
    				console.log(data);
-   				lcoation.href="miroticView"
+   				location.href="miroticView";
    			}//success
    			, error:function(request, status, error){
    				console.log('request :'+request);

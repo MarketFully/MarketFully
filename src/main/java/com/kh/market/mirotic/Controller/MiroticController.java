@@ -21,9 +21,9 @@ public class MiroticController {
 	@Autowired
 	private MiroticService mrtService;
 	
-	@RequestMapping("miroticView")
+	@RequestMapping("updateCart")
 	@ResponseBody
-	public String miroticView(ModelAndView mv
+	public String updateCart(ModelAndView mv
 								, HttpSession session
 								, @RequestBody ArrayList<MyBag> cartList
 							) {
@@ -48,6 +48,14 @@ public class MiroticController {
 		
 		mv.addObject("cartList", cartList);
 		
-		return "suc";
+		return "cartList";
+	}
+	
+	@RequestMapping("miroticView")
+	public ModelAndView miroticView(ModelAndView mv, HttpSession session) {
+		
+		
+		mv.setViewName("mirotic/miroticPage");
+		return mv;
 	}
 }

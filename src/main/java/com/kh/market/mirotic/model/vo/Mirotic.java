@@ -2,6 +2,7 @@ package com.kh.market.mirotic.model.vo;
 
 import java.sql.Date;
 
+import com.kh.market.member.model.vo.Member;
 import com.kh.market.product.model.vo.Product;
 
 public class Mirotic {
@@ -19,8 +20,20 @@ public class Mirotic {
 	private int shipping_code;
 	private int mem_num;
 	
+	private Member m; 
+	
 	private Product product;
 	
+	
+	
+	public int getMem_num() {
+		return mem_num;
+	}
+
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
+	}
+
 	public Product getProduct() {
 		return product;
 	}
@@ -31,26 +44,6 @@ public class Mirotic {
 
 	public Mirotic() {
 		super();
-	}
-
-	public Mirotic(int or_num, int me_num, int mb_each, int pr_code, int pr_each, int or_total, Date or_date,
-			String or_status, String sender_name, String sender_addr, String sender_phone, int shipping_code,
-			int mem_num, Product product) {
-		super();
-		this.or_num = or_num;
-		this.me_num = me_num;
-		this.mb_each = mb_each;
-		this.pr_code = pr_code;
-		this.pr_each = pr_each;
-		this.or_total = or_total;
-		this.or_date = or_date;
-		this.or_status = or_status;
-		this.sender_name = sender_name;
-		this.sender_addr = sender_addr;
-		this.sender_phone = sender_phone;
-		this.shipping_code = shipping_code;
-		this.mem_num = mem_num;
-		this.product = product;
 	}
 
 	public int getOr_num() {
@@ -149,12 +142,12 @@ public class Mirotic {
 		this.shipping_code = shipping_code;
 	}
 
-	public int getMem_num() {
-		return mem_num;
+	public Member getM() {
+		return m;
 	}
 
-	public void setMem_num(int mem_num) {
-		this.mem_num = mem_num;
+	public void setM(Member m) {
+		this.m = m;
 	}
 
 	@Override
@@ -162,8 +155,12 @@ public class Mirotic {
 		return "Mirotic [or_num=" + or_num + ", me_num=" + me_num + ", mb_each=" + mb_each + ", pr_code=" + pr_code
 				+ ", pr_each=" + pr_each + ", or_total=" + or_total + ", or_date=" + or_date + ", or_status="
 				+ or_status + ", sender_name=" + sender_name + ", sender_addr=" + sender_addr + ", sender_phone="
-				+ sender_phone + ", shipping_code=" + shipping_code + ", mem_num=" + mem_num + ", product=" + product
-				+ "]";
+				+ sender_phone + ", shipping_code=" + shipping_code + ", mem_num=" + mem_num + ", m=" + m + ", product="
+				+ product + "]";
 	}
+
+
+	
+
 	 
 }

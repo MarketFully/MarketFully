@@ -33,8 +33,8 @@
                                     <label for="chk_all"></label>
                                     </label> 
                                     <span style="float:none;margin-right:0px;" class="tit">전체선택 (
-                                        <span style="float:none;margin-right:0px;" class="num_count" style="margin-right: 0px;">2</span>&nbsp;&nbsp;/&nbsp;
-                                        <span style="float:none;margin-right:0px;" class="num_total" style="margin-right: 0px;">2</span>&nbsp;)
+                                        <span style="float:none;margin-right:0px;" class="num_count" id="num_count" style="margin-right: 0px;">0</span>&nbsp;&nbsp;/&nbsp;
+                                        <span style="float:none;margin-right:0px;" class="num_total" id="num_total" style="margin-right: 0px;">0</span>&nbsp;)
                                     </span>
                                 </div>
                             </th> 
@@ -142,16 +142,17 @@
                             <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" id="total2"></span>원
                         </span>
                     </strong>
-                 </div>
+                    
+                 <c:if test="${ !empty cartList}">
+                       </div>
                     <div class="notice_cart">*적립금은 다음화면인 ‘주문서’에서 확인가능합니다.</div> 
-                    <button type="button" class="btn_submit">주문하기 
-                    </button> 
-                </div>
-
-                <p class="info_notice">
-                    ‘입금확인’ 상태일 때는 주문내역 상세 페이지에서 직접 주문취소가 가능합니다.<br>
-                    ‘입금확인’ 이후 상태에는 고객행복센터로 문의해주세요.
-                </p>
+                    	<button type="button" class="btn_submit" onclick="miroticView()">주문하기</button>
+	                </div>
+	                <p class="info_notice">
+	                    ‘입금확인’ 상태일 때는 주문내역 상세 페이지에서 직접 주문취소가 가능합니다.<br>
+	                    ‘입금확인’ 이후 상태에는 고객행복센터로 문의해주세요.
+	                </p>
+               	</c:if>
             </div>
         </div>
     </div>
@@ -159,12 +160,15 @@
      <!-- 전체동의 -->
      <script>
         $("#chk_all").click(function(){
-        var chk = $("#chk_all").prop("checked");
-        if(chk) {
-        $(".ico_check").prop("checked", true);
-        } else {
-        $(".ico_check").prop("checked", false);
-        }
+        	var chk = $("#chk_all").prop("checked");
+	        if(chk) {
+	        	$(".ico_check").prop("checked", true);
+	        } else {
+	        	$(".ico_check").prop("checked", false);
+	        }
+	        
+	        //전체 체크시 체크되어있는 갯수를 총갯수와 맞춰줌
+	        checkNum();
         });
    
     </script>
@@ -172,29 +176,30 @@
     <!-- 전체동의가 체크되있을 때 하나라도 풀리면 해제 -->
     <script>           
         $(".ico_check").click(function(){
-        $("#chk_all").prop("checked", false);
+        	$("#chk_all").prop("checked", false);
+        	checkNum();
         });
     </script> 
 
     <!-- 수량 + / - -->
     <script>
         $(".btn_rise").click(function(){
-	        var num = $(".inp_quantity").val();
+	        var num = $(this).siblings(".inp_quantity").val();
 	        var plusNum = Number(num) + 1;
 	
-	        $(".inp_quantity").val(plusNum);
-	        
+	        $(this).siblings(".inp_quantity").val(plusNum);
+			
 	        calculate();
         }); //btn_rise
         
         $(".btn_reduce").click(function(){
-	        var num = $(".inp_quantity").val();
+	        var num = $(this).siblings(".inp_quantity").val();
 	        var minusNum = Number(num) - 1;  
 	        
 	            if(minusNum <= 0) {
-	                $(".inp_quantity").val(num);
+	            	$(this).siblings(".inp_quantity").val(num);
 	            } else {
-	                $(".inp_quantity").val(minusNum);          
+	            	$(this).siblings(".inp_quantity").val(minusNum);          
 	            }
             
             calculate();
@@ -206,21 +211,31 @@
     $("#l_table tr>td:last>#deletebtn")
      .on('click', function(){
          if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-
-         	$.ajax({
-         		url:"clearMybag"
-         		, data:{cartList : '${cartList}'}
-         		, type:"post"
-         		, success:function(data){
-         			console.log(data);
-         			$(this).parent().parent().remove();
-         		}//success
-         		, error:function(request, status, error){
-         			console.log('request :'+request);
-         			console.log('status :'+status);
-         			console.log('error :'+error);
-         		}//error
-         	});//ajax
+        	var me_num = $(item).parent().parent().children().children().children('#me_num').val();
+     		var mb_bo_num = $(item).parent().parent().children().children().children('#mb_bo_num').val();
+     		var pr_code = $(item).parent().parent().children().children().children('#pr_code').val();
+     		
+     		if( ${ !empty loginUser } ){ //로그인 중이면
+        		$.ajax({
+        			url:"selectDeleteMybag"
+        			, data:{'me_num': me_num, 'mb_bo_num':mb_bo_num, 'pr_code':pr_code}
+        			, method:"post"
+        			, success:function(data){
+        				console.log(data);
+        			}//success
+        			, error:function(request, status, error){
+        				console.log('request :'+request);
+             			console.log('status :'+status);
+             			console.log('error :'+error);
+        			}//error
+        		}); //ajax
+        		$(item).parent().parent().remove();
+        		checkNum();
+    		}else{	//비로그인
+    			$(item).parent().parent().remove();
+    			checkNum();
+    		}//if else loginUser!=null
+     		
          }else{   //취소
              return false;
          }  
@@ -238,11 +253,11 @@
                 		var mb_bo_num = $(item).children().children().children('#mb_bo_num').val();
                 		var pr_code = $(item).children().children().children('#pr_code').val();
                 		
-                		if( ${loginUser.mem_num} > 0 ){ //로그인 중이면
-                			var mem_num = ${loginUser.mem_num};
+                		
+                		if( ${ !empty loginUser } ){ //로그인 중이면
 	                		$.ajax({
 	                			url:"selectDeleteMybag"
-	                			, data:{'me_num': me_num, 'mb_bo_num':mb_bo_num, 'pr_code':pr_code, 'mem_num':mem_num}
+	                			, data:{'me_num': me_num, 'mb_bo_num':mb_bo_num, 'pr_code':pr_code}
 	                			, method:"post"
 	                			, success:function(data){
 	                				console.log(data);
@@ -254,8 +269,10 @@
 	                			}//error
 	                		}); //ajax
 	                		$(item).remove();
+	                		checkNum();
                 		}else{	//비로그인
                 			$(item).remove();
+                			checkNum();
                 		}//if else loginUser!=null
                 	}// if checked
                 })//each
@@ -270,6 +287,7 @@
     $(function(){
     	console.log('비로그인 : ${loginUser.mem_num}');
     	calculate();
+    	checkNum();
     });
     
     
@@ -299,6 +317,64 @@
     	$('span#total2').text(total+3000);
     	
     }//calculate
+    
+    //전체 선택 개수 표시
+ 	function checkNum(){
+    	var num_count=0;
+    	var num_total=0;
+ 		$('#l_table tr').each(function(index, item){
+    		if($(item).children().children().children().prop('checked')){
+    			num_count+=1;
+    		}
+    		num_total=index;
+    	});//each
+    	
+    	console.log('num_count :'+num_count +', num_total : '+num_total);
+    	
+    	$('#num_total').text(num_total+1);
+    	$('#num_count').text(num_count);
+    }   
+    
+    
+    //주문 페이지로
+    function miroticView(){
+    	//주문을 누르는 순간
+    	
+    	//현재 장바구니에 설정된 값을 list 객체 배열에 담는다
+    	var list=[];
+    	$.each($('#l_table tr'), function(index, item){
+       		var cart={};
+       		list.push({
+	       		'me_num' : $(item).children().children().children('#me_num').val()
+	       		,'mb_bo_num' : $(item).children().children().children('#mb_bo_num').val()
+	       		,'pr_code' : $(item).children().children().children('#pr_code').val()
+	       		, 'pr_each' : $(item).children().children().children().children('#pr_each').val()
+       			});
+    	})//$.each  
+    	
+    	//확인
+    	console.log(list);
+    	console.log(JSON.stringify(list));
+    	
+    	//회원인 경우 현재 list를 MyBag에 업데이트 해서 그 값을 이용함
+    	 $.ajax({	
+   			url:"miroticView"
+   			, data: JSON.stringify(list)
+   			, dataType : "json"
+   			, contentType : "application/json"
+   			, method:"post"
+   			, success:function(data){
+   				console.log(data);
+   				
+   			}//success
+   			, error:function(request, status, error){
+   				console.log('request :'+request);
+        			console.log('status :'+status);
+        			console.log('error :'+error);
+   			}//error
+   		}); //ajax 
+   		
+    }//miroticView
     
      </script>
 </body>

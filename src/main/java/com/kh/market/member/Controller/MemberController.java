@@ -424,7 +424,7 @@ public class MemberController {
 	@RequestMapping("selectDeleteMybag")
 	@ResponseBody
 	public String selectDeleteMybag(
-			int me_num, int mb_bo_num, int pr_code, int mem_num
+			int me_num, int mb_bo_num, int pr_code
 			,HttpSession session, Model m
 			) {
 		
@@ -432,7 +432,6 @@ public class MemberController {
 		System.out.println("me_num : "+ me_num);
 		System.out.println("mb_bo_num : "+ mb_bo_num);
 		System.out.println("pr_code : "+ pr_code);
-		System.out.println("mem_num : "+ mem_num);
 		int result=0;
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
@@ -466,6 +465,8 @@ public class MemberController {
 		ArrayList<MyBag> cartList =null;
 		if(loginUser != null) {
 			cartList = mService.selectListProduct(loginUser);
+		}else {
+			cartList = (ArrayList)session.getAttribute("cartList");
 		}
 		
 		System.out.println("-----basket----------");

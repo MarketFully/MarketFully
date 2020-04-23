@@ -2,6 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="miroticMapper">
 
+	<!-- resultMap -->
+	<!-- 주문테이블 매핑 -->
+	<resultMap type="Mirotic" id="miroticResultMap">
+		<id property="or_num" column="OR_NUM"/>
+		<result property="me_num" column="MB_NUM"/>
+		<result property="pr_code" column="PR_CODE"/>
+		<result property="pr_each" column="PR_EACH"/>
+		<result property="or_total" column="OR_TOTAL"/>
+		<result property="or_date" column="OR_DATE"/>
+		<result property="or_state" column="OR_DATE"/>
+		<result property="sender_name" column="SENDER_NAME"/>
+		<result property="sender_addr" column="SENDER_ADDR"/>
+		<result property="sender_phone" column="SENDER_PHONE"/>
+		<result property="shipping_code" column="SHIPPING_CODE"/>
+		<association property="m" select="selectOneMember"
+					 javaType="Member" column="{mem_num=MEM_NUM}"
+					/>
+	</resultMap>
+
+	<!-- 멤버테이블 매핑 -->	
+   <resultMap id="memberResultSet" type="Member">
+      <id property="mem_num" column="MEM_NUM"/>
+      <result property="mem_id" column="MEM_ID"/>
+      <result property="mem_pwd" column="MEM_PWD"/>
+      <result property="mem_email" column="MEM_EMAIL"/>
+      <result property="mem_phone" column="MEM_PHONE"/>
+      <result property="mem_addr" column="MEM_ADDR"/>
+      <result property="mem_name" column="MEM_NAME"/>
+      <result property="mem_gender" column="MEM_GENDER"/>
+      <result property="mem_birth" column="MEM_BIRTH"/>
+      <result property="mem_point" column="MEM_POINT"/>
+      <result property="mem_profile" column="MEM_PROFILE"/>
+      <result property="mem_status" column="MEM_STATUS"/>
+      <result property="shipping_code" column="SHIPPING_CODE"/>
+      <result property="mem_grade" column="MEM_GRADE"/>
+      <result property="mem_cert" column="MEM_CERT"/>
+      <result property="mem_sms_agree" column="MEM_SMS_AGREE"/>
+      <result property="mem_email_agree" column="MEM_EMAIL_AGREE"/>
+   </resultMap>
+	
+	
+	<!-- Query -->
+	<!-- 멤버 한명 셀렉트 -->
+	<select id="selectOneMember" resultMap="memberResultSet">
+		SELECT * FROM MEMBER
+		WHERE MEM_NUM = #{mem_num}
+	</select>
+	
+	<update id="updateCartList" parameterType="java.util.ArrayList">
+		<foreach collection="list" item="item" index="index">
+			UPDATE MYBAG
+			SET PR_CODE=#{item.pr_code}
+				, PR_EACH=#{item.pr_each}
+				, MB_BO_NUM=#{item.mb_bo_num}
+				, MB_NUM = #{item.mb_num}
+			WHERE MEM_NUM = #{item.mem_num}
+		</foreach>
+	</update>
+	
 	
 </mapper>
 

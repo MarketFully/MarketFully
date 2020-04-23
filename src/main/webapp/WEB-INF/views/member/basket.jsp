@@ -118,7 +118,7 @@
 
                 <div class="all_select select_option">
                     <button type="button" class="btn_delete" id="btnnnnn1">선택 삭제</button> 
-                    <button type="button" class="btn_delete">품절 상품 삭제</button>
+                    <!-- <button type="button" class="btn_delete">품절 상품 삭제</button>  -->
                 </div>
 
                 <div class="product_price_box--2_sRjHNYSb" style="height: 62px;">

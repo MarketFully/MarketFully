@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.service.MiroticService;
+import com.kh.market.mirotic.model.vo.Mirotic;
 
 @Controller
 public class MiroticController {
@@ -49,6 +50,14 @@ public class MiroticController {
 		mv.addObject("cartList", cartList);
 		
 		return "cartList";
+	}
+	
+	@RequestMapping("insertMirotic")
+	public int insertMirotic(ModelAndView mv, Mirotic mr) {
+		
+		
+		
+		return mr.getOr_num();
 	}
 	
 	@RequestMapping("miroticView")

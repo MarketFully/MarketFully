@@ -1,7 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -149,6 +148,7 @@
             margin-top: 50px; 
             margin-bottom: 50px;
         }
+
         /*페이징 처리 css*/
         .pagination {
             display:inline-block;
@@ -189,27 +189,6 @@
             float: left;
         }
 
-        /* 레시피 작성 버튼 css*/
-        .write_btn{
-            width: 100px;
-            text-align: center;
-            height: 35px;
-            font-size: 14px;
-            line-height: 35px;
-            vertical-align: middle;
-            background: #2e8b57;
-            color: #fff !important;
-            text-decoration: none;
-            border: none;
-            font-family: MapoPeacefull;
-            margin-top: 20px;
-            float: right;
-        }
-
-        .write{
-            flex: auto;
-        }
-
         /* 제품분류 타이틀*/
         .product_title{
             width: 1100px;
@@ -217,7 +196,57 @@
             margin-top: 40px;
             margin-left: 30px
         }
-	</style>
+
+        /* 상세 분류 */
+        .mList{
+            width: 1100px;
+            margin: 0 auto;
+            display: inline-flex;
+            margin-top: 10px;
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .m1,.current{
+            float: left;
+            list-style: none;
+        }
+
+        .mList li a{
+            overflow: hidden;
+            float: left;
+            padding: 0 13px 7px 12px;
+            border-bottom: 1px solid #ddd;
+            line-height: 20px;
+            font-size: 12px;
+            color: #333;
+            letter-spacing: -0.3px;
+            cursor: pointer;
+            transition:0.3s;
+        }
+
+        .mList li a:hover{
+            /* border-color:#2e8b57; */
+            border-bottom:2px solid #2e8b57;
+        }
+
+        li .on{
+            color:#2e8b57;
+        }
+
+        .product{
+            display: none;
+			background-color :#fff;
+			/* padding: 6px 12px; */
+			color:#000;
+        }
+
+        .product.current{
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    
     <link rel="stylesheet" href="resources/css/header.css">
     <link rel="stylesheet" href="resources/css/toptenrecipe.css">
     <link rel="stylesheet" href="resources/css/singleProduct.css">
@@ -226,82 +255,125 @@
 </head>
 <body>
     <!-- header-->
-   <%@include file="../common/header.jsp" %>
+    <%@include file="../common/header.jsp" %>
     <!-- header end-->
-  <!-- 단일상품 타이틀 -->
+
+    <!-- 단일상품 타이틀 -->
     <div class="topTenRecipe">
         <div class="TOP">
             <div class="TOP10" style="width: 1100px; display: flex; margin: 0 auto; ">
-                <div class="topImgdiv"><img src="resources/img/shopping.png" class="topImg"></div>
-
-                <div class="Ttitle"><h4>상품</h4></div>
+                <div class="topImgdiv"><img src="resources/img/steak.png" class="topImg"></div>
+                <div class="Ttitle"><h4>${maincatename }</h4></div>
             </div>
         </div>
+
+        <ul class="mList">
+            <li class="current" ><a href="Productchoosecate?catenum=${sc[0].upcate}&maincatename=${maincatename }">전체보기</a></li>
+            <c:forEach var="subcate" items="${sc }">
+            <c:url var="subselect" value="productsubselect">
+            	<c:param name="maincate" value="${subcate.upcate }"/>
+            	<c:param name="subcate" value="${subcate.catecode2 }"/>
+            	<c:param name="maincatename" value="${maincatename }"/>
+            </c:url>
+           	<li class="m1"><a href=${subselect }> ${subcate.catename2 }</a> </li>
+            </c:forEach>
+        </ul>
     </div>
     <!-- 단일상품 타이틀 end-->
-	<c:set var="l" value="0"/>
-    <c:forEach var="ct" items="${mclist }" varStatus="" >
-     <!-- 상품 -->
-     <!-- 고기 -->
-     
-     <div class="product_title" onclick="location.href='Productchoosecate?catenum=${ct.catecode1}&maincatename=${ct.catename1 }'">
-        <img src="resources/img/steak.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
-       ${ct.catename1 }
-        <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
-    </div>
-       <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px; margin-bottom: 30px;">
-<c:forEach var="j" begin="0" end="3" step="1">
+    <!-- 전체보기 -->
         
-     
-        <c:if test="${fourproductlist[l].pr_cate1 != NULL }">
-        <div class="col-lg-3 col-md-6 mb-4" style="cursor: pointer;"  onclick="location.href='ProductDetail?pr_code=${fourproductlist[l].pr_code}'">
-            <div class="Rcard h-500 w-100">
-                <a href="#"><img src="resources/img/Productuploadimg/${fourproductlist[l].renameFileName }" 
-                class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "
- style='width:90%;'></a>
-            
-                <div class="Rcard-body">
-                    <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">${fourproductlist[l].pr_name }</a></h4>
-                    <p class="Rcard-text">${fourproductlist[l].pr_price }원 </p>
-                </div>
-            </div>
-        </div>
-        </c:if>
-           <c:if test="${fourproductlist[l].pr_cate1 == NULL }">
-        <div class="col-lg-3 col-md-6 mb-4">
-        
-        </div>
-        
-        </c:if>
-        
-        <c:set var="l" value="${l+1 }"/>
-        </c:forEach>
-        
+        <div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px;">
 
-    </c:forEach>
-      <!-- 고기 end -->
-     
-      <!--수산 해산 건어물 end -->
+				<c:forEach var="R" begin="0" end="7" step="1">
+					<c:if test="${pr[R]!=NULL }">
+						<div class="col-lg-3 col-md-6 mb-4">
+							<div class="Rcard h-500 w-100">
+								<a href="ProductDetail?pr_code=${pr[R].pr_code }"><img src="resources/img/Productuploadimg/${pr[R].renameFileName }"
+									class="Rcard-img-top" style="width: 90%;" onERROR="this.src='resources/img/errorimg.PNG' "></a>
 
-      <hr style="width: 1100px; border: 1px dashed #dcdcdc;">
+								<div class="Rcard-body">
+									<h4 class="Rcard-title">
+										<a href="ProductDetail?pr_code=${pr[R].pr_code }"
+										 style="text-decoration: none;">${pr[R].pr_name }</a>
+									</h4>
+									<p class="Rcard-text">남은 재고 : ${pr[R].pr_entity }개 &nbsp;&nbsp; 가격 : ${pr[R].pr_price } 원</p>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<c:if test="${pr[R]==NULL }">
+						<div class="col-lg-3 col-md-6 mb-4">
+						</div>
+					</c:if>
+				<c:if test="${R ==3}">
+					</div>
+					<div class="row" style="width: 1100px; display: flex; margin: 0 auto; margin-top: 15px;">
+				</c:if>
+				</c:forEach>
+			</div>
+    
+          </div>
 
-      <!-- 가공식품(햄, 치즈, 버터, 우유) -->
+          
+    <!-- 계란 end-->
 
-      
-    <!-- 상품 end-->
+    
 
 
         
     <!-- 페이징 처리 -->
     <div class="pagination">
             
-    
-   
+                
+     
         
         
-
-        <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>
-        <a href="javascript:;"><img src="images/doublenext.png" alt="마지막 페이지로 이동" class="lastpage_img"></a> -->
+              <!-- 이전 -->
+              <c:if test="${ pi.currentPage eq 1 }">
+               <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img" 
+               style="width:25px;height:25px; cursor:pointer;vertical-align: middle;">
+            </c:if>
+               <c:if test="${ pi.currentPage ne 1 }">
+                  <c:url var="before" value="Productchoosecate">
+                  <c:param name="catenum" value="${sc[0].upcate }"/>
+                  <c:param name="maincatename" value="${maincatename }"/>
+                    <c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+                  </c:url>
+                  <a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+               </c:if>
+      
+            <!-- 페이지 -->
+            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+               <c:if test="${ p eq pi.currentPage }">
+                  <font color="#2e8b57" size="4"><b>${ p }</b></font>
+               </c:if>
+                     
+               <c:if test="${ p ne pi.currentPage }">
+                  <c:url var="pagination" value="Productchoosecate">
+                  
+                        <c:param name="currentPage" value="${ p }"/>
+                        <c:param name="catenum" value="${sc[0].upcate }"/>
+                  <c:param name="maincatename" value="${maincatename }"/>
+                  </c:url>
+                     <a href="${ pagination }">${ p }</a> &nbsp;
+                  </c:if>
+               </c:forEach>
+      
+               <!-- [다음] -->
+                  <c:if test="${ pi.currentPage eq pi.maxPage }">
+                  
+                     <img src="resources/img/arrow_right.png" alt="다음 페이지로 이동" 
+                      style="width:25px;height:25px;cursor:pointer;vertical-align: middle;" >
+                     
+                  </c:if>
+                  <c:if test="${ pi.currentPage ne pi.maxPage }">
+                     <c:url var="after" value="Productchoosecate">
+                        <c:param name="catenum" value="${sc[0].upcate }"/>
+                  		<c:param name="maincatename" value="${maincatename }"/>
+                        <c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+                     </c:url> 
+                     <a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+                  </c:if>    
     </div> 
     <!-- 페이징처리 end-->
 
@@ -319,10 +391,10 @@
     <!-- 탭 메뉴 스크립트-->
 	<script>
 		$(function() {
-			$('ul.tab li').click(function() {
+			$('ul.mList li').click(function() {
 				var activeTab = $(this).attr('data-tab');
-				$('ul.tab li').removeClass('current');
-				$('.toptenTab').removeClass('current');
+				$('ul.mList li').removeClass('current');
+				$('.product').removeClass('current');
 				$(this).addClass('current');
 				$('#' + activeTab).addClass('current');
 			})

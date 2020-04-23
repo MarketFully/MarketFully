@@ -59,7 +59,8 @@
             <div class="sectionView">
                 <div class="sectionInner">
                     <div class="detailImg">
-                        <img src="resources/img/detail.jpg">
+                        <img src="resources/img/Productuploadimg/${p.renameFileName }" style="width:400px;"
+                        onERROR="this.src='resources/img/errorimg.PNG' ">
                         <div>
                             <img src="resources/img/heart.png" class="choice">
                         </div>
@@ -67,86 +68,25 @@
 
                     
                     <div class="goods_name">
-                        <h3 class="name">GAP 대저 짭짤이 토마토</h3>
+                        <h3 class="name">${p.pr_name }</h3>
                         <div class="good_list">
                             <ul>
                                 <li>
                                     <div class="ment">가격</div>
-                                    <div class="ment_subject">15000원</div>
+                                    <div class="ment_subject">${p.pr_price }</div>
                                 </li>
                                 <li>
                                     <div class="ment">판매단위</div><!-- admin 에서는 상퓸용량 -->
-                                    <div class="ment_subject">1팩</div>
+                                    <div class="ment_subject">${p.pr_size }</div>
                                 </li>
                                 <li>
-                                    <div class="ment">제조사(원산지)</div>
-                                    <div class="ment_subject">부산</div>
+                                    <div class="ment">열량</div>
+                                    <div class="ment_subject">${p.pr_carlory }</div>
                                 </li>
                                 <li>
-                                    <div class="ment">영양성분</div>
+                                    <div class="ment">원산지</div>
                                         <div class="ment_subject">
-                                        <table style="border-collapse: collapse;">
-                                        <tr style="border-bottom:2px solid #2f2f30;" id="tabletr">
-                                            <th id="viewtable">재료</th>
-                                            <th id="viewtable">량</th>
-                                            <th id="viewtable">칼로리</th>
-                                        </tr>
-                                        <tr id="showtable">
-                                           <td>다진김치</td>
-                                           <td>1/3컵 (80g)</td>
-                                           <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>피자치즈</td>
-                                            <td>1/2컵(50g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>대파</td>
-                                            <td>1/2컵(15g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>밥</td>
-                                            <td>1공기(200g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>옥수수콘</td>
-                                            <td>1/2 컵(30g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>김가루</td>
-                                            <td>1/2컵(3g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>진간장</td>
-                                            <td>1큰술(10ml)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>황설탕</td>
-                                            <td>1작은술(3g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>고춧가루</td>
-                                            <td>1큰술(5g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>식용유</td>
-                                            <td>1큰술(12ml)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        <tr id="showtable">
-                                            <td>깨</td>
-                                            <td>1꼬집(1g)</td>
-                                            <td>kcal</td>
-                                        </tr>
-                                        </table>
+                                            ${p.pr_from }
                                     </div>
                                 </li>
                                 <li>
@@ -162,7 +102,7 @@
                                     <div class="price">
                                         <span class="total">합계 :</span>
                                         <span class="price">
-                                            <strong>15000</strong>
+                                            <strong>총 ${p.pr_price }</strong>
                                             <strong>원</strong>
                                         </span>
                                     </div>
@@ -184,16 +124,13 @@
                         <li class="recipe_tab">상품설명</li>
                     </ul>
                     <div class="product_img">
-                        <img src="resources/img/pic1.jpg" style="margin-top: 40px;"> 
+                        <img src="resources/img/Productuploadimg/${p.renameFileName }" onERROR="this.src='resources/img/errorimg.PNG' " style="margin-top: 40px;"> 
                     </div>
                     <div class="product_Info">
-                        <p  style="text-align: center;"> GAP 대저 짭짤이 토마토</p>
+                        <p  style="text-align: center;"> ${p.pr_name }</p>
                         <hr>
                         <p class="product_text">
-                            대저 토마토는 부산 대저 지역에서만 생산되는 특산물이에요. 다 익은 상태가 푸른빛을 띠는 토마토로 '토마토는 빨갛다'라는 고정관념을 불
-                            식시킨 이색 작물이죠. 일반 토마토의 절반 크기로 아삭거리는 식감과 신선한 맛이 월등히 뛰어나요. 바닷물과 강물이 만나는 낙동강 하류에
-                            위치한 부산 대저동, 이곳의 천연 미네랄이 풍부한 퇴적 토양에서 자라나 일반 토마토에서 맛볼 수 없는 짠맛과 신맛, 단맛이 입체적으로 전
-                            해진답니다. 때문에 일명 짭짤이 토마토라는 이름이 붙었죠. 재배부터 유통까지 모든 위해요소가 철저하게 관리된 GAP 등급의 대저 짭짤이 토마토를 준비했으니 안전히, 만나보세요.
+                           ${p.pr_content }
                         </p>
                     </div>
 

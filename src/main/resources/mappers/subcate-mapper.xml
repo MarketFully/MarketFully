@@ -24,6 +24,10 @@
 	ORDER BY Y_INDEX ASC
 	</select>
 	
+	<select id="lowerSubcatelist" parameterType="String" resultMap="subcateResultSet">
+	SELECT * FROM CATE2
+	WHERE UPCATECODE = #{maincatenum}
+	</select>
 	
 	<!-- 
 	<resultMap type="Reply" id="replyResultSet">

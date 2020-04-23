@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.market.admin.model.Service.CategoryService;
 import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.AdminProductPagnation;
+import com.kh.market.admin.model.vo.MainCategory;
+import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.service.ProductService;
 import com.kh.market.product.model.vo.Product;
 
@@ -26,19 +29,23 @@ public class ProductController {
 	@Autowired
 	private ProductService pService;
 	
+	@Autowired
+	private CategoryService cService;
+	
+	
 	@RequestMapping(value ="AdminProductupdate.do",method=RequestMethod.POST)
 	public ModelAndView Admin_Productupdate(Product p,
 			ModelAndView mv ,
 			@RequestParam(name="uploadimg",required=false , defaultValue = "") MultipartFile file,
 			HttpServletRequest request) {
 		 
-			Product beforep = pService.getProductOne(p);//이전 상품정보 찾기
+			Product beforep = pService.getProductOne(p);//�씠�쟾 �긽�뭹�젙蹂� 李얘린
 			
 		
 			
 		
-		if(!file.getOriginalFilename().equals("")) {//전 페이지에서 가져온 파일이 있을경우
-			if(!beforep.getRenameFileName().equals(file.getOriginalFilename())) {//파일 변경이 있을 경우
+		if(!file.getOriginalFilename().equals("")) {//�쟾 �럹�씠吏��뿉�꽌 媛��졇�삩 �뙆�씪�씠 �엳�쓣寃쎌슦
+			if(!beforep.getRenameFileName().equals(file.getOriginalFilename())) {//�뙆�씪 蹂�寃쎌씠 �엳�쓣 寃쎌슦
 			
 			String renameFileName = saveFile(file,request);
 			
@@ -47,7 +54,7 @@ public class ProductController {
 				p.setRenameFileName(renameFileName);
 			}
 		}
-		}else {//전 페이지에서 가져온 파일이 없을경우
+		}else {//�쟾 �럹�씠吏��뿉�꽌 媛��졇�삩 �뙆�씪�씠 �뾾�쓣寃쎌슦
 			p.setOriginalFileName(beforep.getOriginalFileName());
 			p.setRenameFileName(beforep.getRenameFileName());
 		}
@@ -56,7 +63,7 @@ public class ProductController {
 		int result = pService.ProductUpdate(p);
 		int listCount=pService.getListCount();
 		if(result>0) {
-			System.out.println("성공");
+			System.out.println("�꽦怨�");
 		}
 		AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(1, listCount);
 		  
@@ -126,48 +133,92 @@ public class ProductController {
 		}
 
 		@RequestMapping("ProductMain")
-		public String ProductMainView() { 
+		public ModelAndView ProductMainView(ModelAndView mv) { 
 
-			return "product/product";
-		}
-
-		@RequestMapping("Productdetail")
-		public String ProductdetailView() {
-
-			return "product/productdetail";
-		}
-		@RequestMapping("Productfish")
-		public String ProductfishView() { 
-
-			return "product/fish";
-		}
-		@RequestMapping("Productfruit")
-		public String ProductfruitView() { 
-
-			return "product/fruit";
-		}
-		@RequestMapping("Productmeet")
-		public String ProductmeetView() { 
-
-			return "product/meet";
-		}
-		@RequestMapping("Productmilk")
-		public String ProductmilkView() { 
-
-			return "product/milk";
-		}
-		@RequestMapping("Productsource")
-		public String ProductsourceView() {
-
-			return "product/source";
-		}
-		
-		@RequestMapping("Productvegetable")
-		public String ProductvegetableView() {
 			
-			return "product/vegetable";
+			ArrayList<MainCategory> maincatelist = cService.selectMainCategoryList();
+			
+			ArrayList<Product> fourProduct = new ArrayList<Product>();
+			for(int i = 0 ; i < maincatelist.size();i++) {
+				
+				fourProduct.addAll(pService.getfourProductList(maincatelist.get(i).getCatecode1()));
+			}
+			
+			System.out.println(fourProduct);
+			
+			
+			
+			
+			mv.addObject("fourproductlist",fourProduct)
+			  .addObject("mclist",maincatelist)
+			  .setViewName("product/product");
+			return mv;
+		}
+
+		@RequestMapping("ProductDetail")
+		public ModelAndView ProductdetailView(ModelAndView mv,@RequestParam("pr_code") int pr_code) {
+
+		Product p = new Product();
+		p.setPr_code(pr_code);
+		p = pService.getProductOne(p);
+
+		mv.addObject("p",p).setViewName("product/productdetail");
+			return mv;
 		}
 		
+		
+     	
+		@RequestMapping("productsubselect")
+		public ModelAndView Productsubcateselect(ModelAndView mv, 
+				@RequestParam("maincate") String maincate,
+				@RequestParam("subcate") String subcate,
+				@RequestParam("maincatename") String maincatename,
+				@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+			
+			SubCategory subcatevo = new SubCategory();
+			subcatevo.setUpcate(maincate);
+			subcatevo.setCatecode2(subcate);
+			
+			int listCount = pService.lowerproductlistcount(subcatevo); // 카테고리에 맞는 갯수가져오기
+			
+			AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
+			ArrayList<Product> subcateproductlist = pService.selectlowerproduct(subcatevo,pi);//페이징처리
+			ArrayList<SubCategory> subcatelist = cService.lowerSublist(maincate); //하위 카테고리 리스트 
+			
+			mv.addObject("pr", subcateproductlist)
+			.addObject("currentPage",currentPage)
+			.addObject("sc",subcatelist)
+			.addObject("maincatename",maincatename)
+			.addObject("maincate",maincate)
+			.addObject("pi",pi)
+			.setViewName("product/productchoosesubcate");
+			
+			return mv;
+		}
+		
+		@RequestMapping("Productchoosecate")
+		public ModelAndView Productchoosecate(ModelAndView mv,
+				@RequestParam("catenum") String maincatenum,
+				@RequestParam("maincatename") String maincatename,
+				@RequestParam(value = "currentPage" ,defaultValue = "1") int currentPage) {
+			
+			
+			
+			ArrayList<Product> subproductlist = pService.choosecateList(maincatenum); //그냥 전체 리스트
+			int listCount = subproductlist.size();
+			AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
+			subproductlist = pService.pagingchoosecateList(maincatenum,pi);//페이징 처리된 전체 리스트
+			System.out.println(subproductlist.size());
+			ArrayList<SubCategory> subcatelist = cService.lowerSublist(maincatenum); //하위 카테고리 리스트 
+			
+			mv.addObject("pr",subproductlist)
+			.addObject("sc",subcatelist)
+			.addObject("pi",pi)
+			.addObject("maincatename",maincatename)
+			.setViewName("product/productchoosecate");
+			
+			return mv;
+		}
 	
 
 }

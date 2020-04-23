@@ -31,7 +31,19 @@ SELECT COUNT(*) FROM PRODUCT
 		
 	</insert>
 	
+	<select id="selectfourlist" parameterType="String" resultMap="productResultSet">
+	 <![CDATA[ 
+	SELECT * FROM (
+	SELECT  * FROM PRODUCT ORDER BY PR_CODE DESC
+	) WHERE ROWNUM<5 AND PR_CATE1=#{maincate}
+	]]>
+	</select>
 	
+	<select id="selectsublist" parameterType="String" resultMap="productResultSet">
+	SELECT * FROM PRODUCT
+	WHERE PR_CATE1 = #{subcate}
+	</select>
+
 	<select id="selectOne" parameterType="Product" resultMap="productResultSet">
 	SELECT * FROM PRODUCT
 	WHERE PR_CODE = #{pr_code}
@@ -58,4 +70,14 @@ SELECT COUNT(*) FROM PRODUCT
 	
 	
 	</update>
+
+	<select id="selectlowercount" parameterType="subcate" resultType="_int">
+	SELECT COUNT(*) FROM PRODUCT
+	WHERE PR_CATE1=#{upcate} AND PR_CATE2= #{catecode2}
+	</select>
+	
+	<select id="lowerproductlist" parameterType="subcate" resultMap="productResultSet">
+	SELECT * FROM PRODUCT
+	WHERE PR_CATE1=#{upcate} AND PR_CATE2= #{catecode2}
+	</select>
 </mapper>

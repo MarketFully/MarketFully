@@ -174,7 +174,7 @@ $(function(){
 			
 				<h3>상품 등록하기</h3>
 				<div class="card mt-4">
-					<img id="img" src=""
+					<img id="img" src="resources/img/errorimg.PNG"
 						style="width: 50%; border: 1px solid gray;"> 
 						<input name="uploadimg" type="file" id="input_img" placeholder="">  <br>
 					<div class="list-group" style="width: 30%;">

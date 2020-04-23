@@ -3,8 +3,10 @@ package com.kh.market.admin.model.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
+import com.kh.market.product.model.vo.Product;
 
 public interface CategoryService {
 
@@ -19,4 +21,8 @@ public interface CategoryService {
 	public ArrayList<MainCategory> selectMainCategoryList();
 
 	public ArrayList<SubCategory> selectSubCategoryList();
+
+	public ArrayList<SubCategory> lowerSublist(String maincatenum);
+
+
 }

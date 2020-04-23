@@ -32,4 +32,7 @@ public class CategoryDao {
 	public ArrayList<SubCategory> selectSubCategoryList() {
 		return (ArrayList)sqlSession.selectList("subcateMapper.selectSubcatelist");
 	}
+	public ArrayList<SubCategory> lowerSublist(String maincatenum) {
+		return (ArrayList)sqlSession.selectList("subcateMapper.lowerSubcatelist",maincatenum);
+	}
 }

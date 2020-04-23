@@ -45,5 +45,10 @@ public class CategoryServiceImpl implements CategoryService{
 	public ArrayList<SubCategory> selectSubCategoryList() {
 		return cDao.selectSubCategoryList();
 	}
+
+	@Override
+	public ArrayList<SubCategory> lowerSublist(String maincatenum) {
+		return cDao.lowerSublist(maincatenum);
+	}
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.market.admin.model.vo.AdminProductPageInfo;
+import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.dao.ProductDao;
 import com.kh.market.product.model.vo.Product;
 
@@ -40,4 +41,35 @@ public class ProductServiceImpl implements ProductService{
 		return pDao.updateProduct(p);
 	}
 
+	@Override
+	public ArrayList<Product> getfourProductList(String maincate) {
+		
+		ArrayList<Product> arr = pDao.getfourProductList(maincate);
+		
+		while(arr.size()<4) {
+			arr.add(new Product());
+		}
+		
+		return arr;
+	}
+
+	@Override
+	public ArrayList<Product> choosecateList(String catenum) {
+		return pDao.choosecateList(catenum);
+	}
+
+	@Override
+	public ArrayList<Product> pagingchoosecateList(String maincatenum, AdminProductPageInfo pi) {
+		return pDao.pagingchoosecateList(maincatenum,pi);
+	}
+
+	@Override
+	public int lowerproductlistcount(SubCategory subcatevo) {
+		return pDao.lowerproductlistcount(subcatevo);
+	}
+
+	@Override
+	public ArrayList<Product> selectlowerproduct(SubCategory subcatevo, AdminProductPageInfo pi) {
+		return pDao.selectlowerproduct(subcatevo,pi);
+	}
 }

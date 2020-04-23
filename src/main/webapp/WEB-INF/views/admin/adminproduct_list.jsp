@@ -48,12 +48,12 @@
             <h1>상품 리스트</h1>
 			<div class="row">
 
-				<c:forEach var="R" begin="0" end="8" step="1">
+				<c:forEach var="R" begin="0" end="7" step="1">
 					<c:if test="${list[R]!=null }">
 						<div class="col-lg-3 col-md-6 mb-4">
 							<div class="Rcard h-500 w-100">
 								<a href="AdminProductDetail?pr_code=${list[R].pr_code }"><img src="resources/img/Productuploadimg/${list[R].renameFileName }"
-									class="Rcard-img-top" style="width: 90%;"></a>
+									onERROR="this.src='resources/img/errorimg.PNG'" class="Rcard-img-top" style="width: 90%;" ></a>
 
 								<div class="Rcard-body">
 									<h4 class="Rcard-title">

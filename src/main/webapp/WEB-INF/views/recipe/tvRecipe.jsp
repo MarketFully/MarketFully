@@ -176,7 +176,7 @@
 			//반복문을 돌면서 mc_cate_num과 같은 값을 가진 li태그를 찾는다.
 			$.each($('ul.tab li').children(), function(index, item){
 				console.log('반복문 도는중 : '+$(item).children('input[type=hidden]').val());
-				if($(item).children('input[type=hidden]').val() ==  ${mc_cate_num}){
+				if($(item).children('input[type=hidden]').val() ==  ${ mc_cate_num}){
 					console.log('값 변경중 : '+$(item).children('#tvCateBtn'));
 					$(item).children('#tvCateBtn').attr('class','btn btn-success');
 					console.log('미션 석세스');

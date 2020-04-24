@@ -34,7 +34,7 @@
                                     <span class="bar"> | </span>
                                     <li class="C4" style="cursor: pointer;" onclick="location.href='adminrecipe_user'">사용자 레시피</li>
                                     <span class="bar"> | </span>
-                                    <li class="C5" style="cursor: pointer;" onclick="location.href='adminrecipe_tv'">TV속 레시피</li>
+                                    <li class="C5" style="cursor: pointer;" onclick="location.href='atvCateList'">TV속 레시피</li>
                                     <span class="bar"> | </span>
                                     <li class="C6" style="cursor: pointer;" onclick="location.href='adminServiceCenter'">고객센터</li>
                                     <span class="bar"> | </span>

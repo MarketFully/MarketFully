@@ -59,6 +59,21 @@
 		ORDER BY NOTICE_NUM DESC
 	</select>
 	
+	<!-- 공지사항 상세보기 -->
+	<select id="selectNoticeBoard" resultMap="NoticeboardResultSet">
+		SELECT *
+		FROM NOTICE
+		WHERE NOTICE_NUM=#{notice_num}
+		AND NOTICE_STATUS='Y'
+	</select>
+	
+	<!-- 공지사항 카운트 -->
+	<update id="updateNoticeCount" parameterType="_int">
+		UPDATE NOTICE
+		SET NOTICE_COUNT = NOTICE_COUNT + 1
+		WHERE NOTICE_NUM = #{notice_num}
+	</update>
+	
 	<select id="getListCountQna" resultType="_int">
 		SELECT COUNT(*)
 		FROM QNA_BOARD
@@ -72,9 +87,10 @@
 		ORDER BY Q_NUM DESC
 	</select>
 	
+	<!-- QNA 작성 -->
 	<insert id="QNAinsert" parameterType="Qna">
 		INSERT INTO QNA_BOARD
-		VALUES(SEQ_QNA.NEXTVAL, #{q_TITLE},#{q_CONTENT},#{q_WRITER},#{oR_NUM},'Y',SYSDATE,#{q_COUNT},#{q_RCOUNT},#{q_CATEGORY})
+		VALUES(SEQ_QNA.NEXTVAL, #{q_TITLE},#{q_CONTENT},#{q_WRITER},#{oR_NUM},'Y',SYSDATE,#{q_COUNT},#{q_RCOUNT},#{q_CATEGORY},#{q_FILE},#{q_REFILE})
 	</insert>
 	
 	<update id="updateCount" parameterType="_int">
@@ -89,6 +105,20 @@
 		WHERE Q_NUM=#{bId}
 		AND Q_STATUS='Y'
 	</select>
+	
+	<!-- QNA 작성 글 삭제  -->
+	<update id="deleteQNA" parameterType="_int">
+		UPDATE QNA_BOARD
+		SET Q_STATUS='N'
+		WHERE Q_NUM = #{q_NUM}
+	</update>
+	
+	<!-- QNA 작성한글 수정 -->
+	<update id="qndBoardUpdate" parameterType="Qna">
+		UPDATE QNA_BOARD
+		SET Q_TITLE=#{q_TITLE}, OR_NUM=#{oR_NUM} , Q_CONTENT=#{q_CONTENT}, Q_FILE=#{q_FILE}, Q_REFILE=#{q_REFILE}
+		WHERE Q_NUM = #{q_NUM}
+	</update>
 	
 	<!-- 레시피 제안 -->
 	<select id="getRSlistCountRecipeSuggest" resultType="_int">

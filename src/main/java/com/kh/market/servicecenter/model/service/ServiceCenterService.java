@@ -13,17 +13,57 @@ import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestPageInfo;
 
 public interface ServiceCenterService {
 	
+	/**
+	 * 공지사항
+	 * @return
+	 */
 	int getListCountNotice();
 
 	ArrayList<ServiceCenterNoticeBoard> NoticeselectList(ServiceCenterNoticePageInfo pi);
+	
+	/**
+	 * 공지사항 상세보기
+	 * @param notice_num
+	 * @return
+	 */
+	ServiceCenterNoticeBoard NoticeselectBoard(int notice_num);
 
+	/**
+	 * QNA
+	 * @return
+	 */
 	int getListCountQna();
 
 	ArrayList<ServiceCenterQnaBoard> QnaselectList(ServiceCenterQnaPageInfo pi);
 
+	/**
+	 * QNA 작성
+	 * @param b
+	 * @return
+	 */
 	int QNAinsert(ServiceCenterQnaBoard b);
 
+	/**
+	 * QNA 상세보기
+	 * @param bId
+	 * @return
+	 */
 	ServiceCenterQnaBoard QNAselectBoard(int bId);
+	
+	
+	/**
+	 * QNA 작성한 글 삭제 
+	 * @param q_num
+	 * @return
+	 */
+	int qnaBoardDelete(int q_num);
+	
+	/**
+	 * QNA 작성한 글 수정
+	 * @param qb
+	 * @return
+	 */
+	int qnaBoardUpdate(ServiceCenterQnaBoard qb);
 	
 	/**
 	 * 레시피 제안

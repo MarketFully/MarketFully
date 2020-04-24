@@ -403,5 +403,65 @@ public class AdminController {
 			
 			return mv;
 		}
+		
+		@RequestMapping("aUSERrecipe") // 사용자 레시피 2
+		public ModelAndView recipeUserView(ModelAndView mv) { 
+			System.out.println("contorler");
+			
+			ArrayList<Board> kolist = bService.UserselectList_ko();
+			ArrayList<Board> enlist = bService.UserselectList_en();
+			ArrayList<Board> jplist = bService.UserselectList_jp();
+			ArrayList<Board> chlist = bService.UserselectList_ch();
+			ArrayList<Board> etclist = bService.UserselectList_etc();
+			
+			mv.addObject("kolist", kolist);
+			mv.addObject("enlist", enlist);
+			mv.addObject("jplist", jplist);
+			mv.addObject("chlist", chlist);
+			mv.addObject("etclist", etclist);
+			
+			mv.addObject("TvOrUser", "user");
+			mv.setViewName("admin/adminrecipe_USER_Temp");
+			
+			return mv; 
+		}
+		
+		@RequestMapping("aUserSearchList")
+		public ModelAndView userRecipeSrc(ModelAndView mv
+								, @RequestParam(defaultValue="-1")int mc_cate_num	//값이 -1이면 에러 
+								, @RequestParam(defaultValue="") String src_input	// 값이 ""이면 그냥 리스트로 보낸다.
+								, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage, String TvOrUser
+				
+				) {	
+			// 시작
+			System.out.println("userSearchList입니다.----------------");
+			
+			SearchInfo si = new SearchInfo();
+			
+			System.out.println("mc_cate_num "+mc_cate_num);
+			System.out.println("src_input "+src_input);
+			
+			si.setMc_cate_num(mc_cate_num);
+			si.setSrc_input(src_input);
+			
+			
+			int listCount = bService.getUserSearchListCount(si);
+			
+			System.out.println("listCount : "+ listCount);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bService.UserSearchList(pi, si);
+			
+			mv.addObject("list",list);
+			mv.addObject("mc_cate_num", mc_cate_num);
+			mv.addObject("pi",pi);
+			mv.addObject("si",si);
+//			mv.addObject("pageValue", "tvSearchList");
+			mv.addObject("TvOrUser", "user");
+			mv.setViewName("admin/adminrecipe_USER");
+			
+			return mv;
+		}
 	 
 }

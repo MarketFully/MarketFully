@@ -84,6 +84,7 @@
 		AND PR_EACH = #{pr_each}
 	</update>
 	
+	<!-- 
 	<insert id="insertMiroticList" parameterType="java.Util.List">
 		<foreach collection="list" item="item" index="index" open="INSERT ALL" close="SELECT * FROM DUAL">
 			INTO MIROTIC
@@ -103,7 +104,8 @@
 			, 0, #{item.mem_num})
 		</foreach>
 	</insert>
-	
+	 -->
+	 
 </mapper>
 
 

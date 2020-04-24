@@ -70,23 +70,39 @@ public class ServiceCenterController {
 		return mv;
 	}
 	
+	// 공지사항 상세보기
 	@RequestMapping("noticeDetail")
-	public String noticeDetailView() { //공지사항 상세보기로 이동하는 메소드
-
-		return "servicecenter/noticeDetail";
+	public ModelAndView noticeDetailView(ModelAndView mv, int notice_num,
+										 @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) { 
+		
+		ServiceCenterNoticeBoard snb = sService.NoticeselectBoard(notice_num);
+		
+		if(snb != null) {
+			mv.addObject("snb", snb)
+			  .addObject("currentPage", currentPage)
+			  .setViewName("servicecenter/noticeDetail");
+		}else {
+			mv.addObject("msg", "게시글 상세조회 실패");
+		}
+		return mv;
 	}
 	
+	// QNA 작성
 	@RequestMapping("QNAwrite")
-	public String QNAwriteView() { //고객센터 메인(notice)으로 이동하는 메소드
+	public String QNAwriteView() {
 
 		return "servicecenter/QNA_write";
 	}
 	
+	// QNA 상세보기
 	@RequestMapping("QNAdetail")
 	public ModelAndView QNAdetailView(ModelAndView mv, int bId,
 			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //QNA 상세보기로 이동하는 메소드
+		
 		System.out.println("sikim qna controller bid : " + bId);
+		
 		ServiceCenterQnaBoard b = sService.QNAselectBoard(bId);
+		
 		if(b != null) {
 			mv.addObject("b",b)
 			  .addObject("currentPage",currentPage)
@@ -99,9 +115,10 @@ public class ServiceCenterController {
 	}
 	
 
+	// QNA 리스트
 	@RequestMapping("QNA")
 	public ModelAndView QNAViewView(ModelAndView mv,
-			@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //고객센터 QNA메인으로 이동하는 메소드
+									@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //고객센터 QNA메인으로 이동하는 메소드
 		System.out.println("@@@@ currentPage : "+ currentPage);
 		int listCount = sService.getListCountQna();
 		System.out.println("QNA BOARD listCount : " + listCount);
@@ -118,11 +135,22 @@ public class ServiceCenterController {
 		return mv;
 	}
 	
-	@RequestMapping("QNAinsert")
+	// QNA 작성
+	@RequestMapping(value="QNAinsert", method=RequestMethod.POST)
 	public String insertBoard(ServiceCenterQnaBoard b, HttpServletRequest request,
-						@RequestParam(name="uploadFile",required=false) MultipartFile file) {
+							  @RequestParam(name="uploadFile",required=false) MultipartFile file) {
 		
 		System.out.println("#############################" + b);
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String renameFileName = QAsaveFile(file,request);
+			
+			if(renameFileName != null) {
+				b.setQ_FILE(file.getOriginalFilename());
+				b.setQ_REFILE(renameFileName);
+			}
+		}
+		System.out.println(b);
 		
 		int result = sService.QNAinsert(b);
 		
@@ -130,6 +158,70 @@ public class ServiceCenterController {
 			return "redirect:QNA";
 		}else {
 			return "common/errorPage";
+		}
+	}
+		
+	// QNA 글작성 (파일)
+	public String QAsaveFile(MultipartFile file, HttpServletRequest request) {
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+
+		String savePath = root + "\\qnauploadFiles";
+
+		File folder = new File(savePath);
+
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+
+		String orginFileName = file.getOriginalFilename();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+				+ orginFileName.substring(orginFileName.lastIndexOf(".") + 1);
+
+		System.out.println("renameFileName : " + renameFileName);
+
+		String renamePath = folder + "\\" + renameFileName;
+
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IOException e) {
+			System.out.println("파일전송에러: " + e.getMessage());
+		}
+
+		return renameFileName;
+	}
+	
+	// QNA 글 삭제 
+	@RequestMapping("QNAdelete") 
+	public String deleteQNABOARD(int q_num, HttpServletRequest request) {
+	  
+	  ServiceCenterQnaBoard qb = sService.QNAselectBoard(q_num);
+	  
+	  if(qb.getQ_REFILE() != null) {
+		  QNAdeleteFile(qb.getQ_REFILE(), request);
+	  }
+	  
+	  int result = sService.qnaBoardDelete(q_num);
+	  
+	  if(result > 0) {
+		  return "redirect:QNA";
+	  }else {
+		  return null;
+	  }
+	  
+	}
+	
+	//QNA 글 삭제 (파일)
+	public void QNAdeleteFile(String fileName,HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savaPath = root + "\\qnauploadFiles";
+		
+		File f = new File(savaPath + "\\" + "fileName");
+		
+		if(f.exists()) {
+			f.delete();
 		}
 	}
 	
@@ -225,6 +317,47 @@ public class ServiceCenterController {
 		}
 
 		return renameFileName;
+	}
+	
+	//QNA 작성한 글 수정 페이지로 이동
+	@RequestMapping("QNAwriteUpdate")
+	public ModelAndView qnawriteUpdateView(ModelAndView mv, int q_num) {
+		mv.addObject("b", sService.QNAselectBoard(q_num))
+		  .setViewName("servicecenter/QNAwriteUpdate");
+		
+		return mv;
+	}
+	
+	//QNA 작성한 글 수정 
+	@RequestMapping(value="QNAupdate.do",method = RequestMethod.POST)
+	public ModelAndView qnawrtieUpdate(ModelAndView mv, ServiceCenterQnaBoard qb, HttpServletRequest request, 
+									   @RequestParam(value="reloadFile", required=false) MultipartFile file) {
+		
+		if(file != null && !file.isEmpty()) {
+			if(qb.getQ_REFILE() != null) {
+				QNAdeleteFile(qb.getQ_REFILE(),request);
+			}
+			
+			String renameFileName = QAsaveFile(file,request);
+			
+			if(renameFileName != null) {
+				qb.setQ_FILE(file.getOriginalFilename());
+				qb.setQ_REFILE(renameFileName);
+			}
+		}
+		
+		int result = sService.qnaBoardUpdate(qb);
+		
+		System.out.println(qb);
+		
+		if(result > 0) {
+			mv.addObject("q_num", qb.getQ_NUM()).setViewName("redirect:QNA");
+		}else {
+			mv.addObject("msg", "수정실패");
+		}
+		
+		return mv;
+		
 	}
 	
 	// 레시피 상세보기

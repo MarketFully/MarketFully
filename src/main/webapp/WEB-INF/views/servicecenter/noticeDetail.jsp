@@ -41,22 +41,22 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" style="border:none;">제목</th>
-                                        <td style="text-align: start; padding-left: 40px;">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</th>
+                                        <td style="text-align: start; padding-left: 40px;">${snb.notice_title}</th>
                                     </tr>
                                     <tr>
                                         <th scope="row">작성자</th>
-                                        <td style="text-align: start; padding-left: 40px;">admin</td>
+                                        <td style="text-align: start; padding-left: 40px;">운영자</td>
                                     </tr>
                                     <tr class="ntArea">
                                         <td colspan="2">
                                             <ul>
                                                 <li class="date">
                                                     <strong class="th">작성일</strong>   
-                                                    <span class="td" style="text-align: start; padding-left: 40px;">2020-03-22</span>
+                                                    <span class="td" style="text-align: start; padding-left: 40px;">${snb.notice_cdate }</span>
                                                 </li>
                                                 <li class="hit">
                                                     <strong class="th">조회수</strong>
-                                                    <span class="td" style="text-align: start; padding-left: 20px;">200</span>
+                                                    <span class="td" style="text-align: start; padding-left: 20px;">${snb.notice_count}</span>
                                                 </li>
                                             </ul>
                                         </td>
@@ -70,15 +70,7 @@
                     <tr>
                         <td>
                             <div class="detail">
-                                <p>안녕하세요</p>
-                                <p>저는 ~~~~~</p>
-                                <p>KH!!!!!!!!!</p>
-                                <p>정보교육원</p>
-                                <p>다녀요~!!!!</p>
-                                <p>서울시 강남에 있고</p>
-                                <p>역삼역 3번출구에서 내리서</p>
-                                <p>5분거리에 학원이 있어요!!!!</p>
-                                <p>추천해요!!</p>
+								${snb.notice_content }
                             </div>
                         </td>
                     </tr>

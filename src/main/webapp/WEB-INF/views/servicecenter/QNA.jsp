@@ -78,35 +78,32 @@
                 
 
                 <fieldset>
+                	 <select style="height: 31px;  border: 1px solid #dcdcdc; border-radius: 5px; margin-right: 20px; font-family: MapoPeacefull;">
+                        <option value="title">제목</option>
+                        <option value="writer">작성자</option>
+                        <option value="category">카테고리</option>
+                    </select>
                     <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
-                    <button type="submit" class="btn_srch">검색</a>
+                    <button type="submit" class="btn_srch">검색</a></button>
                 </fieldset>
                     <!-- 페이징 처리 -->
     <div class="pagination">
             
-<!--         <img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img">
-        <span class="pagenum_currentpage">1</span>
-        <span class="pagenum">2</span>
-        <span class="pagenum">3</span>
-        <span class="pagenum">4</span>
-        <span class="pagenum">5</span> 
-        <img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img"> -->
-        
         <!-- 이전 -->
         <c:if test="${ pi.currentPage eq 1 }">
-				[이전] &nbsp;
+				<img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img" style="width:25px;height:25px; cursor:pointer;vertical-align: middle;">
 		</c:if>
 			<c:if test="${ pi.currentPage ne 1 }">
 				<c:url var="before" value="QNAdetail">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
-				<a href="${ before }">[이전]</a> &nbsp;
+				<a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
 		</c:if>
 		
 		<!-- 페이지 -->
 		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 			<c:if test="${ p eq pi.currentPage }">
-				<font color="red" size="4"><b>${ p }</b></font>
+				<font color="#2e8b57" size="4"><b>${ p }</b></font>
 			</c:if>
 					
 			<c:if test="${ p ne pi.currentPage }">
@@ -119,13 +116,13 @@
 		
 		<!-- [다음] -->
 			<c:if test="${ pi.currentPage eq pi.maxPage }">
-					[다음]
+				<img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img" style="width:25px;height:25px;cursor:pointer;vertical-align: middle;" >
 			</c:if>
 			<c:if test="${ pi.currentPage ne pi.maxPage }">
 				<c:url var="after" value="QNAdetail">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url> 
-				<a href="${ after }">[다음]</a>
+				<a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
 			</c:if>    
 
         <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>

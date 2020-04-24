@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.market.member.model.vo.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +55,10 @@
                             <td>${ b.q_TITLE }</td>
                         </tr>
                         <tr>
+                        	<td>작성자</td>
+                        	<td>${b.q_WRITER}</td>
+                        </tr>
+                        <tr>
                             <td>문의종류</td>
                             <td>
                                 ${ b.q_CATEGORY }
@@ -71,20 +76,32 @@
                         </tr>
                         <tr>
                             <td>첨부파일</td>
-                            <td><input type="file" style="font-family: MapoPeacefull;"></td>
+                            <td>
+                               <c:if test="${!empty b.q_FILE }">
+                            		<a href="${contextPath}/resources/qnauploadFiles/${b.q_REFILE}" 
+                            		download="${b.q_FILE }">${b.q_FILE}</a>
+                            	</c:if>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
                 <!-- 글쓰기 버튼-->
                 <div>
-                    <input type="submit" value="수정" class="write_btn" style="margin-left: 10px;" onclick="location.href='QNA_write.html'">
-                    <input type="submit" value="삭제" class="write_btn" onclick="location.href='QNA'">
+                	<c:url  var="QNAwriteUpdate" value="QNAwriteUpdate">
+                		<c:param name="q_num" value="${b.q_NUM }"/>
+                	</c:url>
+                    <input type="submit" value="수정" class="write_btn" style="margin-left: 10px;" onclick="location.href='${QNAwriteUpdate}'">
+                    
+                        <c:url var="QNAdelete" value="QNAdelete">
+                    		<c:param name="q_num" value="${b.q_NUM}"/>
+                    	</c:url>
+                    <input type="button" value="삭제" class="write_btn" onclick="location.href='${QNAdelete}'">
                 </div>
         </div>
         <div>
             <div><p style="border-bottom: 2px solid #2e8b57; font-size: 20px;"><strong>댓글</strong></p></div>
-            <div class="re">
+            <div class="re" style="margin-top: 30px;">
                 <textarea></textarea>
                 <input type="submit" value="등록" class="re_btn">
             </div>

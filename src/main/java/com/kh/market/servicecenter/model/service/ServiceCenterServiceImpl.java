@@ -32,6 +32,19 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 		
 		return sDao.NoticeselectList(pi);
 	}
+	
+	// 공지사항 상세보기
+	@Override
+	public ServiceCenterNoticeBoard NoticeselectBoard(int notice_num) {
+		
+		int result = sDao.updateNoticeCount(notice_num);
+		
+		if(result > 0) {			
+			return sDao.selectNoticeBoard(notice_num);
+		}else {
+			return null;
+		}
+	}
 
 	@Override
 	public int getListCountQna() {
@@ -62,6 +75,18 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 		}else {
 			return null;
 		}
+	}
+	
+	// QNA 작성글 삭제
+	@Override
+	public int qnaBoardDelete(int q_num) {
+		return sDao.deleteQNA(q_num);
+	}
+	
+	// QNA 작성한글 수정
+	@Override
+	public int qnaBoardUpdate(ServiceCenterQnaBoard qb) {
+		return sDao.qnaBoardUpdate(qb);
 	}
 	
 	// 레시피 제안

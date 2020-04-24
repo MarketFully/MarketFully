@@ -34,6 +34,16 @@ public class ServiceCenterDao {
 		
 		return (ArrayList)sqlSession.selectList("ServiceCenterMapper.NoticeselectList",null,rowBounds);
 	}
+	
+	// 공지사항 상세보기
+	public ServiceCenterNoticeBoard selectNoticeBoard(int notice_num) {
+		return sqlSession.selectOne("ServiceCenterMapper.selectNoticeBoard",notice_num);
+	}
+
+	// 공지사항 상세보기 카운트
+	public int updateNoticeCount(int notice_num) {
+		return sqlSession.update("ServiceCenterMapper.updateNoticeCount",notice_num);
+	}
 
 	public int getListCountQna() {
 		
@@ -63,7 +73,17 @@ public class ServiceCenterDao {
 		return sqlSession.selectOne("ServiceCenterMapper.selectBoard",bId);
 	}
 
+	// QNA 작성 글 삭제 
+	public int deleteQNA(int q_num) {
+		return sqlSession.update("ServiceCenterMapper.deleteQNA",q_num);
+	}
 
+	
+	// QNA 작성한 글 수정
+	public int qnaBoardUpdate(ServiceCenterQnaBoard qb) {
+		return sqlSession.update("ServiceCenterMapper.qndBoardUpdate", qb);
+	}
+	
 	// 레시피 제안
 	public int getRSListCountRecipeSuggest() {
 		return sqlSession.selectOne("NoticeboardMapper.getRSlistCountRecipeSuggest");

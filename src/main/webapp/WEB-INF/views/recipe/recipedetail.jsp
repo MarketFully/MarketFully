@@ -134,7 +134,7 @@
                 <div class="sectionInner">
 
                     <div class="detailImg">
-                        <img src="resources/img/tvRecipe/${b.getMb_rename() }" style="width:400px;">
+                        <img src="resources/img/tvRecipe/${b.getMb_rename() }" style="width:400px;" onERROR="this.src='resources/img/errorimg.PNG' ">
                         <div>
                         <c:if test="${ !empty sessionScope.loginUser }">
                             <img src="resources/img/unheart.png" onclick="heartplus();" id="choice" class="choice">

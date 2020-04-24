@@ -119,11 +119,8 @@ public class AdminController {
 	 public ModelAndView admin_categoryView(ModelAndView mv) {
 		 
 		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
-		ArrayList<SubCategory> sc = cService.selectSubCategoryList();
-			System.out.println(mc.toString());
-			//maincatearr.add()
 			if(mc!=null) {
-				mv.addObject("maincate", mc) //硫붿씤移댄뀒怨좊━
+				mv.addObject("maincate", mc) //
 				.setViewName("admin/admincategory");
 				
 			}

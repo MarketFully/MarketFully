@@ -318,15 +318,7 @@
 
     <!-- 탭 메뉴 스크립트-->
 	<script>
-		$(function() {
-			$('ul.tab li').click(function() {
-				var activeTab = $(this).attr('data-tab');
-				$('ul.tab li').removeClass('current');
-				$('.toptenTab').removeClass('current');
-				$(this).addClass('current');
-				$('#' + activeTab).addClass('current');
-			})
-		});
+	
 	</script>
 </body>
 </html>

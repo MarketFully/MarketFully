@@ -4,11 +4,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/header.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+	crossorigin="anonymous"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
+
+<script>
+var maincatelist = new Array();
+			$(function(){
+				$.ajax({
+					url:"adminmaincategory",
+					dataType:"json",
+					success:function(data){
+						maincatelist=data;
+						for(var i = 0 ; i < maincatelist.length;i++){
+						document.getElementById("ProductCategory").innerHTML+='<li><a href="Productchoosecate?catenum='+maincatelist[i].catecode1+'&maincatename='+maincatelist[i].catename1+'">'+
+						'<img class="food">'+maincatelist[i].catename1+'</a></li>';
+						
+						}
+						
+						console.log(maincatelist);
+						
+					},error:function(request, status, errorData){
+						alert("error code : " + request.status + "\n"
+								+ "message : " + request.responseText
+								+ "error : " + errorData);
+					}
+				});
+			});
+</script>
 <div id="header">
         <div id="userMenu">
             <ul class="list_menu">
@@ -44,14 +73,9 @@
                 <div class="menulist">
                     <div class="list">
                         <ul class="listName">
-                            <li class="C1"><a href="#"><span><img class="listImg" src="resources/img/list.png"></span>전체 카테고리</a>
-                                <ul class="All">
-                                    <li><a href="RecipeKor"><img src="resources/img/korea.png" class="food">한식</a></li>
-                                    <li><a href="RecipeEng"><img src="resources/img/usa.png" class="food">양식</a></li>
-                                    <li><a href="RecipeJap"><img src="resources/img/japan.png" class="food">일식</a></li>
-                                    <li><a href="RecipeChi"><img src="resources/img/china.png" class="food">중식</a></li>
-                                    <li><a href="RecipeGui"><img src="resources/img/world.png" class="food">기타</a></li>
-                                </ul>
+                            <li class="C1"><a href="ProductMain"><span><img class="listImg" src="resources/img/list.png"></span>전체 카테고리</a>
+                                <ul class="All" id="ProductCategory">
+                                           </ul>
                             </li>
                              <span class="bar"> | </span>
                                     <li style="cursor: pointer;" class="C2" onclick="location.href='TvRecipetopten'">TOP 10 레시피</li>
@@ -59,8 +83,6 @@
                                     <li style="cursor: pointer;" class="C3" onclick="location.href='tvCateList'">TV  속 레시피</li>
                                     <span class="bar"> | </span>
                                     <li style="cursor: pointer;" class="C4" onclick="location.href='RecipeUser'">사용자 레시피</li>
-                                    <span class="bar"> | </span>
-                                    <li style="cursor: pointer;" class="C5" onclick="location.href='ProductMain'">단일 상품</li>
                                     <span class="bar"> | </span>
                                     <li style="cursor: pointer;" class="C6" onclick="location.href='ServiceCenter'">고객센터</li>
                         </ul>

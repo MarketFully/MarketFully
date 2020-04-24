@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.member.model.dao.MemberDao;
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
@@ -162,6 +163,14 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.selectDeleteMybag(mybag);
 	}
 
+	@Override
+	public ArrayList<Member> SelectMemberLIst(AdminProductPageInfo pi) {
+		return mDao.selectMemberList(pi);
+	}
 
+	@Override
+	public ArrayList<Member> SelectMemberLIst() {
+		return mDao.selectMemberList();
+	}
 
 }

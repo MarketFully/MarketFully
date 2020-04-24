@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,114 +90,76 @@
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width: 100%;">
         <thead>
           <tr>
-            <th class="mdl-data-table__cell--non-numeric">사용자 Id</th>
-            <th>이름</th>
-            <th>닉네임</th>
-            <th>가입일</th>
+            <th class="mdl-data-table__cell--non-numeric">회원 번호</th>
+            <th>회원 ID</th>
+            <th>회원 이름</th>
+            <th>회원 이메일</th>
             <th>적립금</th>
-            <th>작성 레시피 수</th>
+            <th>사용여부</th>
+            <th>관리 </th>
           </tr>
         </thead>
         <tbody>
+        <c:forEach var="m" items="${list }">
           <tr>
-            <td class="mdl-data-table__cell--non-numeric">최미경</td>
-            <td>abc123</td>
-            <td>미경센세</td>
-            <td>2020-03-22</td>
-            <td>$2.90</td>
-            <td>3</td>
+            <td class="mdl-data-table__cell--non-numeric">${m.mem_num }</td>
+            <td>${m.mem_id }</td>
+            <td>${m.mem_name }</td>
+            <td>${m.mem_email }</td>
+            <td>${m.mem_point }</td>
+            <td>${m.mem_status }</td>
+            <td> <button onclick="modify(${m.mem_num});"> 수정하기 </button></td>
           </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">신지영</td>
-            <td>abc123</td>
-            <td>H반 일진</td>
-            <td>2020-03-22</td>
-            <td>$1.25</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">정창원</td>
-            <td>abc123</td>
-            <td>수퍼맨</td>
-            <td>2020-03-22</td>
-            <td>$2.35</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">최미경</td>
-            <td>abc123</td>
-            <td>미경센세</td>
-            <td>2020-03-22</td>
-            <td>$2.90</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">신지영</td>
-            <td>abc123</td>
-            <td>H반 일진</td>
-            <td>2020-03-22</td>
-            <td>$1.25</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">정창원</td>
-            <td>abc123</td>
-            <td>수퍼맨</td>
-            <td>2020-03-22</td>
-            <td>$2.35</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">최미경</td>
-            <td>abc123</td>
-            <td>미경센세</td>
-            <td>2020-03-22</td>
-            <td>$2.90</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">신지영</td>
-            <td>abc123</td>
-            <td>H반 일진</td>
-            <td>2020-03-22</td>
-            <td>$1.25</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">정창원</td>
-            <td>abc123</td>
-            <td>수퍼맨</td>
-            <td>2020-03-22</td>
-            <td>$2.35</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td class="mdl-data-table__cell--non-numeric">정창원</td>
-            <td>abc123</td>
-            <td>수퍼맨</td>
-            <td>2020-03-22</td>
-            <td>$2.35</td>
-            <td>3</td>
-          </tr>
+        </c:forEach>
+          
           
         </tbody>
       </table>
-      <center>
-
-          <a href="#" class="btn btn-success">&lt;</a>
-          <a href="#" class="btn btn-success">1</a>
-      <a href="#" class="btn btn-success">2</a>
-      <a href="#" class="btn btn-success">3</a>
-      <a href="#" class="btn btn-success">4</a>
-      <a href="#" class="btn btn-success">5</a>
-      <a href="#" class="btn btn-success">6</a>
-      <a href="#" class="btn btn-success">7</a>
-      <a href="#" class="btn btn-success">8</a>
-      <a href="#" class="btn btn-success">9</a>
-      <a href="#" class="btn btn-success">&gt;</a>
-    </center>
+      <br><br>
       
+      <button onclick="deletebtn();"> 삭제하기</button>
       
+      <br><br>
+<c:if test="${ pi.currentPage eq 1 }">
+					<img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;">
+				</c:if>
+				<c:if test="${ pi.currentPage ne 1 }">
+					<c:url var="before" value="adminmodify_user">
+						<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+					</c:url>
+					<a href='${ before }'><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a> 
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<font color="#2e8b57" size="4"><b>${ p }</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="adminmodify_user">
+							<c:param name="currentPage" value="${ p }"/>
+						</c:url>
+						<a href='${ pagination }'>
+						 <font color="#2e8b57" size="4"><b>
+						 ${ p }
+						 </b></font>
+						 </a>
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pi.currentPage eq pi.maxPage }">
+					<img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;">
+				</c:if>
+				<c:if test="${ pi.currentPage ne pi.maxPage }">
+					<c:url var="after" value="adminmodify_user">
+						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${after }"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+				</c:if>
+      
+      <br><br>
       
       <!-- /.container -->
   </div>
@@ -216,6 +179,11 @@
 
 </body>
 
+<script>
+function modify(){
+	
+}
+</script>
 
 
 </html>

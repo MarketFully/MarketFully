@@ -24,7 +24,7 @@ SELECT COUNT(*) FROM PRODUCT
 
 	<insert id="insertproduct" parameterType="Product">
 		INSERT INTO PRODUCT
-		VALUES (#{pr_code},#{pr_cate1},#{pr_cate2},
+		VALUES (SEQ_PR_CODE.NEXTVAL,#{pr_cate1},#{pr_cate2},
 		#{pr_name},#{pr_price},#{pr_content},
 		#{pr_carlory},#{pr_from},#{pr_size},#{pr_entity},
 		#{originalFileName},#{renameFileName})

@@ -29,6 +29,32 @@ public class AdminProductPagnation {
 		
 		return pi;
 	}
+	
+public static AdminProductPageInfo getMemPageInfo(int currentPage, int listCount,int boardlimit) {
+		
+		AdminProductPageInfo pi = null;
+		
+		int pageLimit = 5; 
+		int maxPage; 		
+		int startPage;		
+		int endPage;		
+		
+		int boardLimit = boardlimit; 
+		
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		
+		endPage = startPage + pageLimit + 1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		pi = new AdminProductPageInfo(currentPage,listCount,pageLimit,maxPage,startPage,endPage,boardLimit);
+		
+		return pi;
+	}
 }
 
 

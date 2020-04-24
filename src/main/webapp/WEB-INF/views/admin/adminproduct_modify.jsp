@@ -189,9 +189,10 @@ $(function(){
 				<h3>상품 등록하기</h3>
 				<div class="card mt-4">
 					<img id="img" src="resources/img/Productuploadimg/${p.renameFileName }"
-						style="width: 50%; border: 1px solid gray;"> 
-						<input name="uploadimg" type="file" id="input_img" placeholder="" value="${p.renameFileName }">  <br>
-					<div class="list-group" style="width: 30%;">
+						style="width: 50%; border: 1px solid gray; margin: auto;"> 
+						<input name="uploadimg" type="file" id="input_img" placeholder="" value="${p.renameFileName }" style="margin: auto;">  <br>
+						<p>파일을 선택하지 않으실 경우 기존 이미지가 사용됩니다.</p><br>
+					<div class="list-group" style="width: 30%; margin: auto;" >
 						<div class="dropdown">
 							<button id="maincate" class="list-group-item dropbtn"
 							onclick="return false;"	style="width: 100%;">상위 카테고리</button>

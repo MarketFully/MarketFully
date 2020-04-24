@@ -2,6 +2,7 @@ package com.kh.market.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
@@ -165,4 +166,8 @@ public interface MemberService {
 	 * @return
 	 */
 	int selectDeleteMybag(MyBag mybag);
+	
+	ArrayList<Member> SelectMemberLIst(AdminProductPageInfo pi); //페이징된 회원 리스트
+
+	ArrayList<Member> SelectMemberLIst(); //페이징 안된 회원 리스트
 }

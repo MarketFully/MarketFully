@@ -24,6 +24,8 @@ import com.kh.market.admin.model.vo.AdminProductPagnation;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.common.Pagination;
+import com.kh.market.member.model.service.MemberService;
+import com.kh.market.member.model.vo.Member;
 import com.kh.market.product.model.service.ProductService;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.Service.BoardService;
@@ -44,6 +46,9 @@ public class AdminController {
 	
 	@Autowired
 	private BoardService bService;
+	
+	@Autowired
+	private MemberService mService;
 	
 	@RequestMapping(value="cateupload.do",method=RequestMethod.GET)
 	public String admin_cateupload(Model mv,
@@ -193,8 +198,21 @@ public class AdminController {
 		  }
 	  
 	  @RequestMapping("adminmodify_user") 
-	  public String adminmodify_userView() { 
-		  return "admin/adminmodify_user"; 
+	  public ModelAndView adminmodify_userView( ModelAndView mv ,
+			  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage
+			  ) { 
+		  ArrayList<Member> memlist = mService.SelectMemberLIst();
+		  int listCount = memlist.size();
+		  int boardlimit = 10;
+		  AdminProductPageInfo pi = AdminProductPagnation.getMemPageInfo(currentPage, listCount, boardlimit);
+		  memlist = mService.SelectMemberLIst(pi);
+		  
+		  if(memlist!=null) {
+			  mv.addObject("list",memlist)
+			  .addObject("pi",pi)
+			  .setViewName("admin/adminmodify_user");
+		  }
+		  return mv; 
 		  }
 	  
 	  @RequestMapping("adminproduct_Insert")

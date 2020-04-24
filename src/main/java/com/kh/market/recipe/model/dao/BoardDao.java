@@ -95,7 +95,7 @@ public class BoardDao {
 	}
 	
 	public Board USERselectBoard(int bId) {
-		
+		System.out.println(bId);
 		return sqlSession.selectOne("USERboardMapper.selectBoard",bId);
 	}
 	

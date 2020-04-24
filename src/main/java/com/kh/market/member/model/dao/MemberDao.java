@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
@@ -141,6 +142,17 @@ public class MemberDao {
 	public int selectDeleteMybag(MyBag mybag) {
 
 		return sqlSession.delete("memberMapper.selectDeleteMybag", mybag);
+	}
+	
+	public ArrayList<Member> selectMemberList(AdminProductPageInfo pi) {//전체  페이징된 회원정보 조회
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectmemberlist",null,rowBounds);
+	}
+
+	public ArrayList<Member> selectMemberList() {//페이지 안된 전체 회원정보 조회
+		return (ArrayList)sqlSession.selectList("memberMapper.selectmemberlist");
 	}
 
 }

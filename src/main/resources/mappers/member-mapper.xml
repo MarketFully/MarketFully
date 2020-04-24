@@ -299,6 +299,10 @@
                 values (#{mem_num}, #{mb_bo_num}, #{me_num}, #{pr_code},#{pr_each})
           ]]>
     </update>
+    
+    <select id="selectmemberlist" resultMap="memberResultSet">
+SELECT * FROM MEMBER
+</select>
 
 </mapper>
 

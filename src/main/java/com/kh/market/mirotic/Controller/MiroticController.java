@@ -60,7 +60,7 @@ public class MiroticController {
 	//결제 버튼을 누르면 주문 내역들을 db에 입력하고 주문번호를 리턴해준다.
 	@RequestMapping("insertMirotic")
 	@ResponseBody
-	public int insertMirotic(ModelAndView mv
+	public String insertMirotic(ModelAndView mv
 				, HttpSession session
 				, @RequestBody ArrayList<Mirotic> mrtList ) {
 		
@@ -88,7 +88,9 @@ public class MiroticController {
 		
 		mv.addObject("mrtList",mrtList);
 		
-		return order_val;
+		String orderVal = ""+order_val;
+		
+		return orderVal;
 	}
 	
 	
@@ -99,6 +101,8 @@ public class MiroticController {
 					, HttpSession session
 					, String or_status
 			) {
+		
+		System.out.println("success Payment");
 		
 		System.out.println("or_status : "+or_status);
 		

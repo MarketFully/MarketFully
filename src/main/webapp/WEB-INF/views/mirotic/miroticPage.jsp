@@ -104,7 +104,7 @@
                 </div>  
                 <!-- 주문자 정보 start-->
 
-                <form id="form" name="frmOrder" action="#" method="post" class="order_view">
+               <!--  <form id="form" name="frmOrder" action="#" method="post" class="order_view" onsubmit="false"> -->
                 <div class="data_orderer">
                     <h2 style="text-align: left;">주문자 정보</h2>
                         <table class="goodsinfo_table" style="border-top: 2px solid #2e8b57; width: 100%;">
@@ -411,10 +411,10 @@
     	  
 		// 받는 사람 정보    	  
     	  var name_val=$('#sender_name').val();
-    	  var phone_val=$('#sender_phone').val();;
-    	  var addr_val=$('#address2').val();;
-    	  var zip_val=$('#postcode2').val();;
-    	  
+    	  var phone_val=$('#sender_phone').val();
+    	  var addr_val=$('#address2').val();
+    	  var zip_val=$('#postcode2').val();
+    	  var memo = $('#deliveryMemo').val();
     	  
     	  
     	  var orderList=[];
@@ -441,7 +441,8 @@
         	        	, method:"post"
         	        	, success:function(data){
         	        		//성공시 결제 메소드를 호출한다. 
-        	        		consoel.log('success : '+ data);
+        	        		//alert('data : '+data);
+        	        		console.log('success : '+ data);
         	        		order_val = data;
         	        		console.log('amount_val : '+amount_val+'\n order_val : '+order_val+'\n name_val : '+name_val
         	        				+'\n phone_val : '+phone_val+'\n addr_val :'+addr_val+'\n zip_val : '+zip_val);
@@ -496,7 +497,7 @@
         	        		location.href="myorderlist.bo";
         	        	}//success
         	        	, error:function(request,status, error){
-        	        		console.log('에라');
+        	        		console.log('payment 에라');
         	        	}
         	        })//ajax
         	        

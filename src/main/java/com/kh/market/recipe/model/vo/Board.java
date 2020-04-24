@@ -22,10 +22,39 @@ public class Board {
 	private String mb_status;
 	private String mb_type;		//요거슨 아직 안쓰는거로 알고 이씀 20/04/19 기준
 	private int mc_cate_num;
-
+	
+	private int mb_serving;
+	private int mb_time; 
+	private int mb_level; 
+	
 	private Menu_Category mc;
 	
 	
+	
+	public int getMb_serving() {
+		return mb_serving;
+	}
+
+	public void setMb_serving(int mb_serving) {
+		this.mb_serving = mb_serving;
+	}
+
+	public int getMb_time() {
+		return mb_time;
+	}
+
+	public void setMb_time(int mb_time) {
+		this.mb_time = mb_time;
+	}
+	
+	public int getMb_level() {
+		return mb_level;
+	}
+
+	public void setMb_level(int mb_level) {
+		this.mb_level = mb_level;
+	}
+
 	public int getMb_num() {
 		return mb_num;
 	}
@@ -174,19 +203,25 @@ public class Board {
 		this.mb_rename = mb_rename;
 	}
 
+	
+
+
+	
+
 	@Override
 	public String toString() {
 		return "Board [mb_num=" + mb_num + ", mb_title=" + mb_title + ", mb_content=" + mb_content + ", mb_cdate="
 				+ mb_cdate + ", mb_writer=" + mb_writer + ", mb_origin=" + mb_origin + ", mb_rename=" + mb_rename
 				+ ", mb_thank=" + mb_thank + ", mb_count=" + mb_count + ", mb_rcount=" + mb_rcount + ", mb_status="
-				+ mb_status + ", mb_type=" + mb_type + ", mc_cate_num=" + mc_cate_num + ", mc=" + mc + ", brlist="
-				+ brlist + ", belist=" + belist + ", bplist=" + bplist + "]";
+				+ mb_status + ", mb_type=" + mb_type + ", mc_cate_num=" + mc_cate_num + ", mb_serving=" + mb_serving
+				+ ", mb_time=" + mb_time + ", mb_level=" + mb_level + ", mc=" + mc + ", brlist=" + brlist + ", belist="
+				+ belist + ", bplist=" + bplist + "]";
 	}
 
 	public Board(int mb_num, String mb_title, String mb_content, Date mb_cdate, String mb_writer, String mb_origin,
 			String mb_rename, int mb_thank, int mb_count, int mb_rcount, String mb_status, String mb_type,
-			int mc_cate_num, Menu_Category mc, ArrayList<BoardReply> brlist, ArrayList<BoardExp> belist,
-			ArrayList<BoardProduct> bplist) {
+			int mc_cate_num, int mb_serving, int mb_time, int mb_level, Menu_Category mc, ArrayList<BoardReply> brlist,
+			ArrayList<BoardExp> belist, ArrayList<BoardProduct> bplist) {
 		super();
 		this.mb_num = mb_num;
 		this.mb_title = mb_title;
@@ -201,9 +236,16 @@ public class Board {
 		this.mb_status = mb_status;
 		this.mb_type = mb_type;
 		this.mc_cate_num = mc_cate_num;
+		this.mb_serving = mb_serving;
+		this.mb_time = mb_time;
+		this.mb_level = mb_level;
 		this.mc = mc;
 		this.brlist = brlist;
 		this.belist = belist;
 		this.bplist = bplist;
 	}
+
+	
+	
+	
 }

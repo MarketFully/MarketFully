@@ -202,6 +202,11 @@ public class BoardDao {
 	public int tvDeleteReply(int rId) {
 		return sqlSession.update("TVboardMapper.tvDeleteReply", rId);
 	}
+	
+	public int insertRecipe(Board b) {
+		
+		return sqlSession.insert("USERboardMapper.userinsertRecipe", b);
+	}
 
 	
 }

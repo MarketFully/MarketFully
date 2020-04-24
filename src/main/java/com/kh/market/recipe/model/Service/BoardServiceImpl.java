@@ -195,6 +195,13 @@ public class BoardServiceImpl implements BoardService{
 	public int tvDeleteReply(int rId) {
 		return bDao.tvDeleteReply(rId);
 	}
+	//*********************************
+	//레시피 작성
+	@Override
+	public int insertRecipe(Board b) {
+		
+		return bDao.insertRecipe(b);
+	}
 
 
 

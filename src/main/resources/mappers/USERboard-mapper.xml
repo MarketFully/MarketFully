@@ -14,7 +14,11 @@
 		<result property="mb_count" column="UMB_COUNT"/>
 		<result property="mb_rcount" column="UMB_RCOUNT"/>
 		<result property="mb_status" column="UMB_STATUS"/>
-		<result property="mb_type" column="UMB_TYPE"/>
+		<!-- <result property="mb_type" column="UMB_TYPE"/> -->
+		<result property="mc_cate_num" column="MC_CATE_NUM"/>
+		<result property="mb_serving" column="UMB_SERVING"/>
+		<result property="mb_time" column="UMB_TIME"/>
+		<result property="mb_level" column="UMB_LEVEL"/>
 	</resultMap>
 	
 	<resultMap type="Product" id="productResultMap">
@@ -282,4 +286,9 @@
 			WHERE ROWNUM <= 4
 		]]>
 	</select>
+	
+	<insert id="userinsertRecipe"  parameterType="Board">
+      INSERT INTO USER_MENU_BOARD
+      VALUES(SEQ_UMB.nextval,#{mb_title},#{mb_content},SYSDATE,#{mb_writer},#{mb_origin},#{mb_rename},0,0,0,'Y',#{mc_cate_num},#{mb_serving},#{mb_time},#{mb_level})
+	</insert>
 </mapper>

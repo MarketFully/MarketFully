@@ -1,28 +1,34 @@
 package com.kh.market.recipe.Controller;
 
-import java.text.DateFormat;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.kh.market.admin.model.Service.CategoryService;
+import com.kh.market.admin.model.vo.MainCategory;
+import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.common.Pagination;
 import com.kh.market.member.model.vo.Favorite;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardExp;
 import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
@@ -37,18 +43,93 @@ public class RecipeController {
 	
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private CategoryService cService;
 
-	@RequestMapping("RecipeKor")
-	public String recipeKorView() { //한식 레시피 이동하는 메소드
-
-		return "recipe/foodkind";
+	@RequestMapping("recipeinsertpage")
+	public ModelAndView recipeinsertpage(Board b, Model model,HttpServletRequest request,ModelAndView mv) { //유저 레시피 작성 페이지로 이동
+		
+		//회원 아이디 등등 을 가지고 작성 페이지로 이동
+		
+		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
+		 //ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+         if(mc!=null) {
+            mv.addObject("maincate", mc) 
+            //mv.addObject("subcate",sc)
+            .setViewName("recipe/recipeinsert");
+         }
+         
+       return mv; 
 	}
 
-	@RequestMapping("RecipeEng")
-	public String recipeEngView() { //양식 레시피 이동하는 메소드
-
-		return "recipe/foodkindEng";
-	}
+	 @RequestMapping("maincate_subcatesearch") //json으로 서브 카테고리 가져오기
+		public void admin_maincategoryView(HttpServletResponse response,
+											String selectValue ,String longi) throws JsonIOException, IOException {
+		 System.out.println("@@@@@@@@@@@@@@@ selectValue : " + selectValue);
+			
+			//ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+			ArrayList<SubCategory> subcatelist = cService.lowerSublist(selectValue); 
+			response.setContentType("application/json; charset=UTF-8");
+			
+			Gson gson = new GsonBuilder().create();
+			
+			gson.toJson(subcatelist,response.getWriter());
+		}
+	 
+		@RequestMapping("recipeinsert")
+		public String recipeinsert(Board b,BoardExp be ,Model model,HttpServletRequest request,
+				@RequestParam(name="mainImg",required=false) MultipartFile file) { //유저 레시피 작성 (DB)
+			
+			if(!file.getOriginalFilename().equals("")) {
+				// 서버에 업로드
+				// saveFile메소드 : 내가 저장하고자하는 file과 request를 전달하여 서버에 업로드 시키고 그 저장된 파일명을 반환해주는 메소드
+				
+				String renameFileName = saveFile(file,request);
+				
+				if(renameFileName != null) {
+					b.setMb_origin(file.getOriginalFilename());// DB에는 파일명 저장
+					b.setMb_rename(renameFileName);
+				}
+			}
+			
+			System.out.println("레시피 작성 b : " + b);
+			System.out.println("레시피 작성 be : " + be);
+			int result = bService.insertRecipe(b);
+			
+			return "recipe/temp_userRecipe";
+		}
+		
+		public String saveFile(MultipartFile file, HttpServletRequest request) {
+			// 저장할 경로 설정
+			// 웹 서버 contextPath를 불러와서 폴더의 경로 찾음(webapp 하위의 resources)
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String savePath = root + "\\buploadFiles";
+			
+			File folder = new File(savePath);
+			
+			if(!folder.exists()) {
+				folder.mkdir(); // 폴더가 없다면 생성해주세요
+			}
+			
+			String originFileName = file.getOriginalFilename();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
+			
+			System.out.println("renameFileName : " + renameFileName);
+			
+			String renamePath = folder + "\\"+ renameFileName;
+			
+			try {
+				file.transferTo(new File(renamePath)); // 이때 전달받은 file이 rename명으로 저장이된다.
+			}catch (Exception e) {
+				System.out.println("파일 전송 에러 : " + e.getMessage());
+			} 
+			
+			return renameFileName;
+		}
 
 	@RequestMapping("RecipeJap")
 	public String recipeJapView() { //일식 레시피 이동하는 메소드

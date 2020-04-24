@@ -95,6 +95,8 @@ public interface BoardService {
 
 	// tv레시피 댓글 삭제
 	int tvDeleteReply(int rId);
-	
+	//*********************************
+	//레시피 작성
+	int insertRecipe(Board b);
 	
 }

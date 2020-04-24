@@ -225,7 +225,7 @@
             <div class="TOP10" style="width: 1100px; display: flex; margin: 0 auto;">
                 <div class="topImgdiv"><img src="resources/img/user.png" class="topImg"></div>
                 <div class="Ttitle"><h4>사용자 레시피</h4></div>
-                <div class="write"><input type="submit" value="레시피 작성" class="write_btn" onclick="location.href=''"> </div>
+                <div class="write"><input type="submit" value="레시피 작성" class="write_btn" onclick="location.href='recipeinsertpage'"> </div>
             </div>
         </div>
     </div>

@@ -45,6 +45,98 @@
             font-weight: 400;
             display: inline;
         }
+         .reviewtbl {
+		    border-collapse: collapse;
+		    position: relative;
+		    border-bottom: 1px solid #dedede;
+		    max-width: 100%;
+		    width: 100%;
+		}
+		.item > tr> td {
+		    border-bottom: 1px solid #ccc;
+		    height: 30px;
+		    font-size: 13px;
+		    padding: 2px;
+		    font-weight: 200;
+		    padding: 10px 0;
+		}
+		body{
+			margin-bottom:300px;
+		}
+		.reviewcontent{	   
+    		text-align: left;
+		}
+		.goodbtn{
+			width: 100px;
+		    height: 35px;
+		    border: 1px solid #2e8b57;
+		    background-color: #fff;
+		    font-size: 12px;
+		    font-weight: 600;
+		    color: #2e8b57;
+		    float: right;
+		    outline: none;
+		    cursor:pointer;
+		}
+		#lab1{
+			font-weight: bold;
+		    font-size: 14px;
+		    color: #1d5736;
+		}
+		.pagination {
+			display: inline-block;
+			padding-left: 75px;
+			margin: 20px 0;
+			border-radius: 4px;
+			margin-top: 100px;
+		}
+		
+		.firstpage_img, .prevpage_img {
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			vertical-align: middle;
+			float: left;
+		}
+		
+		.pagenum_currentpage {
+			border-radius: 3px;
+			background: #2e8b57;
+			color: #fff;
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			line-height: 25px;
+			text-align: center;
+			vertical-align: middle;
+			margin: 0px 5px 0px 5px;
+		}
+		
+		.pagenum {
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			line-height: 25px;
+			text-align: center;
+			vertical-align: middle;
+			margin: 0px 5px 0px 5px;
+		}
+		a { text-decoration:none 
+		}
+		#reviewinsert{
+			width: 100px;
+		    height: 35px;
+		    border: 1px solid #2e8b57;
+		    background-color: #2e8b57;
+		    font-size: 12px;
+		    font-weight: 600;
+		    color: white;
+		    float: right;
+		    outline: none;
+		    cursor:pointer;
+		    margin-top:30px;
+		} 
     </style>
     <title>Document</title>
 </head>
@@ -139,39 +231,96 @@
                 </div>
 
                 <!-- 상품 설명 end -->
-                <div>
-                    <ul class="recipe_cotent">
+               <div>
+                    <ul class="recipe_cotent" style="margin-bottom: 0px;">
                         <li class="recipe_reply" data-tab="tab2" style="border-right: 1px solid #2e8b57;">후기</li>
                     </ul>
                 </div>
 
                      <!-- 후기 -->
                     <div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                        <div class="reply_body">
-                            <h4 class="reply_head"><b class="reply_name">OOO님</b>2020-03-24</h4>
-                            <p class="reply_main">존맛탱</p>
-                        </div>
-                    </div>
+                    	<table class="reviewtbl" id="user_table">
+                    <thead>
+                        <tr style="height:70px;border-bottom: 1px solid #ccc;">
+                            <th class="col">번호</th>                    
+                            <th class="colT">제목</th>
+                            <th class="col">작성자</th>
+                            <th class="col">작성일</th>
+                          <!--    <th class="col">좋아요</th> -->
+                            <th class="col">조회수</th>
+                        </tr>
+                    </thead>
+                    		<c:url var="ProductReview" value="ProductReview">
+								<c:param name="pr_code" value="${p.pr_code}"/>
+							</c:url>
+                     <c:forEach var="pr" items="${ list }">
+                    <tbody class="item">
+                        <tr class="reviewtr" style="height: 67px;" onclick="countup(${pr.re_num},this);">
+                            <td style="width:30px;">${pr.re_num }</td>
+                            <td class="tdtext" style="padding-left: 30px;width: 120px;text-align: start;">${pr.re_title }</td>
+                            <td style="width:40px;">${pr.re_writer }</td>
+                            <td style="width:40px;">${pr.re_date }</td>
+                           <%--  <td style="width:30px;">${pr.re_thank}</td> --%>
+                            <td style="width:30px">${pr.re_count }</td>
+                        </tr>
+                         <tr style="display:none;">
+						       <td class="reviewcontent" colspan="6" style="padding: 30px 20px 20px 30px;">
+						       <label id="lab1">${p.pr_name}</label><br><br><br>
+						       <label>${pr.re_content}</label><br>
+						   <!--     <button class="goodbtn">좋아요&nbsp;&nbsp;<span style="float:none;margin-right:0px; font-weight: normal;">0</span></button> -->
+						       </td>
+						</tr>
+                    </tbody>
+                    </c:forEach>                
+                </table>
+                 <button id="reviewinsert">후기 쓰기</button>
+                
+                <c:if test="${ pi.listCount > 0}">
+				<div class="pagination">
 
-                    <div> 
-                        <input type="button" value="후기쓰기" class="btn" onclick="location.href=''">
-                    </div>
+					<c:if test="${ pi.currentPage eq 1 }">
+						<img src="resources/img/arrow_left.png" alt="첫 페이지로 이동"
+							class="firstpage_img" style="margin-right: 10px">
+					</c:if>
+					<c:if test="${ pi.currentPage ne 1 }">
+						<c:url var="before"
+							value="ProductDetail?pr_code=${p.pr_code}">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
+						</c:url>
+						<a href="${ before }"><img src="resources/img/arrow_left.png"
+							alt="첫 페이지로 이동" class="firstpage_img" style="margin-right: 10px"></a>
+					</c:if>
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<span class="pagenum_currentpage"> <font color="white"
+								size="3"><b>${ p }</b></font>
+							</span>
+						</c:if>
+
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="pagination"
+								value="ProductDetail?pr_code=666">
+								<c:param name="currentPage" value="${ p }" />
+							</c:url>
+							<span class="pagenum"> <a href="${ pagination }">${ p }</a>
+							</span>
+						</c:if>
+					</c:forEach>
+
+					<c:if test="${ pi.currentPage eq pi.maxPage }">
+						<img src="resources/img/arrow_right.png" alt="이전 페이지로 이동"
+							class="prevpage_img" style="margin-left: 10px">
+					</c:if>
+					<c:if test="${ pi.currentPage ne pi.maxPage }">
+						<c:url var="after"
+							value="ProductDetail?pr_code=${p.pr_code}">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
+						</c:url>
+						<a href="${ after }"><img src="resources/img/arrow_right.png"
+							alt="이전 페이지로 이동" class="prevpage_img" style="margin-left: 10px"></a>
+					</c:if>
+				</div>
+				</c:if>
             </div>
             
         </div>
@@ -206,5 +355,63 @@
         }
     </script>
 
+  <script>
+    $(function () {
+        $(".reviewtr").click(function(){  
+            $(this).next().toggle();
+
+        })
+        $('.reviewtr').on({
+            'mouseenter':function(){
+                $(this).css('background','#f7f7f7');
+            },'mouseleave':function(){
+                $(this).css('background','white');
+            }
+        })
+    })
+    
+    function countup(re_num,A){
+    	
+    	$.ajax({
+			url : "ReviewCount",
+			type : "post",
+			data : {re_num :  re_num},
+			dataType : "text",
+			success : function(data) {
+				console.log(data);
+				
+			A.children[4].innerHTML=data;
+			
+			},
+			error : function(request, status,
+					errorData) {
+				alert("error code : "
+						+ request.status + "\n"
+						+ "message: "
+						+ request.responseText
+						+ "error : "
+						+ errorData);
+			}
+		})
+    };
+
+    $(".goodbtn").on("click",function(){
+    	var login =  '${ loginUser.mem_id }';
+    	if(login == ""){
+    		 alert("로그인을 해주세요.")
+             return;
+    	}
+    });
+    
+    $("#reviewinsert").on("click",function(){
+    	var login =  '${ loginUser.mem_id }';
+    	if(login == ""){
+    		 alert("상품후기는 상품을 구매하시고 배송완료된 회원 분만 작성 가능합니다.")
+             location.href="login.do";
+    	}else{
+    		location.href="mypagereview";
+    	}
+    });
+    </script>
 </body>
 </html>

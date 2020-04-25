@@ -243,14 +243,12 @@
 
                 </div> <!-- class="recipe_view" -->
 
-                 <div style="height: 52px;border-bottom: 1px solid #2e8b57;">
-                    <ul class="tab_menu" style="margin_bottom:10px; margin-left: -39px;">
-                        <li class="on" id="before_li" style="width:120px; cursor:pointer;">
-                        	<a href="javascript:;" id="before">댓글<span class="tab_span">(${b.getBrlist().size()})</span></a>
+                  <div>
+                    <ul class="recipe_cotent">
+                        <li class="recipe_reply" data-tab="tab2" style="border-right: 1px solid #2e8b57;width: 85px;">댓글
+                        <span class="tab_span">(${b.getBrlist().size()})</span>
                         </li>
-                       
                     </ul>
-                    
                 </div>
                      <!-- 댓글 -->
                      <div id="tab1" class="reply current">

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
+import com.kh.market.product.model.vo.ProductReviewPageInfo;
 
 public interface ProductService {
 
@@ -29,5 +31,15 @@ public interface ProductService {
 
 	public ArrayList<Product> selectlowerproduct(SubCategory subcatevo, AdminProductPageInfo pi);
 	
-	
+	// 리뷰 개수
+	public int getListProductReview(int pr_code);
+
+	// 리뷰 리스트
+	public ArrayList<ProductReview> ReviewselectList(ProductReviewPageInfo pi,int pr_code);
+
+	// 리뷰 조회수
+	public int ReviewCount(int re_num);
+
+	// 리뷰 리스트 다시 가져옴
+	public ProductReview Reviewselect(int re_num);
 }

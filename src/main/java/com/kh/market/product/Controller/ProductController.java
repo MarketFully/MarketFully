@@ -4,13 +4,16 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,8 +22,11 @@ import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.AdminProductPagnation;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
+import com.kh.market.common.Pagination_Review;
 import com.kh.market.product.model.service.ProductService;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
+import com.kh.market.product.model.vo.ProductReviewPageInfo;
 
 @Controller
 public class ProductController {
@@ -156,15 +162,31 @@ public class ProductController {
 		}
 
 		@RequestMapping("ProductDetail")
-		public ModelAndView ProductdetailView(ModelAndView mv,@RequestParam("pr_code") int pr_code) {
+		public ModelAndView ProductdetailView(ModelAndView mv,@RequestParam("pr_code") int pr_code,
+				@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) {
 
 		Product p = new Product();
 		p.setPr_code(pr_code);
 		p = pService.getProductOne(p);
 
 		mv.addObject("p",p).setViewName("product/productdetail");
-			return mv;
-		}
+			
+		System.out.println("@@@@ currentPage : "+ currentPage);
+		
+		int listCount = pService.getListProductReview(pr_code);
+		System.out.println("ProductReview listCount : " + listCount);
+		
+		ProductReviewPageInfo pi = Pagination_Review.getPageInfo(currentPage,listCount);
+		
+		ArrayList<ProductReview> list = pService.ReviewselectList(pi,pr_code);
+		System.out.println("review list : " + list);
+		
+		mv.addObject("list", list);
+		mv.addObject("pi",pi);
+		mv.setViewName("product/productdetail");
+		
+		return mv;
+	}
 		
 		
      	
@@ -218,6 +240,87 @@ public class ProductController {
 			.setViewName("product/productchoosecate");
 			
 			return mv;
+		}
+		
+		@RequestMapping(value="ReviewCount",method=RequestMethod.POST)
+		@ResponseBody
+		public String ReviewCount(ModelAndView mv,HttpServletRequest request,HttpServletResponse response,int re_num){
+			String a= "";
+			Cookie[] cookies = request.getCookies();
+	        
+	        // 비교하기 위해 새로운 쿠키
+	        Cookie viewCookie = null;
+	 
+	        // 쿠키가 있을 경우 
+	        if (cookies != null && cookies.length > 0) 
+	        {
+	            for (int i = 0; i < cookies.length; i++)
+	            {
+	                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+	                if (cookies[i].getName().equals("cookie"+re_num))
+	                { 
+	                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+	                    viewCookie = cookies[i];
+	                }
+	            }
+	        }
+	        
+	        if (mv != null) {
+	            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
+	            
+	            mv.addObject("mv", mv);
+	 
+	            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+	            if (viewCookie == null) {    
+	                System.out.println("cookie 없음");
+	                
+	                // 쿠키 생성(이름, 값)
+	                Cookie newCookie = new Cookie("cookie" + re_num, "|" + re_num + "|");
+	                                
+	                // 쿠키 추가
+	                response.addCookie(newCookie);
+	 
+	                // 쿠키를 추가 시키고 조회수 증가시킴
+	                int result = pService.ReviewCount(re_num);
+	                
+	                // vo이름 a = pService.select댓글(re_num);
+	                // re_num번호로 작성된 댓글 정보만 다시 가져오기
+	                
+	                ProductReview pr_re = pService.Reviewselect(re_num);
+	                System.out.println(pr_re);
+	                
+	                
+	                if(result>0) {
+	                    System.out.println("조회수 증가");
+	                    a=Integer.toString(pr_re.getRe_count());
+	                }else {
+	                    System.out.println("조회수 증가 에러");
+	                    a=Integer.toString(pr_re.getRe_count());
+	                }
+	            }
+	            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+	            else {
+	                System.out.println("cookie 있음");
+	                
+	                // 쿠키 값 받아옴.
+	                String value = viewCookie.getValue();
+	                
+	                System.out.println("cookie 값 : " + value);
+	                
+	                ProductReview pr_re = pService.Reviewselect(re_num);
+	                
+	                    a=Integer.toString(pr_re.getRe_count());
+	            
+	            }
+	 
+	            mv.setViewName("product/productdetail");
+	            return a;
+	        } 
+	        else {
+	            // 에러 페이지 설정
+	        	mv.setViewName("error/reviewError");
+	            return a;
+	        }
 		}
 	
 

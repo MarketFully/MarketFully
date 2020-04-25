@@ -17,6 +17,18 @@
 		<result property="renameFileName" column="RENAME_FILE_NAME"/>
 	</resultMap>
 	
+	<resultMap  id="ReviewResultSet" type="ProductReview">
+		<id property="re_num" column="RE_NUM"></id>
+		<result property="prcode" column="PR_CODE"></result>
+		<result property="re_title" column="RE_TITLE"></result>
+		<result property="re_writer" column="RE_WRITER"></result>
+		<result property="re_date" column="RE_Date"></result>
+		<result property="re_content" column="RE_CONTENT"></result>
+		<result property="re_thank" column="RE_THANK"></result>
+		<result property="re_count" column="RE_COUNT"></result>
+		<result property="re_status" column="RE_STATUS"></result>
+	</resultMap>
+	
 	
 	<select id ="getListCount" resultType="_int">
 SELECT COUNT(*) FROM PRODUCT
@@ -79,5 +91,30 @@ SELECT COUNT(*) FROM PRODUCT
 	<select id="lowerproductlist" parameterType="subcate" resultMap="productResultSet">
 	SELECT * FROM PRODUCT
 	WHERE PR_CATE1=#{upcate} AND PR_CATE2= #{catecode2}
+	</select>
+	
+	<select id="getListProductReview" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW 
+		WHERE RE_STATUS='Y' AND PR_CODE= #{pr_code}
+	</select>	
+	
+	<select id="ReviewselectList" resultMap="ReviewResultSet">
+       SELECT *
+		FROM REVIEW
+		WHERE RE_STATUS='Y' AND PR_CODE = #{pr_code}
+		ORDER BY RE_NUM DESC
+	</select>
+	
+	<update id="ReviewCount" parameterType="_int">
+		UPDATE REVIEW
+		SET RE_COUNT = RE_COUNT +1
+		WHERE RE_NUM=#{re_num}
+	</update>
+	
+	<select id="Reviewselect" resultMap="ReviewResultSet"  parameterType="_int">
+		SELECT *
+		FROM REVIEW
+		WHERE RE_STATUS='Y' AND RE_NUM=#{RE_NUM}
 	</select>
 </mapper>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
+import com.kh.market.product.model.vo.ProductReviewPageInfo;
 
 @Repository("pDao")
 public class ProductDao {
@@ -68,4 +70,22 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("ProductMapper.lowerproductlist", subcatevo, rowBounds);
 	}
 
+	public int getListProductReview(int pr_code) {
+		return sqlSession.selectOne("ProductMapper.getListProductReview",pr_code);
+	}
+
+	public ArrayList<ProductReview> ReviewselectList(ProductReviewPageInfo pi,int pr_code) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("ProductMapper.ReviewselectList",pr_code,rowBounds);
+	}
+
+	public int ReviewCount(int re_num) {
+		return sqlSession.update("ProductMapper.ReviewCount",re_num);
+	}
+
+	public ProductReview Reviewselect(int re_num) {
+		return sqlSession.selectOne("ProductMapper.Reviewselect",re_num);
+	}
 }

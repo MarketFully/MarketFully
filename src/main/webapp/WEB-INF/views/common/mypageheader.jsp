@@ -69,9 +69,9 @@ $.ajax({
                 <label style="cursor: pointer;" onclick="location.href='mypagepoint'">원</label>
             </div>
             <div id="good">
-                <img src="resources/img/good.png" style="height:50px; width:50px; border-radius: 100%;" onclick="location.href='mypageloverecipe'"><br>
-                <label style="cursor: pointer;"  onclick="location.href='mypageloverecipe'">찜한 레시피</label><br>
-                <label style="cursor: pointer;" id="goodnum"  onclick="location.href='mypageloverecipe'">0</label>
+                <img src="resources/img/good.png" style="height:50px; width:50px; border-radius: 100%;" onclick="location.href='mypageloverecipe.bo?mem_num=${loginUser.mem_num}'"><br>
+                <label style="cursor: pointer;"  onclick="location.href='mypageloverecipe.bo?mem_num=${loginUser.mem_num}'">찜한 레시피</label><br>
+                <label style="cursor: pointer;" id="goodnum"  onclick="location.href='mypageloverecipe.bo?mem_num=${loginUser.mem_num}'">0</label>
             </div>
         </div>   
     </div>

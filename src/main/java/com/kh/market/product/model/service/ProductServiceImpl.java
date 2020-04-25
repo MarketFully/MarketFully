@@ -9,6 +9,8 @@ import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.dao.ProductDao;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
+import com.kh.market.product.model.vo.ProductReviewPageInfo;
 
 @Service("pService")
 public class ProductServiceImpl implements ProductService{
@@ -71,5 +73,29 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public ArrayList<Product> selectlowerproduct(SubCategory subcatevo, AdminProductPageInfo pi) {
 		return pDao.selectlowerproduct(subcatevo,pi);
+	}
+	
+	// 후기 리스트 개수
+	@Override
+	public int getListProductReview(int pr_code) {
+		return pDao.getListProductReview(pr_code);
+	}
+
+	// 후기 리스트
+	@Override
+	public ArrayList<ProductReview> ReviewselectList(ProductReviewPageInfo pi,int pr_code) {	
+		return pDao.ReviewselectList(pi,pr_code);
+	}
+
+	// 후기 조회수
+	@Override
+	public int ReviewCount(int re_num) {
+		return pDao.ReviewCount(re_num);
+	}
+
+	// 후기 리스트 다시 가져오기
+	@Override
+	public ProductReview Reviewselect(int re_num) {
+		return pDao.Reviewselect(re_num);
 	}
 }

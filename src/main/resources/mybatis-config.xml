@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.market.admin.model.vo.MainCategory" alias="maincate"/>
 		<typeAlias type="com.kh.market.admin.model.vo.SubCategory" alias="subcate"/>
 		<typeAlias type="com.kh.market.product.model.vo.Product" alias="Product"/>
+		<typeAlias type="com.kh.market.product.model.vo.ProductReview" alias="ProductReview"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard" alias="Notice"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard" alias="Qna"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestBoard" alias="REQUEST_BOARD"/>

@@ -249,8 +249,62 @@ public class AdminController {
 		  return "admin/categorysee";
 	  }
 	  
+	  @RequestMapping("usermodifypop")
+	  public ModelAndView usermodifypop(ModelAndView mv,
+			  @RequestParam("mem_num") int mem_num) {
+		  
+		  Member m = mService.selectmember(mem_num);
+		  mv.addObject("m",m)
+		  .setViewName("admin/usermodifypop");
+		  return mv;
+	  }
 	  
+	  @RequestMapping("adminupdateuser")
+	  public ModelAndView adminupdateuser(ModelAndView mv , Member m) {
+		  System.out.println(m);
+		  if(m.getMem_pwd().equals("")) {
+			  m.setMem_pwd(
+			  mService.selectmember(
+			  m.getMem_num()).getMem_pwd()); //pwd를 비워놓을 경우 이전 패스워드를 가져와서 저장
+		  }
+		  int result = mService.updateMember(m);
+		  
+		  if(result>0) {
+			  mv.setViewName("admin/close");
+		  }
+		return mv;
+	  }
 	  
+	  @RequestMapping("memsearch")
+	  public ModelAndView memsearch(ModelAndView mv , 
+			  @RequestParam("msearchType") String msearch,
+			  @RequestParam("mkeyword") String mkeyword,
+			  @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+		  
+		  	ArrayList mlist = new ArrayList();
+		  	AdminProductPageInfo pi = null;
+		  	
+		  	System.out.println(mkeyword+"           "+msearch);
+		  if(msearch.equals("mid")) {
+			   mlist = mService.searchmemid(mkeyword);
+			  int listCount = mlist.size();
+			   pi = AdminProductPagnation.getMemPageInfo(currentPage, listCount,10);
+			  mlist = mService.searchmemidpaging(mkeyword,pi);
+		  }else if(msearch.equals("mname")){
+			  mlist = mService.searchmemname(mkeyword);
+			  int listCount = mlist.size();
+			   pi = AdminProductPagnation.getMemPageInfo(currentPage, listCount,10);
+			  mlist = mService.searchmemnamepaging(mkeyword,pi);
+		  }
+		  
+		  System.out.println(mlist);
+		  
+		  mv.addObject("list",mlist)
+		  .addObject("pi",pi)
+		  .setViewName("admin/adminmodify_user");
+		  
+		  return mv;
+	  }
 	  
 	  //tv레시피 처음화면(전체)
 	  @RequestMapping("atvCateList") 

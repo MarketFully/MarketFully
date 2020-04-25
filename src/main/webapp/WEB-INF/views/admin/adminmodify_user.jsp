@@ -117,7 +117,6 @@
       </table>
       <br><br>
       
-      <button onclick="deletebtn();"> 삭제하기</button>
       
       <br><br>
 <c:if test="${ pi.currentPage eq 1 }">
@@ -161,6 +160,20 @@
       
       <br><br>
       
+      
+                  <div>
+                <fieldset>
+                <form action="memsearch">
+                
+                    <select style="height: 31px;  border: 1px solid #dcdcdc; border-radius: 5px; margin-right: 20px; font-family: MapoPeacefull;" name="msearchType">
+                        <option value="mid">아이디</option>
+                        <option value="mname">이름</option>
+                    </select>
+                    <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" name="mkeyword">
+                    <button type="submit" class="btn_srch" id="searchbtn">검색</button>
+                </form>
+                </fieldset>
+                </div>
       <!-- /.container -->
   </div>
   </div>
@@ -176,12 +189,13 @@
   <!-- Bootstrap core JavaScript -->
   <script src="resources/vendor/jquery/jquery.min.js"></script>
   <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<input type="hidden" id="modifynum">
 </body>
 
 <script>
-function modify(){
-	
+function modify(mem_num){
+	document.getElementById("modifynum").value = mem_num;
+	window.open("usermodifypop?mem_num="+mem_num , "", "top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no","");
 }
 </script>
 

@@ -154,5 +154,33 @@ public class MemberDao {
 	public ArrayList<Member> selectMemberList() {//페이지 안된 전체 회원정보 조회
 		return (ArrayList)sqlSession.selectList("memberMapper.selectmemberlist");
 	}
+	
+	public Member selectMemberOne(int mem_num) {
+		return (Member)sqlSession.selectOne("memberMapper.selectmemberOne",mem_num);
+	}
+
+	public ArrayList<Member> searchmemberlist(String mkeyword) {
+		return (ArrayList)sqlSession.selectList("memberMapper.searchmemberid",mkeyword);
+	}
+
+	public ArrayList<Member> searchmempaging(String mkeyword, AdminProductPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.searchmemberid", mkeyword, rowBounds);
+	}
+
+	public ArrayList<Member> searchmemname(String mkeyword) {
+	
+		return (ArrayList)sqlSession.selectList("memberMapper.searchmembername", mkeyword);
+	}
+
+	public ArrayList<Member> searchmemnamepaging(String mkeyword, AdminProductPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.searchmembername", mkeyword,rowBounds);
+	}
+
 
 }

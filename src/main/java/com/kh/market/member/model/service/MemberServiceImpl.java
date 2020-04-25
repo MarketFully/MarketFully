@@ -172,5 +172,30 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<Member> SelectMemberLIst() {
 		return mDao.selectMemberList();
 	}
+	
+	@Override
+	public Member selectmember(int mem_num) {
+		return mDao.selectMemberOne(mem_num);
+	}
+
+	@Override
+	public ArrayList<Member> searchmemid(String mkeyword) {
+		return mDao.searchmemberlist(mkeyword);
+	}
+
+	@Override
+	public ArrayList<Member> searchmemidpaging(String mkeyword, AdminProductPageInfo pi) {
+		return mDao.searchmempaging(mkeyword, pi);
+	}
+
+	@Override
+	public ArrayList<Member> searchmemname(String mkeyword) {
+		return mDao.searchmemname(mkeyword);
+	}
+
+	@Override
+	public ArrayList<Member> searchmemnamepaging(String mkeyword, AdminProductPageInfo pi) {
+		return mDao.searchmemnamepaging(mkeyword,pi);
+	}
 
 }

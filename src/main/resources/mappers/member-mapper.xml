@@ -304,6 +304,22 @@
 SELECT * FROM MEMBER
 </select>
 
+
+<select id="selectmemberOne" resultMap="memberResultSet">
+SELECT * FROM MEMBER 
+WHERE MEM_NUM = #{mem_num}
+</select>
+<select id="searchmemberid" resultMap="memberResultSet">
+SELECT * FROM MEMBER
+WHERE MEM_ID like '%' || #{mkeyword} || '%'
+</select>
+
+<select id="searchmembername" resultMap="memberResultSet">
+SELECT * FROM MEMBER
+WHERE MEM_NAME like '%' || #{mkeyword} || '%'
+</select>
+
+
 </mapper>
 
 

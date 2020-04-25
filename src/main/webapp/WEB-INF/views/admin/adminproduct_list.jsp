@@ -67,7 +67,6 @@
 					</c:if>
 					<c:if test="${list[R]==null }">
 						<div class="col-lg-3 col-md-6 mb-4">
-							
 						</div>
 					</c:if>
 				<c:if test="${R ==3}">
@@ -76,9 +75,6 @@
 				</c:if>
 				</c:forEach>
 			</div>
-
-
-			
               
               <c:if test="${ pi.currentPage eq 1 }">
 					<button class="mdl-button mdl-js-button mdl-button--raised">이전</button>

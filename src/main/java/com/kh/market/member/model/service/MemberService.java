@@ -170,4 +170,15 @@ public interface MemberService {
 	ArrayList<Member> SelectMemberLIst(AdminProductPageInfo pi); //페이징된 회원 리스트
 
 	ArrayList<Member> SelectMemberLIst(); //페이징 안된 회원 리스트
+
+
+	Member selectmember(int mem_num);
+
+	ArrayList<Member> searchmemid(String mkeyword);
+
+	ArrayList<Member> searchmemidpaging(String mkeyword, AdminProductPageInfo pi);
+
+	ArrayList<Member> searchmemname(String mkeyword);
+
+	ArrayList<Member> searchmemnamepaging(String mkeyword, AdminProductPageInfo pi);
 }

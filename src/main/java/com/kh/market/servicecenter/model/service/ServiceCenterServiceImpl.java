@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.servicecenter.model.dao.ServiceCenterDao;
+import com.kh.market.servicecenter.model.vo.Search_Qna;
 import com.kh.market.servicecenter.model.vo.ServiceCenterBoardLike;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestPageInfo;
 
@@ -152,8 +154,35 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	@Override
 	public int deletelike(ServiceCenterBoardLike scb) {
 		return sDao.deleteUserlike(scb);
-
-
 	}
 	
+	// QNA 댓글 리스트 
+	@Override
+	public ArrayList<ServiceCenterQnaReply> selectQnaReplyList(int q_num) {
+		return sDao.selectQnaReplyList(q_num);
+	}
+
+	// QNA 리스트 검색
+	@Override
+	public int getQNASearchListCount(Search_Qna sq) {
+		return sDao.getQNASearchListCount(sq);
+	}
+	
+	// QNA 리스트 검색
+	@Override
+	public ArrayList<ServiceCenterQnaBoard> selectQNASearch(Search_Qna sq, PageInfo pi) {
+		return sDao.selectQNASearch(sq,pi);
+	}
+	
+	// QNA 댓글 등록
+	@Override
+	public int qnainsertReply(ServiceCenterQnaReply qr) {
+		return sDao.qnainsertReply(qr);
+	}
+	
+	// QNA 댓글 삭제 
+	@Override
+	public int qnadeleteReply(ServiceCenterQnaReply qr) {
+		return sDao.qnadeleteReply(qr);
+	}
 }

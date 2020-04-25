@@ -13,10 +13,50 @@
     <title>Document</title>
 </head>
 <body>
+
+<script>
+	$(function(){
+
+		// 댓글 등록
+		$("#submitbtn").on("click",function(){
+			var qr_content = $("#qr_content").val();
+			var q_num = ${b.q_NUM};
+			var qr_writer = "<%=((Member)session.getAttribute("loginUser")).getMem_name()%>";
+			console.log(" ㅎㅇ");
+			
+			$.ajax({
+				url:"qnaReply",
+				data:{qr_content: qr_content, q_num:q_num, qr_writer:qr_writer},
+				type: "post",
+				success:function(data){
+					if(data == "success"){
+						window.location.reload();
+						$("#qr_content").val("");
+					}
+				}, error:function(){
+					console.log("등록실패");
+				}
+			});
+		});
+	});
+	
+
+</script>
+
+<style>
+    #deletebtn{
+    color:#2e8b57;
+    border:none;
+    background:none;
+    font-family: MapoPeacefull;
+    font-size: 13px;
+    }
+</style>
     <!--header-->
     <%@include file="../common/header.jsp" %>
     <!-- header end-->
-
+	
+	</script>
     <!-- 공지사항 -->
 
     <!-- QNA 왼쪽 tab-->
@@ -99,12 +139,30 @@
                     <input type="button" value="삭제" class="write_btn" onclick="location.href='${QNAdelete}'">
                 </div>
         </div>
+        
+        <!-- 댓글 등록 -->
+        <div>
         <div>
             <div><p style="border-bottom: 2px solid #2e8b57; font-size: 20px;"><strong>댓글</strong></p></div>
+            	
+            	<c:forEach var="r" items="${qr}">
+        			<div class=reply_Body">
+        				<h4 class="reply_head">
+        				<b class="reply_name">${r.qr_writer}</b> ${r.qr_date}
+        				<c:url var="qdelete" value="qnadeleteReply">
+        				<c:param name="q_num" value="${r.q_num }"/>
+        				<c:param name="bId" value="${b.q_NUM }"/>
+        				</c:url>
+        				<input type="button" value="삭제" id="deletebtn" onclick="location.href='${qdelete}'" style="float: right;margin-top: 10px;">
+        				</h4>
+        				<p class="reply_main">${r.qr_content }</p>
+        			</div>
+        		</c:forEach>
             <div class="re" style="margin-top: 30px;">
-                <textarea></textarea>
-                <input type="submit" value="등록" class="re_btn">
+                <textarea id="qr_content"></textarea>
+                <input type="button" value="등록" class="re_btn"  id="submitbtn">
             </div>
+        </div>
         </div>
     </div>
     

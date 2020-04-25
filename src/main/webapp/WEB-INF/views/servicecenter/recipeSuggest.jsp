@@ -42,6 +42,7 @@
 
     <!-- QNA 내용-->
     <div id="viewNotice" class="viewNotice">
+        <c:if test="${ !empty sessionScope.loginUser }">
         <div class="head_aticle">
             <h2 class="tit">레시피 제안</h2>
         </div>
@@ -54,6 +55,7 @@
                 <li> ▶ 담당 MD가 제안해주신 의견은 실시간으로 모니터링할 예정이나, 별도 답변 안내는 되지 않음을 양해부탁드립니다.</li>
             </ul>
         </div>
+        
         <div class="Ncontent">
             <div class="Ncontent_div">
                 <table class="table" id="user_table">
@@ -68,6 +70,9 @@
                             <th class="col">추천수</th>
                         </tr>
                     </thead>
+                    
+      
+                  
                     
                     <c:forEach var="r" items="${ RSlist }">
                     <tbody class="item">
@@ -86,11 +91,10 @@
                     </tbody>
                     </c:forEach>
                 </table>
-<!-- 
-                <fieldset>
-                    <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
-                    <button type="submit" class="btn_srch">검색</a>
-                </fieldset> -->
+                
+                <c:if test="${list.size() == 0 }">
+					<img src="resources/img/edit.jpg" style="margin-top:30px;">
+				</c:if> 
 
 				<!-- 페이징 처리 -->
                 <div class="pagination">
@@ -140,6 +144,14 @@
                 </div>
                 </c:if>
         </div>
+        
+        </c:if>
+        
+        <c:if test="${ empty sessionScope.loginUser }">
+          	<img src="resources/img/userblock.jpg">
+       	</c:if>
+        
+        
     </div>
    <!-- QNA 내용 끝-->
 </div>

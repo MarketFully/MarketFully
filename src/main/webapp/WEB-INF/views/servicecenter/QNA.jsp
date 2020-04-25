@@ -15,7 +15,6 @@
     <!--header-->
     <%@include file="../common/header.jsp" %>
     <!-- header end-->
-
     <!-- 공지사항 -->
 
     <!-- QNA 왼쪽 tab-->
@@ -40,6 +39,7 @@
     <!--QNA tab end-->
 
     <!-- QNA 내용-->
+<!--     <form action="QNA"  method="post" id="search"> -->
     <div id="viewNotice" class="viewNotice">
         <div class="head_aticle">
             <h2 class="tit" >문의</h2>
@@ -58,6 +58,7 @@
                             <th class="col">조회수</th>
                         </tr>
                     </thead>
+
                     <c:forEach var="b" items="${ list }">
                     <tbody class="item">
                         <tr>
@@ -75,26 +76,33 @@
                     </tbody>
                     </c:forEach>
                 </table>
+                 
+                <c:if test="${list.size() == 0 }">
+					<img src="resources/img/edit.jpg" style="margin-top:30px;">
+				</c:if> 
                 
-
+				<form action="QNASearch" method=POST>
+				<div>
                 <fieldset>
-                	 <select style="height: 31px;  border: 1px solid #dcdcdc; border-radius: 5px; margin-right: 20px; font-family: MapoPeacefull;">
-                        <option value="title">제목</option>
-                        <option value="writer">작성자</option>
-                        <option value="category">카테고리</option>
+                	 <select style="height: 31px;  border: 1px solid #dcdcdc; border-radius: 5px; margin-right: 20px; font-family: MapoPeacefull;" name="q_searchType">
+                        <option value="q_TITLE">제목</option>
+                        <option value="q_WRITER">작성자</option>
+                        <option value="q_CATEGORY">카테고리</option>
                     </select>
-                    <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
-                    <button type="submit" class="btn_srch">검색</a></button>
+                    <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" name="q_keyword">
+                    <button type="submit" class="btn_srch" id="searchbtn">검색</a></button>
                 </fieldset>
-                    <!-- 페이징 처리 -->
-    <div class="pagination">
+                </div>
+                </form>
+        <!-- 페이징 처리 -->
+    	<div class="pagination">
             
         <!-- 이전 -->
         <c:if test="${ pi.currentPage eq 1 }">
 				<img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img" style="width:25px;height:25px; cursor:pointer;vertical-align: middle;">
 		</c:if>
 			<c:if test="${ pi.currentPage ne 1 }">
-				<c:url var="before" value="QNAdetail">
+				<c:url var="before" value="QNA">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
 				<a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
@@ -107,7 +115,7 @@
 			</c:if>
 					
 			<c:if test="${ p ne pi.currentPage }">
-				<c:url var="pagination" value="QNAdetail">
+				<c:url var="pagination" value="QNA">
 						<c:param name="currentPage" value="${ p }"/>
 					</c:url>
 					<a href="${ pagination }">${ p }</a> &nbsp;
@@ -119,18 +127,14 @@
 				<img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img" style="width:25px;height:25px;cursor:pointer;vertical-align: middle;" >
 			</c:if>
 			<c:if test="${ pi.currentPage ne pi.maxPage }">
-				<c:url var="after" value="QNAdetail">
+				<c:url var="after" value="QNA">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url> 
 				<a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
 			</c:if>    
-
-        <!-- <a href="javascript:;"><img src="images/next.png" alt="다음 페이지로 이동"  class="nextpage_img"></a>
-        <a href="javascript:;"><img src="images/doublenext.png" alt="마지막 페이지로 이동" class="lastpage_img"></a> -->
     </div> 
     <!-- 페이징처리 end-->
 
-                <ul class="pagination"></ul>  
             </div>
                 <!-- 글쓰기 버튼-->
                 <div>
@@ -138,10 +142,13 @@
                 </div>
         </div>
     </div>
+<!--     </form> -->
    <!-- QNA 내용 끝-->
    
 </div>
 <!-- QNA 끝-->
+
+
 
 </body> 
 </html>

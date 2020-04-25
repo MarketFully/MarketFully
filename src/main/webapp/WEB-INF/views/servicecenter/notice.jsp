@@ -70,6 +70,9 @@
                     </c:forEach>
                 </table>
 
+                <c:if test="${list.size() == 0 }">
+					<img src="resources/img/edit.jpg" style="margin-top:30px;">
+				</c:if> 
             </div>
                 <!-- 페이징 처리 -->
     			<div class="pagination" style="text-align:center;">

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,17 +25,23 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.kh.market.common.Pagination;
 import com.kh.market.common.Pagination_Notice;
 import com.kh.market.common.Pagination_Qna;
 import com.kh.market.common.Pagination_RecipeSuggest;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.servicecenter.model.service.ServiceCenterService;
+import com.kh.market.servicecenter.model.vo.Search_Qna;
 import com.kh.market.servicecenter.model.vo.ServiceCenterBoardLike;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestPageInfo;
 
@@ -97,14 +104,15 @@ public class ServiceCenterController {
 	// QNA 상세보기
 	@RequestMapping("QNAdetail")
 	public ModelAndView QNAdetailView(ModelAndView mv, int bId,
-			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //QNA 상세보기로 이동하는 메소드
-		
+									  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //QNA 상세보기로 이동하는 메소드
 		System.out.println("sikim qna controller bid : " + bId);
 		
 		ServiceCenterQnaBoard b = sService.QNAselectBoard(bId);
+		ArrayList <ServiceCenterQnaReply> qr = sService.selectQnaReplyList(bId);
 		
 		if(b != null) {
 			mv.addObject("b",b)
+			  .addObject("qr", qr)
 			  .addObject("currentPage",currentPage)
 			  .setViewName("servicecenter/QNAdetail");
 		}else {
@@ -113,7 +121,6 @@ public class ServiceCenterController {
 		}
 		return mv;
 	}
-	
 
 	// QNA 리스트
 	@RequestMapping("QNA")
@@ -160,6 +167,49 @@ public class ServiceCenterController {
 			return "common/errorPage";
 		}
 	}
+	
+	// QNA 리스트 검색
+		@RequestMapping("QNASearch")
+		public ModelAndView QNASearch(ModelAndView mv,
+									  @RequestParam(value="q_keyword",required = false)String q_keyword,
+									  @RequestParam(value="q_searchType" ,required=false)String q_searchType,
+									  @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
+			System.out.println("######## : " +  q_keyword);
+			System.out.println("@@@@@@@@ : " +  q_searchType);
+			
+			Search_Qna sq = new Search_Qna();
+			
+			sq.setQ_keyword(q_keyword);
+			sq.setQ_searchType(q_searchType);
+			
+			if(q_searchType.equals("q_TITLE")) {
+				sq.setQ_title(q_keyword);
+				System.out.println("######" + q_keyword);
+			}else if(q_searchType.equals("q_WRITER")) {
+				sq.setQ_writer(q_keyword);
+			}else if(q_searchType.equals("q_CATEGORY")) {
+				sq.setQ_category(q_keyword);
+			}
+			
+			
+			int listCount = sService.getQNASearchListCount(sq);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<ServiceCenterQnaBoard> list = sService.selectQNASearch(sq,pi);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			
+			mv.addObject("sq", sq);
+			mv.addObject("q_searchType", q_searchType);
+			mv.addObject("q_keyword", q_keyword);
+			
+			mv.setViewName("servicecenter/QNA");
+			
+			return mv;
+		}
+	
+	
 		
 	// QNA 글작성 (파일)
 	public String QAsaveFile(MultipartFile file, HttpServletRequest request) {
@@ -494,5 +544,56 @@ public class ServiceCenterController {
 		return returnstring;
 	}
 
+	
+	// QNA 댓글 등록
+		@ResponseBody
+		@RequestMapping("qnaReply")
+		public String qnainsertReply(ServiceCenterQnaReply qr) {
+			
+			System.out.println(qr);
+			
+			int result = sService.qnainsertReply(qr);
+			
+			if(result > 0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
+		
+		// QNA 댓글 리스트
+		@RequestMapping("qnaReplyList")
+		public void qnaReplyList(HttpServletResponse response, int q_num) throws JsonIOException, IOException{
+			ArrayList<ServiceCenterQnaReply> qrList = sService.selectQnaReplyList(q_num);
+			
+			response.setContentType("application/json; charset=utf-8");
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(qrList, response.getWriter());
+		}
+		
+		// QNA 댓글 삭제
+		@RequestMapping("qnadeleteReply")
+		public ModelAndView qnadeleteReply(ModelAndView mv,
+				@RequestParam("q_num") int q_num,//댓글번호
+				@RequestParam("bId") int bId) {//게시물번호
+			ServiceCenterQnaReply qr = new ServiceCenterQnaReply();//빈객체만들고
+			qr.setQ_num(q_num);//댓글 번호 셋팅하고
+		
+			int result = sService.qnadeleteReply(qr);// //선택한 댓글 삭제
+			
+			ServiceCenterQnaBoard b = sService.QNAselectBoard(bId); // 보고있었던 boardDetail 객체에 저장
+			ArrayList <ServiceCenterQnaReply> qrlist = sService.selectQnaReplyList(bId); //보고있었던 댓글 객체에 저장
+			
+			if(b != null) {
+				mv.addObject("b",b)
+				  .addObject("qr", qrlist)
+				  .setViewName("servicecenter/QNAdetail");
+			}else {
+				mv.addObject("msg","게시글 상세조회 실패")
+				  .setViewName("common/errorPage");
+			}
+			return mv;
+			
+		}
 
 }

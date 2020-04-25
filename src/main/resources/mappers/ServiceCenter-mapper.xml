@@ -46,6 +46,22 @@
 		<result property="rb_num" column="RB_NUM"/>
 	</resultMap>
 	
+	<resultMap type="QnaSearch" id="QnaSearchResultSet">
+		<id property="q_title" column="Q_TITLE"/>
+		<result property="q_writer" column="Q_WRITER"/>
+		<result property="q_category" column="Q_CATEGORY"/>
+	</resultMap>
+	
+	<resultMap type="QnaReply" id="QnaReplyResultSet">
+		<id property="q_num" column="Q_NUM"/>
+		<result property="qr_num" column="QR_NUM"/>
+		<result property="qr_content" column="QR_CONTENT"/>
+		<result property="qr_writer" column="QR_WRITER"/>
+		<result property="qr_date" column="QR_DATE"/>
+		<result property="qr_thank" column="QR_THANK"/>
+		<result property="qr_status" column="QR_STATUS"/>
+	</resultMap>
+	
 	<select id="getListCountNotice" resultType="_int">
 		SELECT COUNT(*)
 		FROM NOTICE
@@ -80,10 +96,22 @@
 		WHERE Q_STATUS='Y'
 	</select>
 	
+	<!-- QNA 리스트 -->
 	<select id="QnaselectList" resultMap="QnaboardResultSet">
         SELECT *
 		FROM QNA_BOARD
 		WHERE Q_STATUS='Y'
+		<choose>
+			<when test="q_title != null">
+				AND Q_TITLE LIKE '%' || #{q_title} || '%'
+			</when>
+			<when test="q_writer != null">
+				AND Q_WRITER LIKE '%' || #{q_writer} || '%'
+			</when>
+			<otherwise>
+				AND Q_CATEGORY LIKE '%' || #{q_category} || '%'
+			</otherwise>
+		</choose>
 		ORDER BY Q_NUM DESC
 	</select>
 	
@@ -196,6 +224,59 @@
 		DELETE FROM BOARDLIKE
 		WHERE MEM_NUM = #{mem_num}
 		AND RB_NUM = #{rb_num}
+	</delete>
+	
+	<!-- QNA 댓글 리스트 -->
+	<select id="qnaselectReplyList" resultMap="QnaReplyResultSet"  parameterType="_int">
+		SELECT *
+		FROM QNA_REPLY
+		WHERE QR_NUM=#{q_NUM}
+		AND QR_STATUS='Y'
+		ORDER BY Q_NUM DESC
+	</select>
+	
+	<!-- QNA 리스트 검색 -->
+	<select id="getQNASearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA_BOARD
+		WHERE Q_STATUS='Y'
+		<if test="q_title != null">
+			AND Q_TITLE LIKE '%' || #{q_title} ||'%'
+		</if>
+		<if test="q_writer != null">
+			AND Q_WRITER LIKE '%' || #{q_writer} || '%'
+		</if>
+		<if test="q_category != null">
+			AND Q_CATEGORY LIKE '%' || #{q_category} || '%'
+		</if>
+	</select>
+	
+	<!-- QNA 리스트 -->
+	<select id="selectQNASearch" resultMap="QnaboardResultSet">
+        SELECT *
+		FROM QNA_BOARD
+		WHERE Q_STATUS='Y'
+		<if test="q_title != null">
+			AND Q_TITLE LIKE '%' || #{q_title} ||'%'
+		</if>
+		<if test="q_writer != null">
+			AND Q_WRITER LIKE '%' || #{q_writer} || '%'
+		</if>
+		<if test="q_category != null">
+			AND Q_CATEGORY LIKE '%' || #{q_category} || '%'
+		</if>
+	</select>
+	
+	<!-- QNA 댓글등록 -->
+	<insert id="qnainsertReply" parameterType="QnaReply">
+		INSERT INTO QNA_REPLY
+		VALUES (SEQ_QNA_NUM.NEXTVAL,#{q_num}, #{qr_content} ,#{qr_writer}, SYSDATE, NULL, 'Y')
+	</insert>
+	
+	<!-- QNA 댓글 삭제 -->
+	<delete id="qnadeleteReply" parameterType="QnaReply">
+		DELETE FROM QNA_REPLY
+		WHERE Q_NUM = #{q_num}
 	</delete>
 </mapper>
 

@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.servicecenter.model.vo.Search_Qna;
 import com.kh.market.servicecenter.model.vo.ServiceCenterBoardLike;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestPageInfo;
 
@@ -147,6 +149,35 @@ public class ServiceCenterDao {
 		return sqlSession.delete("NoticeboardMapper.RecipedeleteLike", scb);
 	}
 	
+	// QNA 댓글 리스트 
+	public ArrayList<ServiceCenterQnaReply> selectQnaReplyList(int q_num) {
+		return (ArrayList)sqlSession.selectList("ServiceCenterMapper.qnaselectReplyList",q_num);
+	}
+	
+	// QNA 리스트 검색
+	public int getQNASearchListCount(Search_Qna sq) {
+		return sqlSession.selectOne("ServiceCenterMapper.getQNASearchListCount",sq);
+	}
+	
 
+	// QNA 리스트 검색
+	public ArrayList<ServiceCenterQnaBoard> selectQNASearch(Search_Qna sq, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("ServiceCenterMapper.selectQNASearch",sq);
+	}
+	
+	// QNA 댓글 등록
+	public int qnainsertReply(ServiceCenterQnaReply qr) {
+		return sqlSession.insert("ServiceCenterMapper.qnainsertReply", qr);
+	}
+	
+	// QNA 댓글 삭제 
+	public int qnadeleteReply(ServiceCenterQnaReply qr) {
+		System.out.println(qr);
+		return sqlSession.delete("ServiceCenterMapper.qnadeleteReply",qr);
+	}
 	
 }

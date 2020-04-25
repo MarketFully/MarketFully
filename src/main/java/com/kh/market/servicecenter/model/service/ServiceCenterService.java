@@ -3,11 +3,13 @@ package com.kh.market.servicecenter.model.service;
 import java.util.ArrayList;
 
 import com.kh.market.recipe.model.vo.PageInfo;
+import com.kh.market.servicecenter.model.vo.Search_Qna;
 import com.kh.market.servicecenter.model.vo.ServiceCenterBoardLike;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestBoard;
 import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestPageInfo;
 
@@ -129,4 +131,41 @@ public interface ServiceCenterService {
 	 * @return
 	 */
 	int deletelike(ServiceCenterBoardLike scb);
+	
+	/**
+	 * QNA 댓글 리스트 
+	 * @param q_num
+	 * @return
+	 */
+	ArrayList<ServiceCenterQnaReply> selectQnaReplyList(int q_num);
+	
+	/**
+	 * QNA 리스트 검색
+	 * @param sq
+	 * @return
+	 */
+	int getQNASearchListCount(Search_Qna sq);
+	
+	/**
+	 * QNA 리스트 검색
+	 * 
+	 * @param sq
+	 * @param pi
+	 * @return
+	 */
+	ArrayList<ServiceCenterQnaBoard> selectQNASearch(Search_Qna sq, PageInfo pi);
+
+	/**
+	 * QNA 댓글 등록
+	 * @param qr
+	 * @return
+	 */
+	int qnainsertReply(ServiceCenterQnaReply qr);
+	
+	/**
+	 * QNA 댓글 삭제 
+	 * @param qr
+	 * @return
+	 */
+	int qnadeleteReply(ServiceCenterQnaReply qr);
 }

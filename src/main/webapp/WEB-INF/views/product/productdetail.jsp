@@ -1,3 +1,5 @@
+<%@page import="com.kh.market.member.model.vo.MyBag"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -137,6 +139,47 @@
 		    cursor:pointer;
 		    margin-top:30px;
 		} 
+		
+		
+		        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%; /* Could be more or less, depending on screen size */                          
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        
+		
     </style>
     <title>Document</title>
 </head>
@@ -201,7 +244,8 @@
                                 </li>
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
-                                        <input type="submit" value="장바구니에 담기" class="bag">
+                                        <input type="submit" onclick="toBasket()" value="장바구니에 담기" class="bag"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="submit" onclick="miroticView()" value="주문하기" class="bag">
                                     </div>
                                 </li>
                             </ul>
@@ -327,6 +371,20 @@
     </div>
     <!-- boardDetail end-->
 
+	<!-- myModal 장바구니 -->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+      	<label>여기에 대충 장바구니 정보 출력</label>
+        <p>장바구니에 등록되었습니다.</p>
+        <button onclick="location.href='basket'">장바구니로 이동하기</button>
+        <button id="modalClose">계속하기</button>
+      </div>
+
+    </div>
+
+
 
     <script>
          // 폼값 증가&감소
@@ -412,6 +470,102 @@
     		location.href="mypagereview";
     	}
     });
+    
+    
+    //장바구니로 이동
+    function toBasket(){
+    	
+    	//cartList를 만들어서 센션에 넣어줘야 한다.
+	
+    	//넘겨야될 값을 배열로 만든다.
+       	 var prcodeArr = [];	//상품코드
+       	 var prnameArr = [];	//상품이름
+       	 var prpriceArr= [];	//상품가격
+       	 var preachArr = [];	//상품 갯수
+       	 
+   		 	prcodeArr[0] = ${p.pr_code};
+	   	 	prnameArr[0]='${p.pr_name}';
+	   	 	prpriceArr[0]=${p.pr_price};
+	   	 	preachArr[0]=$('#text1').val();
+	   	 
+ 		$.ajax({
+ 			url:"myCart"
+ 			, data:{
+ 				 'prcodeArr' : prcodeArr
+				, prnameArr : prnameArr
+				, prpriceArr : prpriceArr
+				, preachArr : preachArr
+ 			}//data
+ 			, dataType:"text"
+ 			, type:"post"
+ 			, success:function(data){
+ 				console.log('success : '+data);
+				console.log('cartList : '+ '${cartList}');
+	        	 $('#myModal').css("display", "block");
+ 			}//success
+ 			, error:function(request,status,error){
+    	 		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    	 	}//error
+ 		})//ajax
+    } // toBasket
+    
+    
+    
+    //주문 페이지로 이동
+    function miroticView(){
+    	//주문을 누르는 순간
+    	
+    	 var prcodeArr = [];	//상품코드
+       	 var prnameArr = [];	//상품이름
+       	 var prpriceArr= [];	//상품가격
+       	 var preachArr = [];	//상품 갯수
+       	 
+   		 	prcodeArr[0] = ${p.pr_code};
+	   	 	prnameArr[0]='${p.pr_name}';
+	   	 	prpriceArr[0]=${p.pr_price};
+	   	 	preachArr[0]=$('#text1').val();
+	   	 
+ 		$.ajax({
+ 			url:"myCart"
+ 			, data:{
+ 				 'prcodeArr' : prcodeArr
+				, prnameArr : prnameArr
+				, prpriceArr : prpriceArr
+				, preachArr : preachArr
+ 			}//data
+ 			, dataType:"text"
+ 			, type:"post"
+ 			, success:function(data){
+ 				console.log('success : '+data);
+				console.log('cartList : '+ '${cartList}');
+	        	 $('#myModal').css("display", "block");
+ 			}//success
+ 			, error:function(request,status,error){
+    	 		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    	 	}//error
+ 		})//ajax
+    	//확인
+    	
+    	//회원인 경우 현재 list를 MyBag에 업데이트 해서 그 값을 이용함
+    	 $.ajax({	
+   			url:"updateCart"
+   			, data: JSON.stringify(list)
+   			, dataType : "text"
+   			, contentType : "application/json"
+   			, method:"post"
+   			, success:function(data){
+   				console.log(data);
+   				location.href="miroticView";
+   			}//success
+   			, error:function(request, status, error){
+   				console.log('request :'+request);
+        			console.log('status :'+status);
+        			console.log('error :'+error);
+   			}//error
+   		}); //ajax 
+   		
+    }//miroticView
+    
     </script>
 </body>
 </html>

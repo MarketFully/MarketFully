@@ -316,10 +316,7 @@ public class MemberController {
 	@RequestMapping("myCart")
 	@ResponseBody
 	public String insertCart(
-					String bTitle
-					, int bId		//게시판 번호
-					, int me_num	//게시판 분류
-					, @RequestParam(value="prcodeArr[]")List<String> prcodeArr
+					@RequestParam(value="prcodeArr[]")List<String> prcodeArr
 					, @RequestParam(value="prnameArr[]")List<String> prnameArr
 					, @RequestParam(value="prpriceArr[]")List<String> prpriceArr
 					, @RequestParam(value="preachArr[]")List<String> preachArr
@@ -339,7 +336,6 @@ public class MemberController {
 //		System.out.println("prpriceArr : "+prpriceArr);
 //		System.out.println("preachArr : "+preachArr);
 		System.out.println("loginUser : "+ loginUser);
-		System.out.println("me_num : "+me_num);
 		
 		System.out.println("prcodeArr.size() : "+prcodeArr.size());
 		System.out.println("prcodeArr.get(0) : "+ prcodeArr.get(0));
@@ -352,7 +348,7 @@ public class MemberController {
 		//로그인인 경우
 		if(loginUser != null) {
 			for(int i =0; i<prcodeArr.size(); i++) {
-				MyBag mybag = new MyBag(bId, me_num);
+				MyBag mybag = new MyBag();
 				mybag.setPr_code(Integer.parseInt(prcodeArr.get(i)));
 				mybag.setPr_each(Integer.parseInt(preachArr.get(i)));
 				mybag.setMem_num(loginUser.getMem_num());
@@ -365,7 +361,7 @@ public class MemberController {
 			
 		}else { //비로그인인 경우
 			for(int i =0; i<prcodeArr.size(); i++) {
-				MyBag mybag = new MyBag(bId, me_num);
+				MyBag mybag = new MyBag();
 				mybag.setPr_code(Integer.parseInt(prcodeArr.get(i)));
 				mybag.setPr_each(Integer.parseInt(preachArr.get(i)));
 				mybag.setPrd(mService.selectOneProduct(Integer.parseInt(prcodeArr.get(i))));

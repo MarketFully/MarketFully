@@ -457,8 +457,8 @@
 	        	 $.ajax({
 	        		 type:"POST", 
 	        		 url: "heartplus",
-	        		 data : { bId : ${bId}, TvOrUser : TvOrUser, mem_num : mem_num},
-	 				success:function(result){
+	        		 data : { bId : ${bId}, TvOrUser : TvOrUser, mem_num : mem_num}
+	        	 , success:function(result){
 						if(result == 'ok'){ 
 							console.log('좋아요 더하기 성공');
 						}else{ 

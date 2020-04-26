@@ -298,8 +298,6 @@
         MERGE INTO MYBAG m
             USING dual
                on ( MEM_NUM = #{mem_num}
-               		AND MB_BO_NUM = #{mb_bo_num}
-                    AND MB_NUM=#{me_num}  
                     AND PR_CODE=#{pr_code}) 
              WHEN MATCHED THEN
              UPDATE SET

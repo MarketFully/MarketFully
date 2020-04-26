@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.dao.MiroticDAO;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 
 @Service("mrtService")
 public class MiroticServiceImpl implements MiroticService{
@@ -44,6 +45,10 @@ public class MiroticServiceImpl implements MiroticService{
 		return mrtDao.insertMiroticList(mrtList);
 	}
 
+	@Override
+	public int insertShipping(SHIPPING shipping) {
+		return mrtDao.insertShipping(shipping);
+	}
 
 
 }

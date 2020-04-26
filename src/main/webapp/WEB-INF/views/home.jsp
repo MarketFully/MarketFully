@@ -251,7 +251,7 @@
         </div>
     </footer>
 
-    <script> $('.carousel').carousel({ interval: 2000}) 
+    <script> $('.carousel').carousel({ interval: 2000});
     
     document.getElementsByClassName("cate_hr")[0].remove();
     </script>

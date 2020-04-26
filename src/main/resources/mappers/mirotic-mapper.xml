@@ -76,7 +76,7 @@
 	
 	<update id="updateMiroticSuccess" parameterType="Mirotic">
 		UPDATE MIROTIC
-		SET OR_STATUS = "입금확인 배송준비중"
+		SET OR_STATUS = "입금확인"
 		WHERE SENDER_NAME = #{sender_name}
 		AND SENDER_PHONE=#{sender_phone}
 		AND SENDER_ADDR=#{sender_addr}
@@ -102,7 +102,21 @@
 			, #{item.sender_name}, #{item.sender_addr}, #{item.sender_phone}
 			, 0, #{item.mem_num})
 		</foreach>
+		
 	</insert>
+	
+	<select id="returnOrNum" resultType="_int">
+		SELECT SEQ_SHIPPING.CURRVAL FROM DUAL
+	</select>
+	 
+	 <!-- 배송테이블 업데이트 -->
+	 <insert id="insertShipping" parameterType="Shipping">
+	 	INSERT INTO SHIPPING
+		VALUES(seq_shipping.nextval, '배송준비중', 3000 
+		, #{receiver_name}, #{receiver_addr}, #{receiver_phone}, 1
+		, #{shipping_request}, SYSDATE, #{or_num});
+	 </insert>
+	 
 	 
 </mapper>
 

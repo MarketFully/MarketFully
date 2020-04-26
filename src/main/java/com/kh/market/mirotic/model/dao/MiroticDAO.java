@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 
 @Repository("mrtDao")
 public class MiroticDAO {
@@ -35,8 +36,23 @@ public class MiroticDAO {
 	}
 
 	public int insertMiroticList(ArrayList<Mirotic> mrtList) {
-		// TODO Auto-generated method stub
-		return sqlSession.insert("miroticMapper.insertMiroticList", mrtList);
+
+		//return sqlSession.insert("miroticMapper.insertMiroticList", mrtList);
+		int result = 0;
+		result = sqlSession.insert("miroticMapper.insertMiroticList", mrtList);
+		
+		//주문번호 리턴
+		if (result>0) {
+			result = sqlSession.selectOne("miroticMapper.returnOrNum");
+		}else {
+			return -1;
+		}
+		
+		return result;
+	}
+
+	public int insertShipping(SHIPPING shipping) {
+		return sqlSession.insert("miroticMapper.insertShipping",shipping);
 	}
 
 }

@@ -10,12 +10,12 @@
     <!-- <link rel="stylesheet" href="resources/css/basket.css"> -->
     <link rel="stylesheet" href="resources/css/order.css">
     <link rel="stylesheet" href="resources/css/join.css">
+    <link rel="stylesheet" href="resources/css/basket.css">
     
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script> <!-- 탭 메뉴 -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+        <script src="resources/js/jquery-3.4.1.min.js"></script>
+    
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	
 	
 	
 	
@@ -99,9 +99,39 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                        </div>                        
-                    </div> 
-                </div>  
+                            
+                            
+                            
+                            
+                            <div class="product_price_box--2_sRjHNYSb" style="height: 62px;">
+                    <div class="product_price_detail--1ZRE4kKbD-">
+                        <dl class="product_price--29YDGAO_uo">
+                            <dt>총 상품금액</dt>
+                            <dd style="margin-left: 0px;">
+                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;" id="total1">${tp.total1 }</span>원  
+                            </dd>
+                        </dl>
+                        <label style="font-size: 30px;font-weight:bold;padding-right: 54px;color: rgb(189, 187, 187);">+</label>
+                        <dl class="product_price--29YDGAO_uo">
+                            <dt>배송비</dt>
+                            <dd style="margin-left: 0px;">
+                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;">3000</span>원
+                            </dd>
+                        </dl>
+                    </div>
+                    
+                    <strong class="product_price_total--3usHUQ97oy">총 주문금액
+                        <span style="float:none;margin-right:0px;" class="txt_point--bAwRwaaTcp">
+                            <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" id="total2">${tp.total2 }</span>원
+                        </span>
+                    </strong>
+                            </div>
+                            
+                            
+                            
+                        </div>                         
+                    </div> 	
+                </div>
                 <!-- 주문자 정보 start-->
 
                <!--  <form id="form" name="frmOrder" action="#" method="post" class="order_view" onsubmit="false"> -->
@@ -113,19 +143,21 @@
                                     <th>보내는 분 *</th>
                                     <td>
                                         <input type="text" name="mem_name" id="mem_name" required="required" msgr="보내는 분의 이름을 적어주세요"
-                                        style="width: 162px;">
+                                        style="width: 162px;" value="${loginUser.mem_name}">
                                     </td>
                                 </tr>
                                 <tr class="field_phone">
                                     <th>휴대폰 *</th>
                                     <td>
-                                        <input type="text" name="mem_phone" id="mem_phone" class="input" placeholder="주문자 휴대폰번호" required style="width: 162px;" msgr="보내는 분의 번호를 적어주세요">
+                                        <input type="text" name="mem_phone" id="mem_phone" class="input" placeholder="주문자 휴대폰번호" required style="width: 162px;" msgr="보내는 분의 번호를 적어주세요"
+                                        value="${loginUser.mem_phone}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
                                     <td>
-                                    	<input style="width: 360px;" type="text" id="mem_email" name="mem_email" class="input" placeholder="  이메일" required option="regEmail">
+                                    	<input style="width: 360px;" type="text" id="mem_email" name="mem_email" class="input" placeholder="  이메일" required option="regEmail"
+                                    	value="${loginUser.mem_email}">
                                     </td>
                                 </tr>
                                 <tr class="field_addressview">
@@ -197,38 +229,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <script>
-                        $(function() {
-                            $('#deliveryMemo').keyup(function (e){
-                                var deliveryMemo = $(this).val();
-                                $(this).height(((deliveryMemo.split('\n').length + 1) * 1.5) + 'em');
-                                $('#counter').html(deliveryMemo.length + '/300');
-                            });
-                            $('#deliveryMemo').keyup();
-                        });
-                    /* 주소 찾기 start------------------------------*/    
-                    </script>
-                        <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-                        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-                        <script type="text/javascript">
-                    
-                            function openDaumZipAddress() {
-                                new daum.Postcode({
-                                    oncomplete:function(data) {
-                                        // jQuery("#zonecode").val(data.zonecode);
-                                        document.getElementById("zonecode").value = data.zonecode;
-                                        // jQuery("#postcode1").val(data.postcode1);
-                                        // jQuery("#postcode2").val(data.postcode2);
-                                        // jQuery("#zonecode").val(data.zonecode);
-                                        // jQuery("#address").val(data.address);
-                                        // jQuery("#address_etc").focus();
-                                        console.log(data);
-                                    }
-                                }).open();
-                    
-                            }
-                        </script>
+
                 </div>
                 <!-- 배송 정보 end-->
 
@@ -257,77 +259,19 @@
                 </div>
                 <!-- 결제 수단 end-->
                 
-                
-                <h2 style="text-align: left;">개인 정보 수집/제공</h2>
-                <table class="goodsinfo_table height">
-                    <tbody>
-                        <tr>
-                            <td class="reg_agree">
-                                <div class="bg_dim" style="display: none;"></div>
-                                <div class="check">
-                                    <input type="checkbox" id="chk_all">
-                                    <label for="chk_all">결제 진행 필수 동의</label><br><br>
-                                    
-                                    <label for="check1" class="check">개인정보 수집 및 이용 동의</label>
-                                    <label for="check1"  style="color:#9c9c9c;">(필수)</label>
-                                    <button onclick="chkDetail1();" class="detailbtn">약관보기></button><br><br>
-            
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+            <br><br><br>
 
-                    <table>
-                        <tr>
-                            <td class="td1"></td>
-                            <td class="td2">
-                                <button id="joinokbtn" class="okbtn" onclick="cashbtn();">결제하기</button>
-                            <td class="td3"></td>
-                        </tr>              
-                    </table>
-                    <div id="agreeModal1">
-       
-                        <div id="allchkContent">
-                            <h2 style="text-align: left; margin: 35px;">개인정보 수입/이용 동의<br>(필수)</h2>
-                            <div id="Content1">
-                               <div class="box_tbl">
-                                   <table cellpadding="0" cellspacing="0" width="100%">
-                                       <thead>
-                                           <tr>
-                                               <th scope="row">수집 목적</th>
-                                               <th scope="row">수집 항목</th>
-                                               <th scope="row">보유 기간</th>
-                                           </tr>
-                                       </thead>
-                                       <tbody>
-                                           <tr>
-                                               <td>
-                                                온라인 쇼핑 구매자에 대한
-                                                <br>
-                                                상품 결제 및 배송
-                                               </td>
-                                               <td>
-                                                주문자 정보(이름, 휴대폰 번호, 이메일), 결제정보, 수취인 정보(주소, 이름, 휴대폰 번호)
-                                               </td>
-                                               <td>
-                                                업무 목적 달성 후 5일 내
-                                                <br>
-                                                (단, 타 법령에 따라 법령에서 규정한 기간 동안 보존)
-                                               </td>
-                                           </tr>
-                                       </tbody>
-                                   </table>
-                                   <P class="txt_service">서비스 제공을 위해서 필요한 최소한의 개인정보이므로 동의를 해 주셔야 서비스를 이용하실 수 있습니다.</P>
-    
-                               </div>
-                            </div>
-                            <br><br>
-                        <button onclick="allchkContentclose();" class="closebtn">확인</button>
-                        </div>
-                    </div>
-                </table>
+	                    <table>
+	                        <tr>
+	                            <td class="td1"></td>
+	                            <td class="td2">
+	                                <button id="joinokbtn" class="okbtn" onclick="cashbtn();">결제하기</button>
+	                               </td>
+	                            <td class="td3"></td>
+	                        </tr>              
+	                    </table>
             </form>
-                
+   		 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>            
 
                 
 
@@ -339,19 +283,26 @@
         </div>
     </div>
     <script>
-    	
-    	
+    	   	
+ 		//주문금액 세팅
     	$(function(){
     		
-    		//로그인인 경우 주문자 정보 자동 완성
-    		if(${!empty loginUser} ){
-    			$('#mem_name').val('${loginUser.mem_name}');
-    			$('#mem_phone').val('${loginUser.mem_phone}');
-    			$('#mem_email').val('${loginUser.mem_email}');
-    		}//if
+    		//합계 
+    		var amount_val=0;
+    	  	$('span#total_price').each(function(index, item){
+    		  amount_val += Number($(item).text());
+    		  console.log('amount_val : '+amount_val);
+    	  	}); //each $('span#total_price')
+    	  
+    		//총 상품금액
+    		$('#total1').text(amount_val);
     		
-    	});
-    
+    	  	//총 주문금액
+    	  	$('#total2').text(amount_val+3000);
+    	}); 
+    	
+    	
+        //주소찾기 버튼
     	$(function(){
 			$("#postcodify_search_button1").postcodifyPopUp({
 		        insertPostcode5 : "#postcode1",
@@ -399,6 +350,7 @@
     		  amount_val += Number($(item).text());
     		  console.log('amount_val : '+amount_val);
     	  })
+    	  amount_val+=3000;
     	  
     	  //보내는 사람 관련 정보
     	  var or_total = amount_val; //총 가격
@@ -488,17 +440,22 @@
         	        $.ajax({
         	        	url:"successPayment"
         	        	, data : {
-        	        			'or_status' : 'success'
+        	        			'receiver_name' : buyer_name
+        	        			, 'receiver_addr' : buyer_addr
+        	        			, 'receiver_tel' : buyer_tel
+        	        			, 'shipping_request' : memo
+        	        			, 'or_num' : order_val
         	        		}
         	        	, method : "post"
         	        	, success:function(data){
-        	        		consoel.log(data);
+        	        		console.log(data);
         	        		alert('결제가 완료되었습니다.');
         	        		location.href="myorderlist.bo";
         	        	}//success
-        	        	, error:function(request,status, error){
-        	        		console.log('payment 에라');
-        	        	}
+        	        	, error:function(data, request,status, error){
+        	        		console.log(data);
+        	        		alert('결제가 완료되지 않았습니다.');
+        	        	}//error
         	        })//ajax
         	        
         	        
@@ -507,6 +464,9 @@
         	        msg += '에러내용 : ' + rsp.error_msg;
         	        
         	        alert('결제가 완료되지 않았습니다. \n'+ msg);
+        	        
+        	        
+        	        window.location.href = 'basket';
         	    }
         	    alert(msg);
         	});

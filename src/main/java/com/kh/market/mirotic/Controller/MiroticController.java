@@ -16,6 +16,8 @@ import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.service.MiroticService;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.mirotic.model.vo.SHIPPING;
+import com.kh.market.mirotic.model.vo.totalPrice;
 
 @Controller
 @SessionAttributes("mrtList")
@@ -31,7 +33,7 @@ public class MiroticController {
 	public String updateCart(ModelAndView mv
 								, HttpSession session
 								, @RequestBody ArrayList<MyBag> cartList
-							) {
+								, totalPrice tp							) {
 		
 		System.out.println("------miroticView--------");
 		
@@ -52,6 +54,7 @@ public class MiroticController {
 		}
 		
 		mv.addObject("cartList", cartList);
+		mv.addObject("tp", tp);
 		
 		return "cartList";
 	}
@@ -76,19 +79,22 @@ public class MiroticController {
 			System.out.println("회원 정보 : "+ loginUser);
 			for(int i=0; i<mrtList.size(); i++){
 				mrtList.get(i).setMem_num(loginUser.getMem_num());
-				System.out.println(i+"번째 주문 회원번호 세팅"+mrtList.get(i).getMem_num());
+				System.out.println(i+"번째 회원번호 세팅"+mrtList.get(i).getMem_num());
 			}//for
 		}//if
 		
-		result = mrtService.insertMiroticList(mrtList); 
 		
-		int order_val = mrtService.selectOneMirotic(mrtList.get(0));
-		
-		System.out.println("주문번호 order_val : " + order_val);
+		result = mrtService.insertMiroticList(mrtList);
+		System.out.println("result : "+ result);
+		System.out.println("mrtList : "+ mrtList);
+//		int order_val = mrtService.selectOneMirotic(mrtList.get(0));
+//		System.out.println("주문번호 order_val : " + order_val);
 		
 		mv.addObject("mrtList",mrtList);
 		
-		String orderVal = ""+order_val;
+		String orderVal = ""+result;
+		
+		
 		
 		return orderVal;
 	}
@@ -99,25 +105,33 @@ public class MiroticController {
 	@ResponseBody
 	public String successPayment(ModelAndView mv
 					, HttpSession session
-					, String or_status
+					, SHIPPING shipping
 			) {
 		
 		System.out.println("success Payment");
 		
-		System.out.println("or_status : "+or_status);
+		System.out.println("shpping : "+shipping);
 		
 		ArrayList<Mirotic> mrtList = (ArrayList<Mirotic>) session.getAttribute("mrtList");
 		
 		System.out.println("mrtList : "+mrtList);
-				
+		
+		//주문 테이블 업데이트 입금확인 업데이트
 		int result = 0;
-		if(or_status.equals("success")){
-			for(Mirotic mrt : mrtList) {
-				result = mrtService.updateMiroticSuccess(mrt);
-			}//for
-		}//if
+		for(Mirotic mrt : mrtList) {
+			result += mrtService.updateMiroticSuccess(mrt);
+			if(result<0) {
+				return "주문이 완료되지 않았습니다. 관리자에게 문의하세요";
+			}//if
+		}//for
+		System.out.println("갱신된 주문 테이블 수 : "+result);
+		
+		result = mrtService.insertShipping(shipping);
 		
 		return "주문해주셔서 감사합니다.";
+		
+		
+		
 	}
 	
 	

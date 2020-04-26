@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 
 public interface MiroticService {
 
@@ -41,5 +42,12 @@ public interface MiroticService {
 	 * @return
 	 */
 	int insertMiroticList(ArrayList<Mirotic> mrtList);
+
+	/**
+	 * 결제완료 제품 -> 배송 테이블 추가
+	 * @param shipping
+	 * @return
+	 */
+	int insertShipping(SHIPPING shipping);
 
 }

@@ -126,7 +126,7 @@
                         <dl class="product_price--29YDGAO_uo">
                             <dt>총 상품금액</dt>
                             <dd style="margin-left: 0px;">
-                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;" id="total1">0</span>원  
+                                <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" style="margin-right: 0px;" id="total1" name="total1">0</span>원  
                             </dd>
                         </dl>
                         <label style="font-size: 30px;font-weight:bold;padding-right: 54px;color: rgb(189, 187, 187);">+</label>
@@ -139,12 +139,13 @@
                     </div>
                     <strong class="product_price_total--3usHUQ97oy">총 주문금액
                         <span style="float:none;margin-right:0px;" class="txt_point--bAwRwaaTcp">
-                            <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" id="total2"></span>원
+                            <span style="float:none;margin-right:0px;" class="price--JIZ5vfiqW7" id="total2" name="total2"></span>원
                         </span>
                     </strong>
-                    
+                                           </div>
+                                           
                  <c:if test="${ !empty cartList}">
-                       </div>
+
                     <div class="notice_cart">*적립금은 다음화면인 ‘주문서’에서 확인가능합니다.</div> 
                     	<button type="button" class="btn_submit" onclick="miroticView()">주문하기</button>
 	                </div>

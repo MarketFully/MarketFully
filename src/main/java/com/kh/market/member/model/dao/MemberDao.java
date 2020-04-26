@@ -51,7 +51,11 @@ public class MemberDao {
 	// 회원 정보 수정
 	public int updateMember(Member m) {
 		System.out.println(m);
-		return sqlSession.update("memberMapper.updateMember",m);
+		if(m.getMem_status()==null) {
+			return sqlSession.update("memberMapper.updateMember",m);			
+		}else {
+			return sqlSession.update("memberMapper.adminupdateMember",m);
+		}
 	}
 	
 	// 아이디 찾기

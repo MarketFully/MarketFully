@@ -171,6 +171,16 @@
       MEM_EMAIL_AGREE=#{mem_email_agree}
       WHERE MEM_ID=#{mem_id}
    </update>
+    <update id="adminupdateMember" parameterType="Member">
+         UPDATE MEMBER
+      SET 
+      MEM_PWD=#{mem_pwd},
+      MEM_NAME=#{mem_name},
+      MEM_EMAIL=#{mem_email},
+      MEM_PHONE=#{mem_phone},
+      MEM_STATUS = #{mem_status}
+      WHERE MEM_NUM=#{mem_num}
+   </update>
    
    <!-- 회원 탈퇴 -->
    <update id="deleteMember" parameterType="string">

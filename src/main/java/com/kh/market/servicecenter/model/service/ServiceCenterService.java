@@ -168,4 +168,6 @@ public interface ServiceCenterService {
 	 * @return
 	 */
 	int qnadeleteReply(ServiceCenterQnaReply qr);
+	
+	int insertNotice(ServiceCenterNoticeBoard n);
 }

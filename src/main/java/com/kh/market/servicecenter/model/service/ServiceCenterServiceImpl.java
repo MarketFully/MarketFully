@@ -185,4 +185,9 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	public int qnadeleteReply(ServiceCenterQnaReply qr) {
 		return sDao.qnadeleteReply(qr);
 	}
+
+	@Override
+	public int insertNotice(ServiceCenterNoticeBoard n) {
+		return sDao.insertNotice(n);
+	}
 }

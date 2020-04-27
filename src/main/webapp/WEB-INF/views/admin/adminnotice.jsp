@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,30 +18,26 @@
     <!-- header end-->
 
     <!-- 공지사항 -->
-
-    <!-- 공지사항 왼쪽 tab-->
-    <div class="noticeList noticetype">
+<div class="noticeList noticetype">
         <div id="sub" class="sub_No">
             <h2 class="Ntitle">고객센터</h2>
                 <div class="inner_sub">
                     <ul class="list_menu_left">
-                        <li class="on">
-                            <a href="ServiceCenter">공지사항</a>
+                        <li  class="on">
+                            <a href="adminServiceCenter">공지사항</a>
                         </li>
                         <li>
-                            <a href="QNA">문의</a>
+                            <a href="adminqna">문의</a>
                         </li>
                         <li>
-                            <a href="recipeSuggest">레시피 제안</a>
+                            <a href="adminrecipeSuggest">레시피 제안</a>
                         </li>
                     </ul>
                 </div>
         </div>
 
-    <!--공지사항 tab end-->
-
-    <!-- 공지사항 내용-->
-    <div id="viewNotice" class="viewNotice">
+    <!-- 공지사항 왼쪽 tab-->
+        <div id="viewNotice" class="viewNotice">
         <div class="head_aticle">
             <h2 class="tit">공지사항</h2>
         </div>
@@ -57,92 +54,68 @@
                             <th class="col">조회수</th>
                         </tr>
                     </thead>
-                    
+                    <c:forEach var="b" items="${ list }">
                     <tbody class="item">
                         <tr>
-                            <td>1</td>
-                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='noticeDetail'">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>5</td> 
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td class="tdtext" style="padding-left: 30px;">[가격인상공지] [아임제주] 제주 구좌 향당근 주스</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td class="tdtext"  style="padding-left: 30px;">[가격인하공지] [카나슈] 티 & 커피 슈가 7종 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td class="tdtext" style="padding-left: 30px;">[추석연휴] 배송휴무안내</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td class="tdtext" style="padding-left: 30px;">개인정보처리방침 개정</td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>10</td> 
-                            <td class="tdtext" style="padding-left: 30px;">[마켓풀리] 레시피 오류 안내 </td>
-                            <td>admin</td>
-                            <td>2020.2.6</td>
-                            <td>1</td>
+                            <td>${ b.notice_num }</td>
+                            <td class="tdtext" style="padding-left: 30px;" onclick="location.href='adminnoticeDetail?notice_num=${b.notice_num}'">${ b.notice_title }</td>
+                            <td>${ b.notice_writer }</td>
+                            <td>${ b.notice_cdate }</td>
+                            <td>${ b.notice_count }</td>
                         </tr>
                     </tbody>
+                    </c:forEach>
                 </table>
 
-                <fieldset>
-                    <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" id="keyword">
-                    <a href="#" class="btn_srch">검색</a>
-                </fieldset>
-
-                <ul class="pagination"></ul>  
+                <c:if test="${list.size() == 0 }">
+					<img src="resources/img/edit.jpg" style="margin-top:30px;">
+				</c:if> 
             </div>
+                <!-- 페이징 처리 -->
+    			<div class="pagination" style="text-align:center;">
+            
+        
+		        <!-- 이전 -->
+		        <c:if test="${ pi.currentPage eq 1 }">
+					<img src="resources/img/arrow_left.png" alt="첫 페이지로 이동" class="firstpage_img" style="width:25px;height:25px; cursor:pointer;vertical-align: middle;">
+				</c:if>
+					<c:if test="${ pi.currentPage ne 1 }">
+						<c:url var="before" value="adminServiceCenter">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+						</c:url>
+						<a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+					</c:if>
+		
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<font color="#2e8b57" size="4"><b>${ p }</b></font>
+					</c:if>
+							
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="adminServiceCenter">
+								<c:param name="currentPage" value="${ p }"/>
+							</c:url>
+							<a href="${ pagination }">${ p }</a> &nbsp;
+						</c:if>
+					</c:forEach>
+		
+					<!-- [다음] -->
+						<c:if test="${ pi.currentPage eq pi.maxPage }">
+							<img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img" style="width:25px;height:25px;cursor:pointer;vertical-align: middle;" >
+						</c:if>
+						<c:if test="${ pi.currentPage ne pi.maxPage }">
+							<c:url var="after" value="adminServiceCenter">
+								<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+							</c:url> 
+							<a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+						</c:if>    
+			
+			    </div> 
+			    <input type="submit" value="글작성" class="write_btn" onclick="location.href='Noticewrite'">
+			    <!-- 페이징처리 end--> 
         </div>
     </div>
-   <!-- 공지사항 내용 끝-->
-</div>
 <!-- 공지사항 끝-->
 
 </body> 

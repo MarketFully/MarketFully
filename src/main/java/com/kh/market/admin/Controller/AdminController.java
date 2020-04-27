@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,9 @@ import com.kh.market.admin.model.vo.AdminProductPagnation;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.common.Pagination;
+import com.kh.market.common.Pagination_Notice;
+import com.kh.market.common.Pagination_Qna;
+import com.kh.market.common.Pagination_RecipeSuggest;
 import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.product.model.service.ProductService;
@@ -33,6 +37,15 @@ import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;
+import com.kh.market.servicecenter.model.service.ServiceCenterService;
+import com.kh.market.servicecenter.model.vo.ServiceCenterBoardLike;
+import com.kh.market.servicecenter.model.vo.ServiceCenterNoticeBoard;
+import com.kh.market.servicecenter.model.vo.ServiceCenterNoticePageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaBoard;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaPageInfo;
+import com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply;
+import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestBoard;
+import com.kh.market.servicecenter.model.vo.ServiceCenterRecipeSuggestPageInfo;
 @Controller
 @SessionAttributes("clist")
 public class AdminController {
@@ -49,6 +62,9 @@ public class AdminController {
 	
 	@Autowired
 	private MemberService mService;
+
+	@Autowired 
+	private ServiceCenterService sService;
 	
 	@RequestMapping(value="cateupload.do",method=RequestMethod.GET)
 	public String admin_cateupload(Model mv,
@@ -143,6 +159,34 @@ public class AdminController {
 			
 		 return mv; 
 		 }
+	 
+	 @RequestMapping("adminrecipeSuggest")
+		public ModelAndView recipeSuggestView(ModelAndView mv,
+											  @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+
+			System.out.println("currentPage : " + currentPage);
+
+			int RSlistCount = sService.getRSlistCountRecipeSuggest();
+
+			System.out.println("RSlistCount : " + RSlistCount);
+
+			ServiceCenterRecipeSuggestPageInfo rpi = Pagination_RecipeSuggest.getRecipeSuggestPageInfo(currentPage,
+					RSlistCount);
+
+			ArrayList<ServiceCenterRecipeSuggestBoard> RSlist = sService.RecipeSuggestSelectList(rpi);
+			System.out.println("RSlist : " + RSlist);
+
+			for (int i = 0; i < RSlist.size(); i++) {
+				String[] strArr = RSlist.get(i).getRb_date().split(" ");
+				RSlist.get(i).setRb_date(strArr[0]);
+			}
+
+			mv.addObject("RSlist", RSlist);
+			mv.addObject("rpi", rpi);
+			mv.setViewName("admin/adminrecipeSuggest");
+
+			return mv;
+		}
 	  
 	 
 	 @RequestMapping("admincategory2")
@@ -191,11 +235,7 @@ public class AdminController {
 	  public String admin_modify_tvView() { 
 		  return "admin/adminrecipe_TV"; 
 		  }
-	 
-	  @RequestMapping("adminServiceCenter") 
-	  public String admin_SerivceCenterView() { 
-		  return "admin/adminnotice"; 
-		  }
+	
 	  
 	  @RequestMapping("adminmodify_user") 
 	  public ModelAndView adminmodify_userView( ModelAndView mv ,
@@ -244,9 +284,108 @@ public class AdminController {
 		  return mv; 
 		  
 		  }
-	  @RequestMapping("categorysee")
-	  public String admincategory_seeView() {
-		  return "admin/categorysee";
+	  
+	  @RequestMapping("adminServiceCenter") 
+	  public ModelAndView admin_SerivceCenterView(ModelAndView mv,
+				@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //怨좉컼�꽱�꽣 硫붿씤(notice)�쑝濡� �씠�룞�븯�뒗 硫붿냼�뱶
+			System.out.println("@@@@ currentPage : "+ currentPage);
+			
+			int listCount = sService.getListCountNotice();
+			System.out.println("NOTICE BOARD listCount : " + listCount);
+			
+			ServiceCenterNoticePageInfo pi = Pagination_Notice.getPageInfo(currentPage,listCount);
+			
+			ArrayList<ServiceCenterNoticeBoard> list = sService.NoticeselectList(pi);
+			System.out.println("list : " + list);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi",pi);
+			mv.setViewName("admin/adminnotice");  
+			return mv;
+			
+			
+		  }
+	  @RequestMapping("Noticewrite")
+	  public String noticewrite() {
+		  return "admin/adminnoticewrite";
+	  }
+	  
+	  @RequestMapping("adminnoticeinsert")
+	  public String adminnoticewrite(ServiceCenterNoticeBoard N) {
+		  
+		  int result = sService.insertNotice(N);
+		  
+		  return "admin/adminnotice";
+	  }
+	  
+	@RequestMapping("adminqnadetail")
+	public ModelAndView adminqnadetail(ModelAndView mv, int bId,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) { // admin QNA detail
+
+		ServiceCenterQnaBoard b = sService.QNAselectBoard(bId);
+		ArrayList<ServiceCenterQnaReply> qr = sService.selectQnaReplyList(bId);
+
+		if (b != null) {
+			mv.addObject("b", b).
+			addObject("qr", qr).
+			addObject("currentPage", currentPage)
+			.setViewName("admin/adminqnadetail");
+		} else {
+			mv.addObject("msg", "에러임").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("adminsuggestwriteDetail")
+	public ModelAndView adminreipeSuggestDetail(ModelAndView mv, int rb_num, @SessionAttribute("loginUser") Member m,
+			@RequestParam(value = "currnetPage", required = false, defaultValue = "1") int currentPage) {
+
+		ServiceCenterRecipeSuggestBoard rcb = sService.recipeSuggestSelectBoard(rb_num);
+
+		// �뿬湲곗꽌遺��꽣
+		ServiceCenterBoardLike scb = new ServiceCenterBoardLike();
+
+		scb.setMem_num(m.getMem_num());
+		scb.setRb_num(rb_num);
+		// �뿬湲곌퉴吏�
+
+		if (rcb != null) {
+			int boardLike = sService.checklike(scb);
+
+			mv.addObject("rcb", rcb).addObject("currentPage", currentPage).addObject("boardLike", boardLike)
+					.setViewName("admin/adminsuggestwriteDetail");
+		} else {
+			mv.addObject("msg", "寃뚯떆湲� �긽�꽭議고쉶 �떎�뙣");
+		}
+		return mv;
+		
+	}
+	
+	
+	@RequestMapping("adminnoticeDetail")
+	public ModelAndView adminnoticeDetail(ModelAndView mv, int notice_num,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+
+		ServiceCenterNoticeBoard snb = sService.NoticeselectBoard(notice_num);
+
+		if (snb != null) {
+			mv.addObject("snb", snb).addObject("currentPage", currentPage).setViewName("admin/adminnoticeDetail");
+		} else {
+			mv.addObject("msg", "寃뚯떆湲� �긽�꽭議고쉶 �떎�뙣");
+		}
+		return mv;
+	}
+	
+	
+	 @RequestMapping("categorysee")
+	  public ModelAndView admincategory_seeView(ModelAndView mv , @RequestParam("maincatename") String maincatename) {
+
+		  String[] maincatearr = maincatename.split(",");
+		  
+		  
+		  mv.addObject("maincatearr",maincatearr)
+		    .setViewName("admin/categorysee");
+		  return mv;
 	  }
 	  
 	  @RequestMapping("usermodifypop")
@@ -305,6 +444,25 @@ public class AdminController {
 		  
 		  return mv;
 	  }
+	  
+	  @RequestMapping("adminqna")
+		public ModelAndView QNAViewView(ModelAndView mv,
+										@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //怨좉컼�꽱�꽣 QNA硫붿씤�쑝濡� �씠�룞�븯�뒗 硫붿냼�뱶
+			System.out.println("@@@@ currentPage : "+ currentPage);
+			int listCount = sService.getListCountQna();
+			System.out.println("QNA BOARD listCount : " + listCount);
+			
+			ServiceCenterQnaPageInfo pi = Pagination_Qna.getPageInfo(currentPage,listCount);
+			
+			ArrayList<ServiceCenterQnaBoard> list = sService.QnaselectList(pi);
+			System.out.println("list : " + list);
+			
+			mv.addObject("list", list);
+			mv.addObject("pi",pi);
+			mv.setViewName("admin/adminqna");
+			
+			return mv;
+		}
 	  
 	  //tv레시피 처음화면(전체)
 	  @RequestMapping("atvCateList") 

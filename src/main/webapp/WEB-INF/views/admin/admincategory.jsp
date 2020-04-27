@@ -124,8 +124,8 @@
 
 			<div class="mdl-grid" style="margin-left: 10%;">
 				<div class="mdl-cell mdl-cell--4-col">
-					<div class="mdl-grid">
 
+					<div class="mdl-grid">
 						<div class="mdl-cell mdl-cell--6-col">
 							<ul class="jul">
 								<li id="draggable" class="ui-state-highlight jli"><input
@@ -347,9 +347,7 @@
 							+ $(card).parent().children()[0].value+""
 							+ '>'
 							+ '<input type="hidden" value="y">'
-							+ '<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="productsubmit(this)">'
-							+ '<i class="material-icons">add</i>'
-							+ '</button>'
+			
 							+ '<button type="button" class="mdl-chip__action" onclick="deletecard(this);"><i class="material-icons">cancel</i></button>'
 							+ '</li></ul>';
 					text += '<ul id="sortable2" class="jul ui-sortable" style="min-height:100px;">';
@@ -368,10 +366,7 @@
 									+ '<input type="text" style="width:90px;" value="'+datalist[i].catename2+'">'
 									+ '<input type="hidden" value= '+datalist[i].upcate+'>'
 									+ '<input type="hidden" value= '+datalist[i].newli+'>'
-									+ '<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"'
-									+ 'onclick="productsubmit(this);">'
-									+ '<i class="material-icons">add</i>'
-									+ '</button>'
+
 									+ '<button type="button" onclick="deletecard(this);" class="mdl-chip__action"><i class="material-icons">cancel</i></button>';
 							+'</li>';
 
@@ -420,7 +415,7 @@
 		<div>
 			<button
 				class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-				onclick="window.open('categorysee','_blank','width=1500,height=300,top=50,left=150')">
+				onclick="milibogi();">
 				미리보기</button>
 			<button
 				class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
@@ -440,7 +435,6 @@
 </form>
 
 <script>
-console.log();
 function upload(){
 	document.getElementById("maincatecode").value="";
 	document.getElementById("maincatename").value="";
@@ -516,6 +510,80 @@ function upload(){
 	
 }
 
+function milibogi(){
+	
+	document.getElementById("maincatecode").value="";
+	document.getElementById("maincatename").value="";
+	document.getElementById("subcatecode").value="";
+	document.getElementById("subcatename").value="";
+	document.getElementById("parentmaincode").value="";
+	document.getElementById("maincateY-index").value="";
+	document.getElementById("subcateY-index").value="";
+	
+	
+	for(var i = 0;i < $("#sortable").children().length;i++){//페이지 왼쪽에 있는 메인카테고리 데이터 갯수만큼 반복
+			
+			document.getElementById("maincatecode").value += $("#sortable").children().eq(i)[0].children[0].value;
+			document.getElementById("maincatename").value += $("#sortable").children().eq(i)[0].children[1].value;
+			document.getElementById("maincateY-index").value+= i;
+			
+		if( !(i==$("#sortable").children().length-1)){
+			document.getElementById("maincatecode").value += ",";
+			document.getElementById("maincatename").value += ",";
+			document.getElementById("maincateY-index").value += ",";		
+		}
+	}
+	//datalist에 추가
+	if(document.getElementById("sortable2").children.length!=0){//하위카테고리가 비어있지 않을경우
+	
+		if(datalist[0]!=null){
+			
+		
+        for(var j=0;j<datalist.length;){//데이터리스트의 상위 카테고리코드 삭제
+            if(datalist[j].upcate==document.getElementById("sortable2").children[0].children[2].value){ //뭐지
+                datalist.splice(j,1);
+                j=j-1;
+            }
+            j++;
+        }
+	}
+
+    for(var i=0;i<document.getElementById("sortable2").children.length;i++){ //li태그안의 갯수만큼 반복
+
+        var catecodetemp = document.getElementById("sortable2").children[i].children[0].value+""; // 하위 카테고리 코드
+        var catenametemp = document.getElementById("sortable2").children[i].children[1].value; // 하위 카테고리 이름
+        var maincatecodetemp = document.getElementById("sortable2").children[i].children[2].value+""; //상위 카테고리 코드
+        var yellow = document.getElementById("sortable2").children[i].children[3].value;
+        
+        
+        var data = {
+                upcate:maincatecodetemp,
+                catecode2:catecodetemp,
+                catename2:catenametemp,
+                newli: yellow, 
+                Y_index: i
+            };
+
+        datalist.push(data);
+        }
+    }
+	
+		for(var i = 0;i < datalist.length;i++){//datalist 길이만큼 반복
+		document.getElementById("subcatecode").value += datalist[i].catecode2;
+		document.getElementById("subcatename").value += datalist[i].catename2;
+		document.getElementById("parentmaincode").value += datalist[i].upcate;
+		document.getElementById("subcateY-index").value += datalist[i].Y_index;
+		
+		if( !(i==datalist.length-1)){
+				document.getElementById("subcatecode").value += ",";
+				document.getElementById("subcatename").value += ",";
+				document.getElementById("parentmaincode").value += ",";
+				document.getElementById("subcateY-index").value += ",";
+			}
+		}
+	var temp = document.getElementById("maincatename").value;
+	window.open('categorysee?maincatename='+temp,'_blank','width=1500,height=300,top=50,left=150');
+}
 </script>
 
 </html>

@@ -179,5 +179,12 @@ public class ServiceCenterDao {
 		System.out.println(qr);
 		return sqlSession.delete("ServiceCenterMapper.qnadeleteReply",qr);
 	}
+	// 공지사항 등록
+	public int insertNotice(ServiceCenterNoticeBoard n) {
+		return sqlSession.insert("ServiceCenterMapper.insertnotice",n);
+	}
+	
+	
+	
 	
 }

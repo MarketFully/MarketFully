@@ -276,7 +276,7 @@
 					            <div><p style="border-bottom: 2px solid #2e8b57; font-size: 20px; text-align:left;padding-bottom: 10px;"><strong>댓글</strong></p></div>
 					            <div class="re">
 					                <textarea id="content" style=" resize: none; width: 800px; height: 50px; font-family: MapoPeacefull; border: 1px solid #dedede; border-radius: 5px;"></textarea>
-					                 <input type="button" value="등록" class="btn" id="replybtn"onclick="''" 
+					                 <input type="button" value="등록" class="btn" id="replybtn"
 					                 style="float: none;margin-top: 0px;border-radius: 5px;margin-left: 15px;cursor:pointer;width:80px">
 					            </div>
 					        </div>
@@ -419,8 +419,7 @@
  				, type:"post"
  				, success:function(data){
  					//성 공 시 모달창 띄우기
- 					console.log('success : '+data);
- 					console.log('cartList : '+ '${cartList}');
+ 					
  		        	 $('#myModal').css("display", "block"); 					
  				}
         	 	, error:function(request,status,error){
@@ -430,7 +429,8 @@
         	 
 
         	 
-         }//saveRecipe
+         }
+         //saveRecipe
          
          
          

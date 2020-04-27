@@ -300,22 +300,22 @@
 							</c:url>
                      <c:forEach var="pr" items="${ list }">
                     <tbody class="item">
-                        <tr class="reviewtr" style="height: 67px;" onclick="countup(${pr.re_num},this);">
+                        <tr class="reviewtr" style='height: 67px;' onclick="countup(${pr.re_num },this);">
                             <td style="width:30px;">${pr.re_num }</td>
-                            <td class="tdtext" style="padding-left: 30px;width: 120px;text-align: start;">${pr.re_title }</td>
+                            <td class="tdtext" style="padding-left: 30px; width: 120px;text-align: start;">${pr.re_title }</td>
                             <td style="width:40px;">${pr.re_writer }</td>
                             <td style="width:40px;">${pr.re_date }</td>
-                           <%--  <td style="width:30px;">${pr.re_thank}</td> --%>
                             <td style="width:30px">${pr.re_count }</td>
                         </tr>
                          <tr style="display:none;">
 						         <td class="reviewcontent" colspan="5">
 						       <label id="lab1">${p.pr_name}</label><br><br><br>
 					           <c:if test="${pr.re_rename != NULL}">
-                            		<img src="resources/reviewuploadFiles/${pr.re_rename }" onerror="this.src='resources/img/errorimg.PNG' " alt="상품 이미지" style="width: 500px;height: 310px;"> <br><br> 
+                            		<img src="resources/reviewuploadFiles/${pr.re_rename }"
+                            		 onerror="this.src='resources/img/errorimg.PNG' " 
+                            		 alt="상품 이미지" style="width: 500px; height: 310px;"> <br><br> 
                                </c:if>  
 						       <label>${pr.re_content}</label><br>
-						   <!--     <button class="goodbtn">좋아요&nbsp;&nbsp;<span style="float:none;margin-right:0px; font-weight: normal;">0</span></button> -->
 						       </td>
 						</tr>
                     </tbody>
@@ -429,8 +429,8 @@
             },'mouseleave':function(){
                 $(this).css('background','white');
             }
-        })
-    })
+        });
+    });
     
     function countup(re_num,A){
     	
@@ -454,8 +454,8 @@
 						+ "error : "
 						+ errorData);
 			}
-		})
-    };
+		});
+    }
 
     $(".goodbtn").on("click",function(){
     	var login =  '${ loginUser.mem_id }';
@@ -503,8 +503,7 @@
  			, dataType:"text"
  			, type:"post"
  			, success:function(data){
- 				console.log('success : '+data);
-				console.log('cartList : '+ '${cartList}');
+ 				
 	        	 $('#myModal').css("display", "block");
  			}//success
  			, error:function(request,status,error){
@@ -540,8 +539,7 @@
  			, dataType:"text"
  			, type:"post"
  			, success:function(data){
- 				console.log('success : '+data);
-				console.log('cartList : '+ '${cartList}');
+ 				
 	        	 $('#myModal').css("display", "block");
  			}//success
  			, error:function(request,status,error){

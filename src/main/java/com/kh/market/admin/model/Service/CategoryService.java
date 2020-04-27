@@ -24,5 +24,6 @@ public interface CategoryService {
 
 	public ArrayList<SubCategory> lowerSublist(String maincatenum);
 
+	public ArrayList<Product> lowerSublist_product(Product pp);
 
 }

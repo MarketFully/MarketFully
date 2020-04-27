@@ -3,8 +3,8 @@ package com.kh.market.recipe.model.Service;
 import java.util.ArrayList;
 
 import com.kh.market.member.model.vo.Favorite;
-import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardExp;
 import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
@@ -98,5 +98,9 @@ public interface BoardService {
 	//*********************************
 	//레시피 작성
 	int insertRecipe(Board b);
+	
+	int insertExpRecipe(BoardExp be);
+
+	int insertProductRecipe(BoardProduct bplist);
 	
 }

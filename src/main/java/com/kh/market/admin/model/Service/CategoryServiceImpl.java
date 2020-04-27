@@ -1,7 +1,6 @@
 package com.kh.market.admin.model.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.market.admin.model.dao.CategoryDao;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
+import com.kh.market.product.model.vo.Product;
 
 @Service("cService")
 public class CategoryServiceImpl implements CategoryService{
@@ -49,6 +49,11 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public ArrayList<SubCategory> lowerSublist(String maincatenum) {
 		return cDao.lowerSublist(maincatenum);
+	}
+	
+	@Override
+	public ArrayList<Product> lowerSublist_product(Product pp) {
+		return cDao.lowerSublist_product(pp);
 	}
 	
 }

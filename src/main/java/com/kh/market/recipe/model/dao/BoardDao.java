@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.market.member.model.vo.Favorite;
-import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardExp;
 import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
@@ -206,6 +206,17 @@ public class BoardDao {
 	public int insertRecipe(Board b) {
 		
 		return sqlSession.insert("USERboardMapper.userinsertRecipe", b);
+	}
+	
+	public int insertExpRecipe(BoardExp be) {
+		
+		return sqlSession.insert("USERboardMapper.insertExpRecipe", be);
+	}
+
+
+	public int insertProductRecipe(BoardProduct bplist) {
+		
+		return sqlSession.insert("USERboardMapper.insertProductRecipe", bplist);
 	}
 
 	

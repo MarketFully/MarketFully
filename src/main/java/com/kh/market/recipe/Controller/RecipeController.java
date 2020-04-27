@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +27,11 @@ import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.common.Pagination;
 import com.kh.market.member.model.vo.Favorite;
+import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardExp;
+import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
@@ -76,9 +79,39 @@ public class RecipeController {
 			gson.toJson(subcatelist,response.getWriter());
 		}
 	 
-		@RequestMapping("recipeinsert")
-		public String recipeinsert(Board b,BoardExp be ,Model model,HttpServletRequest request,
-				@RequestParam(name="mainImg",required=false) MultipartFile file) { //유저 레시피 작성 (DB)
+	 @RequestMapping("maincate_subcatesearch_product")
+		public void admin_maincategoryView2(HttpServletResponse response, Model m,
+											Product pp,String longi) throws JsonIOException, IOException {
+		 System.out.println("@@@@@@@@@@@@@@@ pp : " + pp);
+			
+			//ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+//			ArrayList<SubCategory> subcatelist = cService.lowerSublist(selectValue);
+			ArrayList<Product> subcatelist_product = cService.lowerSublist_product(pp); 
+			response.setContentType("application/json; charset=UTF-8");
+			
+			m.addAttribute("subcatelist_product",subcatelist_product);
+			
+			System.out.println("피알코드 보내기"+subcatelist_product);
+			Gson gson = new GsonBuilder().create();
+			
+			gson.toJson(subcatelist_product,response.getWriter());
+		}
+	 
+		@RequestMapping("recipeinsert")//BoardProduct bp
+		public String recipeinsert(Board b,
+				BoardExp be,BoardProduct bp,
+				@RequestParam("pcode") String pcode,
+				@RequestParam("peach") String peach,
+				Model model,HttpServletRequest request,
+				@RequestParam(name="mainImg",required=false) MultipartFile file,
+				@RequestBody ArrayList<MultipartFile> subImg){ //유저 레시피 작성 (DB)
+			
+			System.out.println("RecipeController pcode? : " + pcode);
+			System.out.println("RecipeController peach? : " + peach);
+			
+			ArrayList<BoardProduct> bplist = new ArrayList<BoardProduct>();
+			
+			
 			
 			if(!file.getOriginalFilename().equals("")) {
 				// 서버에 업로드
@@ -91,11 +124,44 @@ public class RecipeController {
 					b.setMb_rename(renameFileName);
 				}
 			}
-			
 			System.out.println("레시피 작성 b : " + b);
-			System.out.println("레시피 작성 be : " + be);
 			int result = bService.insertRecipe(b);
+			//------------------------------------------------------
+			String[] pcodelist = pcode.split(",");
+			String[] peachlist = peach.split(",");
+			for(int i = 0 ; i< pcodelist.length;i++) {
+				int pcodeint = Integer.parseInt(pcodelist[i]);
+				int peachint = Integer.parseInt(peachlist[i]);
+				bplist.add(new BoardProduct(0,pcodeint,peachint));
+				
+				System.out.println(bplist);
+				
+				int result2 = bService.insertProductRecipe(bplist.get(i));
+			}
 			
+			
+			//------------------------------------------------------
+			String[] beContent = be.getContent().split(",");
+			int i = 1;
+			for(MultipartFile filea : subImg) {
+				System.out.println(filea.getOriginalFilename());
+				if(!filea.getOriginalFilename().equals("")) {
+					
+					String renameFileName = saveFile(filea,request);
+					
+					if(renameFileName != null) {
+						be.setContent(beContent[i-1]);
+						be.setOrigin(filea.getOriginalFilename());// DB에는 파일명 저장
+						be.setRename(renameFileName);
+						be.setSeq(i);
+						System.out.println("%%%%%%%%%%%%%%%%% be : " + be);
+						int result3 = bService.insertExpRecipe(be);
+						System.out.println("레시피 작성 be : " + be);
+						i++;
+					}
+					
+				}
+			}
 			return "recipe/temp_userRecipe";
 		}
 		

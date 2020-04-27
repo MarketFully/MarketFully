@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.market.member.model.vo.Favorite;
-import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardExp;
 import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.BoardReply;
 import com.kh.market.recipe.model.vo.Menu_Category;
@@ -202,7 +202,17 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bDao.insertRecipe(b);
 	}
+	@Override
+	public int insertExpRecipe(BoardExp be) {
+		
+		return bDao.insertExpRecipe(be);
+	}
 
+	@Override
+	public int insertProductRecipe(BoardProduct bplist) {
+		
+		return bDao.insertProductRecipe(bplist);
+	}
 
 
 

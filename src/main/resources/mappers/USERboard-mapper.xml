@@ -291,4 +291,14 @@
       INSERT INTO USER_MENU_BOARD
       VALUES(SEQ_UMB.nextval,#{mb_title},#{mb_content},SYSDATE,#{mb_writer},#{mb_origin},#{mb_rename},0,0,0,'Y',#{mc_cate_num},#{mb_serving},#{mb_time},#{mb_level})
 	</insert>
+	
+	<insert id="insertExpRecipe"  parameterType="BoardExp">
+      INSERT INTO USER_MENU_EXPLAIN
+      VALUES(SEQ_UMB.currval,#{origin},#{rename},#{content},#{seq},'Y')
+	</insert>
+	
+	<insert id="insertProductRecipe"  parameterType="BoardProduct">
+      INSERT INTO USER_MENU_PRODUCT
+      VALUES(SEQ_UMB.currval,#{pcode},#{peach})
+	</insert>
 </mapper>

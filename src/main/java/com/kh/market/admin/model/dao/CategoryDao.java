@@ -1,7 +1,6 @@
 package com.kh.market.admin.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
+import com.kh.market.product.model.vo.Product;
 
 @Repository("CateDao")
 public class CategoryDao {
@@ -34,5 +34,8 @@ public class CategoryDao {
 	}
 	public ArrayList<SubCategory> lowerSublist(String maincatenum) {
 		return (ArrayList)sqlSession.selectList("subcateMapper.lowerSubcatelist",maincatenum);
+	}
+	public ArrayList<Product> lowerSublist_product(Product pp) {
+		return (ArrayList)sqlSession.selectList("subcateMapper.lowerSublist_product",pp);
 	}
 }

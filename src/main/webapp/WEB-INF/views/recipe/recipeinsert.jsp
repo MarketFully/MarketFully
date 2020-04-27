@@ -197,7 +197,7 @@
                 </div>
 
 			<form action="recipeinsert" id="insertfrm" method="POST" enctype="multipart/form-data">
-                <div class="recipe_main">
+                <div class="recipe_main" style="text-align: initial;">
                     <div id="divMainPhotoBox" is_over="0">
                         <img id="mainPhotoHolder" src="resources/img/photo.gif"
                             style="width: 200px; height: 200px; cursor:pointer;float: right; margin-top: 22px;">
@@ -282,15 +282,16 @@
                                     <tr>
                                         <th class="table_width_group">분류</th>
                                         <th class="table_width_material">재료</th>
+                                        <th class="table_width_amount">상품</th>
                                         <th class="table_width_amount">양</th>
+                                        <th class="table_width_amount">개수</th>
                                         <th class="table_width_delete">삭제</th>
                                     </tr>
                                 </thead>
-
                                 <tbobdy id="career_inventory">
                                     <tr name="tableList">
                                         <td class="table_list_add"> <!-- sikim -->
-					                        <select name="CATE1" id="id_lang" text="분류" onchange="chagemaincate(0)" 
+					                        <select name="CATE1" id="id_lang" text="분류" onchange="changemaincate(0)" 
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
                                         <c:forEach var="m" items="${ maincate }">
 					                            <option value="${ m.catecode1 }" >${ m.catename1 }</option>
@@ -299,16 +300,27 @@
                                         </td>
 
                                         <td class="table_list_add">
-                                             <select name="CATE2" id="cate2" text="분류"
+                                             <select name="CATE2" id="cate2" text="분류" onchange="changesubcate(0)"
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
-                                        
-					                            
-					                    
 					                        </select>
+					                            <input type='text' name="pcode">
+					                        
                                         </td>
 
                                         <td class="table_list_add">
-                                            <input class="companyName_input" data-validation="required" name="title"
+                                        	<select name="product_list" id="product_list" text="분류" onchange='changeprsize(0,this);'
+					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
+					                        </select>
+					                        
+                                        </td>
+                                        
+                                        <td class="table_list_add">
+                                            <input class="product_size" data-validation="required" name="pr_size"
+                                               required="required" type="text">
+                                        </td>
+                                        
+                                        <td class="table_list_add">
+                                            <input class="product_Num" data-validation="required" name="peach"
                                                 required="required" type="text">
                                         </td>
 
@@ -318,15 +330,15 @@
 
                                     </tr>
                                 </tbobdy>
+
                             </table>
                         </div>
 
-
                         <div class="noti">※ 양념, 양념장, 소스, 드레싱, 토핑, 시럽, 육수 밑간 등으로 구분해서 작성해주세요.
                             <div class="noti_btn">
-                                <button type="button" class="btnAll" name="btnplus"
+                                <button onclick="add_row()" type="button" class="btnAll" name="btnplus"
                                     style="width: 200px; margin-top: 10px;">
-                                    재료/양념 추가
+                                    	재료/양념 추가
                                 </button>
                             </div>
                         </div>
@@ -346,12 +358,20 @@
                                         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
                                 </div>
                                 <div id="divStepUpload" style="display:inline-block">
-                                    <div id="divStepPhotoBox" is_over="0">
+                                    <div id="5" is_over="0">
                                         <img id="stepPhoto" src="resources/img/plus.gif" class="plusphoto"
                                             style="cursor: pointer">
-                                        <input type="file" id="file" name="file" class="fileimg"
+                                        <input type="file" id="subImg" name="subImg" class="fileimg"
                                             style="display: block;">
                                     </div>
+                                    
+			                        <!-- <div id="divStepPhotoBox" is_over="0">
+			                        	<img id="stepPhoto" src="resources/img/plus.gif"
+			                            style="width: 200px; height: 200px; cursor:pointer;float: right; margin-top: 22px;">
+			                        	<input type="file" id="subImg" name="subImg" class="subImg"
+			                            style="display: none;">
+			                    	</div> -->
+                                    
                                 </div>
                             </div>
                         </div>
@@ -375,15 +395,21 @@
     <!-- boardDetail end-->
 
     <script>
+    $(function(){
+    	console.log("${subcatelist_product}");
+    })
         
     // 재료 추가 
-    	var l = 1;    
+    	var l = 1;
+    	var l2 = 1;
+    
         $(document).on("click", "button[name=btnplus]", function () {
         	l = document.getElementsByName("CATE1").length;
+        	l2 = document.getElementsByName("CATE2").length;
             var btnplusText = '<tr name ="tableList">' +
 
                 '<td class="table_list_add">' +
-                '<select name=CATE1 onchange="chagemaincate('+l+')" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">';
+                '<select name=CATE1 onchange="changemaincate('+l+')" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">';
                 for(var j=0;j<maincatelist.length;j++){
                 	btnplusText+= '<option value='+maincatelist[j].catecode1+'>' +
                 	maincatelist[j].catename1+'</option>';
@@ -394,13 +420,23 @@
                 '</td>' +
 
                 '<td class="table_list_add">' +
-                '<select name="CATE2" id="cate2" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
+                '<select name="CATE2" id="cate2" onchange="changesubcate('+l2+')" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
                 '</select>' +
+                '<input type="text" name="pcode">'+
                 '</td>' +
-
+              
 
                 '<td class="table_list_add">' +
-                '<input class="companyName_input" data-validation="required" name="title" required="required" type="text">' +
+                '<select name="product_list" onchange="changeprsize('+l2+',this)" id="product_list" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
+                '</select>' +
+                '</td>' +
+                
+                '<td class="table_list_add">' + 
+                '<input  class="product_size" data-validation="required" name="pr_size" required="required" type="text">' +
+                '</td>' +
+                
+                '<td class="table_list_add">' +
+                '<input class="product_Num" data-validation="required" name="peach" required="required" type="text">' +
                 '</td>' +
 
                 '<td class="button_set">' +
@@ -409,7 +445,7 @@
                 '</tr>';
             var trHtml = $('tr[name=tableList]:last');
             trHtml.after(btnplusText);
-           l = document.getElementsByName("CATE1").length;
+           //l = document.getElementsByName("CATE1").length;
         });
 
         // 재료 삭제 기능
@@ -429,12 +465,12 @@
         //     console.log(document.getElementById('file'));
         // };
 
-        $(document).on("click", "input[name=file]", function () {
+/*         $(document).on("click", "input[name=file]", function () {
             console.log("click");
             document.getElementById('file').click();
             console.log(document.getElementById('file'));
         });
-
+ */
 
 
 
@@ -609,6 +645,7 @@
         $(document).ready(function() {
            $("#mainImg").on("change", handleImgFileSelect); //input type file
         });
+        
         function handleImgFileSelect(e) {
            var files = e.target.files;
            var filesArr = Array.prototype.slice.call(files);
@@ -646,7 +683,7 @@
         
         
         
-        function chagemaincate(i){ //sikim
+        function changemaincate(i){ //sikim
         	console.log("첫" + i);
         	var langSelect = document.getElementsByName("CATE1")[i];
        	    var selectValue = langSelect.options[langSelect.selectedIndex].value;
@@ -659,15 +696,14 @@
         		 console.log('${subcate[i]}'); */
         		
         	
-              $(function(){
+               $(function(){
             	  $.ajax({
                    url:"maincate_subcatesearch",
                    data:{selectValue:selectValue},
                    type:"post",
                    success:function(data){
-						document.getElementsByName("CATE2")[longi].innerHTML="";
 						for(var i = 0 ;i<data.length;i++){
-						document.getElementsByName("CATE2")[longi].innerHTML+="<option>"+data[i].catename2+ "</option>";
+						document.getElementsByName("CATE2")[longi].innerHTML+="<option value="+data[i].catecode2+">"+data[i].catename2+ "</option>";
 		  	            }
                    },error:function(request, status, errorData){
                       alert("error code : " + request.status + "\n"
@@ -676,19 +712,66 @@
                    }
                 });
                 
-             });  
+             }); 
+        	}
+        
+        var pr_Array = new Array();
         	
-        } 
-        	
-      
-    	
+        function changesubcate(i){
+        	console.log("서브 카테고리 실행?")
+        	var langSelect = document.getElementsByName("CATE1")[i];
+       	    var selectValue = langSelect.options[langSelect.selectedIndex].value;
+        	var langSelect2 = document.getElementsByName("CATE2")[i];
+       	    var selectValue2 = langSelect2.options[langSelect2.selectedIndex].value;
+       	    var selectText2 = langSelect2.options[langSelect2.selectedIndex].text;
+     		var longi=i;
+        	console.log(selectValue2);
+        	console.log(selectText2);
+        
+         $(function(){
+      	  $.ajax({
+             url:"maincate_subcatesearch_product",
+             data:{'pr_cate1':selectValue, 'pr_cate2':selectValue2},
+             type:"post",
+             success:function(data){
+            	 console.log(data);
+            	 pr_Array=data;
+            	 
+					
+            	 var prlist = new Array();
+            	 	document.getElementsByName("product_list")[longi].innerHTML="";
+//					document.getElementsByName("product_size")[longi].value=""; //sikim					
+					for(var i = 0 ;i<data.length;i++){
+						document.getElementsByName("product_list")[longi].innerHTML+="<option value="+data[i].pr_size+","+data[i].pr_code+">" +data[i].pr_name+"</option>"; 
+						//document.getElementsByName("product_list")[longi].innerHTML
+						//+="<option value="+data[i].pr_size+">" +data[i].pr_name+"<input name='pcode' type='hidden' value="+data[i].pr_code+"/>"+"</option>"; 
+					
+	  	            }
+					
+             },error:function(request, status, errorData){
+                alert("error code : " + request.status + "\n"
+                      + "message : " + request.responseText
+                      + "error : " + errorData);
+             }
+          	});
+       		}); 
+        }
         
         	
-     
-      
+					function changeprsize(i,t) {
 
+						//console.log(document.getElementsByName("product_list")[i].value);
+						//document.getElementsByName("product_list")[i]
+						console.log(i);
+						console.log(t.value.split(','));
+						document.getElementsByName("pr_size")[i].value = t.value.split(',')[0]; // 양 표시
+						document.getElementsByName("pcode")[i].value =t.value.split(',')[1];
+							
 
-    </script>
+						}
+ 
+					
+				</script>
 
 
 

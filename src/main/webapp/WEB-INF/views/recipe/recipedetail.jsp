@@ -134,7 +134,7 @@
                 <div class="sectionInner">
 
                     <div class="detailImg">
-                        <img src="resources/img/tvRecipe/${b.getMb_rename() }" style="width:400px;" onERROR="this.src='resources/img/errorimg.PNG' ">
+                        <img src="resources/img/userRecipe/${b.getMb_rename() }" style="width:400px;" onERROR="this.src='resources/img/errorimg.PNG' ">
                         <div>
                         <c:if test="${ !empty sessionScope.loginUser }">
                             <img src="resources/img/unheart.png" onclick="heartplus();" id="choice" class="choice">
@@ -236,7 +236,7 @@
                        		<div class="step1">
 	                            <div class="countR">${be.getSeq() } .</div>
 	                            <div class="step1ment">${be.getContent() }</div>
-	                            <div class="stem1img"><img src="resources/img/tvRecipe/${be.getRename()}" class="foodR"></div>
+	                            <div class="stem1img"><img src="resources/img/userRecipe/${be.getRename()}" class="foodR"></div>
 	                        </div>
                     	</c:forEach>
                        

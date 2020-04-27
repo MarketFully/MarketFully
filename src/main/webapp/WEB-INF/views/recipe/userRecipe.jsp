@@ -255,7 +255,7 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
                     <td class="menu">
-                    	<img src="resources/img/tvRecipe/${b.getMb_rename() }" class="mimg" onERROR="this.src='resources/img/errorimg.PNG' ">
+                    	<img src="resources/img/userRecipe/${b.getMb_rename() }" class="mimg" onERROR="this.src='resources/img/errorimg.PNG' ">
                     	<p class="mtitle">
                     		<a href="${ bdetail }">${ b.mb_title }</a> 
                     		</p>

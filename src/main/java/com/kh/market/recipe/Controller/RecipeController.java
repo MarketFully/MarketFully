@@ -170,7 +170,7 @@ public class RecipeController {
 			// 웹 서버 contextPath를 불러와서 폴더의 경로 찾음(webapp 하위의 resources)
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			
-			String savePath = root + "\\buploadFiles";
+			String savePath = root + "\\/img/userRecipe";
 			
 			File folder = new File(savePath);
 			

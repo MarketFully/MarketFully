@@ -15,6 +15,7 @@ import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
 
 
 @Service("mService")
@@ -196,6 +197,24 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public ArrayList<Member> searchmemnamepaging(String mkeyword, AdminProductPageInfo pi) {
 		return mDao.searchmemnamepaging(mkeyword,pi);
+	}
+
+	// 마이페이지 후기 리스트
+	@Override
+	public ArrayList<Mirotic> selectlistMirotic(Member loginUser) {
+		return mDao.selectlistMirotic(loginUser);
+	}
+
+	// 마이페이지 작성환료한후기 삭제
+	@Override
+	public int reviewDeleteList(int re_num) {
+		return mDao.reviewDeleteList(re_num);
+	}
+
+	// 마이페이지 후기 작성
+	@Override
+	public int reviewinsert(ProductReview pr_re) {
+		return mDao.reviewinsert(pr_re);
 	}
 
 }

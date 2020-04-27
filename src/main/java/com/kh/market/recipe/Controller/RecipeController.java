@@ -516,7 +516,7 @@ public class RecipeController {
 		}
 	}
 	
-	// 레시피 댓글 등록
+	// 레시피 등록
 	@RequestMapping("insertReply")
 	@ResponseBody
 	public String insertReply(BoardReply r,String TvOrUser) {

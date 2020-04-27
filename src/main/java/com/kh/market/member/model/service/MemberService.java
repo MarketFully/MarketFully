@@ -10,6 +10,7 @@ import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
 
 public interface MemberService {
 
@@ -181,4 +182,25 @@ public interface MemberService {
 	ArrayList<Member> searchmemname(String mkeyword);
 
 	ArrayList<Member> searchmemnamepaging(String mkeyword, AdminProductPageInfo pi);
+
+	
+	/**
+	 * 마이페이지 후기리스트
+	 * @param loginUser
+	 * @return
+	 */
+	ArrayList<Mirotic> selectlistMirotic(Member loginUser);
+	
+	/**
+	 * 마이페이지 작성완료후기 삭제
+	 * @param pr_re
+	 * @return
+	 */
+	int reviewDeleteList(int re_num);
+
+	/** 마이페이지 후기 작성
+	 * @param pr_re
+	 * @return
+	 */
+	int reviewinsert(ProductReview pr_re);
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,6 @@
 <body>
       <!-- 헤더부분-->
       <%@include file="../common/mypageheader.jsp" %>
-
    <!--마이페이지 왼쪽 부분-->
     <div class="page_aticle aticle_type2">
         <div id="snb" class="snb_my">
@@ -51,11 +52,22 @@
                 - 주간 베스트 후기로 선정 시 <b>5,000원</b>을 추가 적립<br>
                 * 후기 작성은 배송 완료일로부터 30일 이내 가능합니다.
             </div> 
-            <ul class="tab_menu" style="margin-top: 30px;">
+            <ul class="tab_menu" style="margin-top: 30px;margin-bottom:90px;">
                 <li class="on" id="before_li">
-                    <a href="javascript:;" id="before">작성가능 후기 <span style="float:none;margin-right:0px;">(1)</span></a>
+                		<c:set var="size" value="0" />
+                		<c:set var="size2" value="0" />
+                <c:forEach var="mrt" items="${mrtlist }" varStatus="index">
+                	<c:if test="${mrt.prdreview.re_num eq 0 }">
+                		<c:set var="size" value="${size+1 }" />
+                	</c:if>
+                	   <c:if test="${mrt.prdreview.re_num ne 0  && mrt.prdreview.re_status eq 'Y'}">
+                	   <c:set var="size2" value="${size2+1 }" />
+                	   </c:if>
+                </c:forEach>
+                
+                    <a href="javascript:;" id="before">작성가능 후기 <span style="float:none;margin-right:0px;">(<c:out value="${size }"></c:out>)</span></a>
                 </li> 
-                <li id="after_li"><a href="javascript:;" id="after">작성완료 후기 <span style="float:none;margin-right:0px;">(0)</span></a>
+                <li id="after_li"><a href="javascript:;" id="after">작성완료 후기 <span style="float:none;margin-right:0px;">(<c:out value="${size2 }"></c:out>)</span></a>
                 </li>
             </ul> 
         </div>
@@ -64,31 +76,52 @@
         <div id="viewBeforeList" class="on" style="text-align: left;">
             <ul class="list_before" >
                  <li>
-                     <strong class="tit_item" style="margin-top: 65px;">
-                         <span style="float:none;margin-right:0px;" class="emph">주문번호</span> 1584682637389
+                 <c:if test="${size == 0}">
+                 	<div style="border-bottom: 2px solid #dddfe1;padding: 50px 0;font-size: 13px;color: #757575;text-align: center;">
+						작성 가능한 후기가 없습니다.
+					</div>
+                 </c:if>
+                 <c:forEach var="mrt" items="${mrtlist }">
+                 <c:if test="${mrt.prdreview.re_num eq 0 }">
+                     <strong class="tit_item">
+                         <span style="float:none;margin-right:0px;" class="emph">주문번호</span> ${mrt.or_num }
                     </strong> 
-                    <div class="item" style="width: 750px; height: 130px;">
-                        <a href="/shop/goods/goods_view.php?&amp;goodsno=49159" class="thumb">
-                            <img src="resources/img/chocolate.png" alt="상품 이미지" style="width: 80px;height: 103px;">
+                    <div class="item" style="width: 750px; height: 130px; padding: 25px 30px 5px;">
+                        <a href="ProductDetail?pr_code=${mrt.product.pr_code }" class="thumb">
+                      
+                            <img src="resources/img/Productuploadimg/${mrt.product.renameFileName }" alt="상품 이미지"  onerror="this.src='resources/img/errorimg.PNG' " style="width: 100px;height: 110px;">
+                     
                         </a> 
-                        <div class="name">
+                        <div class="name" style="padding-left:20px;">
                             <div class="inner_name">
-                                <a href="/shop/goods/goods_view.php?&amp;goodsno=49159" class="sub_name">[싱크] 하이 프로틴바 5종</a> 
-                                <a href="/shop/goods/goods_view.php?&amp;goodsno=49159" class="main_name">[싱크] 하이 프로틴 바(초콜릿 퍼지)</a> 
-                                <span style="float:none;margin-right:0px;" class="num">3개 구매</span>
+                                <a href="ProductDetail?pr_code=${mrt.product.pr_code }"  class="sub_name">${mrt.mcate.catename1 } > ${mrt.scate.catename2 }</a> 
+                                <a href="ProductDetail?pr_code=${mrt.product.pr_code }"  class="main_name">${mrt.product.pr_name }</a> 
+                                <span style="float:none;margin-right:0px;" class="num">${mrt.pr_each }개 구매</span>
                             </div>
                         </div> 
                         <div class="date">
                             <div class="inner_date">
-                                <div class="in_date">
-                                    <span style="float:none;margin-right:0px;" class="start" style="margin-right: 0px;">03월21일 배송완료</span> 
+                                <div class="in_date" style="text-align: right;">
+                                    <span style="float:none;margin-right:0px;" class="start" style="margin-right: 0px;">배송완료</span> 
                                     <span style="float:none;margin-right:0px;" class="end"></span>
                                 </div>
                             </div>
                         </div> 
-                        <a href="reviewinsert" class="btn_write">후기쓰기</a>
+                        <c:url var="myreivewinsert" value="myreivewinsert">
+                    		<c:param name="or_num" value="${mrt.or_num}"/>
+                    		<c:param name="pr_code" value="${mrt.pr_code }"/>
+                    		<c:param name="pr_name" value="${mrt.product.pr_name }" />		
+                    		<c:param name="mcate" value="${mrt.mcate.catename1 }" />		
+                    		<c:param name="scate" value="${mrt.scate.catename2 }" />	
+                    		<c:param name="renamefile" value="${mrt.product.renameFileName }" />	
+                    	</c:url>	
+                        <a href="${myreivewinsert}" class="btn_write">후기쓰기</a>
                     </div>
+                    </c:if>
+                    </c:forEach>
                 </li>
+                
+                	
             </ul>
         </div>
 
@@ -96,25 +129,33 @@
         <div id="viewAfterList" style="display: none;">
             <ul class="list_after">
                 <li class="item_view"> 
-                    <div class="tit_after" style="text-align: left;">
-                        <a href="/shop/goods/goods_view.php?&amp;goodsno=49159" class="main_name">[싱크] 하이 프로틴바 5종</a>
+                 <c:if test="${size2 == 0}">
+                 	<div style="border-bottom: 2px solid #dddfe1;padding: 60px 0;padding-bottom: 50px;font-size: 13px;color: #757575;text-align: center;">
+						작성 완료한 후기가 없습니다.
+					</div>
+                 </c:if>
+                   <c:forEach var="mrt" items="${mrtlist }">
+                 <c:if test="${mrt.prdreview.re_num ne 0 && mrt.prdreview.re_status eq 'Y'}">
+                    <div class="tit_after" style="text-align: left;padding: 35px 30px 17px;">
+                        <a href="ProductDetail?pr_code=${mrt.product.pr_code }" class="main_name">상품명 : ${mrt.product.pr_name }</a>
                     </div> 
                     <div class="cont_after" style="border-bottom: 2px solid lightgray;">
-                        <a class="desc_after" style="text-align: left;">
-                            <span style="float:none;margin-right:0px;" class="subject">맛있어요               
-                            <span style="float:none;margin-right:0px;" style="text-align: right; font-size: 12px; color: #949296; float: right;">20.03.26 작성</span>
-                            </span> 
+                        <a class="desc_after" style="text-align: left;cursor: default;">
+                            <span style="float:none;margin-right:0px;" class="subject">제목 : ${mrt.prdreview.re_title }</span> &nbsp;&nbsp;&nbsp;  
+                            <span style="float:none;margin-right:0px;text-align: right; font-size: 12px; color: #949296; float: right;">${mrt.prdreview.re_date }</span>
                             <span style="float:none;margin-right:0px;" class="desc">
-                                <span style="float:none;margin-right:0px;" class="txt">든든하고 맛있습니다!!</span>
+                              <c:if test="${mrt.prdreview.re_rename != NULL}">
+                             <img src="resources/reviewuploadFiles/${mrt.prdreview.re_rename }" onerror="this.src='resources/img/errorimg.PNG' " alt="상품 이미지" style="width: 200px;height: 210px;">  
+                                </c:if>    
+                                <span style="float:none;margin-right:0px;width:500px;" class="txt">${mrt.prdreview.re_content }</span>
                             </span> 
-                            <span style="float:none;margin-right:0px;" class="view">
-                                <span style="float:none;margin-right:0px;" class="img"></span> 
-                                <span style="float:none;margin-right:0px;" class="txt">든든하고 맛있습니다!!<br></span>
-                            </span>
+                           
                         </a> 
-                        <div class="btn_after" style="text-align: right;">
-                            <a href="reviewinsert.html" class="btn btn_modify">수정</a> 
-                            <a class="btn btn_del">삭제하기</a>
+                        <div class="btn_after" style="text-align: right;">             
+                       <c:url var="mypageReviewDelete" value="mypageReviewDelete">
+                    		<c:param name="re_num" value="${mrt.prdreview.re_num}"/>
+                    	</c:url>
+                            <a class="btn btn_del" >삭제하기</a>
                         </div>
                     </div> 
                     <div class="write_reply" style="display: none;">
@@ -123,10 +164,13 @@
                         </div> 
                         <div class="reply"></div>
                     </div>
-                </div>
+                </div>    
+                </c:if>
+    		</c:forEach>
             </li> 
         </ul>
     </div>
+  
   </div>
  </div>
     
@@ -152,7 +196,7 @@
     <script>
      $('.btn_del').click(function() {
          if (confirm("작성한 후기를 정말로 삭제하시겠습니까??") == true){    //확인
-             $(this).parent().parent().parent().remove();
+             location.href="${mypageReviewDelete}";
          }else{   //취소
              return false;
          }  

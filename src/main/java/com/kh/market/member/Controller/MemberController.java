@@ -1,6 +1,8 @@
 package com.kh.market.member.Controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -36,6 +39,7 @@ import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
+import com.kh.market.product.model.vo.ProductReview;
 
 @SessionAttributes({"loginUser","cartList"})
 @Controller
@@ -255,8 +259,6 @@ public class MemberController {
 			System.out.println(m);
 			ModelAndView mav = new ModelAndView();
 			Member userList = mService.idfind(m);
-
-			
 			
 			if(userList!=null) {
 			System.out.println(userList);
@@ -273,8 +275,7 @@ public class MemberController {
 				
 			}
 			
-		}
-		
+		}	
 		
 		// 비밀번호 찾기 페이지
 		@RequestMapping("pwdfind")
@@ -306,12 +307,6 @@ public class MemberController {
 			}
 			
 		}
-	
-		
-		
-		
-		
-		
 		
 	@RequestMapping("myCart")
 	@ResponseBody
@@ -476,14 +471,6 @@ public class MemberController {
 		return "member/basket";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 마이페이지 주문 내역 리스트 페이지처리/ 목록
 	@RequestMapping("myorderlist.bo")
 	public ModelAndView myorderList(ModelAndView mv,
@@ -515,10 +502,104 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 마이페이지 상품후기로 이동하는 메소드
 	@RequestMapping("mypagereview")
-	public String mypagereviewView() { // 마이페이지 상품후기로 이동하는 메소드
+	 public ModelAndView mypagereviewView(HttpSession session,ModelAndView mv) { 
+		  
+		  Member loginUser = (Member) session.getAttribute("loginUser");
+		  
+		  System.out.println("login : "+loginUser);
+		  
+		  ArrayList<Mirotic> mrtlist = mService.selectlistMirotic(loginUser);
+		  
+		  System.out.println("mrtlist : " + mrtlist);
+		  
+		  mv.addObject("mrtlist", mrtlist);
+		  mv.setViewName("member/mypagereview");
+		  
+	  return mv;
+	}
+	
+	// 마이페이지 작성완료 후기 삭제
+	@RequestMapping("mypageReviewDelete")
+	public String mypagereviewDelete(HttpServletRequest request, int re_num) {
 
-		return "member/mypagereview";
+		int result = mService.reviewDeleteList(re_num);
+
+	 if(result > 0) {
+		  return "redirect:mypagereview";
+	  }else {
+		  return null;
+	  }
+	}
+	
+	@RequestMapping("myreivewinsert")
+	public String myreivewinsertView() { // 마이페이지 리뷰작성으로 이동하는 메소드
+		 
+		return "member/reviewinsert";
+	}
+	
+	// 마이페이지 리뷰작성
+	@RequestMapping(value="reviewinsert", method=RequestMethod.POST)
+	public String reviewinsert(HttpSession session,HttpServletRequest request,
+								ProductReview pr_re, @RequestParam(name="uploadFile",required=false) MultipartFile file) {
+
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		pr_re.setRe_writer(loginUser.getMem_name());
+		pr_re.setMem_num(loginUser.getMem_num());
+		
+		
+		System.out.println("####상품리뷰#####" + pr_re);
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String renameFileName = reviewsaveFile(file,request);
+			
+			if(renameFileName != null) {
+				pr_re.setRe_orign(file.getOriginalFilename());
+				pr_re.setRe_rename(renameFileName);
+			}
+		}
+		System.out.println("리뷰 작성 :" + pr_re);
+		
+		int result = mService.reviewinsert(pr_re);
+		
+		if(result > 0) {
+			return "redirect:mypagereview";
+		}else {
+			return "common/errorPage";
+		}
+	}
+	
+	// 마이페이지 리뷰 글작성 (파일)
+	public String reviewsaveFile(MultipartFile file, HttpServletRequest request) {
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+
+		String savePath = root + "\\reviewuploadFiles";
+
+		File folder = new File(savePath);
+
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+
+		String orginFileName = file.getOriginalFilename();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+				+ orginFileName.substring(orginFileName.lastIndexOf(".") + 1);
+
+		System.out.println("renameFileName : " + renameFileName);
+
+		String renamePath = folder + "\\" + renameFileName;
+
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IOException e) {
+			System.out.println("파일전송에러: " + e.getMessage());
+		}
+
+		return renameFileName;
 	}
 	
 	@RequestMapping("mypagepoint")
@@ -655,11 +736,6 @@ public class MemberController {
 		return "member/orderdetail";
 	}
 	
-	@RequestMapping("reviewinsert")
-	public String reviewinsertView() { // 마이페이지 리뷰작성으로 이동하는 메소드
-
-		return "member/reviewinsert";
-	}
 	
 	@RequestMapping("informationchange")
 	public String informationchangeView() { // 마이페이지 개인정보수정 디테일로 이동하는 메소드

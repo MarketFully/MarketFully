@@ -2,11 +2,14 @@ package com.kh.market.mirotic.model.vo;
 
 import java.sql.Date;
 
+import com.kh.market.admin.model.vo.MainCategory;
+import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
 
 public class Mirotic {
-	private int or_num;
+	private int or_num; //주문번호
 	private int me_num;
 	private int mb_each;
 	private int pr_code;
@@ -24,6 +27,11 @@ public class Mirotic {
 	
 	private Product product;
 	
+	private MainCategory mcate;
+	
+	private SubCategory scate;
+	
+	private ProductReview prdreview;
 	
 	
 	public int getMem_num() {
@@ -149,6 +157,31 @@ public class Mirotic {
 	public void setM(Member m) {
 		this.m = m;
 	}
+	
+	public MainCategory getMcate() {
+		return mcate;
+	}
+
+	public void setMcate(MainCategory mcate) {
+		this.mcate = mcate;
+	}
+
+	public SubCategory getScate() {
+		return scate;
+	}
+
+	public void setScate(SubCategory scate) {
+		this.scate = scate;
+	}
+	
+	
+	public ProductReview getPrdreview() {
+		return prdreview;
+	}
+
+	public void setPrdreview(ProductReview prdreview) {
+		this.prdreview = prdreview;
+	}
 
 	@Override
 	public String toString() {
@@ -156,11 +189,8 @@ public class Mirotic {
 				+ ", pr_each=" + pr_each + ", or_total=" + or_total + ", or_date=" + or_date + ", or_status="
 				+ or_status + ", sender_name=" + sender_name + ", sender_addr=" + sender_addr + ", sender_phone="
 				+ sender_phone + ", shipping_code=" + shipping_code + ", mem_num=" + mem_num + ", m=" + m + ", product="
-				+ product + "]";
+				+ product + ", mcate=" + mcate + ", scate=" + scate + ", prdreview=" + prdreview + "]";
 	}
-
-
-	
 
 	 
 }

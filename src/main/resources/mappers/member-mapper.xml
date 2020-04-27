@@ -37,7 +37,7 @@
    
       <resultMap id="miroticResultSet" type="Mirotic">
       <id property="or_num" column="OR_NUM"/>
-      <result property="mb_num" column="MB_NUM"/>
+      <result property="me_num" column="MB_NUM"/>
       <result property="mb_each" column="MB_EACH"/>
       <result property="pr_code" column="PR_CODE"/>
       <result property="pr_each" column="PR_EACH"/>
@@ -49,13 +49,36 @@
       <result property="sender_phone" column="SENDER_PHONE"/>
       <result property="shipping_code" column="SHIPPING_CODE"/>
       <result property="mem_num" column="MEM_NUM"/>
-
-   
-      <association javaType="Product" property="product">
+  
+       <association javaType="Product" property="product">
          <id property="pr_code" column="PR_CODE"/>
          <result property="pr_name" column="PR_NAME"/>
-         <result property="original_file_name" column="ORIGINAL_FILE_NAME"/>
+         <result property="renameFileName" column="RENAME_FILE_NAME"/>
       </association>
+      
+       <association javaType="maincate" property="mcate">
+         <id property="catecode1" column="CATECODE1"/>
+         <result property="catename1" column="CATENAME1"/>
+      </association>
+      
+       <association javaType="subcate" property="scate">
+         <id property="catecode2" column="CATECODE2"/>
+         <result property="catename2" column="CATENAME2"/>
+      </association>
+      
+      <association javaType="ProductReview" property="prdreview">
+      	<id property="re_num" column="RE_NUM"></id>
+		<result property="prcode" column="PR_CODE"></result>
+		<result property="re_title" column="RE_TITLE"></result>
+		<result property="re_writer" column="RE_WRITER"></result>
+		<result property="re_date" column="RE_Date"></result>
+		<result property="re_content" column="RE_CONTENT"></result>
+		<result property="re_thank" column="RE_THANK"></result>
+		<result property="re_count" column="RE_COUNT"></result>
+		<result property="re_status" column="RE_STATUS"></result>
+		<result property="re_orign" column="RE_ORIGIN"></result>
+		<result property="re_rename" column="RE_RENAME"></result>
+	 </association>
       
    </resultMap>
    
@@ -119,6 +142,22 @@
 		<result property="pr_entity" column="PR_ENTITY"/>
 		<result property="originalFileName" column="ORIGINAL_FILE_NAME"/>
 		<result property="renameFileName" column="RENAME_FILE_NAME"/>
+	</resultMap>
+	
+	<!-- Product 상품 리뷰 -->
+	<resultMap  id="ReviewResultSet" type="ProductReview">
+		<id property="re_num" column="RE_NUM"></id>
+		<result property="prcode" column="PR_CODE"></result>
+		<result property="re_title" column="RE_TITLE"></result>
+		<result property="re_writer" column="RE_WRITER"></result>
+		<result property="re_date" column="RE_Date"></result>
+		<result property="re_content" column="RE_CONTENT"></result>
+		<result property="re_thank" column="RE_THANK"></result>
+		<result property="re_count" column="RE_COUNT"></result>
+		<result property="re_status" column="RE_STATUS"></result>
+		<result property="re_orign" column="RE_ORIGN"></result>
+		<result property="re_rename" column="RE_RENAME"></result>
+		<result property="mem_num" column="MEM_NUM"></result>
 	</resultMap>
    
    <!-- Product매핑용 -->
@@ -245,13 +284,13 @@
       WHERE MEM_NUM = #{mem_num}
    </select>
    
-   
-   <select id="selectAllRecipeList" resultMap="favoriteResultSet">
+    <select id="selectAllRecipeList" resultMap="favoriteResultSet">
         SELECT * FROM FAVORITE 
       LEFT JOIN tv_menu_board ON favorite.mb_bo_num = tv_menu_board.tmb_num
       LEFT JOIN user_menu_board ON favorite.mb_bo_num = user_menu_board.umb_num
       WHERE MEM_NUM = #{mem_num}
    </select>
+   
    <!-- 마이페이지 찜한레시피 전체 삭제 -->
    <delete id="deleteRecipeList" parameterType="_int">
       DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num}
@@ -327,7 +366,31 @@ SELECT * FROM MEMBER
 WHERE MEM_NAME like '%' || #{mkeyword} || '%'
 </select>
 
+<!-- 마이페이지 후기 리스트 -->
+	<select id="selectlistMirotic" parameterType="Member" resultMap="miroticResultSet">
+		 SELECT * FROM MIROTIC
+        JOIN PRODUCT ON MIROTIC.PR_CODE = PRODUCT.PR_CODE
+        JOIN CATE1 ON PRODUCT.PR_CATE1 = CATE1.CATECODE1
+        JOIN CATE2 ON PRODUCT.PR_CATE2 = CATE2.CATECODE2
+        LEFT JOIN  REVIEW ON MIROTIC.OR_NUM = REVIEW.OR_NUM
+        WHERE MIROTIC.MEM_NUM=#{mem_num} AND OR_STATUS='배송완료'
+        ORDER BY OR_DATE DESC
+	</select>
 
+	<!-- 마이페이지 후기 삭제 -->
+	<update id="reviewDeleteList" parameterType="_int">
+		UPDATE REVIEW
+		SET RE_STATUS='N'
+		WHERE RE_NUM = #{re_num}
+	</update>
+	
+	
+	<!-- 마이페이지 후기 작성 -->
+	<insert id="reviewinsert" parameterType="ProductReview">
+		INSERT INTO REVIEW
+		VALUES(#{prcode},SEQ_RE_NUM.NEXTVAL,#{re_title},#{re_writer},#{re_content},0,0,'Y',#{re_orign},#{re_rename},SYSDATE,#{mem_num},#{or_num})
+	</insert>
+	
 </mapper>
 
 

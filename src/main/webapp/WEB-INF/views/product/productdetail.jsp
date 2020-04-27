@@ -58,9 +58,10 @@
 		    border-bottom: 1px solid #ccc;
 		    height: 30px;
 		    font-size: 13px;
-		    padding: 2px;
 		    font-weight: 200;
-		    padding: 10px 0;
+		    padding-left: 20px;
+		    padding-top: 30px;
+		    padding-bottom: 30px;
 		}
 		body{
 			margin-bottom:300px;
@@ -308,8 +309,11 @@
                             <td style="width:30px">${pr.re_count }</td>
                         </tr>
                          <tr style="display:none;">
-						       <td class="reviewcontent" colspan="6" style="padding: 30px 20px 20px 30px;">
+						         <td class="reviewcontent" colspan="5">
 						       <label id="lab1">${p.pr_name}</label><br><br><br>
+					           <c:if test="${pr.re_rename != NULL}">
+                            		<img src="resources/reviewuploadFiles/${pr.re_rename }" onerror="this.src='resources/img/errorimg.PNG' " alt="상품 이미지" style="width: 500px;height: 310px;"> <br><br> 
+                               </c:if>  
 						       <label>${pr.re_content}</label><br>
 						   <!--     <button class="goodbtn">좋아요&nbsp;&nbsp;<span style="float:none;margin-right:0px; font-weight: normal;">0</span></button> -->
 						       </td>

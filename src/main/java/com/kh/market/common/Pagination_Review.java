@@ -15,7 +15,7 @@ public class Pagination_Review {
 		int startPage;			// 현재 페이지에서 보여질 페이징 버튼의 시작페이지
 		int endPage;			// 현재 페이지에서 보여질 페이징 버튼의 끝 페이지
 		
-		int boardLimit = 7;		// 한 페이지에 보여질 게시글 갯수
+		int boardLimit = 5;		// 한 페이지에 보여질 게시글 갯수
 		
 		// * maxPage : 총 페이지 수
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);

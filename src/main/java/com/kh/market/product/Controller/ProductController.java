@@ -170,7 +170,8 @@ public class ProductController {
 		p = pService.getProductOne(p);
 
 		mv.addObject("p",p).setViewName("product/productdetail");
-			
+		mv.addObject("p",p).setViewName("member/mypagereview");
+		
 		System.out.println("@@@@ currentPage : "+ currentPage);
 		
 		int listCount = pService.getListProductReview(pr_code);

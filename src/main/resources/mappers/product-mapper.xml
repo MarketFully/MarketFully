@@ -27,12 +27,16 @@
 		<result property="re_thank" column="RE_THANK"></result>
 		<result property="re_count" column="RE_COUNT"></result>
 		<result property="re_status" column="RE_STATUS"></result>
+		<result property="re_orign" column="RE_ORIGN"></result>
+		<result property="re_rename" column="RE_RENAME"></result>
+		<result property="mem_num" column="MEM_NUM"></result>
+		<result property="or_num" column="OR_NUM"></result>
 	</resultMap>
 	
 	
 	<select id ="getListCount" resultType="_int">
-SELECT COUNT(*) FROM PRODUCT
-</select>
+		SELECT COUNT(*) FROM PRODUCT
+	</select>
 
 	<insert id="insertproduct" parameterType="Product">
 		INSERT INTO PRODUCT

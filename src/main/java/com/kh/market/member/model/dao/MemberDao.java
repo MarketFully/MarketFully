@@ -15,6 +15,7 @@ import com.kh.market.member.model.vo.MypageOrderPageInfo;
 import com.kh.market.member.model.vo.MypageloverecipePageInfo;
 import com.kh.market.mirotic.model.vo.Mirotic;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductReview;
 
 @Repository("mDao")
 public class MemberDao {
@@ -184,6 +185,21 @@ public class MemberDao {
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.searchmembername", mkeyword,rowBounds);
+	}
+
+	// 마이페이지 루기 리스트
+	public ArrayList<Mirotic> selectlistMirotic(Member loginUser) {
+		System.out.println("dao :" + loginUser);
+		return (ArrayList)sqlSession.selectList("memberMapper.selectlistMirotic",loginUser);
+	}
+
+	// 마이페이지 후기 삭제 
+	public int reviewDeleteList(int re_num) {
+		return sqlSession.update("memberMapper.reviewDeleteList",re_num);
+	}
+
+	public int reviewinsert(ProductReview pr_re) {
+		return sqlSession.insert("memberMapper.reviewinsert",pr_re);
 	}
 
 

@@ -303,7 +303,7 @@
                                              <select name="CATE2" id="cate2" text="분류" onchange="changesubcate(0)"
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
 					                        </select>
-					                            <input type='text' name="pcode">
+					                            <input type='hidden' name="pcode">
 					                        
                                         </td>
 
@@ -422,7 +422,7 @@
                 '<td class="table_list_add">' +
                 '<select name="CATE2" id="cate2" onchange="changesubcate('+l2+')" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
                 '</select>' +
-                '<input type="text" name="pcode">'+
+                '<input type="hidden" name="pcode">'+
                 '</td>' +
               
 

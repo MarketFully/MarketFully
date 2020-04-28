@@ -165,7 +165,7 @@
                                 <br><br>
                                 
                                 <li>
-                                	<table style="width:100%;">
+                                	<table style="width:100%;" id="l_table">
                                 		<thead>
 	                                		<tr>
 	                                			<th class="col" style="width:340px;">상품</th>
@@ -183,14 +183,15 @@
 			                                            <label for = "source" style="font-size:16px;" name="pr_name" id="pr_name">${bp.getPrd().getPr_name() }</label>
 		                                            </td>
 		                                            <td>
-			                                            <label for = "source" style="font-size:16px;" id ="total_price">${bp.getPrd().getPr_price() }</label>
+		                                            	<c:set var="t" value="${bp.getPrd().getPr_price() *bp.peach }"></c:set>
+			                                            <label for = "source" style="font-size:16px;" id ="total_price"><c:out value="${t }"></c:out></label>
 			                                            <label for = "source" style="font-size:16px;">원</label>
 				                                    </td>
 				                                    <td>        
 			                                            <div class="proCount">
 			                                                <div class="product_count">
 			                                                    <button onclick="form_btn(-1, ${bp.getPrd().getPr_code() })" class="count_btn">-</button>
-			                                                    <input type="text" id="pr_each" value="1" style="width: 30px;" class="input_num">
+			                                                    <input type="text" id="pr_each" value="${bp.peach }" style="width: 30px;" class="input_num">
 			                                                    <button onclick="form_btn(1, ${bp.getPrd().getPr_code() })" class="count_btn">+</button>
 			                                                </div>
 			                                            </div>
@@ -214,7 +215,8 @@
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
                                         <a href="#" onclick="saveRecipe();" class="bag">장바구니에 담기</a>
-                                        
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="#" onclick="miroticView();" class="bag">주문하기</a>
                                     </div>
                                 </li>
                             </ul>
@@ -236,7 +238,7 @@
                        		<div class="step1">
 	                            <div class="countR">${be.getSeq() } .</div>
 	                            <div class="step1ment">${be.getContent() }</div>
-	                            <div class="stem1img"><img src="resources/img/userRecipe/${be.getRename()}" class="foodR"></div>
+	                            <div class="stem1img"><img src="resources/img/tvRecipe/${be.getRename()}" class="foodR"></div>
 	                        </div>
                     	</c:forEach>
                        
@@ -276,7 +278,7 @@
 					            <div><p style="border-bottom: 2px solid #2e8b57; font-size: 20px; text-align:left;padding-bottom: 10px;"><strong>댓글</strong></p></div>
 					            <div class="re">
 					                <textarea id="content" style=" resize: none; width: 800px; height: 50px; font-family: MapoPeacefull; border: 1px solid #dedede; border-radius: 5px;"></textarea>
-					                 <input type="button" value="등록" class="btn" id="replybtn"
+					                 <input type="button" value="등록" class="btn" id="replybtn"onclick="''" 
 					                 style="float: none;margin-top: 0px;border-radius: 5px;margin-left: 15px;cursor:pointer;width:80px">
 					            </div>
 					        </div>
@@ -364,6 +366,7 @@
         	 
         	 $('#total').text(total);
         	 
+        	 total_val()
         	 
         	 console.log('${loginUser}');
          });
@@ -374,6 +377,11 @@
          
          //장바구니 function
          function saveRecipe(){
+        	 
+        	 if(${empty loginUser}){
+        		 alert('회원만 이용 가능합니다.');
+        		 return false;
+        	 }
         	 
         	 //넘겨야될 값을 배열로 만든다.
         	 var prcodeArr = [];	//상품코드
@@ -419,7 +427,8 @@
  				, type:"post"
  				, success:function(data){
  					//성 공 시 모달창 띄우기
- 					
+ 					console.log('success : '+data);
+ 					console.log('cartList : '+ '${cartList}');
  		        	 $('#myModal').css("display", "block"); 					
  				}
         	 	, error:function(request,status,error){
@@ -429,8 +438,52 @@
         	 
 
         	 
-         }
-         //saveRecipe
+         }//saveRecipe
+         
+         
+
+         //주문 페이지로 이동
+         function miroticView(){
+         	//주문을 누르는 순간
+         	if(${empty loginUser}){
+        		 alert('회원만 이용 가능합니다.');
+        		 return false;
+        	 }
+         	
+         	
+         	//넘겨야될 값을 list로 만든다.
+	       	 var list=[];
+	    	$.each($('#l_table tr'), function(index, item){
+	       		var cart={};
+	       		list.push({
+		       		'pr_code' : $(item).children().children().children('#pr_code').val()
+		       		, 'pr_each' : $(item).children().children().children().children('#pr_each').val()
+	       			});
+	    	})//$.each  
+	       	 
+	       	 
+	       	 
+     	   	 $.ajax({	
+     	   			url:"miroticView"
+     	   			, data: JSON.stringify(list)
+     	   			, dataType : "text"
+     	   			, contentType : "application/json"
+     	   			, method:"post"
+     	   			, success:function(data){
+     	   				console.log(data);
+     	   				location.href="miroticView";
+     	   			}//success
+     	   			, error:function(request, status, error){
+     	   				console.log('request :'+request);
+     	        			console.log('status :'+status);
+     	        			console.log('error :'+error);
+     	   			}//error
+     	   		}); //ajax 
+         	//확인
+         	
+        		
+         }//miroticView
+         
          
          
          

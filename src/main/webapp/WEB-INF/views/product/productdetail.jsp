@@ -238,7 +238,7 @@
                                     <div class="price">
                                         <span class="total">합계 :</span>
                                         <span class="price">
-                                            <strong>총 ${p.pr_price }</strong>
+                                            <strong name="total1" id="total1">${p.pr_price }</strong>
                                             <strong>원</strong>
                                         </span>
                                     </div>
@@ -406,14 +406,19 @@
 
         function form_btn1(n){
             
-            var text = document.getElementById("text1"); // 폼 선택
+            var text1 = document.getElementById("text1"); // 폼 선택
             text_val = parseInt(text1.value); // 폼 값을 숫자열로 변환
             text_val += n; // 계산
-            text1.value = text_val; // 계산된 값을 바꾼다
             
             if(text_val <= 0){
                text1.value = 1;   // 만약 값이 0 이하면 1로 되돌려준다, 1보다 작은 수는 나타나지 않게하기 위해   
             }
+            
+            text1.value = text_val; // 계산된 값을 바꾼다
+        
+            var total1 = $('#text1').val()*${p.pr_price}
+            
+            $('#total1').text(total1);
         }
     </script>
 
@@ -478,7 +483,10 @@
     
     //장바구니로 이동
     function toBasket(){
-    	
+    	if(${empty loginUser}){
+   		 alert('회원만 이용 가능합니다.');
+   		 return false;
+   	 }
     	//cartList를 만들어서 센션에 넣어줘야 한다.
 	
     	//넘겨야될 값을 배열로 만든다.
@@ -503,7 +511,8 @@
  			, dataType:"text"
  			, type:"post"
  			, success:function(data){
- 				
+ 				console.log('success : '+data);
+				console.log('cartList : '+ '${cartList}');
 	        	 $('#myModal').css("display", "block");
  			}//success
  			, error:function(request,status,error){
@@ -517,54 +526,34 @@
     //주문 페이지로 이동
     function miroticView(){
     	//주문을 누르는 순간
-    	
-    	 var prcodeArr = [];	//상품코드
-       	 var prnameArr = [];	//상품이름
-       	 var prpriceArr= [];	//상품가격
-       	 var preachArr = [];	//상품 갯수
-       	 
-   		 	prcodeArr[0] = ${p.pr_code};
-	   	 	prnameArr[0]='${p.pr_name}';
-	   	 	prpriceArr[0]=${p.pr_price};
-	   	 	preachArr[0]=$('#text1').val();
+    	if(${empty loginUser}){
+   		 alert('회원만 이용 가능합니다.');
+   		 return false;
+   	 }
+    	var list=[];
+    	list.push({
+       		'pr_code' : ${p.pr_code}
+       		, 'pr_each' : $('#text1').val()
+   			});
 	   	 
- 		$.ajax({
- 			url:"myCart"
- 			, data:{
- 				 'prcodeArr' : prcodeArr
-				, prnameArr : prnameArr
-				, prpriceArr : prpriceArr
-				, preachArr : preachArr
- 			}//data
- 			, dataType:"text"
- 			, type:"post"
- 			, success:function(data){
- 				
-	        	 $('#myModal').css("display", "block");
- 			}//success
- 			, error:function(request,status,error){
-    	 		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    	 	}//error
- 		})//ajax
+	   	 $.ajax({	
+	   			url:"miroticView"
+	   			, data: JSON.stringify(list)
+	   			, dataType : "text"
+	   			, contentType : "application/json"
+	   			, method:"post"
+	   			, success:function(data){
+	   				console.log(data);
+	   				location.href="miroticView";
+	   			}//success
+	   			, error:function(request, status, error){
+	   				console.log('request :'+request);
+	        			console.log('status :'+status);
+	        			console.log('error :'+error);
+	   			}//error
+	   		}); //ajax 
     	//확인
     	
-    	//회원인 경우 현재 list를 MyBag에 업데이트 해서 그 값을 이용함
-    	 $.ajax({	
-   			url:"updateCart"
-   			, data: JSON.stringify(list)
-   			, dataType : "text"
-   			, contentType : "application/json"
-   			, method:"post"
-   			, success:function(data){
-   				console.log(data);
-   				location.href="miroticView";
-   			}//success
-   			, error:function(request, status, error){
-   				console.log('request :'+request);
-        			console.log('status :'+status);
-        			console.log('error :'+error);
-   			}//error
-   		}); //ajax 
    		
     }//miroticView
     

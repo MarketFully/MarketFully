@@ -144,6 +144,14 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectListProduct",loginUser.getMem_num());
 	}
 
+	public ArrayList<MyBag> updateListProduct(MyBag mybag) {
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.updateListProduct",mybag.getPr_code());
+	}
+	
+	
+	
+
 	public int selectDeleteMybag(MyBag mybag) {
 
 		return sqlSession.delete("memberMapper.selectDeleteMybag", mybag);

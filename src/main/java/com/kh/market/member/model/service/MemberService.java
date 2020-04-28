@@ -203,4 +203,9 @@ public interface MemberService {
 	 * @return
 	 */
 	int reviewinsert(ProductReview pr_re);
+	
+	/* cartList안 vo에 prd vo 담아오기
+	 * @param mybag
+	 */
+	void updateListProduct(MyBag mybag);
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +69,7 @@
 	                                            <img src="https://img-cf.kurly.com/shop/data/goods/1481095558837i0.jpg" alt="상품이미지" onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"></a>
 	                                        </td> 
 	                                        <td header="thInfo" class="goods_info" style="width: 488px;"> 
-	                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="name">${mybag.getPrd().pr_name }</a> 
+	                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="name">${mybag.getPrd().pr_name }  ${mybag.getPr_each()}개</a> 
 	                                            <dl class="goods_cost" style="margin: 0px;"><dt class="screen_out"></dt> 
 	                                                <dd class="selling_price">
 	                                                    <span style="float:none;margin-right:0px;" class="num" style="font-size: 12px; font-weight: bold; margin-right: 0px;">${mybag.getPrd().pr_price}</span> 
@@ -163,12 +164,12 @@
                                 <tr class="field_addressview">
 	                                <th>주소</th>
 	                                <td>
-	                                    <input name="post" id="postcode1" class="postcodify_postcode5" type="text" style="width:50px;" readonly/>
+	                                    <input name="post" id="postcode1" class="postcodify_postcode5" type="text" style="width:50px;" value="${fn:split(loginUser.mem_addr,',')[0] }" readonly/>
 	                                    <button id="postcodify_search_button1" class="btn btn-default" type="button">주소검색</button>
 	                                    <br>
-	                                    <input type="text" id="address1" name="address1" class="postcodify_address" style="width: 360px;">
+	                                    <input type="text" id="address1" name="address1" class="postcodify_address" style="width: 360px;" value="${fn:split(loginUser.mem_addr,',')[1] }">
 	                                    <br>
-	                                    <input type="text" id="extra_info1" name="address2" class="postcodify_extra_info" style="width: 360px;">
+	                                    <input type="text" id="extra_info1" name="address2" class="postcodify_extra_info" style="width: 360px;" value="${fn:split(loginUser.mem_addr,',')[2] }">
 	                                    
                                         <p class="txt_guide">
                                             
@@ -286,7 +287,22 @@
     	   	
  		//주문금액 세팅
     	$(function(){
+    		console.log('start');
     		
+    		console.log('${loginUser.mem_addr}');
+    		
+    		var a = '${loginUser.mem_addr}'
+    		
+    		console.log(a[0]);
+    		console.log(a[1]);
+    		console.log(a[2]);
+    		
+    		
+    		/* 
+    		$('#postcode1').val(${loginUser.mem_addr}.split(',')[0]);
+    		$('#address1').val(${loginUser.mem_addr}.split(',')[1]);
+    		$('#extra_info1').val(${loginUser.mem_addr}.split(',')[2]);
+    		 */
     		//합계 
     		var amount_val=0;
     	  	$('span#total_price').each(function(index, item){
@@ -437,6 +453,7 @@
         	        msg += '카드 승인번호 : ' + rsp.apply_num;	//
         	        
         	        //성공시 주문상태를 db에 입력한다.
+        	        // 장바구니에 주문한 내역이 있으면 제외한다.
         	        $.ajax({
         	        	url:"successPayment"
         	        	, data : {
@@ -466,7 +483,7 @@
         	        alert('결제가 완료되지 않았습니다. \n'+ msg);
         	        
         	        
-        	        window.location.href = 'basket';
+        	        window.location.href = 'index';
         	    }
         	    alert(msg);
         	});

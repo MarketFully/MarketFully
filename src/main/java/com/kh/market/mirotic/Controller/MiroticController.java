@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.service.MiroticService;
@@ -20,12 +21,14 @@ import com.kh.market.mirotic.model.vo.SHIPPING;
 import com.kh.market.mirotic.model.vo.totalPrice;
 
 @Controller
-@SessionAttributes("mrtList")
+@SessionAttributes({"mrtList","cartList"})
 public class MiroticController {
 	
 	@Autowired
 	private MiroticService mrtService;
 	
+	@Autowired
+	private MemberService mService;
 	
 	//장바구니에서 주문페이지로 넘어올때 변경되는 물품들을 db에 저장 
 	@RequestMapping("updateCart")
@@ -35,7 +38,7 @@ public class MiroticController {
 								, @RequestBody ArrayList<MyBag> cartList
 								, totalPrice tp							) {
 		
-		System.out.println("------miroticView--------");
+		System.out.println("------updateCart--------");
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		System.out.println("loginUser : "+ loginUser);
@@ -49,9 +52,16 @@ public class MiroticController {
 				mybag.setMem_num(loginUser.getMem_num());
 				System.out.println("db작업 : "+mybag);
 				result += mrtService.updateCartlist(mybag);
-			}
+			} //for
 			System.out.println("result : "+result);
-		}
+		}else {
+			for(MyBag mybag : cartList) {
+				mService.updateListProduct(mybag);	
+			}//for
+		}//else
+		
+		System.out.println("담기는 cartList : "+ cartList);
+		System.out.println("담기는 total tp : "+ tp);
 		
 		mv.addObject("cartList", cartList);
 		mv.addObject("tp", tp);
@@ -70,6 +80,13 @@ public class MiroticController {
 		System.out.println("---insertMirotic--------");
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		//결제 성공시 세션에 있는 cartList(현재 주문중인 장바구니)를 비워준다.
+		ArrayList<MyBag> cartList = (ArrayList<MyBag>) session.getAttribute("cartList");
+		for(MyBag mybag : cartList) {
+			mService.deleteMybag(mybag);
+		}
+		
 		
 		//회원인 경우
 	
@@ -136,6 +153,13 @@ public class MiroticController {
 	
 	
 	@RequestMapping("miroticView")
+	public String miroticView(ModelAndView mv, @RequestBody ArrayList<MyBag> cartList) {
+		
+		mv.addObject("cartList", cartList);
+		return "mirotic/miroticPage";
+	}
+	
+	@RequestMapping("miroticView1")
 	public String miroticView(ModelAndView mv) {
 		return "mirotic/miroticPage";
 	}

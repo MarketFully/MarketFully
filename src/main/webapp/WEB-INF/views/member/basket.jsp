@@ -99,7 +99,7 @@
 	                                                <dt class="screen_out">합계</dt> 
 	                                                <dd class="result">
 	                                                	<input type="hidden" value="${mybag.getPrd().pr_price }" id="pr_price">
-	                                                    <span style="float:none;margin-right:0px;" class="num" style="margin: 0px;" id="total_price"></span> 
+	                                                    <span style="float:none;margin-right:0px;" class="num" style="margin: 0px;" id="total_price" name="total_price"></span> 
 	                                                    <span style="float:none;margin-right:0px;" class="txt" style="margin: 0px;">원</span>
 	                                                </dd>
 	                                            </dl>
@@ -209,12 +209,12 @@
 
    <!--x 눌렀을때 삭제-->
    <script>
-    $("#l_table tr>td:last>#deletebtn")
+    $("#l_table tr>td>#deletebtn")
      .on('click', function(){
          if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-        	var me_num = $(item).parent().parent().children().children().children('#me_num').val();
-     		var mb_bo_num = $(item).parent().parent().children().children().children('#mb_bo_num').val();
-     		var pr_code = $(item).parent().parent().children().children().children('#pr_code').val();
+        	var me_num = $(this).parent().parent().children().children().children('#me_num').val();
+     		var mb_bo_num = $(this).parent().parent().children().children().children('#mb_bo_num').val();
+     		var pr_code = $(this).parent().parent().children().children().children('#pr_code').val();
      		
      		if( ${ !empty loginUser } ){ //로그인 중이면
         		$.ajax({
@@ -230,10 +230,10 @@
              			console.log('error :'+error);
         			}//error
         		}); //ajax
-        		$(item).parent().parent().remove();
+        		$(this).parent().parent().remove();
         		checkNum();
     		}else{	//비로그인
-    			$(item).parent().parent().remove();
+    			$(this).parent().parent().remove();
     			checkNum();
     		}//if else loginUser!=null
      		
@@ -287,6 +287,12 @@
     
     $(function(){
     	console.log('비로그인 : ${loginUser.mem_num}');
+    	
+    	//비회원 유저이면
+    	if(${empty loginUser}){
+    		alert('로그인한 유저만 이용가능합니다.');
+    		history.back();
+    	}//if
     	calculate();
     	checkNum();
     });
@@ -346,9 +352,7 @@
     	$.each($('#l_table tr'), function(index, item){
        		var cart={};
        		list.push({
-	       		'me_num' : $(item).children().children().children('#me_num').val()
-	       		,'mb_bo_num' : $(item).children().children().children('#mb_bo_num').val()
-	       		,'pr_code' : $(item).children().children().children('#pr_code').val()
+	       		'pr_code' : $(item).children().children().children('#pr_code').val()
 	       		, 'pr_each' : $(item).children().children().children().children('#pr_each').val()
        			});
     	})//$.each  
@@ -366,7 +370,7 @@
    			, method:"post"
    			, success:function(data){
    				console.log(data);
-   				location.href="miroticView";
+   				location.href="miroticView1";
    			}//success
    			, error:function(request, status, error){
    				console.log('request :'+request);

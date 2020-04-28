@@ -301,13 +301,6 @@
       DELETE FROM FAVORITE WHERE MEM_NUM = #{mem_num} AND MB_BO_NUM = #{mb_bo_num} AND MB_NUM = #{me_num}
    </delete>
    
-   <delete id="deleteMybag" parameterType="MyBag">
-   	DELETE FROM MYBAG
-   	WHERE MB_NUM = #{me_num}
-  	AND MB_BO_NUM = #{mb_bo_num}
-  	AND PR_CODE = #{pr_code}
-   </delete>
-   
    <!-- 장바구니 테이블 -->
    <insert id="setMyBagList" parameterType="MyBag">
       INSERT INTO MYBAG
@@ -323,6 +316,22 @@
    		SELECT * FROM MYBAG
    		WHERE MEM_NUM = #{mem_num}
    </select>
+   
+   
+   <select id="updateListProduct" parameterType="_int" resultMap="MyBagResultMap">
+   		SELECT * FROM MYBAG
+   		WHERE PR_CODE = #{value}
+   </select>
+
+
+   
+   <delete id="deleteMybag" parameterType="MyBag">
+   	DELETE FROM MYBAG
+   	WHERE PR_CODE = #{pr_code}
+   	AND MEM_NUM=#{mem_num}
+   </delete>
+
+
    
    <delete id="selectDeleteMybag" parameterType="MyBag">
    		DELETE FROM MYBAG

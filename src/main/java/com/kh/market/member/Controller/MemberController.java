@@ -429,8 +429,6 @@ public class MemberController {
 		System.out.println("loginUser : "+ loginUser);
 		
 		MyBag mybag = new MyBag();
-		mybag.setMe_num(me_num);
-		mybag.setMb_bo_num(mb_bo_num);
 		mybag.setPr_code(pr_code);
 		mybag.setMem_num(loginUser.getMem_num());
 		
@@ -457,8 +455,15 @@ public class MemberController {
 		if(loginUser != null) {
 			cartList = mService.selectListProduct(loginUser);
 		}else {
-			cartList = (ArrayList)session.getAttribute("cartList");
-		}
+			//비회원 불가
+			
+			//////////////////////////////////////////////////////////////
+//			cartList = (ArrayList)session.getAttribute("cartList");
+//			for(MyBag mybag : cartList) {
+//				mService.updateListProduct(mybag);	
+//			}//for
+			////////////////////////////////////////////////////////////////
+		}//if else
 		
 		System.out.println("-----basket----------");
 		System.out.println("loginUser : "+ loginUser);

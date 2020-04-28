@@ -216,5 +216,9 @@ public class MemberServiceImpl implements MemberService{
 	public int reviewinsert(ProductReview pr_re) {
 		return mDao.reviewinsert(pr_re);
 	}
-
+	
+	@Override
+	public void updateListProduct(MyBag mybag) {
+		mDao.updateListProduct(mybag);
+	}
 }

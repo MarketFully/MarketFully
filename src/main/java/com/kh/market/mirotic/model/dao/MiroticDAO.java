@@ -52,7 +52,14 @@ public class MiroticDAO {
 	}
 
 	public int insertShipping(SHIPPING shipping) {
+		
+		System.out.println("shipping : "+ shipping);
 		return sqlSession.insert("miroticMapper.insertShipping",shipping);
+	}
+
+	public void updateListProduct(ArrayList<MyBag> cartList) {
+		
+		
 	}
 
 }

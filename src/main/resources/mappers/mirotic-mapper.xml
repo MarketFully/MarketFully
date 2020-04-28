@@ -60,7 +60,7 @@
 	<insert id="insertMirotic" parameterType="Mirotic">
 		INSERT INTO MIROTIC
 		VALUES(SEQ_MIROTIC.NEXTVAL, 0, 0, #{pr_code}
-		, #{pr_each}, #{or_total}, SYSDATE, '0'
+		, #{pr_each}, #{or_total}, SYSDATE, '결제취소'
 		, #{sender_name}, #{sender_addr}, #{sender_phone}
 		, 0, #{mem_num})
 	</insert>
@@ -98,7 +98,7 @@
 				  </choose>
 				
 				, 0, 0, #{item.pr_code}
-			, #{item.pr_each}, #{item.or_total}, SYSDATE, '0'
+			, #{item.pr_each}, #{item.or_total}, SYSDATE, '결제취소'
 			, #{item.sender_name}, #{item.sender_addr}, #{item.sender_phone}
 			, 0, #{item.mem_num})
 		</foreach>
@@ -112,7 +112,7 @@
 	 <!-- 배송테이블 업데이트 -->
 	 <insert id="insertShipping" parameterType="Shipping">
 	 	INSERT INTO SHIPPING
-		VALUES(seq_shipping.nextval, '배송준비중', 3000 
+		VALUES(0, '배송준비중', 3000 
 		, #{receiver_name}, #{receiver_addr}, #{receiver_phone}, 1
 		, #{shipping_request}, SYSDATE, #{or_num});
 	 </insert>

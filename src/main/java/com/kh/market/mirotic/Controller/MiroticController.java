@@ -1,11 +1,13 @@
 package com.kh.market.mirotic.Controller;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,40 +35,82 @@ public class MiroticController {
 	//장바구니에서 주문페이지로 넘어올때 변경되는 물품들을 db에 저장 
 	@RequestMapping("updateCart")
 	@ResponseBody
-	public String updateCart(ModelAndView mv
+	public ModelAndView updateCart(ModelAndView mv
 								, HttpSession session
-								, @RequestBody ArrayList<MyBag> cartList
+//								, @RequestBody ArrayList<MyBag> cartList
+								, String pr_code, String pr_each
 								, totalPrice tp							) {
 		
 		System.out.println("------updateCart--------");
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		System.out.println("loginUser : "+ loginUser);
-		System.out.println("list  : "+cartList);
+//		System.out.println("list  : "+cartList);
+		System.out.println("pr_code : "+ pr_code + ", pr_each : "+ pr_each);
 	
+		ArrayList<MyBag> cartList = new ArrayList<MyBag>();
 		
-		int result=0;
-		if(loginUser != null) { //회원이면 db에 업데이트 해준다.
-			System.out.println("회원입니다. : "+loginUser);
-			for(MyBag mybag : cartList) {
-				mybag.setMem_num(loginUser.getMem_num());
-				System.out.println("db작업 : "+mybag);
-				result += mrtService.updateCartlist(mybag);
-			} //for
-			System.out.println("result : "+result);
-		}else {
-			for(MyBag mybag : cartList) {
-				mService.updateListProduct(mybag);	
-			}//for
-		}//else
+		String[] pcode = pr_code.split(",");
+		String[] peach = pr_each.split(",");
 		
-		System.out.println("담기는 cartList : "+ cartList);
-		System.out.println("담기는 total tp : "+ tp);
 		
-		mv.addObject("cartList", cartList);
-		mv.addObject("tp", tp);
 		
-		return "cartList";
+		for(int i=0; i<pcode.length;i++) {
+			MyBag mybag = new MyBag();
+			mybag.setMem_num(loginUser.getMem_num());
+			mybag.setPr_code(Integer.parseInt(pcode[i]));
+			mybag.setPr_each(Integer.parseInt(peach[i]));
+			mybag.setPrd(mService.OneProduct(Integer.parseInt(pcode[i])));
+			
+			cartList.add(mybag);
+			
+		}
+		
+		
+		
+		
+		System.out.println("cartList : "+cartList);
+		
+		mv.addObject("cartList",cartList).setViewName("mirotic/miroticPage");
+		
+		return mv;
+		
+//		
+//		int result=0;
+//		if(loginUser != null) { //회원이면 db에 업데이트 해준다.
+//			System.out.println("회원입니다. : "+loginUser);
+//			for(MyBag mybag : cartList) {
+//				mybag.setMem_num(loginUser.getMem_num());
+//				System.out.println("db작업 : "+mybag);
+//				result += mrtService.updateCartlist(mybag);
+//			} //for
+//			System.out.println("result : "+result);
+//		}else {
+//			for(MyBag mybag : cartList) {
+//				mService.updateListProduct(mybag);	
+//			}//for
+//		}//else
+//		
+//		System.out.println("담기는 cartList : "+ cartList);
+//		System.out.println("담기는 total tp : "+ tp);
+//		
+////		mv.addObject("cartList", cartList);
+//		
+//		session.setAttribute("cartList", cartList);
+//		mv.addObject("tp", tp);
+//		
+//		return "cartList";
+	}
+	
+	@RequestMapping("miroticView1")
+	public String miroticView(ModelAndView mv,HttpSession session) {
+		
+		ArrayList<MyBag> cartList = null;
+		cartList = (ArrayList)session.getAttribute("cartList");
+		System.out.println("---------miroticView1----------------");
+		System.out.println("cartList : "+ cartList);
+		
+		return "mirotic/miroticPage";
 	}
 	
 	
@@ -78,6 +122,7 @@ public class MiroticController {
 				, @RequestBody ArrayList<Mirotic> mrtList ) {
 		
 		System.out.println("---insertMirotic--------");
+		System.out.println("받아온 mrtList : "+mrtList);
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
@@ -122,6 +167,7 @@ public class MiroticController {
 	@ResponseBody
 	public String successPayment(ModelAndView mv
 					, HttpSession session
+					, @ModelAttribute("loginUser") Member loginUser
 					, SHIPPING shipping
 			) {
 		
@@ -129,18 +175,16 @@ public class MiroticController {
 		
 		System.out.println("shpping : "+shipping);
 		
-		ArrayList<Mirotic> mrtList = (ArrayList<Mirotic>) session.getAttribute("mrtList");
+		ArrayList<Mirotic> mrtList = mrtService.selectListMirotic(shipping);
 		
-		System.out.println("mrtList : "+mrtList);
+		System.out.println("mrtList update : " + mrtList);
 		
 		//주문 테이블 업데이트 입금확인 업데이트
 		int result = 0;
 		for(Mirotic mrt : mrtList) {
 			result += mrtService.updateMiroticSuccess(mrt);
-			if(result<0) {
-				return "주문이 완료되지 않았습니다. 관리자에게 문의하세요";
-			}//if
 		}//for
+		
 		System.out.println("갱신된 주문 테이블 수 : "+result);
 		
 		result = mrtService.insertShipping(shipping);
@@ -159,9 +203,5 @@ public class MiroticController {
 		return "mirotic/miroticPage";
 	}
 	
-	@RequestMapping("miroticView1")
-	public String miroticView(ModelAndView mv) {
-		return "mirotic/miroticPage";
-	}
 	
 }

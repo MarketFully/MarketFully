@@ -50,5 +50,10 @@ public class MiroticServiceImpl implements MiroticService{
 		return mrtDao.insertShipping(shipping);
 	}
 
+	@Override
+	public ArrayList<Mirotic> selectListMirotic(SHIPPING shipping) {
+		
+		return mrtDao.selectListMirotic(shipping);
+	}
 
 }

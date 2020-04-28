@@ -62,4 +62,9 @@ public class MiroticDAO {
 		
 	}
 
+	public ArrayList<Mirotic> selectListMirotic(SHIPPING shipping) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("miroticMapper.selectListMirotic", shipping);
+	}
+
 }

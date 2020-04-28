@@ -2,6 +2,7 @@ package com.kh.market.mirotic.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
 import com.kh.market.mirotic.model.vo.Mirotic;
 import com.kh.market.mirotic.model.vo.SHIPPING;
@@ -49,5 +50,12 @@ public interface MiroticService {
 	 * @return
 	 */
 	int insertShipping(SHIPPING shipping);
+
+	/**
+	 * 유저의 결제 목록 가져오기
+	 * @param loginUser
+	 * @return
+	 */
+	ArrayList<Mirotic> selectListMirotic(SHIPPING shipping);
 
 }

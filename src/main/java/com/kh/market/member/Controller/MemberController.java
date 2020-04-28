@@ -2,6 +2,7 @@ package com.kh.market.member.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -480,9 +481,17 @@ public class MemberController {
 	@RequestMapping("myorderlist.bo")
 	public ModelAndView myorderList(ModelAndView mv,
 							@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage,
-							@RequestParam(value="mem_num") int mem_num) {
+							@RequestParam(value="mem_num", defaultValue="0") int mem_num,
+							HttpSession session
+			) {
 				
 		System.out.println(currentPage);
+		
+		if(mem_num == 0) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			mem_num = loginUser.getMem_num();
+			System.out.println("mem_num : "+ mem_num);
+		}
 		
 		int listCount = mService.getOrderListCount(mem_num);
 		

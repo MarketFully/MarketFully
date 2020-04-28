@@ -56,8 +56,8 @@
                         <div class="view_goods"> 
                             <table class="tbl_goods goods">
                                 <tbody>
-                                 
-                                	<c:forEach var="mybag" items="${cartList}" varStatus="index">
+                                
+                                	<c:forEach var="mybag" items="${sessionScope.cartList}" varStatus="index">
                                 		<c:set var="total_price" value="${mybag.getPrd().pr_price * mybag.pr_each }"/>
                                 		
 	                                    <tr>
@@ -289,13 +289,7 @@
     	$(function(){
     		console.log('start');
     		
-    		console.log('${loginUser.mem_addr}');
-    		
-    		var a = '${loginUser.mem_addr}'
-    		
-    		console.log(a[0]);
-    		console.log(a[1]);
-    		console.log(a[2]);
+    		console.log('${cartList}');
     		
     		
     		/* 
@@ -372,7 +366,7 @@
     	  var or_total = amount_val; //총 가격
     		var sender_name = $('#mem_name').val(); //이름
     		var sender_phone = $('#mem_phone').val();//번호
-    		var sender_addr = $('#address1').val(); // 주소
+    		var sender_addr = '${loginUser.mem_addr}'; // 주소
     	  
     	  
     	  
@@ -382,8 +376,10 @@
     	  var phone_val=$('#sender_phone').val();
     	  var addr_val=$('#address2').val();
     	  var zip_val=$('#postcode2').val();
-    	  var memo = $('#deliveryMemo').val();
+    	  var memo_val = $('#deliveryMemo').val();
     	  
+    	  
+    	  console.log(memo_val);
     	  
     	  var orderList=[];
     	  $.each($('table.tbl_goods tr'), function(index, item){
@@ -414,7 +410,7 @@
         	        		order_val = data;
         	        		console.log('amount_val : '+amount_val+'\n order_val : '+order_val+'\n name_val : '+name_val
         	        				+'\n phone_val : '+phone_val+'\n addr_val :'+addr_val+'\n zip_val : '+zip_val);
-        	        		payment(pg_val, pay_method_val, order_val, amount_val, name_val, phone_val, addr_val, zip_val);
+        	        		payment(pg_val, pay_method_val, order_val, amount_val, name_val, phone_val, addr_val, zip_val, memo_val);
         	        	}//success
         	        	, error:function(request,status, error){
         	        		console.log('에라');
@@ -429,7 +425,7 @@
       
       
       
-    	function payment(pg_val, pay_method_val, order_val, amount_val, name_val, phone_val, addr_val, zip_val){
+    	function payment(pg_val, pay_method_val, order_val, amount_val, name_val, phone_val, addr_val, zip_val, memo_val){
         	var IMP = window.IMP; // 생략가능
         	IMP.init('imp98905663');
         	
@@ -439,7 +435,8 @@
         	    merchant_uid : 'merchant_' + new Date().getTime(), //주문번호
         	    name : order_val,	//주문명
         	    amount : amount_val,	//가격
-        	    buyer_email : 'marin223@naver.com', //주문자 email
+//   				amount : 1000,		//테스트용 가격
+        	    buyer_email : $('#mem_email').val(), //주문자 email
         	    buyer_name : name_val,	//주문자 이름
         	    buyer_tel : phone_val,	//주문자 연락처
         	    buyer_addr : addr_val,	//주문자 주소
@@ -454,13 +451,19 @@
         	        
         	        //성공시 주문상태를 db에 입력한다.
         	        // 장바구니에 주문한 내역이 있으면 제외한다.
+        	        
+        	        console.log(name_val);
+        	        console.log($('#postcode2').val()+", "+addr_val+", "+$('#extra_info2').val());
+        	        console.log(phone_val);
+        	        console.log(memo_val);
+        	        
         	        $.ajax({
         	        	url:"successPayment"
         	        	, data : {
-        	        			'receiver_name' : buyer_name
-        	        			, 'receiver_addr' : buyer_addr
-        	        			, 'receiver_tel' : buyer_tel
-        	        			, 'shipping_request' : memo
+        	        			'receiver_name' : name_val
+        	        			, 'receiver_addr' : $('#postcode2').val()+", "+addr_val+", "+$('#extra_info2').val()
+        	        			, 'receiver_tel' : phone_val
+        	        			, 'shipping_request' : memo_val
         	        			, 'or_num' : order_val
         	        		}
         	        	, method : "post"

@@ -11,7 +11,7 @@
 		<result property="pr_each" column="PR_EACH"/>
 		<result property="or_total" column="OR_TOTAL"/>
 		<result property="or_date" column="OR_DATE"/>
-		<result property="or_state" column="OR_DATE"/>
+		<result property="or_status" column="OR_STATUS"/>
 		<result property="sender_name" column="SENDER_NAME"/>
 		<result property="sender_addr" column="SENDER_ADDR"/>
 		<result property="sender_phone" column="SENDER_PHONE"/>
@@ -76,12 +76,11 @@
 	
 	<update id="updateMiroticSuccess" parameterType="Mirotic">
 		UPDATE MIROTIC
-		SET OR_STATUS = "입금확인"
-		WHERE SENDER_NAME = #{sender_name}
-		AND SENDER_PHONE=#{sender_phone}
-		AND SENDER_ADDR=#{sender_addr}
+		SET OR_STATUS = '입금확인'
+		WHERE MEM_NUM = #{mem_num}
 		AND PR_CODE = #{pr_code}
 		AND PR_EACH = #{pr_each}
+		AND OR_NUM = #{or_num}
 	</update>
 	
 	<insert id="insertMiroticList" parameterType="java.util.List">
@@ -113,10 +112,17 @@
 	 <insert id="insertShipping" parameterType="Shipping">
 	 	INSERT INTO SHIPPING
 		VALUES(0, '배송준비중', 3000 
-		, #{receiver_name}, #{receiver_addr}, #{receiver_phone}, 1
-		, #{shipping_request}, SYSDATE, #{or_num});
+				, #{receiver_name}, #{receiver_addr}, #{receiver_phone}, 1
+				, #{shipping_request}, SYSDATE, #{or_num})
 	 </insert>
 	 
+	 
+	 <!-- 주문테이블 리스트 불러오기 -->
+	 <select id="selectListMirotic" parameterType="Shipping" resultMap="miroticResultMap">
+	 	SELECT * FROM MIROTIC
+	 	WHERE OR_NUM = #{or_num}
+	 	AND OR_STATUS LIKE '%'|| '결제취소' ||'%'
+	 </select>
 	 
 </mapper>
 

@@ -221,4 +221,10 @@ public class MemberServiceImpl implements MemberService{
 	public void updateListProduct(MyBag mybag) {
 		mDao.updateListProduct(mybag);
 	}
+
+	@Override
+	public Product OneProduct(int parseInt) {
+		// TODO Auto-generated method stub
+		return mDao.OneProduct(parseInt);
+	}
 }

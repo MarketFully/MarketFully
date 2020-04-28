@@ -55,7 +55,9 @@
                                 	<c:if test="${ empty cartList}">
                                    		<h1> 장바구니가 비었습니다. </h1>
                                    	</c:if>
+                                   	<form method="post" action="updateCart" id="formTable">
                                 	<c:forEach var="mybag" items="${cartList}" varStatus="index">
+	                                    
 	                                    <tr>
 	                                        <td header="thSelect" class="goods_check" style="width: 76px;">
 	                                            <label class="label_check checked">
@@ -63,7 +65,7 @@
 	                                            <label for="check${index.index }"></label>
 	                                            <input type="hidden" id="me_num" value="${mybag.me_num }"/>
 	                                            <input type="hidden" id="mb_bo_num" value="${mybag.mb_bo_num }"/>
-	                                            <input type="hidden" id="pr_code" value="${mybag.pr_code }"/>
+	                                            <input type="hidden" id="pr_code" name="pr_code" value="${mybag.pr_code }"/>
 	                                            </label></td> 
 	                                        <td header="thInfo" class="goods_thumb" style="width: 100px;">
 	                                            <a href="/shop/goods/goods_view.php?&amp;goodsno=5051" class="thumb">
@@ -88,7 +90,7 @@
 	                                                    <strong class="screen_out">수량</strong> 
 	                                                    <button type="button" class="btn btn_reduce">
 	                                                    <img src="resources/img/minus.png" alt="감소"></button> 
-	                                                    <input type="text" readonly="readonly" class="inp_quantity" value="${mybag.pr_each}" id="pr_each"> 
+	                                                    <input type="text" readonly="readonly" class="inp_quantity" value="${mybag.pr_each}" id="pr_each" name="pr_each"> 
 	                                                    <button type="button" class="btn btn_rise">
 	                                                        <img src="resources/img/plus.png" alt="추가"></button>
 	                                                </div>
@@ -110,6 +112,7 @@
 	                                        </td>
 	                                    </tr>
                                     </c:forEach>
+	                                    </form>
                                 </tbody>
                             </table>
                         </div>                        
@@ -347,8 +350,10 @@
     function miroticView(){
     	//주문을 누르는 순간
     	
+    	$('#formTable').submit();
+    	
     	//현재 장바구니에 설정된 값을 list 객체 배열에 담는다
-    	var list=[];
+    	/* var list=[];
     	$.each($('#l_table tr'), function(index, item){
        		var cart={};
        		list.push({
@@ -360,6 +365,7 @@
     	//확인
     	console.log(list);
     	console.log(JSON.stringify(list));
+    	alert('확인');
     	
     	//회원인 경우 현재 list를 MyBag에 업데이트 해서 그 값을 이용함
     	 $.ajax({	
@@ -370,6 +376,8 @@
    			, method:"post"
    			, success:function(data){
    				console.log(data);
+   				alert('${cartList}');
+   				
    				location.href="miroticView1";
    			}//success
    			, error:function(request, status, error){
@@ -377,7 +385,7 @@
         			console.log('status :'+status);
         			console.log('error :'+error);
    			}//error
-   		}); //ajax 
+   		}); //ajax  */
    		
     }//miroticView
     

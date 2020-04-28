@@ -400,6 +400,19 @@ WHERE MEM_NAME like '%' || #{mkeyword} || '%'
 		VALUES(#{prcode},SEQ_RE_NUM.NEXTVAL,#{re_title},#{re_writer},#{re_content},0,0,'Y',#{re_orign},#{re_rename},SYSDATE,#{mem_num},#{or_num})
 	</insert>
 	
+	
+	
+   <select id="OneProduct" parameterType="_int" resultType="Product">
+   		SELECT * FROM PRODUCT
+		WHERE PR_CODE = #{value}
+   </select>
+	
+	
+	
+	
+	
+	
+	
 </mapper>
 
 

@@ -208,4 +208,6 @@ public interface MemberService {
 	 * @param mybag
 	 */
 	void updateListProduct(MyBag mybag);
+
+	Product OneProduct(int parseInt);
 }

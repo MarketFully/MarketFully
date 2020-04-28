@@ -210,5 +210,10 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.reviewinsert",pr_re);
 	}
 
+	public Product OneProduct(int parseInt) {
+
+		return sqlSession.selectOne("memberMapper.OneProduct", parseInt);
+	}
+
 
 }

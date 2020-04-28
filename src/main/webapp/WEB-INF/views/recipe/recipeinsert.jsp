@@ -361,7 +361,7 @@
                                     <div id="5" is_over="0">
                                         <img id="stepPhoto" src="resources/img/plus.gif" class="plusphoto"
                                             style="cursor: pointer">
-                                        <input type="file" id="subImg" name="subImg" class="fileimg"
+                                        <input type="file" id="subImg" name="subImg" class="fileimg" onchange="LoadImg(this)"
                                             style="display: block;">
                                     </div>
                                     
@@ -456,6 +456,9 @@
             trHtml.remove(); //tr 테그 삭제
 
         });
+        
+        
+        
 
 
         //첫 사진 
@@ -474,6 +477,9 @@
 
 
 
+ 
+ 
+ 
         var stepplus = document.getElementById("recipeArea").innerHTML;
 
 
@@ -483,11 +489,6 @@
         // 순서 추가
         $(document).on("click", "button[name=addstep]", function () {
 
-            // function tttt(i){
-            //     console.log(document.getElementsByClassName("fileimg")[i]);
-            //     document.getElementsByClassName("fileimg")[i].click();
-            // }
-
             var trHtml = $('div[name=step]:last');
             var arr = new Array();
             var filearr = new Array();
@@ -495,7 +496,7 @@
                 arr.push($('.formControl_step')[i].value);
                 filearr.push($('.fileimg')[i].value);
                 console.log($(".fileimg"));
-            }
+            } //for
 
 
 
@@ -557,36 +558,29 @@
 
             }
 
-            console.log($(".recipeNum").length);
-
-            //   for(var i = 0 ; i < $(".recipeNum").length;i++){ // 온클릭 이벤트 추가
-
-            //  console.log(document.getElementsByClassName("plusphoto")[i]);
-
-            //    console.log(document.getElementsByClassName("fileimg")[i]);
-
-
-
-
-            // document.getElementsByClassName("plusphoto")[i].onclick = tttt(i);
-
-
-
-            //          console.log(document.getElementsByClassName("fileimg")[i]);
-            //     document.getElementsByClassName("fileimg")[i].click();
-
-
-            //  $(".plusphoto")[i].click(function (e) {
-            //     e.preventDefault();
-            //      $(".fileimg")[i].click();
-
-            //  });
-
-            //      };
-            //}
-
-
         });
+        
+        
+        
+        //이미지 띄우기
+        
+	function LoadImg(value){
+        	console.log(value);
+        	
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+		
+			reader.onload = function (e) {
+				$(value).parent().children('#stepPhoto').attr('src', e.target.result);
+			}//reader
+				
+		reader.readAsDataURL(value.files[0]);
+		}//if
+	}
+        
+        
+        
+        
 
         // 순서 삭제
         $(document).on("click", "button[name=deletestep]", function () {

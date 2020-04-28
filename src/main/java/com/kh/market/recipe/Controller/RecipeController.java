@@ -111,13 +111,13 @@ public class RecipeController {
 			
 			ArrayList<BoardProduct> bplist = new ArrayList<BoardProduct>();
 			
-			
+			System.out.println("file : " + file);
 			
 			if(!file.getOriginalFilename().equals("")) {
 				// 서버에 업로드
 				// saveFile메소드 : 내가 저장하고자하는 file과 request를 전달하여 서버에 업로드 시키고 그 저장된 파일명을 반환해주는 메소드
 				
-				String renameFileName = saveFile(file,request);
+				String renameFileName = saveFile(file,request, 0);
 				
 				if(renameFileName != null) {
 					b.setMb_origin(file.getOriginalFilename());// DB에는 파일명 저장
@@ -147,7 +147,7 @@ public class RecipeController {
 				System.out.println(filea.getOriginalFilename());
 				if(!filea.getOriginalFilename().equals("")) {
 					
-					String renameFileName = saveFile(filea,request);
+					String renameFileName = saveFile(filea,request, i);
 					
 					if(renameFileName != null) {
 						be.setContent(beContent[i-1]);
@@ -165,7 +165,7 @@ public class RecipeController {
 			return "recipe/temp_userRecipe";
 		}
 		
-		public String saveFile(MultipartFile file, HttpServletRequest request) {
+		public String saveFile(MultipartFile file, HttpServletRequest request, int i) {
 			// 저장할 경로 설정
 			// 웹 서버 contextPath를 불러와서 폴더의 경로 찾음(webapp 하위의 resources)
 			String root = request.getSession().getServletContext().getRealPath("resources");
@@ -181,7 +181,7 @@ public class RecipeController {
 			String originFileName = file.getOriginalFilename();
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "SEQ"+i +"."
 							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 			
 			System.out.println("renameFileName : " + renameFileName);

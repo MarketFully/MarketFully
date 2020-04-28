@@ -238,7 +238,12 @@
                        		<div class="step1">
 	                            <div class="countR">${be.getSeq() } .</div>
 	                            <div class="step1ment">${be.getContent() }</div>
-	                            <div class="stem1img"><img src="resources/img/tvRecipe/${be.getRename()}" class="foodR"></div>
+	                            <c:if test="${b.mc_cate_num >=100 }">
+	                            	<div class="stem1img"><img src="resources/img/userRecipe/${be.getRename()}" class="foodR"></div>
+	                            </c:if>
+	                            <c:if test="${b.mc_cate_num < 100 }">
+	                            	<div class="stem1img"><img src="resources/img/tvRecipe/${be.getRename()}" class="foodR"></div>
+	                            </c:if>
 	                        </div>
                     	</c:forEach>
                        

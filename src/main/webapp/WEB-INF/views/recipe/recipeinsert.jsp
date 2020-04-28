@@ -300,7 +300,7 @@
                                         </td>
 
                                         <td class="table_list_add">
-                                             <select name="CATE2" id="cate2" text="분류" onchange="changesubcate(0)"
+                                             <select name="CATE2" id="cate2" text="분류" onchange="changesubcate(0,this)"
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
 					                        </select>
 					                            <input type='hidden' name="pcode">
@@ -420,7 +420,7 @@
                 '</td>' +
 
                 '<td class="table_list_add">' +
-                '<select name="CATE2" id="cate2" onchange="changesubcate('+l2+')" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
+                '<select name="CATE2" id="cate2" onchange="changesubcate('+l2+',this)" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
                 '</select>' +
                 '<input type="hidden" name="pcode">'+
                 '</td>' +
@@ -679,6 +679,11 @@
         
         function changemaincate(i){ //sikim
         	console.log("첫" + i);
+        	document.getElementsByName("pr_size")[i].value="";
+			document.getElementsByName("peach")[i].value="";
+			document.getElementsByName("CATE2")[i].innerHTML="";
+			document.getElementsByName("product_list")[i].innerHTML="";
+			
         	var langSelect = document.getElementsByName("CATE1")[i];
        	    var selectValue = langSelect.options[langSelect.selectedIndex].value;
        	    var selectText = langSelect.options[langSelect.selectedIndex].text;
@@ -696,6 +701,7 @@
                    data:{selectValue:selectValue},
                    type:"post",
                    success:function(data){
+						document.getElementsByName("CATE2")[longi].innerHTML="";
 						for(var i = 0 ;i<data.length;i++){
 						document.getElementsByName("CATE2")[longi].innerHTML+="<option value="+data[i].catecode2+">"+data[i].catename2+ "</option>";
 		  	            }
@@ -711,7 +717,10 @@
         
         var pr_Array = new Array();
         	
-        function changesubcate(i){
+        function changesubcate(i,t){
+			document.getElementsByName("pr_size")[i].value="";
+			document.getElementsByName("peach")[i].value="";
+        	
         	console.log("서브 카테고리 실행?")
         	var langSelect = document.getElementsByName("CATE1")[i];
        	    var selectValue = langSelect.options[langSelect.selectedIndex].value;

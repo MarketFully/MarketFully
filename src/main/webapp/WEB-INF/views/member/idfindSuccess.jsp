@@ -22,8 +22,8 @@
             		</div>
         		</div>
         </fieldset>
-            <button id="okbtn" onclick="" style="width:100px; height:30px">로그인하기</button>&nbsp;&nbsp;
-            <button id="okbtn" onclick="" style="width:100px; height:30px">비밀번호 찾기</button><br><br>
+            <button id="okbtn" onclick="location.href='login'" style="width:100px; height:30px">로그인하기</button>&nbsp;&nbsp;
+            <button id="okbtn" onclick="location.href='pwdfind'" style="width:100px; height:30px">비밀번호 찾기</button><br><br>
     </div>
 </body>
 </html>

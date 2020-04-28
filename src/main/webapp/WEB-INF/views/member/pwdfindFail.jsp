@@ -22,7 +22,7 @@
             		</div>
         		</div>
         </fieldset>
-            <button id="okbtn" action="regist.do" style="width:100px; height:30px">회원가입</button>&nbsp;&nbsp;
+            <button id="okbtn"  onclick="location.href='regist'" style="width:100px; height:30px">회원가입</button>&nbsp;&nbsp;
     </div>
 </body>
 </html>

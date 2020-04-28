@@ -42,10 +42,10 @@
 
     <!-- QNA 내용-->
     <div id="viewNotice" class="viewNotice">
-        <c:if test="${ !empty sessionScope.loginUser }">
         <div class="head_aticle">
             <h2 class="tit">레시피 제안</h2>
         </div>
+        <c:if test="${ !empty sessionScope.loginUser }">
 
         <!-- 레시피 제안 코멘트 -->
         <div>
@@ -148,7 +148,9 @@
         </c:if>
         
         <c:if test="${ empty sessionScope.loginUser }">
-          	<img src="resources/img/userblock.jpg">
+         	<hr style="border : 1px solid #2e8b57;">
+          	<img src="resources/img/userblock.jpg" style="margin-left: 190px; margin-top: 50px;">
+          	<hr style="border : 1px solid #2e8b57;">
        	</c:if>
         
         

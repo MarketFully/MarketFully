@@ -37,13 +37,13 @@
         </div>
 
     <!--QNA tab end-->
-
     <!-- QNA 내용-->
-<!--     <form action="QNA"  method="post" id="search"> -->
+	<!--     <form action="QNA"  method="post" id="search"> -->
     <div id="viewNotice" class="viewNotice">
         <div class="head_aticle">
             <h2 class="tit" >문의</h2>
         </div>
+		<c:if test="${ !empty sessionScope.loginUser }">
 
         <div class="Ncontent">
             <div class="Ncontent_div">
@@ -68,7 +68,17 @@
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
 						</c:url>
                             <td>${ b.q_CATEGORY }</td>
-                            <td class="tdtext" style="padding-left: 30px;"><a href="${ bdetail }">${ b.q_TITLE }</a> </td>
+                            <td class="tdtext" style="padding-left: 30px;">
+                            <!-- 자기가 쓴 문의 글 일 경우 -->
+                            <c:if test="${sessionScope.loginUser.mem_id == b.q_WRITER}">
+                            	<a href="${ bdetail }">${ b.q_TITLE }</a>
+                            </c:if> 
+                            <!-- 그게 아닐경우 -->
+                            <c:if test="${sessionScope.loginUser.mem_id != b.q_WRITER }">
+                            	<a href="#" onclick="alert('본인의 문의 글만 확인할 수 있습니다!')">${ b.q_TITLE }</a> 
+                            </c:if>
+                            </td>
+                            
                             <td>${ b.q_WRITER }</td>
                             <td>${ b.q_CDATE }</td>
                             <td>${ b.q_COUNT }</td>
@@ -140,7 +150,13 @@
                 <div>
                     <input type="submit" value="글작성" class="write_btn" onclick="location.href='QNAwrite'"> 
                 </div>
-        </div>
+       		</div>
+       		
+       	</c:if>
+       	<c:if test="${ empty sessionScope.loginUser }">
+          	<img src="resources/img/userblock.jpg" style="margin-left: 190px; margin-top: 50px;">
+          	<hr style="border : 1px solid #2e8b57;">
+       	</c:if>
     </div>
 <!--     </form> -->
    <!-- QNA 내용 끝-->

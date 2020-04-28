@@ -1,9 +1,13 @@
 package com.kh.market.admin.Controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.market.admin.model.Service.CategoryService;
+import com.kh.market.admin.model.Service.GraphService;
 import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.AdminProductPagnation;
 import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
+import com.kh.market.admin.model.vo.graphvo;
 import com.kh.market.common.Pagination;
 import com.kh.market.common.Pagination_Notice;
 import com.kh.market.common.Pagination_Qna;
@@ -66,8 +73,11 @@ public class AdminController {
 	@Autowired 
 	private ServiceCenterService sService;
 	
+	@Autowired
+	private GraphService gService;
+	
 	@RequestMapping(value="cateupload.do",method=RequestMethod.GET)
-	public String admin_cateupload(Model mv,
+	public ModelAndView admin_cateupload(Model mv,ModelAndView mv2,
 			@RequestParam(value="maincateY-index") String maincateY_index,
 			@RequestParam(value="subcateY-index") String subcateY_index,
 			@RequestParam(value="maincatecode") String catecode,
@@ -84,7 +94,7 @@ public class AdminController {
 		String[] maincateY_indexarr = maincateY_index.split(",");
 		
 		for(int i=0;i<maincodearr.length;i++) {
-			MainCategory c = new MainCategory(maincodearr[i],mainnamearr[i],maincateY_indexarr[i]);
+			MainCategory c = new MainCategory(maincodearr[i],mainnamearr[i],maincateY_indexarr[i],"");
 			
 			System.out.println("catecode : " + maincodearr[i] + ", catename :  " + mainnamearr[i]);
 			int mainupdate = cService.updateCategory(c);
@@ -104,12 +114,72 @@ public class AdminController {
 		
 		int delsubcate = cService.deleteSubCategory();
 		
-		for(int i= 0 ;i<subcatecodearr.length; i++) {
-			SubCategory sc = new SubCategory(parentmaincodearr[i],subcatecodearr[i],subcatenamearr[i],subcateY_indexarr[i]);
-			int updatesub = cService.updatesubCategory(sc);
-		}
-		return "admin/adminmain"; 
+		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
+			ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+				System.out.println(mc.toString());
+				//maincatearr.add()
+				if(mc!=null) {
+					mv2.addObject("maincate", mc) //筌롫뗄�뵥燁삳똾�믤�⑥쥓�봺
+					.setViewName("admin/admincategory");
+				}
+			 return mv2; 
 		
+	}
+	
+	@RequestMapping("adminmaingraph")
+	public void adminmaingraph(HttpServletResponse response) throws JsonIOException, IOException {
+		Date date = new Date();
+		ArrayList<graphvo> daylist = gService.getSixMonth(date);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().create();
+		
+		gson.toJson(daylist,response.getWriter());
+	}
+	
+	@RequestMapping("adminweekgraph")
+	public void adminweekgraph(HttpServletResponse response) throws JsonIOException,IOException {
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<graphvo> weeklist = gService.getSixWeek();
+		
+		Gson gson = new GsonBuilder().create();
+		
+		gson.toJson(weeklist,response.getWriter());
+		
+	}
+	@RequestMapping("admindaygraph")
+	public void admindaygraph(HttpServletResponse response) throws JsonIOException , IOException{
+		
+		
+		ArrayList ddatelist = gService.getSevenDay();//일
+		ArrayList<graphvo> pricelist = gService.getSevenPrice(); // 2개
+		int j = 0 ;
+		ArrayList<graphvo> sendlist = new ArrayList<graphvo>();
+		for(int i =0; i < 7;i++) {
+			graphvo gv = new graphvo();
+			
+			if(!pricelist.get(j).getDdate().equals(ddatelist.get(i))) {
+				gv.setDdate(ddatelist.get(i).toString());
+				gv.setPrice(0);
+			}else {
+				gv.setDdate(ddatelist.get(i).toString());
+				gv.setPrice(pricelist.get(j).getPrice());	
+				j++;
+			}
+			System.out.println(gv);
+			sendlist.add(gv);
+			
+		}
+		
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().create();
+		
+		gson.toJson(sendlist,response.getWriter());
 	}
 	
 	
@@ -151,12 +221,13 @@ public class AdminController {
 	 public ModelAndView admin_categoryView(ModelAndView mv) {
 		 
 		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
+		ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+			System.out.println(mc.toString());
+			//maincatearr.add()
 			if(mc!=null) {
-				mv.addObject("maincate", mc) //
+				mv.addObject("maincate", mc) //筌롫뗄�뵥燁삳똾�믤�⑥쥓�봺
 				.setViewName("admin/admincategory");
-				
 			}
-			
 		 return mv; 
 		 }
 	 
@@ -674,6 +745,66 @@ public class AdminController {
 			mv.setViewName("admin/adminrecipe_USER");
 			
 			return mv;
+		}
+		
+		@RequestMapping(value = "cateimgupload.do",method=RequestMethod.POST)
+		public ModelAndView cateimgupload(ModelAndView mv,HttpServletRequest request,
+				@RequestParam("upcatecode") String upcatecode,
+				@RequestParam(name="uploadFile",required=false) MultipartFile file) {	
+			MainCategory mc = new MainCategory();
+					
+			String renameFileName= "";
+			if(!file.getOriginalFilename().equals("")) {
+				renameFileName = saveFile(file,request);
+			}
+			mc.setCatecode1(upcatecode);
+			mc.setRenamefilename(renameFileName);
+			int result = cService.imgupdate(mc);
+			
+			mv.setViewName("admin/close");
+			
+			return mv;
+		}
+		
+		@RequestMapping("cateimgpopup")
+		public ModelAndView cateimgpopup(ModelAndView mv,
+				@RequestParam("upcatecode") String upcatecode,
+				@RequestParam("catename") String catename) {
+			
+			mv.addObject("upcatecode",upcatecode)
+			.addObject("catename",catename)
+			.setViewName("admin/cateimgpopup");
+			return mv;
+		}
+		
+		public String saveFile(MultipartFile file, HttpServletRequest request) {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String savePath = root + "\\img\\categoryuploadimg";
+			
+			File folder = new File(savePath);
+			
+			if(!folder.exists()) {
+				folder.mkdir(); // 
+			}
+			
+			String originFileName = file.getOriginalFilename();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
+			
+			System.out.println("renameFileName : " + renameFileName);
+			
+			String renamePath = folder + "\\"+ renameFileName;
+			
+			try {
+				file.transferTo(new File(renamePath)); 
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+			
+			return renameFileName;
 		}
 	 
 }

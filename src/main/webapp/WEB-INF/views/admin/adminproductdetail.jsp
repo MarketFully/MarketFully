@@ -158,8 +158,12 @@ $(function(){
                                 <c:url var="p_modify" value="AdminProductmodify">
                                  <c:param name="pr_code" value="${p.pr_code }"/>
                                 </c:url>
+                                 <c:url var="p_remove" value="AdminProductremove">
+                                 <c:param name="pr_code" value="${p.pr_code }"/>
+                                </c:url>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
                                         <input type="button" onclick="location.href='${p_modify}'" value="상품 수정하기" class="bag">
+                                        <input type="button" onclick="location.href='${p_remove}'" value="상품 삭제하기" class="bag" style="background: red;">
                                     </div>
                                 </li>
                             </ul>

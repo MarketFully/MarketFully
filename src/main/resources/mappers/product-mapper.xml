@@ -121,4 +121,9 @@
 		FROM REVIEW
 		WHERE RE_STATUS='Y' AND RE_NUM=#{RE_NUM}
 	</select>
+	
+		<delete id="removeProduct" parameterType="_int">
+	DELETE FROM PRODUCT
+	WHERE PR_CODE=#{pr_code}
+	</delete>
 </mapper>

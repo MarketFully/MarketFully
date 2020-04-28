@@ -42,4 +42,6 @@ public interface ProductService {
 
 	// 리뷰 리스트 다시 가져옴
 	public ProductReview Reviewselect(int re_num);
+	
+	public int removeProduct(int pr_code);
 }

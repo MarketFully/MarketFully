@@ -98,4 +98,9 @@ public class ProductServiceImpl implements ProductService{
 	public ProductReview Reviewselect(int re_num) {
 		return pDao.Reviewselect(re_num);
 	}
+	
+	@Override
+	public int removeProduct(int pr_code) {
+		return pDao.removeProduct(pr_code);
+	}
 }

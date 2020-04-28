@@ -134,7 +134,7 @@
 									style="width: 90px;" maxlength="6" placeholder="카테고리명">
 									<button
 										class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-										<i class="material-icons">add</i>
+										<i class="material-icons">zoom_in</i>
 									</button>
 
 									<button type="button" class="mdl-chip__action"
@@ -153,7 +153,7 @@
 										class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
 										onclick="categorysubmit(this);">
 										<!--ㅎㅎㅎㅎ-->
-										<i class="material-icons">add</i>
+										<i class="material-icons">zoom_in</i>
 									</button>
 									<button type="button" onclick="deletecard(this);"
 										class="mdl-chip__action">
@@ -161,56 +161,6 @@
 									</button>
 								</li>
 								</c:forEach>
-								
-								<!-- <li class="ui-state-default jli"><input type="text"
-									style="width: 30px;" value="002"> <input type="text"
-									style="width: 90px;" value="중식">
-									<button
-										class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-										onclick="categorysubmit(this);">
-										<i class="material-icons">add</i>
-									</button>
-									<button type="button" onclick="deletecard(this);"
-										class="mdl-chip__action">
-										<i class="material-icons">cancel</i>
-									</button></li>
-								<li class="ui-state-default jli"><input type="text"
-									style="width: 30px;" value="003"> <input type="text"
-									style="width: 90px;" value="양식">
-									<button
-										class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-										onclick="categorysubmit(this);">
-										<i class="material-icons">add</i>
-									</button>
-
-									<button type="button" class="mdl-chip__action"
-										onclick="deletecard(this);">
-										<i class="material-icons">cancel</i>
-									</button></li>
-								<li class="ui-state-default jli"><input type="text"
-									style="width: 30px;" value="004"> <input type="text"
-									style="width: 90px;" value="일식">
-									<button
-										class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-										onclick="categorysubmit(this);">
-										<i class="material-icons">add</i>
-									</button>
-									<button type="button" class="mdl-chip__action"
-										onclick="deletecard(this);">
-										<i class="material-icons">cancel</i>
-									</button></li>
-								<li class="ui-state-default jli"><input type="text"
-									style="width: 30px;" value="005"> <input type="text"
-									style="width: 90px;" value="음식">
-									<button
-										class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-										onclick="categorysubmit(this);">
-										<i class="material-icons">add</i>
-									</button>
-									<button type="button" class="mdl-chip__action"
-										onclick="deletecard(this);">
-										<i class="material-icons">cancel</i>
-									</button></li> -->
 							</ul>
 
 						</div>
@@ -236,8 +186,18 @@
 				<div class="mdl-cell mdl-cell--4-col">
 
 
-					<ul id="sortable3" class="jul">
-
+					<ul id="sortable3" class="jul" style="min-height: 100px;">
+							<c:forEach var="m2" items="${maincate}">
+								<li class="ui-state-default jli"><input type="text"
+									style="width: 30px;" value="${m2.catecode1}"> <input type="text"
+									style="width: 90px;" value="${m2.catename1}">
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+									onclick="imguploadpopup('${m2.catecode1}','${m2.catename1 }');">
+										<!--ㅎㅎㅎㅎ-->
+										<i class="material-icons">post_add</i>
+									</button>
+								</li>
+								</c:forEach>
 					</ul>
 
 				</div>
@@ -425,7 +385,7 @@
 </body>
 
 <form id="upfrm" action="cateupload.do">
-	<input type="hidden" id="maincatecode" name="maincatecode"> 
+	<input type="text" id="maincatecode" name="maincatecode"> 
 	<input type="hidden" id="maincatename" name="maincatename"> 
 	<input type="hidden" id="maincateY-index" name="maincateY-index">
 	<input type="hidden" id="subcatecode" name="subcatecode"> 
@@ -505,7 +465,36 @@ function upload(){
 				document.getElementById("subcateY-index").value += ",";
 			}
 		}
-	 
+		
+		
+		var chkdata =  document.getElementById("maincatecode").value.split(',');
+		for(var i = 1 ; i < chkdata.length;i++){
+			
+			for(j = 0; j < i ; j++){
+				  tmpA =  chkdata[i];
+				  tmpB = chkdata[j];
+				  
+				  if(tmpA == tmpB){
+					  elart("카테고리 코드는 중복값이 존재할 수 없습니다!");
+					  return false;
+				  }
+			}
+		}
+		/*
+		  for(i = 1; i < strForm.elements.length; i++){
+	      for(j = 0; j < i ; j++){
+	      // 값비교
+	         tmpA = strForm.elements[i].value;
+	         tmpB = strForm.elements[j].value;
+
+	         if(tmpA == tmpB){
+	            alert("동일한 값이 있습니다");
+	            return false;
+	            break
+	         }
+	      }
+	   }
+*/
 	document.getElementById("upfrm").submit();
 	
 }
@@ -582,8 +571,15 @@ function milibogi(){
 			}
 		}
 	var temp = document.getElementById("maincatename").value;
-	window.open('categorysee?maincatename='+temp,'_blank','width=1500,height=300,top=50,left=150');
+	window.open('categorysee?maincatename='+temp,'_blank',
+			'width=1500,height=300,top=50,left=150');
 }
+
+function imguploadpopup(up,catename){
+	window.open('cateimgpopup?upcatecode='+up+'&catename='+catename,
+			'_blank','width=500,height=300,top=300,left=300');
+}
+
 </script>
 
 </html>

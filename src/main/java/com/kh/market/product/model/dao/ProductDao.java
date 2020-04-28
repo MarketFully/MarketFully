@@ -88,4 +88,7 @@ public class ProductDao {
 	public ProductReview Reviewselect(int re_num) {
 		return sqlSession.selectOne("ProductMapper.Reviewselect",re_num);
 	}
+	public int removeProduct(int pr_code) {
+		return sqlSession.delete("ProductMapper.removeProduct",pr_code);
+	}
 }

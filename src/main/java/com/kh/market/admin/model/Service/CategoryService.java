@@ -26,4 +26,6 @@ public interface CategoryService {
 
 	public ArrayList<Product> lowerSublist_product(Product pp);
 
+	public int imgupdate(MainCategory renameFileName);
+
 }

@@ -56,4 +56,9 @@ public class CategoryServiceImpl implements CategoryService{
 		return cDao.lowerSublist_product(pp);
 	}
 	
+	@Override
+	public int imgupdate(MainCategory renameFileName) {
+		return cDao.imgupdate(renameFileName);
+	}
+	
 }

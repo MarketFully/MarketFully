@@ -324,5 +324,29 @@ public class ProductController {
 	        }
 		}
 	
-
+		@RequestMapping("AdminProductremove")
+		public ModelAndView AdminProductremove(ModelAndView mv,
+				  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage,
+				  @RequestParam("pr_code") int pr_code) { 
+			  
+			  System.out.println(currentPage);
+			  
+			  int listCount=pService.getListCount();
+			  
+			  System.out.println("listCount = " + listCount);
+			  
+			  AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
+			  
+			  ArrayList<Product> list = pService.getProductList(pi);
+			  
+			  System.out.println(list);
+			  
+			  if(list!=null) {
+				  mv.addObject("list",list)
+				  .addObject("pi",pi)
+				  .setViewName("admin/adminproduct_list");
+			  }
+			  int result = pService.removeProduct(pr_code);
+			  return mv; 
+		}
 }

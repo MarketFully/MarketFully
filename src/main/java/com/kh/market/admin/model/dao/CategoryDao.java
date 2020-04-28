@@ -38,4 +38,7 @@ public class CategoryDao {
 	public ArrayList<Product> lowerSublist_product(Product pp) {
 		return (ArrayList)sqlSession.selectList("subcateMapper.lowerSublist_product",pp);
 	}
+	public int imgupdate(MainCategory renameFileName) {
+		return sqlSession.update("categoryMapper.updateimg",renameFileName);
+	}
 }

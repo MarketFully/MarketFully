@@ -29,7 +29,7 @@
 		<typeAlias type="com.kh.market.member.model.vo.MyBag" alias="MyBag"/>
 				<typeAlias type="com.kh.market.servicecenter.model.vo.Search_Qna" alias="QnaSearch"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply" alias="QnaReply"/>
-		
+		<typeAlias type="com.kh.market.admin.model.vo.graphvo" alias="Graphvo"/>
 		
 <!-- 	<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
 	</typeAliases>
@@ -51,6 +51,7 @@
 		<mapper resource="mappers/ServiceCenter-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/mirotic-mapper.xml"/>
+		<mapper resource="mappers/graph-mapper.xml"/>
 	</mappers>
 	
 	

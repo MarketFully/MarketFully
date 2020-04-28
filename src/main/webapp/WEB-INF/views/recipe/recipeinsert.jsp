@@ -488,75 +488,7 @@
 
         // 순서 추가
         $(document).on("click", "button[name=addstep]", function () {
-
-            var trHtml = $('div[name=step]:last');
-            var arr = new Array();
-            var filearr = new Array();
-            for (var i = 0; i < $(".recipeNum").length; i++) {
-                arr.push($('.formControl_step')[i].value);
-                filearr.push($('.fileimg')[i].value);
-                console.log($(".fileimg"));
-            } //for
-
-
-
-            document.getElementById("recipeArea").innerHTML += stepplus;
-            ////이미지 미리보기 영역
-
-            for (var i = 0; i < $(".recipeNum").length; i++) {
-                var sel_file;
-                $(document).ready(function () {
-                    $(".fileimg").eq(i).on("change", handleImgFileSelect); //input type file
-                });
-                function handleImgFileSelect(e) {
-                    var files = e.target.files;
-                    var filesArr = Array.prototype.slice.call(files);
-                    filesArr.forEach(function (f) {
-                        if (!f.type.match("image.*")) {
-                            alert("확장자는 이미지 확장자만 가능합니다.");
-                            return;
-                        }
-                        sel_file = f;
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $(".fileimg").eq(i).prev().attr("src", e.target.result); // img 보이는 영역
-                        }
-                        reader.readAsDataURL(f);
-                    });
-                }
-            }
-            ////이미지 미리보기 영역
-            for (var i = 0; i < $(".recipeNum").length; i++) { // 순서추가 버튼
-                if (i == $(".recipeNum").length) { break; }
-                $(".recipeNum")[i].innerText = 'Step' + (i + 1);
-                if (arr[i] != undefined && filearr[i] != undefined) {
-                    $('.formControl_step')[i].value = arr[i];
-                    // $('.fileimg')[i].value=filearr[i];
-
-                    var sel_file;
-                    $(function () {
-                        $(".fileimg").eq(i).on("change", handleImgFileSelect); //input type file
-                    });
-                    function handleImgFileSelect(e) {
-                        var files = e.target.files;
-                        var filesArr = Array.prototype.slice.call(files);
-                        filesArr.forEach(function (f) {
-                            if (!f.type.match("image.*")) {
-                                alert("확장자는 이미지 확장자만 가능합니다.");
-                                return;
-                            }
-                            sel_file = f;
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                $(".fileimg").eq(i).prev().attr("src", e.target.result); // img 보이는 영역
-                            }
-                            reader.readAsDataURL(f);
-                        });
-                    }
-
-                }
-
-            }
+         $('#recipeArea').append(stepplus);
 
         });
         

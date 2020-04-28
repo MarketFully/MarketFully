@@ -218,6 +218,16 @@ public class BoardDao {
 		
 		return sqlSession.insert("USERboardMapper.insertProductRecipe", bplist);
 	}
+	
+	public int USERheartChek(Favorite f) {
+		System.out.println("sikim heart check : " + f);
+		return sqlSession.selectOne("USERboardMapper.USERheartChek",f);
+	}
+
+
+	public int TVheartCheck(Favorite f) {
+		return sqlSession.selectOne("TVboardMapper.TVheartCheck",f);
+	}
 
 	
 }

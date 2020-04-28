@@ -213,7 +213,18 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bDao.insertProductRecipe(bplist);
 	}
+	
+	@Override
+	public int USERheartChek(Favorite f) {
+		
+		return bDao.USERheartChek(f);
+	}
 
+	@Override
+	public int TVheartCheck(Favorite f) {
+		
+		return bDao.TVheartCheck(f);
+	}
 
 
 }

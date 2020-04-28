@@ -508,6 +508,49 @@ public class RecipeController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("heartcheck")
+	public String heartcheckcheck(Board b,HttpServletRequest request,int bId,String TvOrUser, 
+			@RequestParam(value="mem_num", required=false,defaultValue="0") int mem_num) {
+		
+		if(mem_num == 0) {
+			return "nologin";
+		}
+		System.out.println("sikim check heart TvOrUser : " + TvOrUser);
+		System.out.println("sikim check heart mem_num : " + mem_num);
+		System.out.println("sikim check heart bId : " + bId);
+		
+		int me_num; 
+		if(TvOrUser.equals("user")) {
+			me_num = 2;
+		}else {
+			me_num = 1;
+		}
+		Favorite f = new Favorite();
+		f.setMem_num(mem_num);
+		f.setMb_bo_num(bId);
+		f.setMe_num(me_num);
+		
+		if(TvOrUser.equals("user")) {
+			System.out.println("sikim check heart user까지 들어옴");
+			int result = bService.USERheartChek(f);
+			System.out.println("sikim check heart : " + result);
+			if(result > 0) {
+				
+				return "ok";
+			}else {
+				return "fail";
+			}
+		}else {
+			int result = bService.TVheartCheck(f);
+			if(result > 0) {
+				return "ok";
+			}else {
+				return "fail";
+			}
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping("heartplus")
 	public String heartcheck(Board b,HttpServletRequest request,int bId,String TvOrUser, int mem_num) { 
 		

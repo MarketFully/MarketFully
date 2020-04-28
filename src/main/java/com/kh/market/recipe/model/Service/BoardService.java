@@ -103,4 +103,8 @@ public interface BoardService {
 
 	int insertProductRecipe(BoardProduct bplist);
 	
+	int USERheartChek(Favorite f);
+
+	int TVheartCheck(Favorite f);
+	
 }

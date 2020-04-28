@@ -375,6 +375,37 @@
         	 
         	 console.log('${loginUser}');
          });
+         
+         $(function(){
+        	 console.log("책책");
+        	 var bId = '${bId}';
+  			 var TvOrUser = '${TvOrUser}';
+  			 var mem_num =  '${ loginUser.mem_num }';
+  			 
+        	 $.ajax({
+        		 type:"POST", 
+        		 url: "heartcheck",
+        		 data : { bId : bId, TvOrUser : TvOrUser,mem_num : mem_num },
+ 				success:function(result){
+					if(result == 'ok'){ 
+						console.log('책책 누른적 있음');
+						$('#choice').css("display", "none");
+			        	$('#unchoice').css("display", "block");
+						
+						
+					}else if(result == "fail"){ 
+						console.log('책책 누른적 없음');
+						$('#unchoice').css("display", "none");
+			        	$('#choice').css("display", "block");
+					}else if(resutl == "nologin"){
+						
+					}
+				}, 
+			error:function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				} 
+        	 });
+         });
 
          
          var modal = document.getElementById('myModal');

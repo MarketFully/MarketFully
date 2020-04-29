@@ -56,6 +56,7 @@ $.ajax({
 })
 
 
+
 </script>
 
 
@@ -86,7 +87,17 @@ $.ajax({
              <div id="point">
                 <img src="resources/img/review.png" style="height:50px; width:50px; border-radius: 100%;" onclick="location.href='mypagepoint'"><br>
                 <label style="cursor: pointer;" onclick="location.href='mypagepoint'">작성 가능한 후기</label><br>
-                <label style="cursor: pointer;" id="pointnum" onclick="location.href='mypagepoint'">0</label>
+                	<c:set var="size" value="0" />
+                		<c:set var="size2" value="0" />
+                 <c:forEach var="mrt" items="${mrtlist }" varStatus="index">
+                	<c:if test="${mrt.prdreview.re_num eq 0 }">
+                		<c:set var="size" value="${size+1 }" />
+                	</c:if>
+                	   <c:if test="${mrt.prdreview.re_num ne 0  && mrt.prdreview.re_status eq 'Y'}">
+                	   <c:set var="size2" value="${size2+1 }" />
+                	   </c:if>
+                </c:forEach>
+                <label style="cursor: pointer;" id="pointnum" onclick="location.href='mypagepoint'"><c:out value="${size }"></c:out></label>
             </div>
             <div id="good">
                 <img src="resources/img/good.png" style="height:50px; width:50px; border-radius: 100%;" onclick="location.href='mypageloverecipe.bo?mem_num=${loginUser.mem_num}'"><br>

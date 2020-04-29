@@ -95,6 +95,9 @@ public class AdminController {
 			@RequestParam(value="subcatename") String subcatename,
 			@RequestParam(value="parentmaincode") String parentmaincode) {
 		
+		
+		 ArrayList<MainCategory> tempmc = cService.selectMainCategoryList();
+		
 		int delete = cService.deleteCategory();
 	
 		
@@ -103,9 +106,17 @@ public class AdminController {
 		String[] maincateY_indexarr = maincateY_index.split(",");
 		
 		for(int i=0;i<maincodearr.length;i++) {
-			MainCategory c = new MainCategory(maincodearr[i],mainnamearr[i],maincateY_indexarr[i],"");
-			
-			System.out.println("catecode : " + maincodearr[i] + ", catename :  " + mainnamearr[i]);
+			MainCategory c = new MainCategory();
+			c = new MainCategory(maincodearr[i], mainnamearr[i], maincateY_indexarr[i], "");
+			for(int j = 0 ; j < tempmc.size();j++) {				
+				if (tempmc.get(j).getCatecode1().equals(maincodearr[i]) &&
+						tempmc.get(j).getCatename1().equals(mainnamearr[i])) {
+					c = new MainCategory(maincodearr[i], mainnamearr[i], maincateY_indexarr[i],
+							tempmc.get(j).getRenamefilename()); break;
+				} 
+			}
+			//System.out.println("catecode : " + maincodearr[i] + ", catename :  " + mainnamearr[i]);
+			System.out.println(c);
 			int mainupdate = cService.updateCategory(c);
 			
 			
@@ -122,14 +133,14 @@ public class AdminController {
 		System.out.println(parentmaincodearr);
 		
 		int delsubcate = cService.deleteSubCategory();
-		
-		for(int i= 0 ;i<subcatecodearr.length; i++) {
-			SubCategory sc = new SubCategory(parentmaincodearr[i],subcatecodearr[i],subcatenamearr[i],subcateY_indexarr[i]);
-			int updatesub = cService.updatesubCategory(sc);
-			}
-		
-		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
-			ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+
+for(int i= 0 ;i<subcatecodearr.length; i++) {
+SubCategory sc2 = new SubCategory(parentmaincodearr[i],subcatecodearr[i],subcatenamearr[i],subcateY_indexarr[i]);
+int updatesub = cService.updatesubCategory(sc2);
+}
+
+ArrayList<MainCategory> mc = cService.selectMainCategoryList();
+	ArrayList<SubCategory> sc = cService.selectSubCategoryList();
 				System.out.println(mc.toString());
 				//maincatearr.add()
 				if(mc!=null) {

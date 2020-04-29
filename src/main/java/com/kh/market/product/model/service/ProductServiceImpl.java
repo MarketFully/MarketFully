@@ -9,6 +9,7 @@ import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.dao.ProductDao;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductRank;
 import com.kh.market.product.model.vo.ProductReview;
 import com.kh.market.product.model.vo.ProductReviewPageInfo;
 
@@ -102,5 +103,25 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int removeProduct(int pr_code) {
 		return pDao.removeProduct(pr_code);
+	}
+	
+	@Override
+	public ArrayList<Product> mainrankproduct() {
+		
+		ArrayList <ProductRank> plist = pDao.mainrankproduct();
+		ArrayList <Product> ranklist = new ArrayList<Product>();
+		
+		for(int i = 0 ; i < plist.size();i++) {
+			Product p = new Product();
+			p.setPr_code(plist.get(i).getPr_code());
+			
+			ranklist.add( pDao.getProductOne(p));
+		}
+		
+		while(ranklist.size()<4) {
+			ranklist.add(new Product());
+		}
+		return ranklist;
+		
 	}
 }

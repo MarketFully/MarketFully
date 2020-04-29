@@ -122,8 +122,17 @@
 		WHERE RE_STATUS='Y' AND RE_NUM=#{RE_NUM}
 	</select>
 	
-		<delete id="removeProduct" parameterType="_int">
+<delete id="removeProduct" parameterType="_int">
 	DELETE FROM PRODUCT
 	WHERE PR_CODE=#{pr_code}
 	</delete>
+	
+		<select id="productranklist" resultMap="ProductRankResultSet">
+ <![CDATA[
+ select * from(
+     select product.pr_code , sum(mirotic.pr_each) from mirotic join product on product.pr_code = mirotic.pr_code 
+     group by product.pr_code
+     order by sum(mirotic.pr_each) desc) where rownum<5
+ ]]>
+	</select>
 </mapper>

@@ -8,9 +8,10 @@
 		<result property="Y_index" column="Y_INDEX"/>
 	</resultMap>
 	
+	
 	<insert id="insertMaincate">
 	INSERT INTO CATE1
-	VALUES(#{catecode1}, #{catename1},#{Y_index},null)
+	VALUES(#{catecode1}, #{catename1},#{Y_index},#{renamefilename})
 	</insert>
 	
 	<delete id="deleteMaincate">

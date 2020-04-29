@@ -17,6 +17,13 @@
 		<result property="renameFileName" column="RENAME_FILE_NAME"/>
 	</resultMap>
 	
+	<resultMap id="ProductRankResultSet" type="ProductRank">
+	<id property="pr_code" column="PR_CODE"/>
+	<result property="sum" column="SUM(MIROTIC.PR_EACH)"/>
+	
+	</resultMap>
+	
+	
 	<resultMap  id="ReviewResultSet" type="ProductReview">
 		<id property="re_num" column="RE_NUM"></id>
 		<result property="prcode" column="PR_CODE"></result>
@@ -109,6 +116,8 @@
 		WHERE RE_STATUS='Y' AND PR_CODE = #{pr_code}
 		ORDER BY RE_NUM DESC
 	</select>
+	
+	
 	
 	<update id="ReviewCount" parameterType="_int">
 		UPDATE REVIEW

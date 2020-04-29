@@ -238,4 +238,10 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<Mirotic> selectOrdeheader(Member m) {
 		return mDao.selectOrdeheader(m);
 	}
+
+	// 마이페이지 헤더 작성 가능 후기 수 증가
+	@Override
+	public ArrayList<Mirotic> selectReviewheader(Member m) {
+		return mDao.selectReviewheader(m);
+	}
 }

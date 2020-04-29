@@ -564,6 +564,23 @@ public class MemberController {
 	  return mv;
 	}
 	
+	// 마이페이지 헤더부분 주문,배송 수 증가
+	@RequestMapping(value="mypagereviewheader.do" ,method=RequestMethod.POST)
+	@ResponseBody
+	public int mypagereviewheaderCount(HttpServletRequest request,
+			@RequestParam(value="mem_num") int mem_num) {
+		Member m = new Member();
+		m.setMem_num(mem_num);
+		
+		ArrayList<Mirotic> rehlist = mService.selectReviewheader(m);
+		
+		System.out.println(rehlist);
+		int listCount= rehlist.size();
+		
+		return listCount;
+	
+	}
+	
 	// 마이페이지 작성완료 후기 삭제
 	@RequestMapping("mypageReviewDelete")
 	public String mypagereviewDelete(HttpServletRequest request, int re_num) {

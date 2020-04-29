@@ -78,16 +78,7 @@
         <div class="head_aticle">
             <h2 class="tit">주문 내역 <span class="tit_sub">지난 3년간의 주문 내역 조회가 가능합니다</span></h2>
         </div>
-        <div class="search_date">
-            <h3 class="screen_out">기간 선택</h3>
-            <a href="#none" class="btn_layer" style="text-align: left;"  >전체기간</a> 
-            <ul class="layer_search" style="display: none;">
-                <li><a href="#none" id="allday" class="on">전체기간</a></li>
-                <li><a href="#none" id="day1" data-year="2020">2020 년</a></li> 
-                <li><a href="#none" id="day2" data-year="2019">2019 년</a></li> 
-                <li><a href="#none" id="day3" data-year="2018">2018 년</a></li>
-            </ul>
-        </div> 
+       
          <ul class="list_order">
          	<c:if test="${ empty list}">
 	               	<div style="border-bottom: 2px solid #dddfe1;padding: 50px 0;font-size: 13px;color: #757575;text-align: center;">

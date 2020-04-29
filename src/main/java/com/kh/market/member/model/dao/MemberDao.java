@@ -226,6 +226,11 @@ public class MemberDao {
 	public ArrayList<Mirotic> selectOrdeheader(Member m) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectOrdeheader",m);
 	}
+	
+	// 마이페이지 헤더 작성가능 후기 수 증가
+	public ArrayList<Mirotic> selectReviewheader(Member m) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectReviewheader",m);
+	}
 
 
 }

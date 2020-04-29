@@ -224,4 +224,11 @@ public interface MemberService {
 	 * @return
 	 */
 	ArrayList<Mirotic> selectOrdeheader(Member m);
+	
+	/**
+	 * 마이페이지 헤더 작성가능후기 수 증가
+	 * @param m
+	 * @return
+	 */
+	ArrayList<Mirotic> selectReviewheader(Member m);
 }

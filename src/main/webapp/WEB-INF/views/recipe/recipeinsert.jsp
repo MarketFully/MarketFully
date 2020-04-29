@@ -227,8 +227,8 @@
                         <select name="mc_cate_num"style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
                             <option value="102">한식</option>
                             <option value="103">양식</option>
-                            <option value="104">중식</option>
-                            <option value="105">일식</option>
+                            <option value="104">일식</option>
+                            <option value="105">중식</option>
                             <option value="106">기타</option>
                         </select>
                     </div>

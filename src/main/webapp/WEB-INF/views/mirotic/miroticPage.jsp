@@ -289,8 +289,6 @@
     	$(function(){
     		console.log('start');
     		
-    		console.log('${cartList}');
-    		
     		
     		/* 
     		$('#postcode1').val(${loginUser.mem_addr}.split(',')[0]);

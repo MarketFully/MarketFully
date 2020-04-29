@@ -464,7 +464,7 @@
  				, success:function(data){
  					//성 공 시 모달창 띄우기
  					console.log('success : '+data);
- 					console.log('cartList : '+ '${cartList}');
+ 					
  		        	 $('#myModal').css("display", "block"); 					
  				}
         	 	, error:function(request,status,error){

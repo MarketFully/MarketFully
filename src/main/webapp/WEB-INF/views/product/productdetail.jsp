@@ -512,7 +512,7 @@
  			, type:"post"
  			, success:function(data){
  				console.log('success : '+data);
-				console.log('cartList : '+ '${cartList}');
+			
 	        	 $('#myModal').css("display", "block");
  			}//success
  			, error:function(request,status,error){

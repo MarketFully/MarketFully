@@ -379,14 +379,21 @@
                         <div style="display: grid;  margin-top: 20px;">
                             <!-- <button type="button" class="btnAll" name="btnplus" style="width: 200px; margin-top: 10px;">순서 추가</button> -->
                             <button type="button" name="addstep" class="stepplus">
-                                <span class="step_plus"></span><img src="img/plusbtn.png"
+                                <span class="step_plus"></span><img src="resources/img/plusbtn.png"
                                     style="width:20px;height:20px; margin-right: 10px; vertical-align: bottom;">순서추가
                             </button>
                         </div>
                     </div>
-					<button id="joinokbtn" class="okbtn" onclick="Joinbtn();">작성하기</button>
-                </div>
-               </form>
+                    <center>
+                    
+					<button id="joinokbtn" class="okbtn" onclick="Joinbtn();" style="background: #2e8b57; color: #fff !important; text-decoration: none; border: none;
+					border-radius: 3px;
+				    height: 30px;
+				    margin-bottom: 10px;
+				    width: 80px;">작성하기</button>
+                    </center>
+	                </div>
+	               </form>
 
             </div>
         </div>

@@ -112,6 +112,16 @@
 		<result property="re_orign" column="RE_ORIGIN"></result>
 		<result property="re_rename" column="RE_RENAME"></result>
 	 </association>
+	 
+	   <association javaType="Shipping" property="shipping">
+       <result property="receiver_name" column="RECEIVER_NAME"/>
+       <result property="receiver_addr" column="RECEIVER_ADDR"/>
+       <result property="receiver_phone" column="RECEIVER_PHONE"/>
+       <result property="shipping_status" column="SHIPPING_STATUS"/>
+       <result property="shipping_request" column="SHIPPING_REQUEST"/>
+       <result property="or_num" column="OR_NUM"/>
+       
+    </association>
       
    </resultMap>
    
@@ -412,12 +422,13 @@ WHERE MEM_NAME like '%' || #{mkeyword} || '%'
 
 <!-- 마이페이지 후기 리스트 -->
 	<select id="selectlistMirotic" parameterType="Member" resultMap="miroticResultSet">
-		 SELECT * FROM MIROTIC
+		SELECT * FROM MIROTIC
         JOIN PRODUCT ON MIROTIC.PR_CODE = PRODUCT.PR_CODE
         JOIN CATE1 ON PRODUCT.PR_CATE1 = CATE1.CATECODE1
         JOIN CATE2 ON PRODUCT.PR_CATE2 = CATE2.CATECODE2
-        LEFT JOIN  REVIEW ON MIROTIC.OR_NUM = REVIEW.OR_NUM
-        WHERE MIROTIC.MEM_NUM=#{mem_num} AND OR_STATUS='배송완료'
+        LEFT JOIN  REVIEW ON (MIROTIC.OR_NUM = REVIEW.OR_NUM AND MIROTIC.PR_CODE = REVIEW.PR_CODE)
+        JOIN SHIPPING ON MIROTIC.OR_NUM = SHIPPING.OR_NUM
+        WHERE MIROTIC.MEM_NUM=2 AND SHIPPING_STATUS='배송완료'
         ORDER BY OR_DATE DESC
 	</select>
 

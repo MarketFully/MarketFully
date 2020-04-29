@@ -30,7 +30,7 @@
 				<typeAlias type="com.kh.market.servicecenter.model.vo.Search_Qna" alias="QnaSearch"/>
 		<typeAlias type="com.kh.market.servicecenter.model.vo.ServiceCenterQnaReply" alias="QnaReply"/>
 		<typeAlias type="com.kh.market.admin.model.vo.graphvo" alias="Graphvo"/>
-		
+				<typeAlias type="com.kh.market.product.model.vo.ProductRank" alias="ProductRank"/>
 <!-- 	<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
 	</typeAliases>
 	

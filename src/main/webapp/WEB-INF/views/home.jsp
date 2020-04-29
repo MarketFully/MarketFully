@@ -65,7 +65,7 @@
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
-                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top"></a>
+                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG'"></a>
                 
                     <div class="Rcard-body">
                         <h4 class="Rcard-title"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
@@ -96,7 +96,7 @@
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
-                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top"></a>
+                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}"  onERROR="this.src='resources/img/errorimg.PNG'" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
                         <h4 class="Rcard-title"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
@@ -174,49 +174,19 @@
           </div>
 
           <div class="row">
+          <c:forEach var="pr" items="${mainRankProduct }">
+          
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/product.png" class="Rcard-img-top"></a>
+                    <a href="ProductDetail?pr_code=${pr.pr_code}"><img src="resources/img/Productuploadimg/${pr.renameFileName }" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">10000원</p>
+                        <h4 class="Rcard-title"><a href="ProductDetail?pr_code=${pr.pr_code}" style="text-decoration: none;">${pr.pr_name }</a></h4>
+                        <p class="Rcard-text">${pr.pr_price }</p>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/product1.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">9500원</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/product2.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">20000원</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                    <a href="#"><img src="resources/img/product4.png" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="#" style="text-decoration: none;">백종원의 찹스테이크 레시피</a></h4>
-                        <p class="Rcard-text">15000원</p>
-                    </div>
-                </div>
-            </div>
+          </c:forEach>
         </div>
         
         </div>

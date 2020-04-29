@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.market.product.model.service.ProductService;
+import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
 
@@ -25,6 +27,8 @@ public class HomeController {
 	
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private ProductService pService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -42,11 +46,13 @@ public class HomeController {
 		
 		ArrayList<Board> mainrandomlist = bService.MainRandomselectList(); //이 레시피 어때요?
 		ArrayList<Board> mainrandomlist2 = bService.MainRandomselectList2(); // 최근 뜨는 레시피
-		
+		ArrayList<Product> mainRankProduct = pService.mainrankproduct();//상품 판매순위 4개
+
 		//System.out.println("sikim mainrandomlist : " + mainrandomlist);
 		mv.addObject("mainrandomlist", mainrandomlist);
 		mv.addObject("mainrandomlist2", mainrandomlist2);
-		
+		mv.addObject("mainRankProduct",mainRankProduct);
+
 		model.addAttribute("serverTime", formattedDate );
 		
 		return mv;

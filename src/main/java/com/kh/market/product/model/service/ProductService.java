@@ -44,4 +44,6 @@ public interface ProductService {
 	public ProductReview Reviewselect(int re_num);
 	
 	public int removeProduct(int pr_code);
+	
+	public ArrayList<Product> mainrankproduct();
 }

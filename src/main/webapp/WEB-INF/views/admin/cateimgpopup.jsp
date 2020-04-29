@@ -5,6 +5,7 @@
 <head>
 <meta charset="EUC-KR">
 <title></title>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <center>
@@ -14,7 +15,7 @@
 <input type="hidden" name="upcatecode" value="${upcatecode}"/>
 <img id="img" src='resources/img/errorimg.PNG'>
 <input id="input_img" type="file" name="uploadFile">
-<input  type="submit" value="ㄱㄱ">
+<input  type="submit" value="입력하기">
 </form>
 </center>
 </body>

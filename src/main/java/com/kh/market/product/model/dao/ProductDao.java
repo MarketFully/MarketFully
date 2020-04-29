@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.market.admin.model.vo.AdminProductPageInfo;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.product.model.vo.Product;
+import com.kh.market.product.model.vo.ProductRank;
 import com.kh.market.product.model.vo.ProductReview;
 import com.kh.market.product.model.vo.ProductReviewPageInfo;
 
@@ -90,5 +91,8 @@ public class ProductDao {
 	}
 	public int removeProduct(int pr_code) {
 		return sqlSession.delete("ProductMapper.removeProduct",pr_code);
+	}
+	public ArrayList<ProductRank> mainrankproduct() {
+		return (ArrayList)sqlSession.selectList("ProductMapper.productranklist");
 	}
 }

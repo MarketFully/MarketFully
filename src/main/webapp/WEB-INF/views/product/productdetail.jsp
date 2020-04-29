@@ -391,6 +391,17 @@
 
 
     <script>
+    	var modal = document.getElementById('myModal');
+	    var close = document.getElementById("modalClose");
+    
+	       // When the user clicks on <span> (x), close the modal
+	       close.onclick = function() {
+	           modal.style.display = "none";
+	       }
+	       
+    
+    
+    
          // 폼값 증가&감소
          function form_btn(n){
             

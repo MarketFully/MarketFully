@@ -79,15 +79,14 @@ $.ajax({
                 </div>   
             </div>
             <div id="order">
-                <img src="resources/img/truck.png" style="height:50px; width:50px; border-radius: 100%; cursor: pointer;" onclick="location.href='mypageorder'"><br>
-                <label style="cursor: pointer;" onclick="location.href='mypageorder'">주문 · 배송</label><br>
-                <label id="ordernum"  style="cursor: pointer;" onclick="location.href='mypageorder'">0</label>
+                <img src="resources/img/truck.png" style="height:50px; width:50px; border-radius: 100%; cursor: pointer;" onclick="location.href='myorderlist.bo?mem_num=${loginUser.mem_num}'"><br>
+                <label style="cursor: pointer;" onclick="location.href='myorderlist.bo?mem_num=${loginUser.mem_num}'">주문 · 배송</label><br>
+                <label id="ordernum"  style="cursor: pointer;" onclick="location.href='myorderlist.bo?mem_num=${loginUser.mem_num}'">0</label>
             </div>
              <div id="point">
                 <img src="resources/img/review.png" style="height:50px; width:50px; border-radius: 100%;" onclick="location.href='mypagepoint'"><br>
                 <label style="cursor: pointer;" onclick="location.href='mypagepoint'">작성 가능한 후기</label><br>
                 <label style="cursor: pointer;" id="pointnum" onclick="location.href='mypagepoint'">0</label>
-                <label style="cursor: pointer;" onclick="location.href='mypagepoint'"></label>
             </div>
             <div id="good">
                 <img src="resources/img/good.png" style="height:50px; width:50px; border-radius: 100%;" onclick="location.href='mypageloverecipe.bo?mem_num=${loginUser.mem_num}'"><br>

@@ -89,6 +89,11 @@
             </ul>
         </div> 
          <ul class="list_order">
+         	<c:if test="${ empty list}">
+	               	<div style="border-bottom: 2px solid #dddfe1;padding: 50px 0;font-size: 13px;color: #757575;text-align: center;">
+						주문 내역이 없습니다.
+					</div>
+         	</c:if>
          <c:forEach var="mi" items="${ list }">
             <li>
                 <div class="date" style="text-align: left;">${mi.or_date}</div> 
@@ -129,6 +134,7 @@
 
         
         <!-- 페이징 처리 -->
+        <c:if test="${ pi.listCount > 0}">
          <div class="pagination">
             
             <c:if test="${ pi.currentPage eq 1 }">
@@ -167,6 +173,7 @@
 					<a href="${ after }"><img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img" style="margin-left:10px"></a>
 				</c:if>
     </div>
+    </c:if>
     </div>
    
     

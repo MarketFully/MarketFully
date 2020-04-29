@@ -293,6 +293,7 @@
                                         <td class="table_list_add"> <!-- sikim -->
 					                        <select name="CATE1" id="id_lang" text="분류" onchange="changemaincate(0)" 
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
+					                            <option value="" selected disabled hidden>선택해주세요</option>
                                         <c:forEach var="m" items="${ maincate }">
 					                            <option value="${ m.catecode1 }" >${ m.catename1 }</option>
 					                    </c:forEach>
@@ -416,7 +417,8 @@
             var btnplusText = '<tr name ="tableList">' +
 
                 '<td class="table_list_add">' +
-                '<select name=CATE1 onchange="changemaincate('+l+')" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">';
+                '<select name=CATE1 onchange="changemaincate('+l+')" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
+                "<option selected disabled hidden>"+"선택해주세요"+"</option>";
                 for(var j=0;j<maincatelist.length;j++){
                 	btnplusText+= '<option value='+maincatelist[j].catecode1+'>' +
                 	maincatelist[j].catename1+'</option>';
@@ -641,6 +643,7 @@
                    type:"post",
                    success:function(data){
 						document.getElementsByName("CATE2")[longi].innerHTML="";
+						document.getElementsByName("CATE2")[longi].innerHTML+="<option selected disabled hidden>"+"선택해주세요"+"</option>";
 						for(var i = 0 ;i<data.length;i++){
 						document.getElementsByName("CATE2")[longi].innerHTML+="<option value="+data[i].catecode2+">"+data[i].catename2+ "</option>";
 		  	            }
@@ -682,7 +685,8 @@
 					
             	 var prlist = new Array();
             	 	document.getElementsByName("product_list")[longi].innerHTML="";
-//					document.getElementsByName("product_size")[longi].value=""; //sikim					
+//					document.getElementsByName("product_size")[longi].value=""; //sikim
+					document.getElementsByName("product_list")[longi].innerHTML+="<option selected disabled hidden>"+"선택해주세요"+"</option>";
 					for(var i = 0 ;i<data.length;i++){
 						document.getElementsByName("product_list")[longi].innerHTML+="<option value="+data[i].pr_size+","+data[i].pr_code+">" +data[i].pr_name+"</option>"; 
 						//document.getElementsByName("product_list")[longi].innerHTML

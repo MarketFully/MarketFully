@@ -26,9 +26,6 @@
                <li>
                    <a href="mypagereview">상품후기</a>
                </li>
-               <li>
-                  <a href="mypagepoint">적립금</a>
-               </li>
                <li> 
                      <a href="mypageloverecipe.bo?mem_num=${loginUser.mem_num}">찜한 레시피</a>
                </li>

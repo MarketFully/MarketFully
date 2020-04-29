@@ -54,7 +54,6 @@
 <body>
 	<!-- 헤더부분-->
 	<%@include file="../common/mypageheader.jsp"%>
-	
 	<!--마이페이지 왼쪽 부분-->
 	<div class="page_aticle aticle_type2">
 		<div id="snb" class="snb_my">
@@ -64,7 +63,6 @@
 					<li><a href="myorderlist.bo?mem_num=${loginUser.mem_num}">주문
 							내역</a></li>
 					<li><a href="mypagereview">상품후기</a></li>
-					<li><a href="mypagepoint">적립금</a></li>
 					<li class="on"><a
 						href="mypageloverecipe.bo?mem_num=${loginUser.mem_num}">찜한 레시피</a>
 					</li>
@@ -118,19 +116,20 @@
 													<tbody>
 
 														<tr class="tr_food">
-
-															<td class="goods_thumb" style="width: 100px;"><a
-																href="/shop/goods/goods_view.php?&amp;goodsno=5051"
-																class="thumb"> <img src="resources/img/food.PNG"
-																	alt="상품이미지"
-																	onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"
-																	style="width: 85px; height: 85px; padding-left: 25px;"></a>
-															</td>
-															  <c:url var="bdetail" value="RecipeDetail">
+  															<c:url var="bdetail" value="RecipeDetail">
 																<c:param name="bId" value="${ re.getTboard().mb_num }"/>
 																<c:param name="currentPage" value="${ pi.currentPage }"/>
 																<c:param name="TvOrUser" value="tv"/>
 															</c:url>
+															<td class="goods_thumb" style="width: 100px;"><a
+																href="${ bdetail }"
+																class="thumb">    
+																<img src="resources/img/tvRecipe/${re.getTboard().mb_rename }"
+											                            onerror="this.src='resources/img/errorimg.PNG' " 
+											                            alt="상품 이미지" style="width: 85px; height: 85px; padding-left: 25px;"></a>
+															</td>
+															
+															
 															<td class="goods_info"
 																style="width: 300px; text-align: center;">
 																<label
@@ -146,8 +145,7 @@
 																style="width: 100px; text-align: center;">
 																<button type="button" class="btn_delete" id="sel_delete"
 																	style="margin-top: 6px; border-radius: 5px; background: #fff; 
-																	border: 1px solid gray; width: 70px; height: 28px; font-weight: bold;
-																	 font-size: 10px; font-family: MapoPeacefull;"
+																	border: 1px solid gray; width: 70px; height: 28px; font-weight: bold;font-size: 10px; font-family: MapoPeacefull;"
 																	 onclick="test3(${re.mb_bo_num },${re.me_num });">삭제</button>
 															</td>
 
@@ -157,18 +155,18 @@
 													<tbody>
 
 														<tr class="tr_food">
-															<td class="goods_thumb" style="width: 100px;"><a
-																href="/shop/goods/goods_view.php?&amp;goodsno=5051"
-																class="thumb"> <img src="resources/img/food.PNG"
-																	alt="상품이미지"
-																	onerror="this.src='https://res.kurly.com/pc/temp/1801/noimg_100.gif'"
-																	style="width: 85px; height: 85px; padding-left: 25px;"></a>
-															</td>
+														
 															<c:url var="bdetail" value="RecipeDetail">
 																<c:param name="bId" value="${ re.getUboard().mb_num }"/>
 																<c:param name="currentPage" value="${ pi.currentPage }"/>
 																<c:param name="TvOrUser" value="user"/>
 															</c:url>
+															<td class="goods_thumb" style="width: 100px;"><a
+																href="${ bdetail }"
+																class="thumb"> <img src="resources/img/userRecipe/${re.getUboard().mb_rename }"
+											                            onerror="this.src='resources/img/errorimg.PNG' " 
+											                            alt="상품 이미지" style="width: 85px; height: 85px; padding-left: 25px;"></a>
+															</td>		
 															<td class="goods_info"
 																style="width: 300px; text-align: center;"><label
 																class="name"

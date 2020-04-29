@@ -58,7 +58,7 @@
                     <td class="td3"></td>
                 </tr>
                 <tr>
-                    <td class="td1">휴대폰</td>
+                    <td class="td1">사용여부</td>
                     <td class="td2">
                     <select name="mem_status">
                     <c:if test='${m.mem_status.equals("Y")}'>

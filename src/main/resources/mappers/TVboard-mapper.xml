@@ -308,4 +308,20 @@
 		SELECT COUNT(*) FROM FAVORITE WHERE MEM_NUM = #{mem_num} and MB_BO_NUM= #{mb_bo_num} and MB_NUM=#{me_num}
 	</select>
 	
+	
+	<insert id="insertProductRecipe"  parameterType="Board">
+      INSERT INTO TV_MENU_BOARD
+      VALUES(SEQ_TMB.nextval,#{mb_title},#{mb_content},SYSDATE,#{mb_writer},#{mb_origin},#{mb_rename},0,0,0,'Y',#{mc_cate_num},#{mb_serving},#{mb_time},#{mb_level})
+	</insert>
+	
+	<insert id="insertExpTVRecipe"  parameterType="BoardExp">
+      INSERT INTO TV_MENU_EXPLAIN
+      VALUES(SEQ_TMB.currval,#{origin},#{rename},#{content},#{seq},'Y')
+	</insert>
+	
+	<insert id="insertTVRecipe"  parameterType="BoardProduct">
+      INSERT INTO TV_MENU_PRODUCT
+      VALUES(SEQ_TMB.currval,#{pcode},#{peach})
+	</insert>
+	
 </mapper>

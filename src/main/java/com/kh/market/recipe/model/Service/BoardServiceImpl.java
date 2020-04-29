@@ -225,6 +225,24 @@ public class BoardServiceImpl implements BoardService{
 		
 		return bDao.TVheartCheck(f);
 	}
+	
+
+	@Override
+	public int insertTVRecipe(Board b) {
+		return bDao.insertTVRecipe(b);
+	}
+
+	@Override
+	public int insertExpTVRecipe(BoardExp be) {
+		return bDao.insertExpTVRecipe(be);
+	}
+
+	
+	@Override
+	public int insertProductTVRecipe(BoardProduct boardProduct) {
+		return bDao.insertProductTVRecipe(boardProduct);
+	}
+
 
 
 }

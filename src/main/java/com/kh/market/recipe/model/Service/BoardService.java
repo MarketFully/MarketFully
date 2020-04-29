@@ -107,4 +107,11 @@ public interface BoardService {
 
 	int TVheartCheck(Favorite f);
 	
+	int insertTVRecipe(Board b);
+
+	int insertExpTVRecipe(BoardExp be);
+
+	int insertProductTVRecipe(BoardProduct boardProduct);
+
+	
 }

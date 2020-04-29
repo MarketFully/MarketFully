@@ -228,6 +228,21 @@ public class BoardDao {
 	public int TVheartCheck(Favorite f) {
 		return sqlSession.selectOne("TVboardMapper.TVheartCheck",f);
 	}
+	
+	public int insertTVRecipe(Board b) {
+		return sqlSession.insert("TVboardMapper.insertProductRecipe",b);
+	}
+
+
+	public int insertProductTVRecipe(BoardProduct boardProduct) {
+		return sqlSession.insert("TVboardMapper.insertTVRecipe",boardProduct);
+	}
+
+
+	public int insertExpTVRecipe(BoardExp be) {
+		return sqlSession.insert("TVboardMapper.insertExpTVRecipe",be);
+	}
+
 
 	
 }

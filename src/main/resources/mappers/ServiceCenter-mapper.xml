@@ -278,6 +278,11 @@
 		DELETE FROM QNA_REPLY
 		WHERE Q_NUM = #{q_num}
 	</delete>
+
+	<insert id="insertnotice" parameterType="Notice">
+insert into notice
+values(SEQ_NOTICE_NUM.nextval,#{notice_title},#{notice_content},#{notice_writer},SYSDATE,'Y',0)
+</insert>
 </mapper>
 
 

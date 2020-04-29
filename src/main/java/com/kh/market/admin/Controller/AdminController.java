@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +42,8 @@ import com.kh.market.product.model.service.ProductService;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
+import com.kh.market.recipe.model.vo.BoardExp;
+import com.kh.market.recipe.model.vo.BoardProduct;
 import com.kh.market.recipe.model.vo.Menu_Category;
 import com.kh.market.recipe.model.vo.PageInfo;
 import com.kh.market.recipe.model.vo.SearchInfo;
@@ -114,6 +117,11 @@ public class AdminController {
 		
 		int delsubcate = cService.deleteSubCategory();
 		
+		for(int i= 0 ;i<subcatecodearr.length; i++) {
+			SubCategory sc = new SubCategory(parentmaincodearr[i],subcatecodearr[i],subcatenamearr[i],subcateY_indexarr[i]);
+			int updatesub = cService.updatesubCategory(sc);
+			}
+		
 		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			ArrayList<SubCategory> sc = cService.selectSubCategoryList();
 				System.out.println(mc.toString());
@@ -124,6 +132,92 @@ public class AdminController {
 				}
 			 return mv2; 
 		
+	}
+	
+	@RequestMapping("TVrecipeinsertpage")
+	public ModelAndView recipeinsertpage(Board b, Model model,HttpServletRequest request,ModelAndView mv) { //유저 레시피 작성 페이지로 이동
+		
+		//회원 아이디 등등 을 가지고 작성 페이지로 이동
+		
+		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
+		 //ArrayList<SubCategory> sc = cService.selectSubCategoryList();
+         if(mc!=null) {
+            mv.addObject("maincate", mc) 
+            //mv.addObject("subcate",sc)
+            .setViewName("admin/tvrecipeinsert");
+         }
+         mv.addObject("maincate", mc) 
+         //mv.addObject("subcate",sc)
+         .setViewName("admin/tvrecipeinsert");
+       return mv; 
+	}
+	
+	@RequestMapping("TVrecipeinsert")//BoardProduct bp
+	public String recipeinsert(Board b,
+			BoardExp be,BoardProduct bp,
+			@RequestParam("pcode") String pcode,
+			@RequestParam("peach") String peach,
+			Model model,HttpServletRequest request,
+			@RequestParam(name="mainImg",required=false) MultipartFile file,
+			@RequestBody ArrayList<MultipartFile> subImg){ //유저 레시피 작성 (DB)
+		
+		System.out.println("RecipeController pcode? : " + pcode);
+		System.out.println("RecipeController peach? : " + peach);
+		
+		ArrayList<BoardProduct> bplist = new ArrayList<BoardProduct>();
+		
+		
+		
+		if(!file.getOriginalFilename().equals("")) {
+			// 서버에 업로드
+			// saveFile메소드 : 내가 저장하고자하는 file과 request를 전달하여 서버에 업로드 시키고 그 저장된 파일명을 반환해주는 메소드
+			
+			String renameFileName = saveFile(file,request);
+			
+			if(renameFileName != null) {
+				b.setMb_origin(file.getOriginalFilename());// DB에는 파일명 저장
+				b.setMb_rename(renameFileName);
+			}
+		}
+		System.out.println("레시피 작성 b : " + b);
+		int result = bService.insertTVRecipe(b);
+		//------------------------------------------------------
+		String[] pcodelist = pcode.split(",");
+		String[] peachlist = peach.split(",");
+		for(int i = 0 ; i< pcodelist.length;i++) {
+			int pcodeint = Integer.parseInt(pcodelist[i]);
+			int peachint = Integer.parseInt(peachlist[i]);
+			bplist.add(new BoardProduct(0,pcodeint,peachint));
+			
+			System.out.println(bplist);
+			
+			int result2 = bService.insertProductTVRecipe(bplist.get(i));
+		}
+		
+		
+		//------------------------------------------------------
+		String[] beContent = be.getContent().split(",");
+		int i = 1;
+		for(MultipartFile filea : subImg) {
+			System.out.println(filea.getOriginalFilename());
+			if(!filea.getOriginalFilename().equals("")) {
+				
+				String renameFileName = saveFile(filea,request);
+				
+				if(renameFileName != null) {
+					be.setContent(beContent[i-1]);
+					be.setOrigin(filea.getOriginalFilename());// DB에는 파일명 저장
+					be.setRename(renameFileName);
+					be.setSeq(i);
+					System.out.println("%%%%%%%%%%%%%%%%% be : " + be);
+					int result3 = bService.insertExpTVRecipe(be);
+					System.out.println("레시피 작성 be : " + be);
+					i++;
+				}
+				
+			}
+		}
+		return "recipe/temp_userRecipe";
 	}
 	
 	@RequestMapping("adminmaingraph")

@@ -96,7 +96,12 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
                     	<td class="menu">
+                    	<c:if test="${ TvOrUser eq 'tv' }">
                     		<img src="resources/img/tvRecipe/${b.getMb_rename() }" class="mimg">
+                    	</c:if>
+                    	<c:if test="${ TvOrUser eq 'user' }">
+                    		<img src="resources/img/userRecipe/${b.getMb_rename() }" class="mimg">
+                    	</c:if>		
                     			<p class="mtitle">
                     				<a href="${ bdetail }">${ b.mb_title }</a> 
                     			</p>

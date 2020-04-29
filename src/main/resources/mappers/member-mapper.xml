@@ -304,14 +304,23 @@
    </select>
    
    <!-- 마이페이지 주문 내역 리스트 조회 -->
-   <select id="selectOrderList" resultMap="miroticResultSet">
+ <select id="selectOrderList" parameterType="_int" resultMap="miroticResultSet">
        SELECT *
       FROM MIROTIC MI
       LEFT JOIN PRODUCT PR
       ON MI.PR_CODE = PR.PR_CODE
-      WHERE OR_STATUS LIKE '입금확인'
+      WHERE OR_STATUS LIKE '입금확인' 
+      AND MEM_NUM=#{mem_num}
       ORDER BY OR_NUM DESC
       
+   </select>
+   
+   <!-- 마이페이지 주문 내역 리스트 조회 -->
+   <select id="selectOrdeheader" resultMap="miroticResultSet">
+      SELECT COUNT(*), MIROTIC.OR_NUM FROM MIROTIC 
+      JOIN SHIPPING ON MIROTIC.OR_NUM = SHIPPING.OR_NUM
+      WHERE SHIPPING_STATUS != '배송완료' AND MIROTIC.MEM_NUM = #{mem_num}
+      GROUP BY MIROTIC.OR_NUM
    </select>
    
    <!-- 마이페이지  찜한레시피 갯수 조회 -->
@@ -428,7 +437,7 @@ WHERE MEM_NAME like '%' || #{mkeyword} || '%'
         JOIN CATE2 ON PRODUCT.PR_CATE2 = CATE2.CATECODE2
         LEFT JOIN  REVIEW ON (MIROTIC.OR_NUM = REVIEW.OR_NUM AND MIROTIC.PR_CODE = REVIEW.PR_CODE)
         JOIN SHIPPING ON MIROTIC.OR_NUM = SHIPPING.OR_NUM
-        WHERE MIROTIC.MEM_NUM=2 AND SHIPPING_STATUS='배송완료'
+        WHERE MIROTIC.MEM_NUM=#{mem_num} AND SHIPPING_STATUS='배송완료'
         ORDER BY OR_DATE DESC
 	</select>
 

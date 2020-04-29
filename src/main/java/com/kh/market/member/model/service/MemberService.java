@@ -95,7 +95,7 @@ public interface MemberService {
 	 * @param pi
 	 * @return
 	 */
-	ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi);
+	ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi,int mem_num);
 
 	/**
 	 * 마이페이지 찜한 레시피 리스트 갯수 조회
@@ -217,4 +217,11 @@ public interface MemberService {
 	 * @return
 	 */
 	ArrayList<Mirotic> orderdetailList(int or_num);
+
+	/**
+	 * 마이페이지 헤더 주문,배송 수 증가
+	 * @param m
+	 * @return
+	 */
+	ArrayList<Mirotic> selectOrdeheader(Member m);
 }

@@ -81,11 +81,11 @@ public class MemberDao {
 	}
 
 	// 마이페이지 주문내역 리스트 조회
-	public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi) {
+	public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi,int mem_num) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("memberMapper.selectOrderList",null,rowBounds);
+		return (ArrayList)sqlSession.selectList("memberMapper.selectOrderList",mem_num,rowBounds);
 	}
 
 	// 마이페이지 찜한레시피 리스트 갯수 조회
@@ -220,6 +220,11 @@ public class MemberDao {
 	public ArrayList<Mirotic> orderdetailList(int or_num) {
 		System.out.println("dao주문내역" + or_num);
 		return (ArrayList)sqlSession.selectList("memberMapper.orderdetailList",or_num);
+	}
+
+	// 마이페이지 헤더 주문,배송 수 증가
+	public ArrayList<Mirotic> selectOrdeheader(Member m) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectOrdeheader",m);
 	}
 
 

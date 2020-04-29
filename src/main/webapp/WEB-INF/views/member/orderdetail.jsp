@@ -77,16 +77,10 @@
             </tbody>
         </table>
 		</c:forEach>
-        <div id="orderCancel" class="order_cancel">
-            <span style="margin-right:0px;" class="inner_cancel">
-                <button type="button" id="cartPutAll" class="btn btn_cart">전체 상품 다시 담기</button>
-                <button type="button" class="btn btn_cancel off">전체 상품 주문 취소</button>
-            </span>
-            <p class="cancel_notice">직접 주문 취소는 <strong class="emph">‘입금확인’</strong> 상태일 경우에만 가능합니다.</p>
-        </div> 
+        
 
         <div class="head_section">
-            <h3 class="tit" style="float: left;">
+            <h3 class="tit" style="float: left;margin-top: 40px;">
                 결제 정보
             </h3>
         </div>
@@ -198,7 +192,7 @@
                 <strong class="tit_cart" style="text-align: left;">[Dole] 실속 바나나 1.1kg</strong> 
                 <div class="in_option">
                     <div class="list_goods">
-                        <ul class="list list_nopackage" style="margin-bottom: 0px;">
+                        <ul class="list list_nopackage" style="margin-bottom: 30px;">
                             <li class="on" style="text-align: left;">
                                 <span style="margin-right:0px;" class="btn_position">
                                     <button type="button" class="btn_del">
@@ -213,26 +207,21 @@
                                         <button type="button" class="btn up" id="up">수량올리기</button>
                                     </span> 
                                     <span style="margin-right:0px;" class="price">
-                                        <span style="margin-right:0px;" class="dc_price">2,980원</span> 
+                                        <span style="margin-right:0px;" class="dc_price">2980원</span> 
                                     </span>
                                 </div>
                             </li>
                         </ul>
                     </div> 
                     <div class="total">
-                        <div class="price">
+                        <div class="price" style="margin-bottom: 20px;">
                             <strong class="tit" style="padding: 7px;">합계</strong>
                             <span style="margin-right:0px;float: none;" class="sum">
                                 <span style="margin-right:0px;float: none;" class="num" >2980</span> 
                                 <span style="margin-right:0px;float: none;" class="won">원</span>
                             </span>
                         </div> 
-                        <p class="txt_point" style="margin-bottom: 25px;">
-                            <span style="margin-right:0px;float: none;" class="ico">적립</span> 
-                            <span style="margin-right:0px;float: none;" class="point">구매 시 
-                                <strong class="emph">15원 적립</strong>
-                            </span>
-                        </p>
+                       
                     </div>
                 </div> 
                 <div class="group_btn off layer_btn2">

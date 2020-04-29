@@ -34,6 +34,27 @@ $.ajax({
 	}
 })
 
+$.ajax({
+	url : "mypageorderheader.do",
+	type : "post",
+	data : {
+		mem_num : "${loginUser.mem_num}"
+	},
+	dataType : "text",
+	success : function(data) {
+			document.getElementById("ordernum").innerHTML=data;
+	},
+	error : function(request, status,
+			errorData) {
+		alert("error code : "
+				+ request.status + "\n"
+				+ "message: "
+				+ request.responseText
+				+ "error : "
+				+ errorData);
+	}
+})
+
 
 </script>
 

@@ -101,8 +101,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 마이페이지 주문 내역 리스트 조회
 	@Override
-	public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi) {
-		return mDao.selectOrderList(pi);
+	public ArrayList<Mirotic> selectOrderList(MypageOrderPageInfo pi,int mem_num) {
+		return mDao.selectOrderList(pi,mem_num);
 	}
 
 	// 마이페이지 찜한 레시피 리스트 갯수 조회
@@ -231,5 +231,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public ArrayList<Mirotic> orderdetailList(int or_num) {
 		return mDao.orderdetailList(or_num);
+	}
+
+	// 마이페이지 헤더 주문,배송 수 증가
+	@Override
+	public ArrayList<Mirotic> selectOrdeheader(Member m) {
+		return mDao.selectOrdeheader(m);
 	}
 }

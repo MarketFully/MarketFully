@@ -499,7 +499,7 @@ public class MemberController {
 		
 		MypageOrderPageInfo pi = Pagination_Myorder.getPageInfo(currentPage,listCount);
 		
-		ArrayList<Mirotic> list = mService.selectOrderList(pi);
+		ArrayList<Mirotic> list = mService.selectOrderList(pi,mem_num);
 		
 		ArrayList<Mirotic> listtemp = new ArrayList<Mirotic>(); // 새 저장 공간 형성  --1
 		
@@ -527,6 +527,23 @@ public class MemberController {
 		  mv.addObject("orlist", orlist);
 		  mv.setViewName("member/orderdetail");
 		  return mv;
+	}
+	
+	// 마이페이지 헤더부분 주문,배송 수 증가
+	@RequestMapping(value="mypageorderheader.do" ,method=RequestMethod.POST)
+	@ResponseBody
+	public int mypageorderheaderCount(HttpServletRequest request,
+			@RequestParam(value="mem_num") int mem_num) {
+		Member m = new Member();
+		m.setMem_num(mem_num);
+		
+		ArrayList<Mirotic> orhlist = mService.selectOrdeheader(m);
+		
+		System.out.println(orhlist);
+		int listCount= orhlist.size();
+		
+		return listCount;
+	
 	}
 	
 	// 마이페이지 상품후기로 이동하는 메소드

@@ -92,23 +92,29 @@
             </ul>
         </div> 
         
-        <ul class="list_order">
+        ${list }
+                <ul class="list_order">
          <c:forEach var="mi" items="${ list }">
             <li>
                 <div class="date" style="text-align: left;">${mi.or_date}</div> 
                 <div class="order_goods"><div class="name" style="text-align: left;">
-                    <a href="orderdetail">${mi.product.pr_name}</a>
-
-
-                    
+                 <c:url var="orderdetail" value="orderdetail">
+                 		<c:param name="or_date" value="${mi.or_date}"/>
+                  		<c:param name="or_num" value="${mi.or_num}"/>
+                  		<c:param name="sender_name" value="${mi.sender_name}"/>
+                  		<c:param name="renameFileName" value="${mi.product.renameFileName}"/>
+                  </c:url>	
+                    <a href="${orderdetail}">${mi.product.pr_name}</a>               
                 </div> 
-                <div class="order_info" style="padding-top: 20px;">
+                 <div class="order_info" style="padding-top: 15px;">
                     <div class="thumb">
-                        <img src="resources/img/food.PNG" alt="해당 주문 대표 상품 이미지"></div> 
-                        <div class="desc">
+                         <img src="resources/img/Productuploadimg/${mi.product.renameFileName }"
+                            		 onerror="this.src='resources/img/errorimg.PNG' " 
+                            		 alt="상품 이미지" style="width: 80px;"></div> 
+                        <div class="desc" style="padding-left: 20px;">
                             <dl>
                                 <dt>주문번호</dt> 
-                                <dd>${mi.or_num}</dd>
+                                <dd>${mi.or_num}</dd>             
                             </dl> 
                             <dl style="margin: 0px;">
                                 <dt>결제금액</dt> 

@@ -210,4 +210,11 @@ public interface MemberService {
 	void updateListProduct(MyBag mybag);
 
 	Product OneProduct(int parseInt);
+
+	/**
+	 * 마이페이지 주문내역 상세보기
+	 * @param or_num
+	 * @return
+	 */
+	ArrayList<Mirotic> orderdetailList(int or_num);
 }

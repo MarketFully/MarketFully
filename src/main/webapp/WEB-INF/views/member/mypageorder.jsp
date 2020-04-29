@@ -173,7 +173,7 @@
 					<a href="${ after }"><img src="resources/img/arrow_right.png" alt="이전 페이지로 이동" class="prevpage_img" style="margin-left:10px"></a>
 				</c:if>
     </div>
-    </c:if>
+    </c:if> 
     </div>
    
     

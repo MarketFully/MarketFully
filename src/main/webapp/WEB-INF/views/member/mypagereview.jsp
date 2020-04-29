@@ -120,7 +120,7 @@
                 
                 	
             </ul>
-        </div>
+        </div> 
 
          <!--작성완료 후기 부분-->
         <div id="viewAfterList" style="display: none;">

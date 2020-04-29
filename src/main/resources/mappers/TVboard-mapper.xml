@@ -304,4 +304,8 @@
 		WHERE TMR_NUM=#{rId}
 	</update>
 	
+	<select id="TVheartCheck" resultType="_int">
+		SELECT COUNT(*) FROM FAVORITE WHERE MEM_NUM = #{mem_num} and MB_BO_NUM= #{mb_bo_num} and MB_NUM=#{me_num}
+	</select>
+	
 </mapper>

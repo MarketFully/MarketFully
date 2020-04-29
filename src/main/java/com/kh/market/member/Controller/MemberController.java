@@ -386,6 +386,25 @@ public class MemberController {
 		
 	}//insertCart
 	
+	@RequestMapping("mypagecart")
+	public ModelAndView mypagecart(ModelAndView mv, MyBag mybag, HttpSession session) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		System.out.println(loginUser);
+		System.out.println(mybag);
+		
+		mybag.setMem_num(loginUser.getMem_num());
+		int result = mService.mergeMypageCart(mybag);
+		
+		
+		ArrayList<MyBag> cartList = mService.selectListProduct(loginUser);
+		
+		mv.addObject("cartList",cartList);
+		mv.setViewName("member/basket");
+		
+		return mv;
+	}
+	
 	
 	//장바구니 비우기
 	@ResponseBody

@@ -66,7 +66,7 @@
                     ${orl.or_status }
                 </td>
                 <td class="action">
-                    <button type="button" class="btn btn_cart ga_tracking_event" onclick="cartLayerOpenAction()">장바구니 담기</button>
+                    <button type="button" class="btn btn_cart ga_tracking_event" onclick="cartLayerOpenAction('${orl.product.pr_name}','${orl.product.pr_code }','${orl.product.pr_price }')">장바구니 담기</button>
                 </td>
                 <td class="tdname"></td>
             </tr>
@@ -184,9 +184,11 @@
     <div id="cartPut">
         <div class="cart_option cart_type3">
             <strong class="layer_name" style="text-align: left;">상품 선택</strong> 
+            
             <div class="inner_option">
-                <button type="button" class="btn_close1 off" onclick="closebtn()">레이어닫기</button> 
-                <strong class="tit_cart" style="text-align: left;">[Dole] 실속 바나나 1.1kg</strong> 
+                <button type="button" class="btn_close1 off" onclick="closebtn()">레이어닫기</button>  
+                <form method="post" action="mypagecart">        
+                <strong class="tit_cart" style="text-align: left;" id="modalpname" name="pr_name"></strong> 
                 <div class="in_option">
                     <div class="list_goods">
                         <ul class="list list_nopackage" style="margin-bottom: 30px;">
@@ -196,15 +198,17 @@
                                         <span style="margin-right:0px;" class="txt">삭제하기</span>
                                     </button>
                                 </span> 
-                                <span style="margin-right:0px;float:none;" class="name">[Dole] 실속 바나나 1.1kg</span>
+                                <span style="margin-right:0px;float:none;" class="name" id="modalpname2"></span>
                                 <div class="option">
                                     <span style="margin-right:0px;" class="count">
                                         <button type="button" class="btn down" id="down">수량내리기</button> 
-                                        <input type="number" readonly="readonly" onfocus="this.blur()" class="inp" value="1" style="text-align: right;"> 
+                                        <input type="hidden" id="modalpcode" name="pr_code">
+                                        <input type="number" readonly="readonly" onfocus="this.blur()" class="inp" value="1" style="text-align: right;" name="pr_each"> 
                                         <button type="button" class="btn up" id="up">수량올리기</button>
                                     </span> 
                                     <span style="margin-right:0px;" class="price">
-                                        <span style="margin-right:0px;" class="dc_price">2980원</span> 
+                                        <span style="margin-right:0px;" class="dc_price" id="modalpprice" name="pr_price"></span> 
+                                        <span style="margin-right:0px;" class="dc_price">원</span> 
                                     </span>
                                 </div>
                             </li>
@@ -214,7 +218,7 @@
                         <div class="price" style="margin-bottom: 20px;">
                             <strong class="tit" style="padding: 7px;">합계</strong>
                             <span style="margin-right:0px;float: none;" class="sum">
-                                <span style="margin-right:0px;float: none;" class="num" >2980</span> 
+                                <span style="margin-right:0px;float: none;" class="num" id="modalpprice2"></span> 
                                 <span style="margin-right:0px;float: none;" class="won">원</span>
                             </span>
                         </div> 
@@ -226,16 +230,23 @@
                         <button type="button" class="txt_type" id="close" style="cursor: pointer;">취소</button>
                     </span> 
                     <span class="btn_type1" style="margin-right: 0px;">
-                        <button type="button" class="txt_type" style="cursor: pointer;">장바구니 담기</button>
+                        <input type="submit" value="장바구니 담기" class="txt_type" style="cursor: pointer;">
                     </span> 
                 </div>
+                </form>
             </div>
         </div> 
     </div>
    </div>
     <!--모달창-->
     <script>
-        function cartLayerOpenAction(){
+        function cartLayerOpenAction(pname,pcode,pprice){
+        	console.log(pname + "," + pcode + "," + pprice);
+        	$("#modalpname").text(pname);
+        	$("#modalpname2").text(pname);
+        	$("#modalpcode").val(pcode);
+        	$("#modalpprice").text(pprice);
+        	$("#modalpprice2").text(pprice);
             $(".cart_type3").show();
         }
         
@@ -254,7 +265,8 @@
         var num = $(".inp").val();
         var plusNum = Number(num) + 1;
         $(".inp").val(plusNum); 
-        var sum = 2980;
+        var sum = Number($("#modalpprice").text());
+        console.log(sum);
         var allsum = plusNum * sum;
         $(".num").html(allsum);
         });
@@ -265,7 +277,7 @@
         if(minusNum < 1){
            minusNum = 1;
         }
-        var sum = 2980;
+        var sum = Number($("#modalpprice").text());
             if(minusNum <= 0) {
                 $(".inp").val(num);
             } else {

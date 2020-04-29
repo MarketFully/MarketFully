@@ -232,5 +232,9 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectReviewheader",m);
 	}
 
+	public int mergeMypageCart(MyBag mybag) {
+		return sqlSession.insert("memberMapper.mergeMybag", mybag);
+	}
+
 
 }

@@ -231,4 +231,6 @@ public interface MemberService {
 	 * @return
 	 */
 	ArrayList<Mirotic> selectReviewheader(Member m);
+
+	int mergeMypageCart(MyBag mybag);
 }

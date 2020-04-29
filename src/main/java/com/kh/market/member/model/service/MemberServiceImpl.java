@@ -244,4 +244,9 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<Mirotic> selectReviewheader(Member m) {
 		return mDao.selectReviewheader(m);
 	}
+	
+	@Override
+	public int mergeMypageCart(MyBag mybag) {
+		return mDao.mergeMypageCart(mybag);
+	}
 }

@@ -385,7 +385,7 @@
 </body>
 
 <form id="upfrm" action="cateupload.do">
-	<input type="text" id="maincatecode" name="maincatecode"> 
+	<input type="hidden" id="maincatecode" name="maincatecode"> 
 	<input type="hidden" id="maincatename" name="maincatename"> 
 	<input type="hidden" id="maincateY-index" name="maincateY-index">
 	<input type="hidden" id="subcatecode" name="subcatecode"> 

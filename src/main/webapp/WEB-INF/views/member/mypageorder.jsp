@@ -91,9 +91,7 @@
                 <li><a href="#none" id="day3" data-year="2018">2018 년</a></li>
             </ul>
         </div> 
-        
-        ${list }
-                <ul class="list_order">
+         <ul class="list_order">
          <c:forEach var="mi" items="${ list }">
             <li>
                 <div class="date" style="text-align: left;">${mi.or_date}</div> 

@@ -96,9 +96,18 @@
 		(SEQ_RID.NEXTVAL,#{rContent},#{refBid},#{rWriter},SYSDATE,SYSDATE,DEFAULT)
 	</insert>
 	
+	<!-- 메뉴 카테고리 추가 -->
+	<insert id="inserclist" parameterType="Menu_Category">
+		INSERT INTO MENU_CATEGORY
+		VALUES (#{mc_cate_num}, #{mc_name}, 'Y')
+	</insert>
 	
-	
-	
+	<update id="deleteclist" parameterType="Menu_Category">
+		UPDATE MENU_CATEGORY
+		SET MC_STATUS = 'N'
+		WHERE MC_CATE_NUM = #{mc_cate_num}
+		AND MC_NAME = #{mc_name}
+	</update>
 	
 	
 	

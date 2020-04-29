@@ -244,5 +244,17 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	@Override
+	public int insertclist(Menu_Category menuCate) {
+		// TODO Auto-generated method stub
+		return bDao.insertclist(menuCate);
+	}
+
+	@Override
+	public int deleteclist(Menu_Category menuCate) {
+		// TODO Auto-generated method stub
+		return bDao.deleteclist(menuCate);
+	}
+
 
 }

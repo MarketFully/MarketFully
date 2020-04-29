@@ -201,7 +201,7 @@
 		    <ul class="tab" style="margin-top: 30px;">
 		    <!-- 전체 목록 -->
 		    	<li>
-		    		<form action="atvBoardList" method="post" >
+		    		<form action="atvBoardList" method="post" id="allCate">
 			    		<input type="hidden" value="0" name="mc_cate_num">
 			    		<button id="tvCateBtn" class="btn btn-default" name="allCate" style="font-family: MapoPeacefull;">전체</button>
 			    		<div class="write"> </div>
@@ -211,7 +211,7 @@
 		    	</li>
 		    	<!-- 레시피 목록 반복문으로 돌려서 카테고리를 만든다.-->
 		    	<c:forEach var="clist" items="${clist }" varStatus="status">
-			    		<li>
+			    		<li id="liTag">
 			    			<form action="atvBoardList" method="post" >
 			    				<input type="hidden" value="${clist.mc_cate_num}" name="mc_cate_num">
 			    				<button id="tvCateBtn" class="btn btn-default" style="font-family: MapoPeacefull;">${clist.mc_name }</button>
@@ -220,8 +220,13 @@
 			    		</li>
 		    		
 		    	</c:forEach>
+		    	<li>
+			    	<button id="addTvCateBtn" class="btn btn-default" name="addCate" style="font-family: MapoPeacefull;" onclick="addCate()"> + </button>
+		    	</li>
 		    </ul>
         </div>
+        
+
 
 		<div id="tab1" class="toptenTab current">
 			<table class="recipe" id="tv_recipe">
@@ -333,6 +338,7 @@
 		
 		$('#src_form').submit();
 	}
+	
 </script>
 </body>
 </html>

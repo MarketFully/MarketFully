@@ -242,6 +242,17 @@ public class BoardDao {
 	public int insertExpTVRecipe(BoardExp be) {
 		return sqlSession.insert("TVboardMapper.insertExpTVRecipe",be);
 	}
+	
+		public int insertclist(Menu_Category menuCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("TVboardMapper.insertclist", menuCate);
+	}
+
+	public int deleteclist(Menu_Category menuCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("TVboardMapper.deleteclist", menuCate);
+	}
+
 
 
 	

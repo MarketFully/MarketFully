@@ -58,4 +58,11 @@ public interface MiroticService {
 	 */
 	ArrayList<Mirotic> selectListMirotic(SHIPPING shipping);
 
+	/**
+	 * 관리자가 shipping테이블을 수정하는 메소드
+	 * @param shipping
+	 * @return
+	 */
+	int updateShipping(SHIPPING shipping);
+
 }

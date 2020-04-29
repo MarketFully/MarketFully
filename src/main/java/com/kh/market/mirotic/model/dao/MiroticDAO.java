@@ -67,4 +67,9 @@ public class MiroticDAO {
 		return (ArrayList)sqlSession.selectList("miroticMapper.selectListMirotic", shipping);
 	}
 
+	public int updateShipping(SHIPPING shipping) {
+		
+		return sqlSession.update("miroticMapper.updateShipping", shipping);
+	}
+
 }

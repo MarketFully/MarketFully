@@ -124,6 +124,14 @@
 	 	AND OR_STATUS LIKE '%'|| '결제취소' ||'%'
 	 </select>
 	 
+	 <update id="updateShipping">
+	 	UPDATE SHIPPING
+	 	SET SHIPPING_CODE = #{shipping_code}
+	 	, SHIPPING_STATUS = #{shipping_status}
+	 	WHERE OR_NUM = #{or_num}
+	 	
+	 </update>
+	 
 </mapper>
 
 

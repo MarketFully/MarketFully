@@ -113,5 +113,12 @@ public interface BoardService {
 
 	int insertProductTVRecipe(BoardProduct boardProduct);
 
+		/**
+	 * 관리자가 메뉴 카테고리에 카테고리 추가
+	 * @param menuCate
+	 * @return
+	 */
+	int insertclist(Menu_Category menuCate);
 	
+	int deleteclist(Menu_Category menuCate);
 }

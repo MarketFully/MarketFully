@@ -416,6 +416,19 @@
          var modal = document.getElementById('myModal');
          var close = document.getElementById("modalClose");
          
+	        // When the user clicks on <span> (x), close the modal
+	        close.onclick = function() {
+	            modal.style.display = "none";
+	        }
+	 
+	        // When the user clicks anywhere outside of the modal, close it
+	        window.onclick = function(event) {
+	            if (event.target == modal) {
+	                modal.style.display = "none";
+	            }
+	        }
+	        
+	        
          //장바구니 function
          function saveRecipe(){
         	 
@@ -528,17 +541,6 @@
          
          
          
-	        // When the user clicks on <span> (x), close the modal
-	        close.onclick = function() {
-	            modal.style.display = "none";
-	        }
-	 
-	        // When the user clicks anywhere outside of the modal, close it
-	        window.onclick = function(event) {
-	            if (event.target == modal) {
-	                modal.style.display = "none";
-	            }
-	        }
 	        
 	         function heartplus(){
 	        	 //var bId = ${bId};

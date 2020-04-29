@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +39,8 @@ import com.kh.market.common.Pagination_Qna;
 import com.kh.market.common.Pagination_RecipeSuggest;
 import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Member;
+import com.kh.market.mirotic.model.service.MiroticService;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 import com.kh.market.product.model.service.ProductService;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.Service.BoardService;
@@ -78,6 +81,9 @@ public class AdminController {
 	
 	@Autowired
 	private GraphService gService;
+	
+	@Autowired
+	private MiroticService mrtService;
 	
 	@RequestMapping(value="cateupload.do",method=RequestMethod.GET)
 	public ModelAndView admin_cateupload(Model mv,ModelAndView mv2,
@@ -900,5 +906,88 @@ public class AdminController {
 			
 			return renameFileName;
 		}
+		
+		
+		//배송관련 테이블 수정하는 메소드
+		@RequestMapping("updateShippingCode")
+		public ModelAndView insertShipping(ModelAndView mv, SHIPPING shipping) {
+			
+			System.out.println("-------insertShipping------------");
+			System.out.println("shipping : "+shipping);
+			
+			int result=0;
+			
+			result = mrtService.updateShipping(shipping);
+			
+			return mv;
+		}
+		
+		
+		
+		//tv레시피 카테고리 리스트를 추가하는 메소드
+		@RequestMapping("insertclist")
+		public ModelAndView insertclist(ModelAndView mv
+									, @ModelAttribute("clist") ArrayList clist
+									, Menu_Category menuCate
+									) {
+			
+			System.out.println("----------updateclist------------");
+			
+			System.out.println("현재 clist : "+ clist);
+			System.out.println("추가될 menuCate : " + menuCate);
+			int result=0;
+			
+			result = bService.insertclist(menuCate);
+			
+			if(result>0) {
+				clist = bService.TvCateList();
+			}
+			
+			System.out.println("변경된 clist :" + clist);
+			
+			mv.addObject("clist", clist);
+			
+			
+			return mv;
+		}
+		
+		
+		//tv레시피 카테고리 리스트를 삭제하는 메소드
+		@RequestMapping("deleteclist")
+		public ModelAndView deleteclist(ModelAndView mv
+									, @ModelAttribute("clist") ArrayList clist
+									, Menu_Category menuCate
+									) {
+			System.out.println("-------deleteclist-------");
+			System.out.println("현재 clist : "+clist);
+			System.out.println("삭제될 menuCate :" + menuCate);
+			
+			int result=0;
+			
+			result = bService.deleteclist(menuCate);
+			
+			if(result>0) {
+				clist = bService.TvCateList();
+			}
+			
+			System.out.println("변경된 clist :" + clist);
+			
+			mv.addObject("clist", clist);
+			
+			return mv;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	 
 }

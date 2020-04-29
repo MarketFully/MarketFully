@@ -227,4 +227,9 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mDao.OneProduct(parseInt);
 	}
+
+	@Override
+	public ArrayList<Mirotic> orderdetailList(int or_num) {
+		return mDao.orderdetailList(or_num);
+	}
 }

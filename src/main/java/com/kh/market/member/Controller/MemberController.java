@@ -516,6 +516,19 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 마이페이지 주문내역상세로 이동하는 메소드
+	@RequestMapping("orderdetail")
+	public ModelAndView orderdetailList(HttpSession session,int or_num,ModelAndView mv) { 
+		System.out.println("or_num " + or_num);
+		ArrayList<Mirotic> orlist = mService.orderdetailList(or_num);
+		  
+		  System.out.println("orlist : " + orlist);
+		  
+		  mv.addObject("orlist", orlist);
+		  mv.setViewName("member/orderdetail");
+		  return mv;
+	}
+	
 	// 마이페이지 상품후기로 이동하는 메소드
 	@RequestMapping("mypagereview")
 	 public ModelAndView mypagereviewView(HttpSession session,ModelAndView mv) { 
@@ -743,13 +756,6 @@ public class MemberController {
 
 		return "member/mypagechange";
 	}
-	
-	@RequestMapping("orderdetail")
-	public String orderdetailView() { // 마이페이지 주문내역상세로 이동하는 메소드
-
-		return "member/orderdetail";
-	}
-	
 	
 	@RequestMapping("informationchange")
 	public String informationchangeView() { // 마이페이지 개인정보수정 디테일로 이동하는 메소드

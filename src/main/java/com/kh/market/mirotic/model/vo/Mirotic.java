@@ -33,6 +33,8 @@ public class Mirotic {
 	
 	private ProductReview prdreview;
 	
+	private SHIPPING shipping;
+	
 	
 	public int getMem_num() {
 		return mem_num;
@@ -183,13 +185,22 @@ public class Mirotic {
 		this.prdreview = prdreview;
 	}
 
+	public SHIPPING getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(SHIPPING shipping) {
+		this.shipping = shipping;
+	}
+
 	@Override
 	public String toString() {
 		return "Mirotic [or_num=" + or_num + ", me_num=" + me_num + ", mb_each=" + mb_each + ", pr_code=" + pr_code
 				+ ", pr_each=" + pr_each + ", or_total=" + or_total + ", or_date=" + or_date + ", or_status="
 				+ or_status + ", sender_name=" + sender_name + ", sender_addr=" + sender_addr + ", sender_phone="
 				+ sender_phone + ", shipping_code=" + shipping_code + ", mem_num=" + mem_num + ", m=" + m + ", product="
-				+ product + ", mcate=" + mcate + ", scate=" + scate + ", prdreview=" + prdreview + "]";
+				+ product + ", mcate=" + mcate + ", scate=" + scate + ", prdreview=" + prdreview + ", shipping="
+				+ shipping + "]";
 	}
 
 	 

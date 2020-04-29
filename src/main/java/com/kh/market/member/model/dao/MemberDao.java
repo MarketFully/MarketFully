@@ -206,6 +206,7 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.reviewDeleteList",re_num);
 	}
 
+	// 마이페이지 상품 후기 작성
 	public int reviewinsert(ProductReview pr_re) {
 		return sqlSession.insert("memberMapper.reviewinsert",pr_re);
 	}
@@ -213,6 +214,12 @@ public class MemberDao {
 	public Product OneProduct(int parseInt) {
 
 		return sqlSession.selectOne("memberMapper.OneProduct", parseInt);
+	}
+
+	// 마이페이지 주문내역 상세보기
+	public ArrayList<Mirotic> orderdetailList(int or_num) {
+		System.out.println("dao주문내역" + or_num);
+		return (ArrayList)sqlSession.selectList("memberMapper.orderdetailList",or_num);
 	}
 
 

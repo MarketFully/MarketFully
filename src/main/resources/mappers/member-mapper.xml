@@ -35,8 +35,41 @@
       <result property="mem_email_agree" column="MEM_EMAIL_AGREE"/>
    </resultMap>
    
-      <resultMap id="miroticResultSet" type="Mirotic">
-      <id property="or_num" column="OR_NUM"/>
+    <resultMap id="miroticDetailResultSet" type="Mirotic">
+      <result property="or_num" column="OR_NUM"/>
+      <result property="me_num" column="MB_NUM"/>
+      <result property="mb_each" column="MB_EACH"/>
+      <result property="pr_code" column="MRPR_CODE"/>
+      <result property="pr_each" column="PR_EACH"/>
+      <result property="or_total" column="OR_TOTAL"/>
+      <result property="or_date" column="OR_DATE"/>
+      <result property="or_status" column="OR_STATUS"/>
+      <result property="sender_name" column="SENDER_NAME"/>
+      <result property="sender_addr" column="SENDER_ADDR"/>
+      <result property="sender_phone" column="SENDER_PHONE"/>
+      <result property="shipping_code" column="SHIPPING_CODE"/>
+      <result property="mem_num" column="MEM_NUM"/>
+     
+   <association javaType="Product" property="product">
+         <result property="pr_code" column="PRPR_CODE"/>
+         <result property="pr_name" column="PR_NAME"/>
+         <result property="renameFileName" column="RENAME_FILE_NAME"/>
+         <result property="pr_price" column="PR_PRICE"/>
+      </association>
+      
+     <association javaType="Shipping" property="shipping">
+       <result property="receiver_name" column="RECEIVER_NAME"/>
+       <result property="receiver_addr" column="RECEIVER_ADDR"/>
+       <result property="receiver_phone" column="RECEIVER_PHONE"/>
+       <result property="shipping_status" column="SHIPPING_STATUS"/>
+       <result property="shipping_request" column="SHIPPING_REQUEST"/>
+       <result property="or_num" column="OR_NUM"/>
+       
+    </association>
+      
+   </resultMap>
+   <resultMap id="miroticResultSet" type="Mirotic">
+      <result property="or_num" column="OR_NUM"/>
       <result property="me_num" column="MB_NUM"/>
       <result property="mb_each" column="MB_EACH"/>
       <result property="pr_code" column="PR_CODE"/>
@@ -262,10 +295,12 @@
    
    <!-- 마이페이지 주문 내역 리스트 조회 -->
    <select id="selectOrderList" resultMap="miroticResultSet">
-      SELECT MI.OR_NUM, MI.OR_TOTAL, MI.OR_STATUS, MI.OR_DATE, PR.PR_NAME, PR.ORIGINAL_FILE_NAME , MI.MEM_NUM
+       SELECT *
       FROM MIROTIC MI
       LEFT JOIN PRODUCT PR
       ON MI.PR_CODE = PR.PR_CODE
+      WHERE OR_STATUS LIKE '입금확인'
+      ORDER BY OR_NUM DESC
       
    </select>
    
@@ -392,27 +427,48 @@ WHERE MEM_NAME like '%' || #{mkeyword} || '%'
 		SET RE_STATUS='N'
 		WHERE RE_NUM = #{re_num}
 	</update>
-	
-	
+		
 	<!-- 마이페이지 후기 작성 -->
 	<insert id="reviewinsert" parameterType="ProductReview">
 		INSERT INTO REVIEW
 		VALUES(#{prcode},SEQ_RE_NUM.NEXTVAL,#{re_title},#{re_writer},#{re_content},0,0,'Y',#{re_orign},#{re_rename},SYSDATE,#{mem_num},#{or_num})
-	</insert>
-	
-	
+	</insert>	
 	
    <select id="OneProduct" parameterType="_int" resultType="Product">
    		SELECT * FROM PRODUCT
 		WHERE PR_CODE = #{value}
+   </select>	
+	
+	<!-- 마이페이지 주문 내역 리스트 조회 -->
+   <select id="orderdetailList" resultMap="miroticDetailResultSet">
+		 SELECT 
+		MIROTIC.OR_NUM,
+		MB_NUM,
+		MB_EACH,
+		PR_EACH,
+		OR_TOTAL,
+		OR_DATE,
+		OR_STATUS,
+		SENDER_NAME ,
+		SENDER_ADDR, 
+		SENDER_PHONE ,
+		MIROTIC.SHIPPING_CODE ,
+		MIROTIC.PR_CODE MRPR_CODE,
+		PRODUCT.PR_CODE PRPR_CODE,
+		PR_NAME ,
+		PR_PRICE,
+		RENAME_FILE_NAME,
+		RECEIVER_NAME,
+		RECEIVER_ADDR,
+		RECEIVER_PHONE,
+		SHIPPING_REQUEST,
+		SHIPPING_STATUS,
+		SHIPPING.OR_NUM
+		FROM MIROTIC
+		JOIN PRODUCT ON MIROTIC.PR_CODE = PRODUCT.PR_CODE
+		LEFT JOIN SHIPPING ON MIROTIC.OR_NUM = SHIPPING.OR_NUM
+		WHERE MIROTIC.OR_NUM=#{or_num}   
    </select>
-	
-	
-	
-	
-	
-	
-	
 </mapper>
 
 

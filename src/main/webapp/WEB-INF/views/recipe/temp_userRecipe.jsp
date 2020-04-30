@@ -239,6 +239,9 @@
 	                    	<input type="hidden" name="mc_cate_num" value="${ 101 }">
 	        				<input type="text" name="src_input" class="tbox" placeholder="검색어를 입력해주세요" id="keyword">
 	        				<a href="javascript:SearchBtn()" class="btn_srch">검색</a>
+	        				<c:if test="${ !empty sessionScope.loginUser }">
+	        				<a href="recipeinsertpage" class="write_btn" style="margin-top: 0">레시피 작성</a>
+	        				</c:if>
         				 </form> 
     				</fieldset>
             </div>

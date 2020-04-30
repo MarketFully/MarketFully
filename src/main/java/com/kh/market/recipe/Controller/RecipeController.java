@@ -27,6 +27,7 @@ import com.kh.market.admin.model.vo.MainCategory;
 import com.kh.market.admin.model.vo.SubCategory;
 import com.kh.market.common.Pagination;
 import com.kh.market.member.model.vo.Favorite;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 import com.kh.market.product.model.vo.Product;
 import com.kh.market.recipe.model.Service.BoardService;
 import com.kh.market.recipe.model.vo.Board;
@@ -677,6 +678,17 @@ public class RecipeController {
 			}
 		}
 		
+	}
+	
+	@RequestMapping("shippingtrace")
+	public ModelAndView shiptrace(ModelAndView mv) {
+		System.out.println("shippingtrace controller 시작");
+		ArrayList<SHIPPING> splist = bService.shippinglist();
+		System.out.println("쉬핑 리스트 : " + splist);
+		mv.addObject("splist", splist);
+		mv.setViewName("admin/trace2");
+		
+		return mv;
 	}
 
 }

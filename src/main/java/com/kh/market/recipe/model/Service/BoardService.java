@@ -3,6 +3,7 @@ package com.kh.market.recipe.model.Service;
 import java.util.ArrayList;
 
 import com.kh.market.member.model.vo.Favorite;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardExp;
 import com.kh.market.recipe.model.vo.BoardProduct;
@@ -121,4 +122,6 @@ public interface BoardService {
 	int insertclist(Menu_Category menuCate);
 	
 	int deleteclist(Menu_Category menuCate);
+	
+	ArrayList<SHIPPING> shippinglist();
 }

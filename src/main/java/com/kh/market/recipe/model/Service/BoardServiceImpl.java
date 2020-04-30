@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.market.member.model.vo.Favorite;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 import com.kh.market.recipe.model.dao.BoardDao;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardExp;
@@ -254,6 +255,12 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteclist(Menu_Category menuCate) {
 		// TODO Auto-generated method stub
 		return bDao.deleteclist(menuCate);
+	}
+	
+	@Override
+	public ArrayList<SHIPPING> shippinglist() {
+		
+		return bDao.shippinglist();
 	}
 
 

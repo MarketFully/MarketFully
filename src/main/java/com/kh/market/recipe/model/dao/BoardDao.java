@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.market.member.model.vo.Favorite;
+import com.kh.market.mirotic.model.vo.SHIPPING;
 import com.kh.market.recipe.model.vo.Board;
 import com.kh.market.recipe.model.vo.BoardExp;
 import com.kh.market.recipe.model.vo.BoardProduct;
@@ -252,6 +253,11 @@ public class BoardDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("TVboardMapper.deleteclist", menuCate);
 	}
+	public ArrayList<SHIPPING> shippinglist() {
+		
+		return (ArrayList)sqlSession.selectList("USERboardMapper.shippinglist");
+	}
+
 
 
 

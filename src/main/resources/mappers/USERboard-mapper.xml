@@ -127,6 +127,19 @@
    </association>
       
    </resultMap>
+   
+    <resultMap type="Shipping" id="SHIPPINGResultMap">
+		<id property="shipping_code" column="SHIPPING_CODE"/>
+		<result property="shipping_status" column="SHIPPING_STATUS"/>
+		<result property="shipping_price" column="SHIPPING_PRICE"/>
+		<result property="receiver_name" column="RECEIVER_NAME"/>
+		<result property="receiver_addr" column="RECEIVER_ADDR"/>
+		<result property="receiver_phone" column="RECEIVER_PHONE"/>
+		<result property="ship_code" column="SHIP_CODE"/>
+		<result property="shipping_request" column="SHIPPING_REQUEST"/>
+		<result property="shipping_date" column="SHIPPING_DATE"/>
+		<result property="or_num" column="OR_NUM"/>
+	</resultMap>
 	
 	<select id="selectOneProduct" resultMap="productResultMap">
 		SELECT * FROM PRODUCT
@@ -304,5 +317,10 @@
 	
 	<select id="USERheartChek" resultType="_int">
 		SELECT COUNT(*) FROM FAVORITE WHERE MEM_NUM = #{mem_num} and MB_BO_NUM= #{mb_bo_num} and MB_NUM=#{me_num}
+	</select>
+	
+	<select id="shippinglist" resultMap="SHIPPINGResultMap">
+		SELECT *
+		FROM SHIPPING
 	</select>
 </mapper>

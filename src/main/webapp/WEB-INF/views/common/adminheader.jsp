@@ -30,7 +30,12 @@
                              <span class="bar"> | </span>
                                     <li class="C2" style="cursor: pointer;" onclick="location.href='admincategory'">카테고리 관리</li>
                                     <span class="bar"> | </span>
-                                    <li class="C3" style="cursor: pointer;"  onclick="location.href='adminmodify_user'">사용자 관리</li>
+                                    <li class="C1"><a href="adminmodify_user"><span></span>사용자 관리</a>
+                                        <ul class="All">
+                                            <li><a href="adminmodify_user">회원 관리</a></li>
+                                            <li><a href="shippingtrace">배송 관리</a></li>
+                                        </ul>
+                                    </li>
                                     <span class="bar"> | </span>
                                     <li class="C4" style="cursor: pointer;" onclick="location.href='aUSERrecipe'">사용자 레시피</li>
                                     <span class="bar"> | </span>

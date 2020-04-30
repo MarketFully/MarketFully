@@ -353,7 +353,7 @@
                             <div class="recipeItem" name="step" id="test1">
                                 <button style="width: 20px; height: 20px;" name="deletestep" style="border: none; "
                                     class="deletestep"></button>
-                                <p class="recipeNum">Step1</p>
+                                <p class="recipeNum">Step</p>
                                 <div id="divStepText" style="display:inline-block">
                                     <textarea name="content" id="step_text" class="formControl_step"
                                         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>

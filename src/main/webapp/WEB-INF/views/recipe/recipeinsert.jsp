@@ -357,6 +357,7 @@
                                 <div id="divStepText" style="display:inline-block">
                                     <textarea name="content" id="step_text" class="formControl_step"
                                         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
+                                     <textarea name="content" style="display: none">&&</textarea>
                                 </div>
                                 <div id="divStepUpload" style="display:inline-block">
                                     <div id="5" is_over="0">

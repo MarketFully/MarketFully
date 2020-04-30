@@ -235,7 +235,9 @@
                 )
                 </h4>
                 </div>
+                <c:if test="${ !empty sessionScope.loginUser }">
                 <div class="write"><input type="submit" value="레시피 작성" class="write_btn" onclick="location.href='recipeinsertpage'"> </div>
+                </c:if>
             </div>
         </div>
     </div>

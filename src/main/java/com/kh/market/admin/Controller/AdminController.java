@@ -183,13 +183,13 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		
 		ArrayList<BoardProduct> bplist = new ArrayList<BoardProduct>();
 		
-		
+		System.out.println("file : " + file);
 		
 		if(!file.getOriginalFilename().equals("")) {
 			// 서버에 업로드
 			// saveFile메소드 : 내가 저장하고자하는 file과 request를 전달하여 서버에 업로드 시키고 그 저장된 파일명을 반환해주는 메소드
 			
-			String renameFileName = saveFile2(file,request);
+			String renameFileName = saveFile2(file,request, 0);
 			
 			if(renameFileName != null) {
 				b.setMb_origin(file.getOriginalFilename());// DB에는 파일명 저장
@@ -197,7 +197,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			}
 		}
 		System.out.println("레시피 작성 b : " + b);
-		int result = bService.insertTVRecipe(b);
+		int result = bService.insertRecipe(b);
 		//------------------------------------------------------
 		String[] pcodelist = pcode.split(",");
 		String[] peachlist = peach.split(",");
@@ -208,7 +208,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			
 			System.out.println(bplist);
 			
-			int result2 = bService.insertProductTVRecipe(bplist.get(i));
+			int result2 = bService.insertProductRecipe(bplist.get(i));
 		}
 		
 		
@@ -219,22 +219,25 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			System.out.println(filea.getOriginalFilename());
 			if(!filea.getOriginalFilename().equals("")) {
 				
-				String renameFileName = saveFile(filea,request);
+				String renameFileName = saveFile2(filea,request, i);
 				
 				if(renameFileName != null) {
 					be.setContent(beContent[i-1]);
 					be.setOrigin(filea.getOriginalFilename());// DB에는 파일명 저장
 					be.setRename(renameFileName);
 					be.setSeq(i);
-					System.out.println("%%%%%%%%%%%%%%%%% be : " + be);
-					int result3 = bService.insertExpTVRecipe(be);
+					int result3 = bService.insertExpRecipe(be);
 					System.out.println("레시피 작성 be : " + be);
 					i++;
 				}
 				
 			}
 		}
-		return "recipe/temp_userRecipe";
+		if(result > 0) {
+			return "redirect:atvSearchList";
+		}else {
+			return "common/errorPage";
+		}
 	}
 	
 	@RequestMapping("adminmaingraph")
@@ -918,21 +921,21 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			return renameFileName;
 		}
 		
-		public String saveFile2(MultipartFile file, HttpServletRequest request) {
-			String root = request.getSession().getServletContext().getRealPath("resources");
+		public String saveFile2(MultipartFile file, HttpServletRequest request,int i) {
+String root = request.getSession().getServletContext().getRealPath("resources");
 			
-			String savePath = root + "\\img\\tvRecipe";
+			String savePath = root + "\\/img/TvRecipe";
 			
 			File folder = new File(savePath);
 			
 			if(!folder.exists()) {
-				folder.mkdir(); // 
+				folder.mkdir(); // 폴더가 없다면 생성해주세요
 			}
 			
 			String originFileName = file.getOriginalFilename();
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "SEQ"+i +"."
 							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 			
 			System.out.println("renameFileName : " + renameFileName);
@@ -940,9 +943,9 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			String renamePath = folder + "\\"+ renameFileName;
 			
 			try {
-				file.transferTo(new File(renamePath)); 
+				file.transferTo(new File(renamePath)); // 이때 전달받은 file이 rename명으로 저장이된다.
 			}catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println("파일 전송 에러 : " + e.getMessage());
 			} 
 			
 			return renameFileName;

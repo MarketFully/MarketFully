@@ -171,9 +171,9 @@
                                 
                                 <li>
                                 	<table style="width:100%;" id="l_table">
-                                		<thead>
+                                		<thead style="text-align: inherit;">
 	                                		<tr>
-	                                			<th class="col" style="width:340px;">상품</th>
+	                                			<th class="col" style="width:340px;" style="width: 800px;">상품</th>
 	                                			<th class="col" style="width:100px;">가격</th>
 	                                			<th class="col" style="width:100px;">수량</th>
 	                                		</tr>

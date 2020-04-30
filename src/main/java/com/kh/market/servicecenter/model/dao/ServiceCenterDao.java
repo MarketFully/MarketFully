@@ -121,8 +121,6 @@ public class ServiceCenterDao {
 
 	// 레시피 제안 수정
 	public int recipeSuggestUpdateBoard(ServiceCenterRecipeSuggestBoard rcb) {
-		System.out.println("sDao");
-		System.out.println(rcb);
 		return sqlSession.update("NoticeboardMapper.updateSuggestWrite", rcb);
 	}
 
@@ -176,7 +174,6 @@ public class ServiceCenterDao {
 	
 	// QNA 댓글 삭제 
 	public int qnadeleteReply(ServiceCenterQnaReply qr) {
-		System.out.println(qr);
 		return sqlSession.delete("ServiceCenterMapper.qnadeleteReply",qr);
 	}
 	// 공지사항 등록

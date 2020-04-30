@@ -48,7 +48,6 @@ public class HomeController {
 		ArrayList<Board> mainrandomlist2 = bService.MainRandomselectList2(); // 최근 뜨는 레시피
 		ArrayList<Product> mainRankProduct = pService.mainrankproduct();//상품 판매순위 4개
 
-		//System.out.println("sikim mainrandomlist : " + mainrandomlist);
 		mv.addObject("mainrandomlist", mainrandomlist);
 		mv.addObject("mainrandomlist2", mainrandomlist2);
 		mv.addObject("mainRankProduct",mainRankProduct);

@@ -38,7 +38,6 @@ public class MemberServiceImpl implements MemberService{
 	// 아이디 중복 체크
 	@Override
 	public int idCheck(String mem_id) {
-		System.out.println(mem_id);
 		return mDao.idCheck(mem_id);
 
 	}

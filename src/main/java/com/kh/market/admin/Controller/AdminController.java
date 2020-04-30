@@ -115,8 +115,6 @@ public class AdminController {
 							tempmc.get(j).getRenamefilename()); break;
 				} 
 			}
-			//System.out.println("catecode : " + maincodearr[i] + ", catename :  " + mainnamearr[i]);
-			System.out.println(c);
 			int mainupdate = cService.updateCategory(c);
 			
 			
@@ -128,9 +126,6 @@ public class AdminController {
 		String[] parentmaincodearr = parentmaincode.split(",");
 		String[] subcateY_indexarr = subcateY_index.split(",");
 		
-		System.out.println(subcatecodearr);
-		System.out.println(subcatenamearr);
-		System.out.println(parentmaincodearr);
 		
 		int delsubcate = cService.deleteSubCategory();
 
@@ -141,7 +136,6 @@ int updatesub = cService.updatesubCategory(sc2);
 
 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 	ArrayList<SubCategory> sc = cService.selectSubCategoryList();
-				System.out.println(mc.toString());
 				//maincatearr.add()
 				if(mc!=null) {
 					mv2.addObject("maincate", mc) //筌롫뗄�뵥燁삳똾�믤�⑥쥓�봺
@@ -178,12 +172,9 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			@RequestParam(name="mainImg",required=false) MultipartFile file,
 			@RequestBody ArrayList<MultipartFile> subImg){ //유저 레시피 작성 (DB)
 		
-		System.out.println("RecipeController pcode? : " + pcode);
-		System.out.println("RecipeController peach? : " + peach);
 		
 		ArrayList<BoardProduct> bplist = new ArrayList<BoardProduct>();
 		
-		System.out.println("file : " + file);
 		
 		if(!file.getOriginalFilename().equals("")) {
 			// 서버에 업로드
@@ -196,8 +187,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 				b.setMb_rename(renameFileName);
 			}
 		}
-		System.out.println("레시피 작성 b : " + b);
-		int result = bService.insertRecipe(b);
+		int result = bService.insertTVRecipe(b);
 		//------------------------------------------------------
 		String[] pcodelist = pcode.split(",");
 		String[] peachlist = peach.split(",");
@@ -206,9 +196,8 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			int peachint = Integer.parseInt(peachlist[i]);
 			bplist.add(new BoardProduct(0,pcodeint,peachint));
 			
-			System.out.println(bplist);
 			
-			int result2 = bService.insertProductRecipe(bplist.get(i));
+			int result2 = bService.insertProductTVRecipe(bplist.get(i));
 		}
 		
 		
@@ -216,15 +205,12 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		String[] beContent = be.getContent().split(",&&,");
 		int i = 1;
 		for(MultipartFile filea : subImg) {
-			System.out.println(filea.getOriginalFilename());
 			if(!filea.getOriginalFilename().equals("")) {
 				
 				String renameFileName = saveFile2(filea,request, i);
 				
 				if(renameFileName != null) {
-					System.out.println("서브이비지 사이즈 : " + subImg.size());
 					if(subImg.size() == i) {
-						System.out.println("아무거나 치고 : " +(beContent[i-1].length()-3));
 						be.setContent(beContent[i-1].substring(0,(beContent[i-1].length()-3)));
 					}else {
 						be.setContent(beContent[i-1]);
@@ -232,8 +218,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 					be.setOrigin(filea.getOriginalFilename());// DB에는 파일명 저장
 					be.setRename(renameFileName);
 					be.setSeq(i);
-					int result3 = bService.insertExpRecipe(be);
-					System.out.println("레시피 작성 be : " + be);
+					int result3 = bService.insertExpTVRecipe(be);
 					i++;
 				}
 				
@@ -289,7 +274,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 				gv.setPrice(pricelist.get(j).getPrice());	
 				j++;
 			}
-			System.out.println(gv);
 			sendlist.add(gv);
 			
 		}
@@ -342,7 +326,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		 
 		 ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		ArrayList<SubCategory> sc = cService.selectSubCategoryList();
-			System.out.println(mc.toString());
 			//maincatearr.add()
 			if(mc!=null) {
 				mv.addObject("maincate", mc) //筌롫뗄�뵥燁삳똾�믤�⑥쥓�봺
@@ -355,17 +338,14 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		public ModelAndView recipeSuggestView(ModelAndView mv,
 											  @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 
-			System.out.println("currentPage : " + currentPage);
 
 			int RSlistCount = sService.getRSlistCountRecipeSuggest();
 
-			System.out.println("RSlistCount : " + RSlistCount);
 
 			ServiceCenterRecipeSuggestPageInfo rpi = Pagination_RecipeSuggest.getRecipeSuggestPageInfo(currentPage,
 					RSlistCount);
 
 			ArrayList<ServiceCenterRecipeSuggestBoard> RSlist = sService.RecipeSuggestSelectList(rpi);
-			System.out.println("RSlist : " + RSlist);
 
 			for (int i = 0; i < RSlist.size(); i++) {
 				String[] strArr = RSlist.get(i).getRb_date().split(" ");
@@ -455,17 +435,14 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 	  public ModelAndView adminprodutct_ListView(ModelAndView mv,
 			  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { 
 		  
-		  System.out.println(currentPage);
 		  
 		  int listCount=pService.getListCount();
 		  
-		  System.out.println("listCount = " + listCount);
 		  
 		  AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
 		  
 		  ArrayList<Product> list = pService.getProductList(pi);
 		  
-		  System.out.println(list);
 		  
 		  if(list!=null) {
 			  mv.addObject("list",list)
@@ -482,12 +459,10 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			System.out.println("@@@@ currentPage : "+ currentPage);
 			
 			int listCount = sService.getListCountNotice();
-			System.out.println("NOTICE BOARD listCount : " + listCount);
 			
 			ServiceCenterNoticePageInfo pi = Pagination_Notice.getPageInfo(currentPage,listCount);
 			
 			ArrayList<ServiceCenterNoticeBoard> list = sService.NoticeselectList(pi);
-			System.out.println("list : " + list);
 			
 			mv.addObject("list", list);
 			mv.addObject("pi",pi);
@@ -591,7 +566,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 	  
 	  @RequestMapping("adminupdateuser")
 	  public ModelAndView adminupdateuser(ModelAndView mv , Member m) {
-		  System.out.println(m);
 		  if(m.getMem_pwd().equals("")) {
 			  m.setMem_pwd(
 			  mService.selectmember(
@@ -627,7 +601,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			  mlist = mService.searchmemnamepaging(mkeyword,pi);
 		  }
 		  
-		  System.out.println(mlist);
 		  
 		  mv.addObject("list",mlist)
 		  .addObject("pi",pi)
@@ -639,14 +612,11 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 	  @RequestMapping("adminqna")
 		public ModelAndView QNAViewView(ModelAndView mv,
 										@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //怨좉컼�꽱�꽣 QNA硫붿씤�쑝濡� �씠�룞�븯�뒗 硫붿냼�뱶
-			System.out.println("@@@@ currentPage : "+ currentPage);
 			int listCount = sService.getListCountQna();
-			System.out.println("QNA BOARD listCount : " + listCount);
 			
 			ServiceCenterQnaPageInfo pi = Pagination_Qna.getPageInfo(currentPage,listCount);
 			
 			ArrayList<ServiceCenterQnaBoard> list = sService.QnaselectList(pi);
-			System.out.println("list : " + list);
 			
 			mv.addObject("list", list);
 			mv.addObject("pi",pi);
@@ -664,9 +634,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		  mv.addObject("clist", clist);
 		  
 		  
-		  	System.out.println("tvCateList입니다.----------------");
 			int listCount = bService.getTvListCount(mc_cate_num);
-			System.out.println("listCount : "+ listCount);
 			
 			int currentPage = 1;
 			
@@ -674,7 +642,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		  
 		  ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
 		  
-		  System.out.println("blist : "+ blist);
 		  
 		  mv.addObject("blist", blist);
 		  
@@ -704,17 +671,12 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 				
 			}else {
 				//전체 페이지
-				System.out.println("tvBoardList입니다.----------------");
 				int listCount = bService.getTvListCount(mc_cate_num);
-				System.out.println("listCount : "+ listCount);
 				
 				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 				
 				ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
 				
-				System.out.println("blist : "+ blist);
-				System.out.println("mc_cate_num : "+ mc_cate_num);
-				System.out.println("pi : "+pi);
 				mv.addObject("blist",blist);
 				mv.addObject("mc_cate_num", mc_cate_num);
 				mv.addObject("pi",pi);
@@ -739,9 +701,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 
 			SearchInfo si = new SearchInfo();
 			
-			System.out.println("mc_cate_num "+mc_cate_num);
-			System.out.println("src_cate "+src_cate);
-			System.out.println("src_input "+src_input);
 			
 			si.setMc_cate_num(mc_cate_num);
 			si.setSrc_cate(src_cate);
@@ -750,7 +709,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			
 			int listCount = bService.getTvSearchListCount(si);
 			
-			System.out.println("listCount : "+ listCount);
 			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
@@ -773,11 +731,9 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		public ModelAndView recipeDetailView(ModelAndView mv, int bId,
 				@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage, String TvOrUser) { //레시피 자세히 보는 페이지로 이동하는 메소드
 			
-			System.out.println("TvOrUser : " + TvOrUser);
 			
 			if(TvOrUser.equals("user")) {
 				Board b = bService.USERselectBoard(bId);
-				System.out.println("@@@@ b : " + b);
 				if(b != null) {
 					mv.addObject("b",b).addObject("me_num", 2)
 					  .addObject("currentPage",currentPage)
@@ -790,7 +746,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 				}
 			}else {
 				Board b = bService.TVselectBoard(bId);
-				System.out.println("@@@@ b : " + b);
 				if(b != null) {
 					mv.addObject("b",b).addObject("me_num", 1)
 					  .addObject("currentPage",currentPage)
@@ -809,7 +764,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		
 		@RequestMapping("aUSERrecipe") // 사용자 레시피 2
 		public ModelAndView recipeUserView(ModelAndView mv) { 
-			System.out.println("contorler");
 			
 			ArrayList<Board> kolist = bService.UserselectList_ko();
 			ArrayList<Board> enlist = bService.UserselectList_en();
@@ -837,12 +791,9 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 				
 				) {	
 			// 시작
-			System.out.println("userSearchList입니다.----------------");
 			
 			SearchInfo si = new SearchInfo();
 			
-			System.out.println("mc_cate_num "+mc_cate_num);
-			System.out.println("src_input "+src_input);
 			
 			si.setMc_cate_num(mc_cate_num);
 			si.setSrc_input(src_input);
@@ -850,7 +801,6 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			
 			int listCount = bService.getUserSearchListCount(si);
 			
-			System.out.println("listCount : "+ listCount);
 			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
@@ -914,14 +864,12 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
 							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 			
-			System.out.println("renameFileName : " + renameFileName);
 			
 			String renamePath = folder + "\\"+ renameFileName;
 			
 			try {
 				file.transferTo(new File(renamePath)); 
 			}catch (Exception e) {
-				System.out.println(e.getMessage());
 			} 
 			
 			return renameFileName;
@@ -944,14 +892,12 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "SEQ"+i +"."
 							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 			
-			System.out.println("renameFileName : " + renameFileName);
 			
 			String renamePath = folder + "\\"+ renameFileName;
 			
 			try {
 				file.transferTo(new File(renamePath)); // 이때 전달받은 file이 rename명으로 저장이된다.
 			}catch (Exception e) {
-				System.out.println("파일 전송 에러 : " + e.getMessage());
 			} 
 			
 			return renameFileName;
@@ -962,10 +908,6 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 		@RequestMapping("updateShippingCode")
 		public ModelAndView insertShipping(ModelAndView mv, int or_num33, String shipping_status, int shipping_code) {
 			
-			System.out.println("-------insertShipping------------");
-			System.out.println("int or_num33 : " + or_num33);
-			System.out.println("shipping_code : " + shipping_code);
-			System.out.println("shipping_status : "+shipping_status);
 			
 			SHIPPING sh = new SHIPPING();
 			
@@ -995,10 +937,7 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 									, Menu_Category menuCate
 									) {
 			
-			System.out.println("----------updateclist------------");
 			
-			System.out.println("현재 clist : "+ clist);
-			System.out.println("추가될 menuCate : " + menuCate);
 			int result=0;
 			
 			result = bService.insertclist(menuCate);
@@ -1007,7 +946,6 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 				clist = bService.TvCateList();
 			}
 			
-			System.out.println("변경된 clist :" + clist);
 			
 			mv.addObject("clist", clist);
 			
@@ -1022,9 +960,6 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 									, @ModelAttribute("clist") ArrayList clist
 									, Menu_Category menuCate
 									) {
-			System.out.println("-------deleteclist-------");
-			System.out.println("현재 clist : "+clist);
-			System.out.println("삭제될 menuCate :" + menuCate);
 			
 			int result=0;
 			
@@ -1034,7 +969,6 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 				clist = bService.TvCateList();
 			}
 			
-			System.out.println("변경된 clist :" + clist);
 			
 			mv.addObject("clist", clist);
 			

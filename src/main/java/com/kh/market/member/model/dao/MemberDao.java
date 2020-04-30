@@ -45,13 +45,11 @@ public class MemberDao {
 	
 	// 회원 탈퇴 
 	public int deleteMember(String id) {
-		System.out.println(id);
 		return sqlSession.delete("memberMapper.deleteMember",id);
 	}
 	
 	// 회원 정보 수정
 	public int updateMember(Member m) {
-		System.out.println(m);
 		if(m.getMem_status()==null) {
 			return sqlSession.update("memberMapper.updateMember",m);			
 		}else {
@@ -125,7 +123,6 @@ public class MemberDao {
 		for(MyBag mybag : cartList) {
 			result += sqlSession.insert("memberMapper.mergeMybag", mybag);
 		}
-		System.out.println("mDao setMyBagList result : "+result);
 		return result;
 	}
 
@@ -197,7 +194,6 @@ public class MemberDao {
 
 	// 마이페이지 루기 리스트
 	public ArrayList<Mirotic> selectlistMirotic(Member loginUser) {
-		System.out.println("dao :" + loginUser);
 		return (ArrayList)sqlSession.selectList("memberMapper.selectlistMirotic",loginUser);
 	}
 
@@ -218,7 +214,6 @@ public class MemberDao {
 
 	// 마이페이지 주문내역 상세보기
 	public ArrayList<Mirotic> orderdetailList(int or_num) {
-		System.out.println("dao주문내역" + or_num);
 		return (ArrayList)sqlSession.selectList("memberMapper.orderdetailList",or_num);
 	}
 

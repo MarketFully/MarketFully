@@ -96,7 +96,6 @@ public class BoardDao {
 	}
 	
 	public Board USERselectBoard(int bId) {
-		System.out.println(bId);
 		return sqlSession.selectOne("USERboardMapper.selectBoard",bId);
 	}
 	
@@ -221,7 +220,6 @@ public class BoardDao {
 	}
 	
 	public int USERheartChek(Favorite f) {
-		System.out.println("sikim heart check : " + f);
 		return sqlSession.selectOne("USERboardMapper.USERheartChek",f);
 	}
 

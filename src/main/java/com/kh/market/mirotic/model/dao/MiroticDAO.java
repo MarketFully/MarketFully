@@ -26,7 +26,6 @@ public class MiroticDAO {
 	}
 
 	public int selectOneMirotic(Mirotic mirotic) {
-		System.out.println("selectOneMirotic value : "+ mirotic);
 		return sqlSession.selectOne("miroticMapper.selectOneMirotic", mirotic);
 	}
 
@@ -34,15 +33,12 @@ public class MiroticDAO {
 		// TODO Auto-generated method stub
 		int result=0;
 		
-		System.out.println("updateMiroticSuccess result mrt : "+mrt);
 		
 		result=sqlSession.update("miroticMapper.updateMiroticSuccess", mrt);
 		
-		System.out.println("updateMiroticSuccess result mrt : "+mrt);
 		
 		result=sqlSession.update("miroticMapper.updateProductEntity", mrt);
 		
-		System.out.println("updateMiroticSuccess result : "+ result);
 		
 		return result;
 	}
@@ -65,7 +61,6 @@ public class MiroticDAO {
 
 	public int insertShipping(SHIPPING shipping) {
 		
-		System.out.println("shipping : "+ shipping);
 		return sqlSession.insert("miroticMapper.insertShipping",shipping);
 	}
 

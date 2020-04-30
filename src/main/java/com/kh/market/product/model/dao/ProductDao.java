@@ -44,7 +44,6 @@ public class ProductDao {
 	}
 	
 	public ArrayList<Product> getfourProductList(String maincate) {
-		System.out.println(maincate);
 		return (ArrayList)sqlSession.selectList("ProductMapper.selectfourlist",maincate);
 	}
 

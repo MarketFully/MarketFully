@@ -90,7 +90,6 @@ public class RecipeController {
 			
 			m.addAttribute("subcatelist_product",subcatelist_product);
 			
-			System.out.println("피알코드 보내기"+subcatelist_product);
 			Gson gson = new GsonBuilder().create();
 			
 			gson.toJson(subcatelist_product,response.getWriter());
@@ -105,12 +104,9 @@ public class RecipeController {
 				@RequestParam(name="mainImg",required=false) MultipartFile file,
 				@RequestBody ArrayList<MultipartFile> subImg){ //유저 레시피 작성 (DB)
 			
-			System.out.println("RecipeController pcode? : " + pcode);
-			System.out.println("RecipeController peach? : " + peach);
 			
 			ArrayList<BoardProduct> bplist = new ArrayList<BoardProduct>();
 			
-			System.out.println("file : " + file);
 			
 			if(!file.getOriginalFilename().equals("")) {
 				// 서버에 업로드
@@ -123,7 +119,6 @@ public class RecipeController {
 					b.setMb_rename(renameFileName);
 				}
 			}
-			System.out.println("레시피 작성 b : " + b);
 			int result = bService.insertRecipe(b);
 			//------------------------------------------------------
 			String[] pcodelist = pcode.split(",");
@@ -133,7 +128,6 @@ public class RecipeController {
 				int peachint = Integer.parseInt(peachlist[i]);
 				bplist.add(new BoardProduct(0,pcodeint,peachint));
 				
-				System.out.println(bplist);
 				
 				int result2 = bService.insertProductRecipe(bplist.get(i));
 			}
@@ -143,15 +137,12 @@ public class RecipeController {
 			String[] beContent = be.getContent().split(",&&,");
 			int i = 1;
 			for(MultipartFile filea : subImg) {
-				System.out.println(filea.getOriginalFilename());
 				if(!filea.getOriginalFilename().equals("")) {
 					
 					String renameFileName = saveFile(filea,request, i);
 					
 					if(renameFileName != null) {
-						System.out.println("서브이비지 사이즈 : " + subImg.size());
 						if(subImg.size() == i) {
-							System.out.println("아무거나 치고 : " +(beContent[i-1].length()-3));
 							be.setContent(beContent[i-1].substring(0,(beContent[i-1].length()-3)));
 						}else {
 							be.setContent(beContent[i-1]);
@@ -160,7 +151,6 @@ public class RecipeController {
 						be.setRename(renameFileName);
 						be.setSeq(i);
 						int result3 = bService.insertExpRecipe(be);
-						System.out.println("레시피 작성 be : " + be);
 						i++;
 					}
 					
@@ -192,14 +182,12 @@ public class RecipeController {
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "SEQ"+i +"."
 							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 			
-			System.out.println("renameFileName : " + renameFileName);
 			
 			String renamePath = folder + "\\"+ renameFileName;
 			
 			try {
 				file.transferTo(new File(renamePath)); // 이때 전달받은 file이 rename명으로 저장이된다.
 			}catch (Exception e) {
-				System.out.println("파일 전송 에러 : " + e.getMessage());
 			} 
 			
 			return renameFileName;
@@ -256,9 +244,7 @@ public class RecipeController {
 	  mv.addObject("clist", clist);
 	  
 	  
-	  	System.out.println("tvCateList입니다.----------------");
 		int listCount = bService.getTvListCount(mc_cate_num);
-		System.out.println("listCount : "+ listCount);
 		
 		int currentPage = 1;
 		
@@ -266,7 +252,6 @@ public class RecipeController {
 	  
 	  ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
 	  
-	  System.out.println("blist : "+ blist);
 	  
 	  mv.addObject("blist", blist);
 	  
@@ -296,17 +281,12 @@ public class RecipeController {
 			
 		}else {
 			//전체 페이지
-			System.out.println("tvBoardList입니다.----------------");
 			int listCount = bService.getTvListCount(mc_cate_num);
-			System.out.println("listCount : "+ listCount);
 			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			ArrayList<Board> blist = bService.TvBoardList(pi, mc_cate_num);
 			
-			System.out.println("blist : "+ blist);
-			System.out.println("mc_cate_num : "+ mc_cate_num);
-			System.out.println("pi : "+pi);
 			mv.addObject("blist",blist);
 			mv.addObject("mc_cate_num", mc_cate_num);
 			mv.addObject("pi",pi);
@@ -332,17 +312,12 @@ public class RecipeController {
 		//예외 처리 (오류페이지는 없으니까 처리 안함)
 //		if(src_input.equals("")) {
 //			//값이 ""없으면 그냥 전체 리스트를 띄운다.
-//			System.out.println("tvSearchList입니다. 공백으로 인해 전체 리스트 띄우기----------------");
 //			int listCount = bService.getTvListCount(0);
-//			System.out.println("listCount : "+ listCount);
 //			
 //			PageInfo pi = Pagination.getPageInfo(1, listCount);
 //			
 //			ArrayList<Board> blist = bService.TvBoardList(pi, 0);
 //			
-//			System.out.println("blist : "+ blist);
-//			System.out.println("mc_cate_num : "+ 0);
-//			System.out.println("pi : "+pi);
 //			mv.addObject("blist",blist);
 //			mv.addObject("mc_cate_num", 0);
 //			mv.addObject("pi",pi);
@@ -356,13 +331,9 @@ public class RecipeController {
 		
 		
 		// 시작
-		System.out.println("tvSearchList입니다.----------------");
 		
 		SearchInfo si = new SearchInfo();
 		
-		System.out.println("mc_cate_num "+mc_cate_num);
-		System.out.println("src_cate "+src_cate);
-		System.out.println("src_input "+src_input);
 		
 		si.setMc_cate_num(mc_cate_num);
 		si.setSrc_cate(src_cate);
@@ -371,7 +342,6 @@ public class RecipeController {
 		
 		int listCount = bService.getTvSearchListCount(si);
 		
-		System.out.println("listCount : "+ listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
@@ -396,12 +366,9 @@ public class RecipeController {
 			
 			) {	
 		// 시작
-		System.out.println("userSearchList입니다.----------------");
 		
 		SearchInfo si = new SearchInfo();
 		
-		System.out.println("mc_cate_num "+mc_cate_num);
-		System.out.println("src_input "+src_input);
 		
 		si.setMc_cate_num(mc_cate_num);
 		si.setSrc_input(src_input);
@@ -409,7 +376,6 @@ public class RecipeController {
 		
 		int listCount = bService.getUserSearchListCount(si);
 		
-		System.out.println("listCount : "+ listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
@@ -431,11 +397,9 @@ public class RecipeController {
 	public ModelAndView recipeUserView(ModelAndView mv, 
 									@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { // 사용자 레시피
 		
-		System.out.println("@@@@ currentPage : "+ currentPage);
 		
 		int listCount = bService.getListCount();
 		
-		System.out.println("listCount : " + listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
 		
@@ -451,7 +415,6 @@ public class RecipeController {
 	
 	@RequestMapping("RecipeUser") // 사용자 레시피 2
 	public ModelAndView recipeUserView(ModelAndView mv) { 
-		System.out.println("contorler");
 		
 		ArrayList<Board> kolist = bService.UserselectList_ko();
 		ArrayList<Board> enlist = bService.UserselectList_en();
@@ -481,11 +444,9 @@ public class RecipeController {
 	public ModelAndView recipeDetailView(ModelAndView mv, int bId,
 			@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage, String TvOrUser) { //레시피 자세히 보는 페이지로 이동하는 메소드
 		
-		System.out.println("TvOrUser : " + TvOrUser);
 		
 		if(TvOrUser.equals("user")) {
 			Board b = bService.USERselectBoard(bId);
-			System.out.println("@@@@ b : " + b);
 			if(b != null) {
 				mv.addObject("b",b).addObject("me_num", 2)
 				  .addObject("currentPage",currentPage)
@@ -498,7 +459,6 @@ public class RecipeController {
 			}
 		}else {
 			Board b = bService.TVselectBoard(bId);
-			System.out.println("@@@@ b : " + b);
 			if(b != null) {
 				mv.addObject("b",b).addObject("me_num", 1)
 				  .addObject("currentPage",currentPage)
@@ -523,9 +483,6 @@ public class RecipeController {
 		if(mem_num == 0) {
 			return "nologin";
 		}
-		System.out.println("sikim check heart TvOrUser : " + TvOrUser);
-		System.out.println("sikim check heart mem_num : " + mem_num);
-		System.out.println("sikim check heart bId : " + bId);
 		
 		int me_num; 
 		if(TvOrUser.equals("user")) {
@@ -539,9 +496,7 @@ public class RecipeController {
 		f.setMe_num(me_num);
 		
 		if(TvOrUser.equals("user")) {
-			System.out.println("sikim check heart user까지 들어옴");
 			int result = bService.USERheartChek(f);
-			System.out.println("sikim check heart : " + result);
 			if(result > 0) {
 				
 				return "ok";
@@ -562,8 +517,6 @@ public class RecipeController {
 	@RequestMapping("heartplus")
 	public String heartcheck(Board b,HttpServletRequest request,int bId,String TvOrUser, int mem_num) { 
 		
-		System.out.println("heart TvOrUser : " + TvOrUser);
-		System.out.println("heart mem_num : " + mem_num);
 		
 		int me_num; 
 		if(TvOrUser.equals("user")) {
@@ -581,7 +534,6 @@ public class RecipeController {
 			
 			int result = bService.USERheartPlus(f);
 			int result2 = bService.USERheratCount(f);
-			System.out.println("@@@@@@@" + result);
 			if(result > 0) {
 				
 				return "ok";
@@ -602,8 +554,6 @@ public class RecipeController {
 	@RequestMapping("heartminus")
 	public String heartcheck2(Board b,HttpServletRequest request,int bId,String TvOrUser,int mem_num) { 
 		
-		System.out.println("heart TvOrUser : " + TvOrUser);
-		System.out.println("heart mem_num : " + mem_num);
 		
 		int me_num; 
 		if(TvOrUser.equals("user")) {
@@ -641,11 +591,9 @@ public class RecipeController {
 	@RequestMapping("insertReply")
 	@ResponseBody
 	public String insertReply(BoardReply r,String TvOrUser) {
-		System.out.println("TvOrUser qqq: " + TvOrUser);
 		
 		if(TvOrUser.equals("user")) {
 			int result = bService.userInsertReply(r);
-			System.out.println("TvOrUser : " + TvOrUser);
 	
 			if(result > 0) {
 				return "success";
@@ -654,7 +602,6 @@ public class RecipeController {
 			}
 		}else {
 			int result = bService.tvInsertReply(r);
-			System.out.println("TvOrUser : " + TvOrUser);
 	
 			if(result > 0) {
 				return "success";
@@ -692,7 +639,6 @@ public class RecipeController {
 	
 	@RequestMapping("shippingtrace")
 	public ModelAndView shiptrace(ModelAndView mv) {
-		System.out.println("shippingtrace controller 시작");
 		ArrayList<SHIPPING> splist = bService.shippinglist();
 		System.out.println("쉬핑 리스트 : " + splist);
 		mv.addObject("splist", splist);

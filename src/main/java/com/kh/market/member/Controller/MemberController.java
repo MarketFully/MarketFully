@@ -257,12 +257,10 @@ public class MemberController {
 		@RequestMapping("idfind.do")
 		public ModelAndView idfind(@ModelAttribute Member m)throws Exception{
 			
-			System.out.println(m);
 			ModelAndView mav = new ModelAndView();
 			Member userList = mService.idfind(m);
 			
 			if(userList!=null) {
-			System.out.println(userList);
 			mav.setViewName("member/idfindSuccess");
 			mav.addObject("idfind",userList);
 			
@@ -290,7 +288,6 @@ public class MemberController {
 		@RequestMapping("pwdfind.do")
 		public ModelAndView pwdfind(@ModelAttribute Member m ,HttpServletRequest request)throws Exception{
 			
-			System.out.println(m);
 			ModelAndView mav = new ModelAndView();
 			Member userList = mService.pwdfind(m);
 			
@@ -330,7 +327,6 @@ public class MemberController {
 //		System.out.println("prcodeArr : "+prcodeArr);
 //		System.out.println("prnameArr : "+prnameArr);
 //		System.out.println("prpriceArr : "+prpriceArr);
-//		System.out.println("preachArr : "+preachArr);
 		System.out.println("loginUser : "+ loginUser);
 		
 		System.out.println("prcodeArr.size() : "+prcodeArr.size());
@@ -452,7 +448,6 @@ public class MemberController {
 		mybag.setPr_code(pr_code);
 		mybag.setMem_num(loginUser.getMem_num());
 		
-		System.out.println("mybag : "+ mybag);
 		result = mService.selectDeleteMybag(mybag);
 		
 		String comment="";
@@ -676,7 +671,6 @@ public class MemberController {
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (IOException e) {
-			System.out.println("파일전송에러: " + e.getMessage());
 		}
 
 		return renameFileName;
@@ -698,7 +692,6 @@ public class MemberController {
 	
 	int listCount = mService.getRecipeListCount(mem_num);
 	
-	System.out.println("listCount : " + listCount);
 	
 	MypageloverecipePageInfo pi = Pagination_Myloverecipe.getPageInfo(currentPage,listCount);
 	System.out.println(pi);
@@ -748,7 +741,6 @@ public class MemberController {
 			System.out.println("찜한 레시피 전체삭제 성공");
 			a="ok";
 		}else {
-			System.out.println("찜한 레시피 전체삭제 실패");
 			a="no";
 		}
 		return a;
@@ -795,10 +787,8 @@ public class MemberController {
 		
 		String a="";
 		if(result > 0) {
-			System.out.println("찜한 레시피 선택삭제 성공");
 			a="ok";
 		}else {
-			System.out.println("찜한 레시피 선택삭제 실패");
 			a="no";
 		}
 		return a;

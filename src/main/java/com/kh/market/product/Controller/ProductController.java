@@ -64,12 +64,10 @@ public class ProductController {
 			p.setOriginalFileName(beforep.getOriginalFileName());
 			p.setRenameFileName(beforep.getRenameFileName());
 		}
-		System.out.println(p);
 		
 		int result = pService.ProductUpdate(p);
 		int listCount=pService.getListCount();
 		if(result>0) {
-			System.out.println("�꽦怨�");
 		}
 		AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(1, listCount);
 		  
@@ -98,7 +96,6 @@ public class ProductController {
 				}
 			}
 			
-			System.out.println(p);
 			int result = pService.productinsert(p);
 		
 			if(result > 0) {
@@ -125,14 +122,12 @@ public class ProductController {
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
 							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
 			
-			System.out.println("renameFileName : " + renameFileName);
 			
 			String renamePath = folder + "\\"+ renameFileName;
 			
 			try {
 				file.transferTo(new File(renamePath)); 
 			}catch (Exception e) {
-				System.out.println(e.getMessage());
 			} 
 			
 			return renameFileName;
@@ -150,7 +145,6 @@ public class ProductController {
 				fourProduct.addAll(pService.getfourProductList(maincatelist.get(i).getCatecode1()));
 			}
 			
-			System.out.println(fourProduct);
 			
 			
 			
@@ -172,15 +166,12 @@ public class ProductController {
 		mv.addObject("p",p).setViewName("product/productdetail");
 		mv.addObject("p",p).setViewName("member/mypagereview");
 		
-		System.out.println("@@@@ currentPage : "+ currentPage);
 		
 		int listCount = pService.getListProductReview(pr_code);
-		System.out.println("ProductReview listCount : " + listCount);
 		
 		ProductReviewPageInfo pi = Pagination_Review.getPageInfo(currentPage,listCount);
 		
 		ArrayList<ProductReview> list = pService.ReviewselectList(pi,pr_code);
-		System.out.println("review list : " + list);
 		
 		mv.addObject("list", list);
 		mv.addObject("pi",pi);
@@ -231,7 +222,6 @@ public class ProductController {
 			int listCount = subproductlist.size();
 			AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
 			subproductlist = pService.pagingchoosecateList(maincatenum,pi);//페이징 처리된 전체 리스트
-			System.out.println(subproductlist.size());
 			ArrayList<SubCategory> subcatelist = cService.lowerSublist(maincatenum); //하위 카테고리 리스트 
 			
 			mv.addObject("pr",subproductlist)
@@ -260,20 +250,17 @@ public class ProductController {
 	                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
 	                if (cookies[i].getName().equals("cookie"+re_num))
 	                { 
-	                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
 	                    viewCookie = cookies[i];
 	                }
 	            }
 	        }
 	        
 	        if (mv != null) {
-	            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
 	            
 	            mv.addObject("mv", mv);
 	 
 	            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
 	            if (viewCookie == null) {    
-	                System.out.println("cookie 없음");
 	                
 	                // 쿠키 생성(이름, 값)
 	                Cookie newCookie = new Cookie("cookie" + re_num, "|" + re_num + "|");
@@ -288,25 +275,20 @@ public class ProductController {
 	                // re_num번호로 작성된 댓글 정보만 다시 가져오기
 	                
 	                ProductReview pr_re = pService.Reviewselect(re_num);
-	                System.out.println(pr_re);
 	                
 	                
 	                if(result>0) {
-	                    System.out.println("조회수 증가");
 	                    a=Integer.toString(pr_re.getRe_count());
 	                }else {
-	                    System.out.println("조회수 증가 에러");
 	                    a=Integer.toString(pr_re.getRe_count());
 	                }
 	            }
 	            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
 	            else {
-	                System.out.println("cookie 있음");
 	                
 	                // 쿠키 값 받아옴.
 	                String value = viewCookie.getValue();
 	                
-	                System.out.println("cookie 값 : " + value);
 	                
 	                ProductReview pr_re = pService.Reviewselect(re_num);
 	                
@@ -329,17 +311,14 @@ public class ProductController {
 				  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage,
 				  @RequestParam("pr_code") int pr_code) { 
 			  
-			  System.out.println(currentPage);
 			  
 			  int listCount=pService.getListCount();
 			  
-			  System.out.println("listCount = " + listCount);
 			  
 			  AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
 			  
 			  ArrayList<Product> list = pService.getProductList(pi);
 			  
-			  System.out.println(list);
 			  
 			  if(list!=null) {
 				  mv.addObject("list",list)

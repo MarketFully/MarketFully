@@ -60,15 +60,12 @@ public class ServiceCenterController {
 	@RequestMapping("ServiceCenter")
 	public ModelAndView ServiceCentermainView(ModelAndView mv,
 			@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //고객센터 메인(notice)으로 이동하는 메소드
-		System.out.println("@@@@ currentPage : "+ currentPage);
 		
 		int listCount = sService.getListCountNotice();
-		System.out.println("NOTICE BOARD listCount : " + listCount);
 		
 		ServiceCenterNoticePageInfo pi = Pagination_Notice.getPageInfo(currentPage,listCount);
 		
 		ArrayList<ServiceCenterNoticeBoard> list = sService.NoticeselectList(pi);
-		System.out.println("list : " + list);
 		
 		mv.addObject("list", list);
 		mv.addObject("pi",pi);
@@ -105,7 +102,6 @@ public class ServiceCenterController {
 	@RequestMapping("QNAdetail")
 	public ModelAndView QNAdetailView(ModelAndView mv, int bId,
 									  @RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage) { //QNA 상세보기로 이동하는 메소드
-		System.out.println("sikim qna controller bid : " + bId);
 		
 		ServiceCenterQnaBoard b = sService.QNAselectBoard(bId);
 		ArrayList <ServiceCenterQnaReply> qr = sService.selectQnaReplyList(bId);
@@ -126,14 +122,11 @@ public class ServiceCenterController {
 	@RequestMapping("QNA")
 	public ModelAndView QNAViewView(ModelAndView mv,
 									@RequestParam(value="currentPage",required=false,defaultValue="1")int currentPage) { //고객센터 QNA메인으로 이동하는 메소드
-		System.out.println("@@@@ currentPage : "+ currentPage);
 		int listCount = sService.getListCountQna();
-		System.out.println("QNA BOARD listCount : " + listCount);
 		
 		ServiceCenterQnaPageInfo pi = Pagination_Qna.getPageInfo(currentPage,listCount);
 		
 		ArrayList<ServiceCenterQnaBoard> list = sService.QnaselectList(pi);
-		System.out.println("list : " + list);
 		
 		mv.addObject("list", list);
 		mv.addObject("pi",pi);
@@ -147,7 +140,6 @@ public class ServiceCenterController {
 	public String insertBoard(ServiceCenterQnaBoard b, HttpServletRequest request,
 							  @RequestParam(name="uploadFile",required=false) MultipartFile file) {
 		
-		System.out.println("#############################" + b);
 		
 		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = QAsaveFile(file,request);
@@ -157,7 +149,6 @@ public class ServiceCenterController {
 				b.setQ_REFILE(renameFileName);
 			}
 		}
-		System.out.println(b);
 		
 		int result = sService.QNAinsert(b);
 		
@@ -174,8 +165,6 @@ public class ServiceCenterController {
 									  @RequestParam(value="q_keyword",required = false)String q_keyword,
 									  @RequestParam(value="q_searchType" ,required=false)String q_searchType,
 									  @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
-			System.out.println("######## : " +  q_keyword);
-			System.out.println("@@@@@@@@ : " +  q_searchType);
 			
 			Search_Qna sq = new Search_Qna();
 			
@@ -184,7 +173,6 @@ public class ServiceCenterController {
 			
 			if(q_searchType.equals("q_TITLE")) {
 				sq.setQ_title(q_keyword);
-				System.out.println("######" + q_keyword);
 			}else if(q_searchType.equals("q_WRITER")) {
 				sq.setQ_writer(q_keyword);
 			}else if(q_searchType.equals("q_CATEGORY")) {
@@ -230,14 +218,12 @@ public class ServiceCenterController {
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
 				+ orginFileName.substring(orginFileName.lastIndexOf(".") + 1);
 
-		System.out.println("renameFileName : " + renameFileName);
 
 		String renamePath = folder + "\\" + renameFileName;
 
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (IOException e) {
-			System.out.println("파일전송에러: " + e.getMessage());
 		}
 
 		return renameFileName;
@@ -280,17 +266,14 @@ public class ServiceCenterController {
 	public ModelAndView recipeSuggestView(ModelAndView mv,
 										  @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 
-		System.out.println("currentPage : " + currentPage);
 
 		int RSlistCount = sService.getRSlistCountRecipeSuggest();
 
-		System.out.println("RSlistCount : " + RSlistCount);
 
 		ServiceCenterRecipeSuggestPageInfo rpi = Pagination_RecipeSuggest.getRecipeSuggestPageInfo(currentPage,
 				RSlistCount);
 
 		ArrayList<ServiceCenterRecipeSuggestBoard> RSlist = sService.RecipeSuggestSelectList(rpi);
-		System.out.println("RSlist : " + RSlist);
 
 		for (int i = 0; i < RSlist.size(); i++) {
 			String[] strArr = RSlist.get(i).getRb_date().split(" ");
@@ -315,7 +298,6 @@ public class ServiceCenterController {
 	public String insertSuggestWrite(ServiceCenterRecipeSuggestBoard rs, HttpServletRequest request,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
 
-		System.out.println(rs);
 
 		if (!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file, request);
@@ -326,7 +308,6 @@ public class ServiceCenterController {
 			}
 
 		}
-		System.out.println(rs);
 		int result = sService.insertSuggestWrite(rs);
 
 		if (result > 0) {
@@ -356,14 +337,12 @@ public class ServiceCenterController {
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
 				+ orginFileName.substring(orginFileName.lastIndexOf(".") + 1);
 
-		System.out.println("renameFileName : " + renameFileName);
 
 		String renamePath = folder + "\\" + renameFileName;
 
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (IOException e) {
-			System.out.println("파일전송에러: " + e.getMessage());
 		}
 
 		return renameFileName;
@@ -398,7 +377,6 @@ public class ServiceCenterController {
 		
 		int result = sService.qnaBoardUpdate(qb);
 		
-		System.out.println(qb);
 		
 		if(result > 0) {
 			mv.addObject("q_num", qb.getQ_NUM()).setViewName("redirect:QNA");
@@ -477,10 +455,8 @@ public class ServiceCenterController {
 	@RequestMapping(value = "suggestwriteUpdate.do", method = RequestMethod.POST)
 	public ModelAndView suggestwriteUpdate(ModelAndView mv, ServiceCenterRecipeSuggestBoard rcb,
 			HttpServletRequest request, @RequestParam(value = "reloadFile", required = false) MultipartFile file) {
-		System.out.println("aaa");
 
 		if (file != null && !file.isEmpty()) {
-			System.out.println("bbb");
 			if (rcb.getRb_refile() != null) {
 				RecipeSuggestdeleteFile(rcb.getRb_refile(), request);
 			}
@@ -515,20 +491,15 @@ public class ServiceCenterController {
 		String returnstring = "";
 		if (sService.checklike(scb) > 0) {// 좋아요를 눌렀던 적이 있었을 경우
 
-			System.out.println("좋아요 누른적 있음!");
 			int deletechk = sService.deletelike(scb);
 
 			if (deletechk > 0) {
-				System.out.println("좋아요 삭제 성공!");
 				returnstring = "2";
 			} else {
-				System.out.println("좋아요 삭제 실패!");
 			}
 		} else {
-			System.out.println("좋아요 누른적 없음!");
 			int likeupdate = sService.addUserlike(scb);// 좋아요 DB에 값 추가 ,
 			if (likeupdate > 0) {
-				System.out.println("좋아요 인서트 성공!");
 				returnstring = "1";
 			}
 		}
@@ -536,9 +507,7 @@ public class ServiceCenterController {
 		int result = sService.RecipeLikey(rb_num); // board의 좋아요 갯수 업데이트
 
 		if (result > 0) {
-			System.out.println("게시판 좋아요 갯수 업데이트 성공!");
 		} else {
-			System.out.println("게시판 좋아요 갯수 업데이트 실패!");
 		}
 
 		return returnstring;
@@ -550,7 +519,6 @@ public class ServiceCenterController {
 		@RequestMapping("qnaReply")
 		public String qnainsertReply(ServiceCenterQnaReply qr) {
 			
-			System.out.println(qr);
 			
 			int result = sService.qnainsertReply(qr);
 			

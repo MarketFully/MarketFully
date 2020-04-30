@@ -220,11 +220,12 @@
                     <div class="cont_line">
                         <p class="cont_tit4">카테고리</p>
                         <select name="mc_cate_num"style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
-                            <option value="102">한식</option>
-                            <option value="103">양식</option>
-                            <option value="104">일식</option>
-                            <option value="105">중식</option>
-                            <option value="106">기타</option>
+                            <option value="1">강식당</option>
+                            <option value="2">수미네 반찬</option>
+                            <option value="3">집밥백선생</option>
+                            <option value="4">최고의 요리비결</option>
+                            <option value="5">현지에서 먹힐까?</option>
+                            
                         </select>
                     </div>
 

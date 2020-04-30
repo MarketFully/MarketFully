@@ -72,7 +72,6 @@ public class MailServiceImpl implements MailService{
 
 		String key = getKey(false, 20);
 
-		System.out.println("memmail" + mem_email + "Key" + key);
 
 		MimeMessage mail = mailsender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 MS :p MarketFully 입니다!</h2><br><br>" + "<h3>" + mem_id + "님</h3>"
@@ -104,7 +103,6 @@ public class MailServiceImpl implements MailService{
 		
 		String key = getKey(false,20);
 
-		System.out.println("memmail" + mem_email + "Key" + key);
 		
 		MimeMessage mail = mailsender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 '"+ mem_name +"' 님</h2><br><br>" 

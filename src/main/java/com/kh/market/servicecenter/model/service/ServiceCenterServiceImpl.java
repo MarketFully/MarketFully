@@ -72,7 +72,6 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 		int result = sDao.QNAupdateCount(bId);
 		
 		if(result > 0) {
-			System.out.println("qna bId2 : " + bId);
 			return sDao.QNAselectBoard(bId);
 		}else {
 			return null;

@@ -13,7 +13,7 @@
 선택하신 카테고리 명 : <input type=text value="${catename}"/>
 <form action="cateimgupload.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="upcatecode" value="${upcatecode}"/>
-<img id="img" src='resources/img/errorimg.PNG'>
+<img id="img" src='resources/img/errorimg.PNG' width="500" height="400">
 <input id="input_img" type="file" name="uploadFile">
 <input  type="submit" value="입력하기">
 </form>

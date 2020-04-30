@@ -343,5 +343,23 @@
 			})
 		});
 	</script>
+	
+	 <footer><!--class="py-5 bg-dark"-->
+        <!-- <img src="resources/img/footer_test.jpg" style="margin-top: 150px;"> -->
+        <div style="display: inline-flex; margin-top: 200px;height: 200px;">
+         
+            <div class="footer_info">
+                <p class="f_if">법인명(상호) : 주식회사 마켓풀리</p>
+                <p class="f_if">사용자 등록 번호 : 111-11-11111</p>
+                <p class="f_if">주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F</p>
+                <p class="f_if">팩스 : 000-0000-0000</p>
+                <p class="f_if">이메일 : marcketfully@marcket.com</p>
+            </div>
+        </div>
+        <img src="resources/img/footer1.jpg">
+        <div class="footContainer">
+            <p class=""></p>
+        </div>
+    </footer>
 </body>
 </html>

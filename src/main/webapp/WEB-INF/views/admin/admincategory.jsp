@@ -124,7 +124,7 @@
 
 			<div class="mdl-grid" style="margin-left: 10%;">
 				<div class="mdl-cell mdl-cell--4-col">
-
+				<div style="text-align: left; margin-left: 65px;">메인 카테고리 수정하기</div>
 					<div class="mdl-grid">
 						<div class="mdl-cell mdl-cell--6-col">
 							<ul class="jul">
@@ -178,14 +178,13 @@
 							</ul>
 						</div>
 						<div class="mdl-cell mdl-cell--6-col">
-							<img src="resources/img/right.png"
-								style="width: 100%; margin-top: 25%;">
+				
 						</div>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--4-col">
 
-
+					<div style="text-align: left;">썸네일 이미지 수정하기</div>
 					<ul id="sortable3" class="jul" style="min-height: 100px;">
 							<c:forEach var="m2" items="${maincate}">
 								<li class="ui-state-default jli"><input type="text"

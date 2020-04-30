@@ -245,7 +245,7 @@
      <!-- 고기 -->
      
      <div class="product_title" onclick="location.href='Productchoosecate?catenum=${ct.catecode1}&maincatename=${ct.catename1 }'">
-        <img src="resources/img/steak.png" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
+        <img src="resources/img/categoryuploadimg/${ct.renamefilename }" style="width: 30px; height: 30px; margin-right: 10px;"></img> 
        ${ct.catename1 }
         <img src="resources/img/arrow.png" style="width: 7px; height: 8px; margin-top: 8px; margin-left: 20px;">
     </div>
@@ -320,5 +320,23 @@
 	<script>
 	
 	</script>
+	
+	 <footer><!--class="py-5 bg-dark"-->
+        <!-- <img src="resources/img/footer_test.jpg" style="margin-top: 150px;"> -->
+        <div style="display: inline-flex; margin-top: 200px;height: 200px;">
+         
+            <div class="footer_info">
+                <p class="f_if">법인명(상호) : 주식회사 마켓풀리</p>
+                <p class="f_if">사용자 등록 번호 : 111-11-11111</p>
+                <p class="f_if">주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F</p>
+                <p class="f_if">팩스 : 000-0000-0000</p>
+                <p class="f_if">이메일 : marcketfully@marcket.com</p>
+            </div>
+        </div>
+        <img src="resources/img/footer1.jpg">
+        <div class="footContainer">
+            <p class=""></p>
+        </div>
+    </footer>
 </body>
 </html>

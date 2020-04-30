@@ -289,8 +289,8 @@
 						<div class="col-lg-3 col-md-6 mb-4">
 							<div class="Rcard h-500 w-100">
 								<a href="ProductDetail?pr_code=${pr[R].pr_code }"><img src="resources/img/Productuploadimg/${pr[R].renameFileName }"
-									class="Rcard-img-top" style="width: 90%;" onERROR="this.src='resources/img/errorimg.PNG'" 
-									 style="height: 200px;"></a>
+									class="Rcard-img-top" style="width: 90%; height:200px;" onERROR="this.src='resources/img/errorimg.PNG'" 
+									></a>
 
 								<div class="Rcard-body">
 									<h4 class="Rcard-title">
@@ -401,5 +401,23 @@
 			})
 		});
 	</script>
+	
+	 <footer><!--class="py-5 bg-dark"-->
+        <!-- <img src="resources/img/footer_test.jpg" style="margin-top: 150px;"> -->
+        <div style="display: inline-flex; margin-top: 200px;height: 200px;">
+         
+            <div class="footer_info">
+                <p class="f_if">법인명(상호) : 주식회사 마켓풀리</p>
+                <p class="f_if">사용자 등록 번호 : 111-11-11111</p>
+                <p class="f_if">주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F</p>
+                <p class="f_if">팩스 : 000-0000-0000</p>
+                <p class="f_if">이메일 : marcketfully@marcket.com</p>
+            </div>
+        </div>
+        <img src="resources/img/footer1.jpg">
+        <div class="footContainer">
+            <p class=""></p>
+        </div>
+    </footer>
 </body>
 </html>

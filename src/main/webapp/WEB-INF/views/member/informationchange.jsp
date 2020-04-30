@@ -80,7 +80,7 @@
                 <tr>
                     <td class="td1">이메일*</td>
                     <td class="td2"><input type="text" name="mem_email" class="input" value="${ loginUser.mem_email }" style="padding: 0 9px; width: 280px;"></td>
-                    <td class="td3"><button id="emailbtn" onclick="location.href='#'" class="btn">인증번호받기</button></td>
+                    <td class="td3"></td>
                 </tr>
                 <tr>
                     <td class="td1">휴대폰*</td>

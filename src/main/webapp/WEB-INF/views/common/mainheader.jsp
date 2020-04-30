@@ -52,7 +52,9 @@ var maincatelist = new Array();
                 <c:if test="${ !empty sessionScope.loginUser }">
                 	<li class="menu_login"><c:out value="${ loginUser.mem_name }님 환영합니다!" /> </li>
                 </c:if>
+                <c:if test="${sessionScope.loginUser.mem_name.equals('관리자') }">
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='adminmain'">관리자</li> 
+                </c:if>
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='basket'">장바구니</li> 
                 <c:if test="${ !empty sessionScope.loginUser }">
                 <li class="menu_login" style="cursor: pointer;" onclick="location.href='myorderlist.bo?mem_num=${loginUser.mem_num}'">마이페이지</li>

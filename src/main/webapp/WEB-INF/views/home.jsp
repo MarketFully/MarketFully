@@ -24,8 +24,8 @@
            <!-- 이미지 슬라이드 -->
            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" style="height:700px;">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="resources/img/main/mainslide4.png" alt="First slide" style="height:700px;">
+              <div class="carousel-item active">resources/img/main/mainslide3.png
+                <img class="d-block w-100" src="resources/img/main/mainslide3.png" alt="First slide" style="height:700px;">
               </div>
               <div class="carousel-item">
                 <img class="d-block w-100" src="resources/img/main/mainslide9.png" alt="Second slide" style="height:700px;">
@@ -37,7 +37,7 @@
                 <img class="d-block w-100" src="resources/img/main/mainslide2.png" alt="Fourth slide" style="height:700px;">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="resources/img/main/mainslide3.png" alt="Fifth slide"  style="height:700px;">
+                <img class="d-block w-100" src="resources/img/main/mainslide4.png" alt="Fifth slide"  style="height:700px;">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

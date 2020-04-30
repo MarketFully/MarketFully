@@ -53,10 +53,10 @@
 						<div class="col-lg-3 col-md-6 mb-4">
 							<div class="Rcard h-500 w-100">
 								<a href="AdminProductDetail?pr_code=${list[R].pr_code }"><img src="resources/img/Productuploadimg/${list[R].renameFileName }"
-									onERROR="this.src='resources/img/errorimg.PNG'" class="Rcard-img-top" style="width: 90%;" ></a>
+									onERROR="this.src='resources/img/errorimg.PNG'" class="Rcard-img-top" style="width: 90%; height: 280px;"  ></a>
 
 								<div class="Rcard-body">
-									<h4 class="Rcard-title">
+									<h4 class="Rcard-title" style="font-size: ">
 										<a href="AdminProductDetail?pr_code=${list[R].pr_code }"
 										 style="text-decoration: none;">${list[R].pr_name }</a>
 									</h4>
@@ -77,41 +77,41 @@
 			</div>
               
               <c:if test="${ pi.currentPage eq 1 }">
-					<button class="mdl-button mdl-js-button mdl-button--raised">이전</button>
+<img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;">
+
 				</c:if>
 				<c:if test="${ pi.currentPage ne 1 }">
 					<c:url var="before" value="adminproduct_list">
 						<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 					</c:url>
-					<button class="mdl-button mdl-js-button mdl-button--raised" onclick="location.href='${ before }'">이전</button> 
+ <a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
+
 				</c:if>
 				
 				<!-- 페이지 -->
 				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 					<c:if test="${ p eq pi.currentPage }">
-						<button class="mdl-button mdl-js-button mdl-button--raised">${ p }</button>
+						<font color="#2e8b57" size="4"><b>${ p }</b></font>
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
 						<c:url var="pagination" value="adminproduct_list">
 							<c:param name="currentPage" value="${ p }"/>
 						</c:url>
-						<button class="mdl-button mdl-js-button mdl-button--raised"
-						 onclick="location.href='${ pagination }'">
-						 ${ p }
-						</button>
+					<a href="${ pagination }">${ p }</a> &nbsp;
 					</c:if>
 				</c:forEach>
 				
 				<!-- [다음] -->
 				<c:if test="${ pi.currentPage eq pi.maxPage }">
-					<button class="mdl-button mdl-js-button mdl-button--raised">다음</button>
-				</c:if>
+		                     <img src="resources/img/arrow_right.png" alt="다음 페이지로 이동" 
+                      style="width:25px;height:25px;cursor:pointer;vertical-align: middle;" >
+                     		</c:if>
 				<c:if test="${ pi.currentPage ne pi.maxPage }">
 					<c:url var="after" value="adminproduct_list">
 						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
-					<button class="mdl-button mdl-js-button mdl-button--raised" onclick='location.href="${ after }"'>다음</button>
+					<a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
 				</c:if>
         </div>
         <br><br>

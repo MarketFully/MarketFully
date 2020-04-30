@@ -189,7 +189,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			// 서버에 업로드
 			// saveFile메소드 : 내가 저장하고자하는 file과 request를 전달하여 서버에 업로드 시키고 그 저장된 파일명을 반환해주는 메소드
 			
-			String renameFileName = saveFile(file,request);
+			String renameFileName = saveFile2(file,request);
 			
 			if(renameFileName != null) {
 				b.setMb_origin(file.getOriginalFilename());// DB에는 파일명 저장
@@ -892,6 +892,36 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			
 			String savePath = root + "\\img\\categoryuploadimg";
+			
+			File folder = new File(savePath);
+			
+			if(!folder.exists()) {
+				folder.mkdir(); // 
+			}
+			
+			String originFileName = file.getOriginalFilename();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
+							+ originFileName.substring(originFileName.lastIndexOf(".")+1);
+			
+			System.out.println("renameFileName : " + renameFileName);
+			
+			String renamePath = folder + "\\"+ renameFileName;
+			
+			try {
+				file.transferTo(new File(renamePath)); 
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+			
+			return renameFileName;
+		}
+		
+		public String saveFile2(MultipartFile file, HttpServletRequest request) {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String savePath = root + "\\img\\tvRecipe";
 			
 			File folder = new File(savePath);
 			

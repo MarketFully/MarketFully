@@ -213,7 +213,7 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		
 		
 		//------------------------------------------------------
-		String[] beContent = be.getContent().split(",");
+		String[] beContent = be.getContent().split(",&&,");
 		int i = 1;
 		for(MultipartFile filea : subImg) {
 			System.out.println(filea.getOriginalFilename());
@@ -222,7 +222,13 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 				String renameFileName = saveFile2(filea,request, i);
 				
 				if(renameFileName != null) {
-					be.setContent(beContent[i-1]);
+					System.out.println("서브이비지 사이즈 : " + subImg.size());
+					if(subImg.size() == i) {
+						System.out.println("아무거나 치고 : " +(beContent[i-1].length()-3));
+						be.setContent(beContent[i-1].substring(0,(beContent[i-1].length()-3)));
+					}else {
+						be.setContent(beContent[i-1]);
+					}
 					be.setOrigin(filea.getOriginalFilename());// DB에는 파일명 저장
 					be.setRename(renameFileName);
 					be.setSeq(i);

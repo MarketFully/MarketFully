@@ -24,7 +24,7 @@ var maincatelist = new Array();
 						maincatelist=data;
 						for(var i = 0 ; i < maincatelist.length;i++){
 						document.getElementById("ProductCategory").innerHTML+='<li><a href="Productchoosecate?catenum='+maincatelist[i].catecode1+'&maincatename='+maincatelist[i].catename1+'">'+
-						'<img class="food">'+maincatelist[i].catename1+'</a></li>';
+						'<img class="food" src="resources/img/categoryuploadimg/'+maincatelist[i].renamefilename+'">'+maincatelist[i].catename1+'</a></li>';
 						
 						}
 						

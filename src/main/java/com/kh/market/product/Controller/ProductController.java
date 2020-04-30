@@ -102,9 +102,9 @@ public class ProductController {
 			int result = pService.productinsert(p);
 		
 			if(result > 0) {
-			return "admin/adminproduct_list";
+				return "redirect:adminproduct_list";
 			}else {
-				return "";
+				return "redirect:adminproduct_list";
 			}
 		}
 		

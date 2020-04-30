@@ -207,7 +207,7 @@
 			    		<div class="write"> </div>
   
 			    	</form>
-	<input type="submit" value="레시피 작성" class="write_btn" onclick="location.href='TVrecipeinsertpage'">
+	
 		    	</li>
 		    	<!-- 레시피 목록 반복문으로 돌려서 카테고리를 만든다.-->
 		    	<c:forEach var="clist" items="${clist }" varStatus="status">
@@ -333,6 +333,9 @@
         </form>
     </fieldset>
     <!-- 검색창 ends-->
+    <center>
+    <input type="submit" value="레시피 작성" class="tbox" onclick="location.href='TVrecipeinsertpage'">
+    </center>
 <script>
 	function SearchBtn(){ //HTML을 최대한 유지하기 위해 a태그로 submit을 해준다.
 		

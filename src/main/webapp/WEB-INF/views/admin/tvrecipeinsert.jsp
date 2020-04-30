@@ -227,8 +227,8 @@
                         <select name="mc_cate_num"style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
                             <option value="102">한식</option>
                             <option value="103">양식</option>
-                            <option value="104">중식</option>
-                            <option value="105">일식</option>
+                            <option value="104">일식</option>
+                            <option value="105">중식</option>
                             <option value="106">기타</option>
                         </select>
                     </div>
@@ -293,6 +293,7 @@
                                         <td class="table_list_add"> <!-- sikim -->
 					                        <select name="CATE1" id="id_lang" text="분류" onchange="changemaincate(0)" 
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
+					                            <option value="" selected disabled hidden>선택해주세요</option>
                                         <c:forEach var="m" items="${ maincate }">
 					                            <option value="${ m.catecode1 }" >${ m.catename1 }</option>
 					                    </c:forEach>
@@ -300,7 +301,7 @@
                                         </td>
 
                                         <td class="table_list_add">
-                                             <select name="CATE2" id="cate2" text="분류" onchange="changesubcate(0)"
+                                             <select name="CATE2" id="cate2" text="분류" onchange="changesubcate(0,this)"
 					                            style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
 					                        </select>
 					                            <input type='hidden' name="pcode">
@@ -361,7 +362,7 @@
                                     <div id="5" is_over="0">
                                         <img id="stepPhoto" src="resources/img/plus.gif" class="plusphoto"
                                             style="cursor: pointer">
-                                        <input type="file" id="subImg" name="subImg" class="fileimg"
+                                        <input type="file" id="subImg" name="subImg" class="fileimg" onchange="LoadImg(this)"
                                             style="display: block;">
                                     </div>
                                     
@@ -379,14 +380,21 @@
                         <div style="display: grid;  margin-top: 20px;">
                             <!-- <button type="button" class="btnAll" name="btnplus" style="width: 200px; margin-top: 10px;">순서 추가</button> -->
                             <button type="button" name="addstep" class="stepplus">
-                                <span class="step_plus"></span><img src="img/plusbtn.png"
+                                <span class="step_plus"></span><img src="resources/img/plusbtn.png"
                                     style="width:20px;height:20px; margin-right: 10px; vertical-align: bottom;">순서추가
                             </button>
                         </div>
                     </div>
-					<button id="joinokbtn" class="okbtn" onclick="Joinbtn();">작성하기</button>
-                </div>
-               </form>
+                    <center>
+                    
+					<button id="joinokbtn" class="okbtn" onclick="Joinbtn();" style="background: #2e8b57; color: #fff !important; text-decoration: none; border: none;
+					border-radius: 3px;
+				    height: 30px;
+				    margin-bottom: 10px;
+				    width: 80px;">작성하기</button>
+                    </center>
+	                </div>
+	               </form>
 
             </div>
         </div>
@@ -409,7 +417,8 @@
             var btnplusText = '<tr name ="tableList">' +
 
                 '<td class="table_list_add">' +
-                '<select name=CATE1 onchange="changemaincate('+l+')" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">';
+                '<select name=CATE1 onchange="changemaincate('+l+')" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
+                "<option selected disabled hidden>"+"선택해주세요"+"</option>";
                 for(var j=0;j<maincatelist.length;j++){
                 	btnplusText+= '<option value='+maincatelist[j].catecode1+'>' +
                 	maincatelist[j].catename1+'</option>';
@@ -420,7 +429,7 @@
                 '</td>' +
 
                 '<td class="table_list_add">' +
-                '<select name="CATE2" id="cate2" onchange="changesubcate('+l2+')" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
+                '<select name="CATE2" id="cate2" onchange="changesubcate('+l2+',this)" text="분류" style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">'+
                 '</select>' +
                 '<input type="hidden" name="pcode">'+
                 '</td>' +
@@ -456,6 +465,9 @@
             trHtml.remove(); //tr 테그 삭제
 
         });
+        
+        
+        
 
 
         //첫 사진 
@@ -474,6 +486,9 @@
 
 
 
+ 
+ 
+ 
         var stepplus = document.getElementById("recipeArea").innerHTML;
 
 
@@ -482,111 +497,31 @@
 
         // 순서 추가
         $(document).on("click", "button[name=addstep]", function () {
-
-            // function tttt(i){
-            //     console.log(document.getElementsByClassName("fileimg")[i]);
-            //     document.getElementsByClassName("fileimg")[i].click();
-            // }
-
-            var trHtml = $('div[name=step]:last');
-            var arr = new Array();
-            var filearr = new Array();
-            for (var i = 0; i < $(".recipeNum").length; i++) {
-                arr.push($('.formControl_step')[i].value);
-                filearr.push($('.fileimg')[i].value);
-                console.log($(".fileimg"));
-            }
-
-
-
-            document.getElementById("recipeArea").innerHTML += stepplus;
-            ////이미지 미리보기 영역
-
-            for (var i = 0; i < $(".recipeNum").length; i++) {
-                var sel_file;
-                $(document).ready(function () {
-                    $(".fileimg").eq(i).on("change", handleImgFileSelect); //input type file
-                });
-                function handleImgFileSelect(e) {
-                    var files = e.target.files;
-                    var filesArr = Array.prototype.slice.call(files);
-                    filesArr.forEach(function (f) {
-                        if (!f.type.match("image.*")) {
-                            alert("확장자는 이미지 확장자만 가능합니다.");
-                            return;
-                        }
-                        sel_file = f;
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $(".fileimg").eq(i).prev().attr("src", e.target.result); // img 보이는 영역
-                        }
-                        reader.readAsDataURL(f);
-                    });
-                }
-            }
-            ////이미지 미리보기 영역
-            for (var i = 0; i < $(".recipeNum").length; i++) { // 순서추가 버튼
-                if (i == $(".recipeNum").length) { break; }
-                $(".recipeNum")[i].innerText = 'Step' + (i + 1);
-                if (arr[i] != undefined && filearr[i] != undefined) {
-                    $('.formControl_step')[i].value = arr[i];
-                    // $('.fileimg')[i].value=filearr[i];
-
-                    var sel_file;
-                    $(function () {
-                        $(".fileimg").eq(i).on("change", handleImgFileSelect); //input type file
-                    });
-                    function handleImgFileSelect(e) {
-                        var files = e.target.files;
-                        var filesArr = Array.prototype.slice.call(files);
-                        filesArr.forEach(function (f) {
-                            if (!f.type.match("image.*")) {
-                                alert("확장자는 이미지 확장자만 가능합니다.");
-                                return;
-                            }
-                            sel_file = f;
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                $(".fileimg").eq(i).prev().attr("src", e.target.result); // img 보이는 영역
-                            }
-                            reader.readAsDataURL(f);
-                        });
-                    }
-
-                }
-
-            }
-
-            console.log($(".recipeNum").length);
-
-            //   for(var i = 0 ; i < $(".recipeNum").length;i++){ // 온클릭 이벤트 추가
-
-            //  console.log(document.getElementsByClassName("plusphoto")[i]);
-
-            //    console.log(document.getElementsByClassName("fileimg")[i]);
-
-
-
-
-            // document.getElementsByClassName("plusphoto")[i].onclick = tttt(i);
-
-
-
-            //          console.log(document.getElementsByClassName("fileimg")[i]);
-            //     document.getElementsByClassName("fileimg")[i].click();
-
-
-            //  $(".plusphoto")[i].click(function (e) {
-            //     e.preventDefault();
-            //      $(".fileimg")[i].click();
-
-            //  });
-
-            //      };
-            //}
-
+         $('#recipeArea').append(stepplus);
 
         });
+        
+        
+        
+        //이미지 띄우기
+        
+	function LoadImg(value){
+        	console.log(value);
+        	
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+		
+			reader.onload = function (e) {
+				$(value).parent().children('#stepPhoto').attr('src', e.target.result);
+			}//reader
+				
+		reader.readAsDataURL(value.files[0]);
+		}//if
+	}
+        
+        
+        
+        
 
         // 순서 삭제
         $(document).on("click", "button[name=deletestep]", function () {
@@ -685,6 +620,11 @@
         
         function changemaincate(i){ //sikim
         	console.log("첫" + i);
+        	document.getElementsByName("pr_size")[i].value="";
+			document.getElementsByName("peach")[i].value="";
+			document.getElementsByName("CATE2")[i].innerHTML="";
+			document.getElementsByName("product_list")[i].innerHTML="";
+			
         	var langSelect = document.getElementsByName("CATE1")[i];
        	    var selectValue = langSelect.options[langSelect.selectedIndex].value;
        	    var selectText = langSelect.options[langSelect.selectedIndex].text;
@@ -702,6 +642,8 @@
                    data:{selectValue:selectValue},
                    type:"post",
                    success:function(data){
+						document.getElementsByName("CATE2")[longi].innerHTML="";
+						document.getElementsByName("CATE2")[longi].innerHTML+="<option selected disabled hidden>"+"선택해주세요"+"</option>";
 						for(var i = 0 ;i<data.length;i++){
 						document.getElementsByName("CATE2")[longi].innerHTML+="<option value="+data[i].catecode2+">"+data[i].catename2+ "</option>";
 		  	            }
@@ -717,7 +659,10 @@
         
         var pr_Array = new Array();
         	
-        function changesubcate(i){
+        function changesubcate(i,t){
+			document.getElementsByName("pr_size")[i].value="";
+			document.getElementsByName("peach")[i].value="";
+        	
         	console.log("서브 카테고리 실행?")
         	var langSelect = document.getElementsByName("CATE1")[i];
        	    var selectValue = langSelect.options[langSelect.selectedIndex].value;
@@ -740,7 +685,8 @@
 					
             	 var prlist = new Array();
             	 	document.getElementsByName("product_list")[longi].innerHTML="";
-//					document.getElementsByName("product_size")[longi].value=""; //sikim					
+//					document.getElementsByName("product_size")[longi].value=""; //sikim
+					document.getElementsByName("product_list")[longi].innerHTML+="<option selected disabled hidden>"+"선택해주세요"+"</option>";
 					for(var i = 0 ;i<data.length;i++){
 						document.getElementsByName("product_list")[longi].innerHTML+="<option value="+data[i].pr_size+","+data[i].pr_code+">" +data[i].pr_name+"</option>"; 
 						//document.getElementsByName("product_list")[longi].innerHTML

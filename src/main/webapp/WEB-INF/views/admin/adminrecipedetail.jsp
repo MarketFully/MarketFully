@@ -205,20 +205,13 @@
                                 	</table>
 
                                 </li>
-                                <li>
-                                    <div class="price">
-                                        <span class="total">합계 :</span>
-                                        <span class="price">
-                                            <strong  id="total">0</strong>
-                                            <strong>원</strong>
-                                        </span>
-                                    </div>
-                                </li>
+                                
                                 
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
                                         <a href="#" onclick="saveRecipe();" class="bag">장바구니에 담기</a>
-                                        
+                                        <a href="deleterecipe">해당 레시피 삭제하기</a>
+                                                                              
                                     </div>
                                 </li>
                             </ul>
@@ -302,7 +295,7 @@
       <div class="modal-content">
       	<label>여기에 대충 장바구니 정보 출력</label>
         <p>장바구니에 등록되었습니다.</p>
-        <button onclick="location.href='basket'">장바구니로 이동하기</button>
+        <button onclick="location.href='deleterecipe'">이 레시피 삭제하기</button>
         <button id="modalClose">계속하기</button>
       </div>
 

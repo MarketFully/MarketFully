@@ -171,7 +171,7 @@ public class MiroticController {
 					, SHIPPING shipping
 			) {
 		
-		System.out.println("success Payment");
+		System.out.println("------------success Payment----------------");
 		
 		System.out.println("shpping : "+shipping);
 		
@@ -179,11 +179,21 @@ public class MiroticController {
 		
 		System.out.println("mrtList update : " + mrtList);
 		
+		
 		//주문 테이블 업데이트 입금확인 업데이트
 		int result = 0;
 		for(Mirotic mrt : mrtList) {
 			result += mrtService.updateMiroticSuccess(mrt);
 		}//for
+		
+		
+		//결제 성공시 세션에 있는 cartList(현재 주문중인 장바구니)를 비워준다.
+		ArrayList<MyBag> cartList = (ArrayList<MyBag>) session.getAttribute("cartList");
+		for(MyBag mybag : cartList) {
+			mService.deleteMybag(mybag);
+		}
+		
+		
 		
 		System.out.println("갱신된 주문 테이블 수 : "+result);
 		

@@ -507,10 +507,10 @@
          	
          	//넘겨야될 값을 list로 만든다.
 	       	 var list=[];
-	    	$.each($('#l_table tr'), function(index, item){
+	    	$.each($('#l_table tbody tr'), function(index, item){
 	       		var cart={};
 	       		list.push({
-		       		'pr_code' : $(item).children().children().children('#pr_code').val()
+		       		'pr_code' : $(item).children().children('#pr_code').val()
 		       		, 'pr_each' : $(item).children().children().children().children('#pr_each').val()
 	       			});
 	    	})//$.each  
@@ -525,9 +525,10 @@
      	   			, method:"post"
      	   			, success:function(data){
      	   				console.log(data);
-     	   				location.href="miroticView";
+     	   				location.href="miroticView1";
      	   			}//success
-     	   			, error:function(request, status, error){
+     	   			, error:function(data, request, status, error){
+     	   				console.log('data : '+data);
      	   				console.log('request :'+request);
      	        			console.log('status :'+status);
      	        			console.log('error :'+error);
@@ -555,13 +556,9 @@
 	        		 url: "heartplus",
 	        		 data : { bId : ${bId}, TvOrUser : TvOrUser, mem_num : mem_num}
 	        	 , success:function(result){
-						if(result == 'ok'){
-							alert("찜한 레시피 추가 실패");
+						if(result == 'ok'){ 
 							console.log('좋아요 더하기 성공');
-						}else{
-							alert("찜한 레시피에 추가되었습니다");
-							console.log(result);
-							$('div#rr').text(result);
+						}else{ 
 							console.log('좋아요 더하기 실패');
 						} 
 					}, 
@@ -583,15 +580,11 @@
 	        		 url: "heartminus",
 	        		 data : { bId : ${bId}, TvOrUser : TvOrUser,mem_num : mem_num },
 	 				success:function(result){
-	 					if(result == 'ok'){
-							alert("찜한 레시피 추가 실패");
-							console.log('좋아요 더하기 성공');
-						}else{
-							alert("찜한 레시피에 추가되었습니다");
-							console.log(result);
-							$('div#rr').text(result);
-							console.log('좋아요 더하기 실패');
-						}  
+						if(result == 'ok'){ 
+							console.log('좋아요 빼기 성공');
+						}else{ 
+							console.log('좋아요 빼기 실패');
+						} 
 					}, 
 				error:function(request,status,error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

@@ -144,4 +144,10 @@
      order by sum(mirotic.pr_each) desc) where rownum<5
  ]]>
 	</select>
+
+	<update id="updateProductEntity" parameterType="Mirotic">
+		UPDATE PRODUCT
+		SET PR_ENTITY = PR_ENTITY - #{pr_each}
+		WHERE PR_CODE = #{pr_code}
+	</update>
 </mapper>

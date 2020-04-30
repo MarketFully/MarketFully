@@ -32,7 +32,19 @@ public class MiroticDAO {
 
 	public int updateMiroticSuccess(Mirotic mrt) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("miroticMapper.updateMiroticSuccess", mrt);
+		int result=0;
+		
+		System.out.println("updateMiroticSuccess result mrt : "+mrt);
+		
+		result=sqlSession.update("miroticMapper.updateMiroticSuccess", mrt);
+		
+		System.out.println("updateMiroticSuccess result mrt : "+mrt);
+		
+		result=sqlSession.update("miroticMapper.updateProductEntity", mrt);
+		
+		System.out.println("updateMiroticSuccess result : "+ result);
+		
+		return result;
 	}
 
 	public int insertMiroticList(ArrayList<Mirotic> mrtList) {

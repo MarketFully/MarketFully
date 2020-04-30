@@ -171,14 +171,14 @@
                                 
                                 <li>
                                 	<table style="width:100%;" id="l_table">
-                                		<thead style="text-align: inherit;">
+                                		<thead>
 	                                		<tr>
-	                                			<th class="col" style="width:340px;" style="width: 800px;">상품</th>
+	                                			<th class="col" style="width: 800px;">상품</th>
 	                                			<th class="col" style="width:100px;">가격</th>
 	                                			<th class="col" style="width:100px;">수량</th>
 	                                		</tr>
                                 		</thead>
-                                		<tbody>
+                                		<tbody style="text-align: initial;">
                                 			<c:forEach var="bp" items="${b.getBplist() }">
 		                                		<tr id="product${bp.getPrd().getPr_code() }">
 		                                			<td style="padding-top:17px">

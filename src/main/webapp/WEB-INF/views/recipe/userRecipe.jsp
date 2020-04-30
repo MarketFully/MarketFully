@@ -227,6 +227,7 @@
                 <div class="Ttitle">
                 <h4>사용자 레시피
                 (
+                <c:if test="${mc_cate_num eq '101'}">전체</c:if>
                 <c:if test="${mc_cate_num eq '102'}">한식</c:if>
                 <c:if test="${mc_cate_num eq '103'}">양식</c:if>
                 <c:if test="${mc_cate_num eq '104'}">일식</c:if>

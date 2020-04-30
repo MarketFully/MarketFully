@@ -107,7 +107,7 @@
                         	</td> 
                             <td>${ sp.receiver_name}</td>
                             <td>${ sp.receiver_phone }</td>
-                            <td><input required name="shipping_code" type="text" placeholder="운송장 번호 입력"></td>
+                            <td><input required name="shipping_code" type="text" placeholder="운송장 번호 입력" value="${ sp.shipping_code}"></td>
                             <td>
                             	<select required name="shipping_status">
                             		<option value="" selected disabled hidden>선택 해주세요</option>

@@ -485,7 +485,7 @@
         	        
         	        alert('결제를 취소하셨습니다.');
         	        
-        	        window.location.href = 'home.do';
+        	        //window.location.href = 'home.do'; 홈으로 가면 에러남
         	    }
         	    
         	    

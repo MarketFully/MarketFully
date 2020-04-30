@@ -132,6 +132,12 @@
 	 	
 	 </update>
 	 
+ 	 <update id="updateShipping_Mirotic">
+	 	UPDATE MIROTIC
+	 	SET SHIPPING_CODE = #{shipping_code}
+	 	WHERE OR_NUM = #{or_num}
+	 </update>
+	 
 </mapper>
 
 

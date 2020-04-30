@@ -86,7 +86,7 @@
 
   <!-- Page Content -->
   <div class="container">
-      <h3>사용자 관리</h3>
+      <h3>배송 관리</h3>
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width: 100%;">
         <thead>
           <tr>
@@ -100,20 +100,24 @@
         <c:forEach var="sp" items="${ splist }">
                     <tbody class="item">
                         <tr>
-                        	<td class="mdl-data-table__cell--non-numeric">${sp.or_num }</td>
+                            <form action="updateShippingCode" id="insertfrm" method="POST">
+                        	<td class="mdl-data-table__cell--non-numeric" >
+                            <input type="hidden" name="or_num33" value="${sp.or_num }">
+                        		${sp.or_num }
+                        	</td> 
                             <td>${ sp.receiver_name}</td>
                             <td>${ sp.receiver_phone }</td>
-                            <form>
-                            <td><input type="text" placeholder="운송장 번호 입력"></td>
+                            <td><input required name="shipping_code" type="text" placeholder="운송장 번호 입력"></td>
                             <td>
-                            	<select>
-                            		<option>배송준비중</option>
-                            		<option>배송중</option>
-                            		<option>배송완료</option>
-                            		<option>배송취소</option>
+                            	<select required name="shipping_status">
+                            		<option value="" selected disabled hidden>선택 해주세요</option>
+                            		<option value="배송준비중">배송준비중</option>
+                            		<option value="배송중">배송중</option>
+                            		<option value="배송완료">배송완료</option>
+                            		<option value="배송취소">배송취소</option>
                             	</select>
                             </td>
-                            <td><button>등록</button></td>
+                            <td><input type="submit" value="등록"></td>
                             </form>
                         </tr>
                     </tbody>
@@ -126,61 +130,8 @@
       
       
       <br><br>
-<c:if test="${ pi.currentPage eq 1 }">
-					<img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;">
-				</c:if>
-				<c:if test="${ pi.currentPage ne 1 }">
-					<c:url var="before" value="adminmodify_user">
-						<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
-					</c:url>
-					<a href='${ before }'><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a> 
-				</c:if>
-				
-				<!-- 페이지 -->
-				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-					<c:if test="${ p eq pi.currentPage }">
-						<font color="#2e8b57" size="4"><b>${ p }</b></font>
-					</c:if>
-					
-					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="adminmodify_user">
-							<c:param name="currentPage" value="${ p }"/>
-						</c:url>
-						<a href='${ pagination }'>
-						 <font color="#2e8b57" size="4"><b>
-						 ${ p }
-						 </b></font>
-						 </a>
-					</c:if>
-				</c:forEach>
-				
-				<!-- [다음] -->
-				<c:if test="${ pi.currentPage eq pi.maxPage }">
-					<img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;">
-				</c:if>
-				<c:if test="${ pi.currentPage ne pi.maxPage }">
-					<c:url var="after" value="adminmodify_user">
-						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-					</c:url> 
-					<a href="${after }"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
-				</c:if>
-      
-      <br><br>
-      
-      
-                  <div>
-                <fieldset>
-                <form action="memsearch">
-                
-                    <select style="height: 31px;  border: 1px solid #dcdcdc; border-radius: 5px; margin-right: 20px; font-family: MapoPeacefull;" name="msearchType">
-                        <option value="mid">아이디</option>
-                        <option value="mname">이름</option>
-                    </select>
-                    <input type="text" class="sbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" name="mkeyword">
-                    <button type="submit" class="btn_srch" id="searchbtn">검색</button>
-                </form>
-                </fieldset>
-                </div>
+
+          
       <!-- /.container -->
   </div>
   </div>

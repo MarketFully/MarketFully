@@ -41,7 +41,7 @@ public class MiroticDAO {
 		int result = 0;
 		result = sqlSession.insert("miroticMapper.insertMiroticList", mrtList);
 		
-		//ÁÖ¹®¹øÈ£ ¸®ÅÏ
+		//ï¿½Ö¹ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 		if (result>0) {
 			result = sqlSession.selectOne("miroticMapper.returnOrNum");
 		}else {
@@ -70,6 +70,11 @@ public class MiroticDAO {
 	public int updateShipping(SHIPPING shipping) {
 		
 		return sqlSession.update("miroticMapper.updateShipping", shipping);
+	}
+	
+	public int updateShipping_Mirotic(SHIPPING sh) {
+		
+		return sqlSession.update("miroticMapper.updateShipping_Mirotic", sh);
 	}
 
 }

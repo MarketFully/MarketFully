@@ -61,5 +61,11 @@ public class MiroticServiceImpl implements MiroticService{
 		
 		return mrtDao.updateShipping(shipping);
 	}
+	
+	@Override
+	public int updateShipping_Mirotic(SHIPPING sh) {
+		
+		return mrtDao.updateShipping_Mirotic(sh);
+	}
 
 }

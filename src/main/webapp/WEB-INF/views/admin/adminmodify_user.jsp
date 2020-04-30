@@ -86,7 +86,7 @@
 
   <!-- Page Content -->
   <div class="container">
-      <h3>사용자 관리</h3>
+      <h3>회원 관리</h3>
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width: 100%;">
         <thead>
           <tr>

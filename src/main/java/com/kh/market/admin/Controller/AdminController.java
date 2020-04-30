@@ -921,16 +921,30 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		
 		//배송관련 테이블 수정하는 메소드
 		@RequestMapping("updateShippingCode")
-		public ModelAndView insertShipping(ModelAndView mv, SHIPPING shipping) {
+		public ModelAndView insertShipping(ModelAndView mv, int or_num33, String shipping_status, int shipping_code) {
 			
 			System.out.println("-------insertShipping------------");
-			System.out.println("shipping : "+shipping);
+			System.out.println("int or_num33 : " + or_num33);
+			System.out.println("shipping_code : " + shipping_code);
+			System.out.println("shipping_status : "+shipping_status);
+			
+			SHIPPING sh = new SHIPPING();
+			
+			sh.setOr_num(or_num33);
+			sh.setShipping_code(shipping_code);
+			sh.setShipping_status(shipping_status);
 			
 			int result=0;
+			int result2=0;
+			result = mrtService.updateShipping(sh);
+			result2= mrtService.updateShipping_Mirotic(sh);
 			
-			result = mrtService.updateShipping(shipping);
+//			String url = "redirect:/shippingtrace";
+//			return new ModelAndView(url);
 			
+			mv.setViewName("redirect:/shippingtrace");
 			return mv;
+			
 		}
 		
 		

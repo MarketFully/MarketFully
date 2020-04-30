@@ -64,5 +64,7 @@ public interface MiroticService {
 	 * @return
 	 */
 	int updateShipping(SHIPPING shipping);
+	
+	int updateShipping_Mirotic(SHIPPING sh);
 
 }

@@ -971,6 +971,7 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 			
 			
 			mv.addObject("clist", clist);
+			mv.setViewName("redirect:/atvCateList");
 			
 			return mv;
 		}

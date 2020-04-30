@@ -225,17 +225,16 @@
 			    				<input type="hidden" value="${clist.mc_cate_num}" name="mc_cate_num">
 			    				<button id="tvCateBtn" class="btn btn-default" style="font-family: MapoPeacefull;">${clist.mc_name }</button>
 			    				&nbsp;&nbsp;
+			    				<div class="write"> 
+			    					<a href="#" onclick="deleteCate(this)" id="close"> X </a>
+			    				</div>
 			    			</form>
 			    		</li>
 		    		
 		    	</c:forEach>
 		    </ul>
         </div>
-        <script>
-	    	
-        $('#tvCateBtn').hover()
-	    	
-    	</script>
+
 	
 		<div id="tab1" class="toptenTab current">
 			<table class="recipe" id="tv_recipe">
@@ -345,12 +344,27 @@
     <center>
     <input type="submit" value="레시피 작성" class="tbox" onclick="location.href='TVrecipeinsertpage'">
     </center>
-<script>
-	function SearchBtn(){ //HTML을 최대한 유지하기 위해 a태그로 submit을 해준다.
-		
-		$('#src_form').submit();
-	}
+	<script>
+		function SearchBtn(){ //HTML을 최대한 유지하기 위해 a태그로 submit을 해준다.
+			
+			$('#src_form').submit();
+		}
 	
-</script>
+        
+        function deleteCate(item){
+        	//console.log($(item).text());
+        	//console.log(
+        	//	$(item).parent().siblings('input[name=mc_cate_num]').val();
+        	//);
+        	// $('a#close').eq(1).parent().parent().attr('action','aaa')
+        	$(item).parent().parent().attr('action','deleteclist');
+        	$(item).parent().parent().submit();
+        }
+	    	
+		
+	</script>
+
+
+
 </body>
 </html>

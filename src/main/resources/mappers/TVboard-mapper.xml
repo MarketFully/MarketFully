@@ -334,7 +334,6 @@
 		UPDATE MENU_CATEGORY
 		SET MC_STATUS = 'N'
 		WHERE MC_CATE_NUM = #{mc_cate_num}
-		AND MC_NAME = #{mc_name}
 	</update>
 	
 	<select id="TVheratCount" resultType="_int">

@@ -182,7 +182,7 @@
                                 			<c:forEach var="bp" items="${b.getBplist() }">
 		                                		<tr id="product${bp.getPrd().getPr_code() }">
 		                                			<td style="padding-top:17px">
-			                                            <input type="checkbox" name="product" id="source" value="source" class="check"/>
+			                                            
 			                                            <input type="hidden" value="${bp.getPrd().getPr_code() }" name="pr_code" id="pr_code"/>
 			                                            <input type="hidden" value="${bp.getPrd().getPr_price() }" name="pr_price" id="pr_price"/>
 			                                            <label for = "source" style="font-size:16px;" name="pr_name" id="pr_name">${bp.getPrd().getPr_name() }</label>

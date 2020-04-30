@@ -224,7 +224,17 @@
         <div class="TOP">
             <div class="TOP10" style="width: 1100px; display: flex; margin: 0 auto;">
                 <div class="topImgdiv"><img src="resources/img/user.png" class="topImg"></div>
-                <div class="Ttitle"><h4>사용자 레시피</h4></div>
+                <div class="Ttitle">
+                <h4>사용자 레시피
+                (
+                <c:if test="${mc_cate_num eq '102'}">한식</c:if>
+                <c:if test="${mc_cate_num eq '103'}">양식</c:if>
+                <c:if test="${mc_cate_num eq '104'}">일식</c:if>
+                <c:if test="${mc_cate_num eq '105'}">중식</c:if>
+                <c:if test="${mc_cate_num eq '106'}">기타</c:if>
+                )
+                </h4>
+                </div>
                 <div class="write"><input type="submit" value="레시피 작성" class="write_btn" onclick="location.href='recipeinsertpage'"> </div>
             </div>
         </div>

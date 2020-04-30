@@ -24,7 +24,7 @@
            <!-- 이미지 슬라이드 -->
            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" style="height:700px;">
-              <div class="carousel-item active">resources/img/main/mainslide3.png
+              <div class="carousel-item active">
                 <img class="d-block w-100" src="resources/img/main/mainslide3.png" alt="First slide" style="height:700px;">
               </div>
               <div class="carousel-item">

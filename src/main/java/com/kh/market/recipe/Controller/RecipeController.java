@@ -68,7 +68,6 @@ public class RecipeController {
 	 @RequestMapping("maincate_subcatesearch") //json으로 서브 카테고리 가져오기
 		public void admin_maincategoryView(HttpServletResponse response,
 											String selectValue ,String longi) throws JsonIOException, IOException {
-		 System.out.println("@@@@@@@@@@@@@@@ selectValue : " + selectValue);
 			
 			//ArrayList<SubCategory> sc = cService.selectSubCategoryList();
 			ArrayList<SubCategory> subcatelist = cService.lowerSublist(selectValue); 
@@ -82,7 +81,6 @@ public class RecipeController {
 	 @RequestMapping("maincate_subcatesearch_product")
 		public void admin_maincategoryView2(HttpServletResponse response, Model m,
 											Product pp,String longi) throws JsonIOException, IOException {
-		 System.out.println("@@@@@@@@@@@@@@@ pp : " + pp);
 			
 			//ArrayList<SubCategory> sc = cService.selectSubCategoryList();
 //			ArrayList<SubCategory> subcatelist = cService.lowerSublist(selectValue);
@@ -154,7 +152,6 @@ public class RecipeController {
 						be.setOrigin(filea.getOriginalFilename());// DB에는 파일명 저장
 						be.setRename(renameFileName);
 						be.setSeq(i);
-						System.out.println("%%%%%%%%%%%%%%%%% be : " + be);
 						int result3 = bService.insertExpRecipe(be);
 						System.out.println("레시피 작성 be : " + be);
 						i++;
@@ -162,7 +159,11 @@ public class RecipeController {
 					
 				}
 			}
-			return "recipe/temp_userRecipe";
+			if(result > 0) {
+				return "redirect:RecipeUser";
+			}else {
+				return "common/errorPage";
+			}
 		}
 		
 		public String saveFile(MultipartFile file, HttpServletRequest request, int i) {

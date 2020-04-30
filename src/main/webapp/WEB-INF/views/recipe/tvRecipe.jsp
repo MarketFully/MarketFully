@@ -315,7 +315,7 @@
     <!--검색창-->
     <fieldset>
     	<form id="src_form" action="tvSearchList" method="post">
-	    	<select name="src_cate">
+	    	<select style="display: none" name="src_cate">
 	    		<option value="title" selected>제목</option>
 	    	</select>
 	    	<input type="hidden" name="mc_cate_num" value="${ mc_cate_num}">

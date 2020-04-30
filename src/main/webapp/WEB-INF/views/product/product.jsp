@@ -257,7 +257,7 @@
         <div class="col-lg-3 col-md-6 mb-4" style="cursor: pointer;"  onclick="location.href='ProductDetail?pr_code=${fourproductlist[l].pr_code}'">
             <div class="Rcard h-500 w-100">
                 <a href="#"><img src="resources/img/Productuploadimg/${fourproductlist[l].renameFileName }" 
-                class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "
+                class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "  style="height: 200px;"
  style='width:90%;'></a>
             
                 <div class="Rcard-body">

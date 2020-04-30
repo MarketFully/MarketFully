@@ -273,7 +273,7 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "></a>
+	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top"  style="height: 200px;" onERROR="this.src='resources/img/errorimg.PNG' "></a>
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
@@ -303,7 +303,7 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "></a>
+	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top"  style="height: 200px;" onERROR="this.src='resources/img/errorimg.PNG' "></a>
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
@@ -333,7 +333,7 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "></a>
+	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top"  style="height: 200px;" onERROR="this.src='resources/img/errorimg.PNG' "></a>
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
@@ -364,7 +364,7 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "></a>
+	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top" style="height: 200px;" onERROR="this.src='resources/img/errorimg.PNG' "></a>
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>
@@ -394,7 +394,7 @@
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 					</c:url>
 	            <div class="Rcard h-500 w-100">
-	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "></a>
+	                <a href="${ bdetail }"><img src="resources/img/userRecipe/${b.getMb_rename() }"  style="height: 200px;" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG' "></a>
 	                <div class="Rcard-body">
 	                    <h4 class="Rcard-title" style="cursor: pointer;"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
 	                    <p class="Rcard-text">${ b.mb_content }</p>

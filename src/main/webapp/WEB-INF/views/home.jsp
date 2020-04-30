@@ -65,7 +65,7 @@
 							<c:param name="currentPage" value="${ pi.currentPage }"/>
 							<c:param name="TvOrUser" value="${ TvOrUser }"/>
 						</c:url>
-                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG'"></a>
+                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}" class="Rcard-img-top" onERROR="this.src='resources/img/errorimg.PNG'" style="height: 200px;"></a>
                 
                     <div class="Rcard-body">
                         <h4 class="Rcard-title"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>

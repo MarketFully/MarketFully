@@ -294,7 +294,7 @@
 						<div class="col-lg-3 col-md-6 mb-4">
 							<div class="Rcard h-500 w-100">
 								<a href="ProductDetail?pr_code=${pr[R].pr_code }"><img src="resources/img/Productuploadimg/${pr[R].renameFileName }"
-									class="Rcard-img-top" style="width: 90%;" ></a>
+								  	class="Rcard-img-top" style="width: 90%; height:200px;" ></a>
 
 								<div class="Rcard-body">
 									<h4 class="Rcard-title">

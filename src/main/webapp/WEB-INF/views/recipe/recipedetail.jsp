@@ -159,7 +159,7 @@
                                 </li>
                                 <li>
                                     <div class="ment">추천수</div>
-                                    <div class="ment_sub">${ b.mb_thank }</div>
+                                    <div class="ment_sub" id="rr">${ b.mb_thank }</div>
                                 </li>
 
                                 <li>
@@ -555,9 +555,13 @@
 	        		 url: "heartplus",
 	        		 data : { bId : ${bId}, TvOrUser : TvOrUser, mem_num : mem_num}
 	        	 , success:function(result){
-						if(result == 'ok'){ 
+						if(result == 'ok'){
+							alert("찜한 레시피 추가 실패");
 							console.log('좋아요 더하기 성공');
-						}else{ 
+						}else{
+							alert("찜한 레시피에 추가되었습니다");
+							console.log(result);
+							$('div#rr').text(result);
 							console.log('좋아요 더하기 실패');
 						} 
 					}, 
@@ -579,11 +583,15 @@
 	        		 url: "heartminus",
 	        		 data : { bId : ${bId}, TvOrUser : TvOrUser,mem_num : mem_num },
 	 				success:function(result){
-						if(result == 'ok'){ 
-							console.log('좋아요 빼기 성공');
-						}else{ 
-							console.log('좋아요 빼기 실패');
-						} 
+	 					if(result == 'ok'){
+							alert("찜한 레시피 추가 실패");
+							console.log('좋아요 더하기 성공');
+						}else{
+							alert("찜한 레시피에 추가되었습니다");
+							console.log(result);
+							$('div#rr').text(result);
+							console.log('좋아요 더하기 실패');
+						}  
 					}, 
 				error:function(request,status,error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

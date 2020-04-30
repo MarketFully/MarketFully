@@ -323,4 +323,11 @@
 		SELECT *
 		FROM SHIPPING
 	</select>
+	
+	<select id="USERheratCount" resultType="_int">
+		SELECT UMB_THANK 
+		FROM USER_MENU_BOARD
+		WHERE UMB_NUM=#{mb_bo_num}
+		AND UMB_STATUS='Y'
+	</select>
 </mapper>

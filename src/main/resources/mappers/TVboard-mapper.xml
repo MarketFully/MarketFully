@@ -337,4 +337,11 @@
 		AND MC_NAME = #{mc_name}
 	</update>
 	
+	<select id="TVheratCount" resultType="_int">
+		SELECT TMB_THANK 
+		FROM TV_MENU_BOARD
+		WHERE TMB_NUM=#{mb_bo_num}
+		AND TMB_STATUS='Y'
+	</select>
+	
 </mapper>

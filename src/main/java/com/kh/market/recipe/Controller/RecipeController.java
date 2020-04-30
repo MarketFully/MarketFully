@@ -574,19 +574,21 @@ public class RecipeController {
 		if(TvOrUser.equals("user")) {
 			
 			int result = bService.USERheartPlus(f);
+			int result2 = bService.USERheratCount(f);
 			System.out.println("@@@@@@@" + result);
 			if(result > 0) {
 				
 				return "ok";
 			}else {
-				return "fail";
+				return result2+"";
 			}
 		}else {
 			int result = bService.TVheartPlus(f);
+			int result2 = bService.TVheratCount(f);
 			if(result > 0) {
 				return "ok";
 			}else {
-				return "fail";
+				return result2+"";
 			}
 		}
 	}
@@ -612,17 +614,19 @@ public class RecipeController {
 		if(TvOrUser.equals("user")) {
 			
 			int result = bService.USERheartMinus(f);
+			int result2 = bService.USERheratCount(f);
 			if(result > 0) {
 				return "ok";
 			}else {
-				return "fail";
+				return result2+"";
 			}
 		}else {
 			int result = bService.TVheartMinus(f);
+			int result2 = bService.TVheratCount(f);
 			if(result > 0) {
 				return "ok";
 			}else {
-				return "fail";
+				return result2+"";
 			}
 		}
 	}

@@ -259,6 +259,18 @@ public class BoardDao {
 	}
 
 
+	public int USERheratCount(Favorite f) {
+		
+		return sqlSession.selectOne("USERboardMapper.USERheratCount",f);
+	}
+
+
+	public int TVheratCount(Favorite f) {
+		
+		return sqlSession.selectOne("TVboardMapper.TVheratCount",f);
+	}
+
+
 
 
 	

@@ -263,5 +263,17 @@ public class BoardServiceImpl implements BoardService{
 		return bDao.shippinglist();
 	}
 
+	@Override
+	public int USERheratCount(Favorite f) {
+		
+		return bDao.USERheratCount(f);
+	}
+
+	@Override
+	public int TVheratCount(Favorite f) {
+		
+		return bDao.TVheratCount(f);
+	}
+
 
 }

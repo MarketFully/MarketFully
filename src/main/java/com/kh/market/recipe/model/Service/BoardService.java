@@ -124,4 +124,8 @@ public interface BoardService {
 	int deleteclist(Menu_Category menuCate);
 	
 	ArrayList<SHIPPING> shippinglist();
+
+	int USERheratCount(Favorite f);
+
+	int TVheratCount(Favorite f);
 }

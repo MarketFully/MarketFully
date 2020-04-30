@@ -201,27 +201,22 @@
                     <div id="divMainPhotoBox" is_over="0">
                         <img id="mainPhotoHolder" src="resources/img/photo.gif"
                             style="width: 200px; height: 200px; cursor:pointer;float: right; margin-top: 22px;">
-                        <input type="file" id="mainImg" name="mainImg" class="mainImg"
+                        <input type="file" id="mainImg" name="mainImg" class="mainImg" required
                             style="display: none;">
                     </div>
                     <div class="cont_line">
                         <p class="cont_tit4">레시피 제목</p>
-                        <input type="text" name="mb_title" id="cok_title" value="" class="form-control"
+                        <input type="text" name="mb_title" id="cok_title" value="" class="form-control" required
                             placeholder="예) 소고기 미역국 끓이기"
                             style="width:500px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
                     </div>
                     <div class="cont_line">
                         <p class="cont_tit4">요리 소개</p>
-                        <input type="text" name="mb_content" id="cok_title" value="" class="form-control"
+                        <input type="text" name="mb_content" id="cok_title" value="" class="form-control" required
                             placeholder="요리의 소개를 간단히 작성해주세요"
                             style="width:500px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
                     </div>
-                   <!--  <div class="cont_line">
-                        <p class="cont_tit4">동영상</p>
-                        <input type="text" name="cok_title" id="cok_title" value="" class="form-control"
-                            placeholder="동영상의 주소를 입력해주세요."
-                            style="width:500px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
-                    </div> -->
+                   
                     <div class="cont_line">
                         <p class="cont_tit4">카테고리</p>
                         <select name="mc_cate_num"style="width: 150px; height: 30px; border: 1px solid #dcdcdc; border-radius: 3px;">
@@ -316,12 +311,12 @@
                                         </td>
                                         
                                         <td class="table_list_add">
-                                            <input class="product_size" data-validation="required" name="pr_size"
+                                            <input class="product_size" data-validation="required" name="pr_size" required
                                                required="required" type="text">
                                         </td>
                                         
                                         <td class="table_list_add">
-                                            <input class="product_Num" data-validation="required" name="peach"
+                                            <input class="product_Num" data-validation="required" name="peach" required
                                                 required="required" type="text">
                                         </td>
 
@@ -353,26 +348,19 @@
                             <div class="recipeItem" name="step" id="test1">
                                 <button style="width: 20px; height: 20px;" name="deletestep" style="border: none; "
                                     class="deletestep"></button>
-                                <p class="recipeNum">Step1</p>
+                                <p class="recipeNum">Step</p>
                                 <div id="divStepText" style="display:inline-block">
-                                    <textarea name="content" id="step_text" class="formControl_step"
+                                    <textarea required name="content" id="step_text" class="formControl_step"
                                         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
-                                    <textarea name="content" style="display: none">&&</textarea>
+                                     <textarea name="content" style="display: none">&&</textarea>
                                 </div>
                                 <div id="divStepUpload" style="display:inline-block">
                                     <div id="5" is_over="0">
                                         <img id="stepPhoto" src="resources/img/plus.gif" class="plusphoto"
                                             style="cursor: pointer">
-                                        <input type="file" id="subImg" name="subImg" class="fileimg" onchange="LoadImg(this)"
+                                        <input type="file" id="subImg" name="subImg" class="fileimg" onchange="LoadImg(this)" required
                                             style="display: block;">
                                     </div>
-                                    
-			                        <!-- <div id="divStepPhotoBox" is_over="0">
-			                        	<img id="stepPhoto" src="resources/img/plus.gif"
-			                            style="width: 200px; height: 200px; cursor:pointer;float: right; margin-top: 22px;">
-			                        	<input type="file" id="subImg" name="subImg" class="subImg"
-			                            style="display: none;">
-			                    	</div> -->
                                     
                                 </div>
                             </div>
@@ -388,11 +376,11 @@
                     </div>
                     <center>
                     
-					<button id="joinokbtn" class="okbtn" onclick="Joinbtn();" style="background: #2e8b57; color: #fff !important; text-decoration: none; border: none;
+					<input type="submit" value="작성하기" id="joinokbtn" class="okbtn" style="background: #2e8b57; color: #fff !important; text-decoration: none; border: none;
 					border-radius: 3px;
 				    height: 30px;
 				    margin-bottom: 10px;
-				    width: 80px;">작성하기</button>
+				    width: 80px;">
                     </center>
 	                </div>
 	               </form>

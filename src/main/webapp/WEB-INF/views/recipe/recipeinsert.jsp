@@ -376,7 +376,7 @@
                     </div>
                     <center>
                     
-					<input type="submit" value="작성하가" id="joinokbtn" class="okbtn" style="background: #2e8b57; color: #fff !important; text-decoration: none; border: none;
+					<input type="submit" value="작성하기" id="joinokbtn" class="okbtn" style="background: #2e8b57; color: #fff !important; text-decoration: none; border: none;
 					border-radius: 3px;
 				    height: 30px;
 				    margin-bottom: 10px;

@@ -324,4 +324,17 @@
       VALUES(SEQ_TMB.currval,#{pcode},#{peach})
 	</insert>
 	
+	<!-- 메뉴 카테고리 추가 -->
+	<insert id="insertclist" parameterType="Menu_Category">
+		INSERT INTO MENU_CATEGORY
+		VALUES (SEQ_MC.NEXTVAL, #{mc_name}, 'Y')
+	</insert>
+	
+	<update id="deleteclist" parameterType="Menu_Category">
+		UPDATE MENU_CATEGORY
+		SET MC_STATUS = 'N'
+		WHERE MC_CATE_NUM = #{mc_cate_num}
+		AND MC_NAME = #{mc_name}
+	</update>
+	
 </mapper>

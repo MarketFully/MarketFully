@@ -198,10 +198,19 @@
     
 	<div id="topRecipe">
         <div class="TopMenu">
-		    <ul class="tab" style="margin-top: 30px;">
+        <input type="submit" value="레시피 작성" class="write_btn" onclick="location.href='TVrecipeinsertpage'">
+        <div style="border:1px solid black; width:max-content">
+        	<form method="post" action="insertclist">
+        		&nbsp;&nbsp;&nbsp;&nbsp; 
+	        	<input type="text" name="mc_name" placeholder="카테고리 이름 입력">
+	        	<button id="addTvCateBtn" class="btn btn-default" name="addCate" style="font-family: MapoPeacefull;"> + </button>
+        	</form>
+        </div>
+    	
+		    <ul class="tab" style="margin-top: 30px;" id="ulTag">
 		    <!-- 전체 목록 -->
-		    	<li>
-		    		<form action="atvBoardList" method="post" id="allCate">
+		    	<li  id="aCate">
+		    		<form action="atvBoardList" method="post">
 			    		<input type="hidden" value="0" name="mc_cate_num">
 			    		<button id="tvCateBtn" class="btn btn-default" name="allCate" style="font-family: MapoPeacefull;">전체</button>
 			    		<div class="write"> </div>
@@ -211,7 +220,7 @@
 		    	</li>
 		    	<!-- 레시피 목록 반복문으로 돌려서 카테고리를 만든다.-->
 		    	<c:forEach var="clist" items="${clist }" varStatus="status">
-			    		<li id="liTag">
+			    		<li>
 			    			<form action="atvBoardList" method="post" >
 			    				<input type="hidden" value="${clist.mc_cate_num}" name="mc_cate_num">
 			    				<button id="tvCateBtn" class="btn btn-default" style="font-family: MapoPeacefull;">${clist.mc_name }</button>
@@ -220,14 +229,14 @@
 			    		</li>
 		    		
 		    	</c:forEach>
-		    	<li>
-			    	<button id="addTvCateBtn" class="btn btn-default" name="addCate" style="font-family: MapoPeacefull;" onclick="addCate()"> + </button>
-		    	</li>
 		    </ul>
         </div>
-        
-
-
+        <script>
+	    	
+        $('#tvCateBtn').hover()
+	    	
+    	</script>
+	
 		<div id="tab1" class="toptenTab current">
 			<table class="recipe" id="tv_recipe">
                 <thead>

@@ -196,12 +196,53 @@ public class MiroticController {
 	}
 	
 	
+	
 	@RequestMapping("miroticView")
-	public String miroticView(ModelAndView mv, @RequestBody ArrayList<MyBag> cartList) {
+	@ResponseBody
+	public String miroticView(ModelAndView mv, @RequestBody ArrayList<MyBag> cartList, MyBag mybag, HttpSession session) {
+		
+		System.out.println("---------miroticView---------------");
+		System.out.println("cartList : "+cartList);
+		System.out.println("mybag : "+mybag);
+		System.out.println("cartList.isEmpty : "+cartList.isEmpty());
+		
+		System.out.println("session cartList : "+session.getAttribute("cartList"));
+		
+		if(cartList.isEmpty()) {
+			cartList.add(mybag);
+		}//if
+		
+		
 		
 		mv.addObject("cartList", cartList);
-		return "mirotic/miroticPage";
+		mv.setViewName("mirotic/miroticPage");
+		
+		System.out.println("return cartList");
+		
+		return "cartList";
 	}
 	
+	@RequestMapping("productMirotic")
+	public ModelAndView productMirotic(ModelAndView mv
+						, MyBag mybag
+						, HttpSession session) {
+		
+		System.out.println("-------productMirotic--------------");
+		System.out.println("mybag : "+mybag);
+		ArrayList<MyBag> cartList = new ArrayList<MyBag>();
+		
+		mybag.setPrd(mService.selectOneProduct(mybag.getPr_code()));
+		
+		System.out.println("after mybag.setPrd "+ mybag);
+		
+		cartList.add(mybag);
+		
+		System.out.println("cartList push mybag : "+ cartList);
+		mv.addObject("cartList",cartList);
+		mv.setViewName("mirotic/miroticPage");
+		
+		return mv;
+		
+	}//productMiroticx
 	
 }

@@ -411,7 +411,8 @@
         	        		payment(pg_val, pay_method_val, order_val, amount_val, name_val, phone_val, addr_val, zip_val, memo_val);
         	        	}//success
         	        	, error:function(request,status, error){
-        	        		console.log('에라');
+        	        		console.log('내부 정보 오류가 발생했습니다. 관리자에게 문의하세요');
+        	        		history.back();
         	        	}
         	        })//ajax
     	  
@@ -472,21 +473,22 @@
         	        	}//success
         	        	, error:function(data, request,status, error){
         	        		console.log(data);
-        	        		alert('결제가 완료되지 않았습니다.');
+        	        		alert('결제가 완료되지 않았습니다. 관리자에게 문의하세요!');
+        	        		
+        	        		history.back();
+        	        		
         	        	}//error
         	        })//ajax
         	        
         	        
         	    } else {
-        	        var msg = '결제에 실패하였습니다.';	//실패 메세지
-        	        msg += '에러내용 : ' + rsp.error_msg;
         	        
-        	        alert('결제가 완료되지 않았습니다. \n'+ msg);
+        	        alert('결제를 취소하셨습니다.');
         	        
-        	        
-        	        window.location.href = 'index';
+        	        window.location.href = 'home.do';
         	    }
-        	    alert(msg);
+        	    
+        	    
         	});
         	
         }//payment

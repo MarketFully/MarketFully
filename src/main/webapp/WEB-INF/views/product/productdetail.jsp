@@ -204,12 +204,15 @@
 
                     
                     <div class="goods_name">
-                        <h3 class="name">${p.pr_name }</h3>
+                        <h3 class="name" name="pr_name">${p.pr_name }</h3>
+                        
+                            	<form method="post" action="productMirotic" id="productForm">
                         <div class="good_list">
                             <ul>
                                 <li>
+	                            	<input type="hidden" id="hiddenPrcode" name="pr_code" value="${p.pr_code }">
                                     <div class="ment">가격</div>
-                                    <div class="ment_subject">${p.pr_price }</div>
+                                    <div class="ment_subject" name="pr_price">${p.pr_price }</div>
                                 </li>
                                 <li>
                                     <div class="ment">판매단위</div><!-- admin 에서는 상퓸용량 -->
@@ -229,9 +232,9 @@
                                     <div class="ment" style="margin-right: 80px;">구매수량</div>
                                     
                                     <div class="purchase_count">
-                                        <button onclick="form_btn1(-1)" class="count_btn">-</button>
-                                        <input type="text" id="text1" value="1" style="width: 30px;" class="input_num">
-                                        <button onclick="form_btn1(1)" class="count_btn">+</button>
+                                        <input type="button" onclick="form_btn1(-1)" class="count_btn" value="-">
+                                        <input type="text" id="text1" value="1" style="width: 30px;" class="input_num" name="pr_each">
+                                        <input type="button" onclick="form_btn1(1)" class="count_btn" value="+">
                                     </div>
                                 </li>
                                 <li style="margin-top:20px; margin-bottom:20px;">
@@ -245,12 +248,13 @@
                                 </li>
                                 <li>
                                     <div style="display: flex; float: right; margin-top: 15px; margin-bottom: 30px;">
-                                        <input type="submit" onclick="toBasket()" value="장바구니에 담기" class="bag"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="submit" onclick="miroticView()" value="주문하기" class="bag">
+                                        <input type="button" onclick="toBasket()" value="장바구니에 담기" class="bag"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="button" onclick="miroticView()" value="주문하기" class="bag">
                                     </div>
                                 </li>
                             </ul>
                         </div>
+                                </form>
                     </div>
                 </div>
                 <!-- 상품 상단부분 (info) end -->
@@ -547,10 +551,15 @@
     	if(${empty loginUser}){
    		 alert('회원만 이용 가능합니다.');
    		 return false;
-   	 }
+   	 	}//if
+   	 	
+   	 	$('#productForm').submit();
+   	 	
+   	 	
+   	 	/* 
     	var list=[];
     	list.push({
-       		'pr_code' : ${p.pr_code}
+       		'pr_code' : $('#hiddenPrcode').val()
        		, 'pr_each' : $('#text1').val()
    			});
 	   	 
@@ -561,8 +570,8 @@
 	   			, contentType : "application/json"
 	   			, method:"post"
 	   			, success:function(data){
-	   				console.log(data);
-	   				location.href="miroticView";
+	   				alert(data);
+	   				location.href="miroticView1";
 	   			}//success
 	   			, error:function(request, status, error){
 	   				console.log('request :'+request);
@@ -571,8 +580,8 @@
 	   			}//error
 	   		}); //ajax 
     	//확인
-    	
-   		
+   		  */
+   		 
     }//miroticView
     
     </script>

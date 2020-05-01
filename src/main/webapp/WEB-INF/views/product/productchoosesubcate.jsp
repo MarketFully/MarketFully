@@ -335,10 +335,12 @@
                style="width:25px;height:25px; cursor:pointer;vertical-align: middle;">
             </c:if>
                <c:if test="${ pi.currentPage ne 1 }">
-                  <c:url var="before" value="Productchoosecate">
-                  <c:param name="catenum" value="${sc[0].upcate }"/>
+                   <c:url var="pagination" value="productsubselect">
+                  
+                        <c:param name="currentPage" value="${ p }"/>
+                        <c:param name="maincate" value="${sc[0].upcate }"/>
+                        <c:param name="subcate" value="${sc[0].catecode2 }"></c:param>
                   <c:param name="maincatename" value="${maincatename }"/>
-                    <c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
                   </c:url>
                   <a href="${before}"><img src="resources/img/arrow_left.png" style="width:25px;height:25px;vertical-align: middle;"></a>
                </c:if>
@@ -350,10 +352,11 @@
                </c:if>
                      
                <c:if test="${ p ne pi.currentPage }">
-                  <c:url var="pagination" value="Productchoosecate">
+                  <c:url var="pagination" value="productsubselect">
                   
                         <c:param name="currentPage" value="${ p }"/>
-                        <c:param name="catenum" value="${sc[0].upcate }"/>
+                        <c:param name="maincate" value="${sc[0].upcate }"/>
+                        <c:param name="subcate" value="${sc[0].catecode2 }"></c:param>
                   <c:param name="maincatename" value="${maincatename }"/>
                   </c:url>
                      <a href="${ pagination }">${ p }</a> &nbsp;
@@ -368,11 +371,13 @@
                      
                   </c:if>
                   <c:if test="${ pi.currentPage ne pi.maxPage }">
-                     <c:url var="after" value="Productchoosecate">
-                        <c:param name="catenum" value="${sc[0].upcate }"/>
-                  		<c:param name="maincatename" value="${maincatename }"/>
-                        <c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-                     </c:url> 
+                 <c:url var="pagination" value="productsubselect">
+                  
+                        <c:param name="currentPage" value="${ p }"/>
+                        <c:param name="maincate" value="${sc[0].upcate }"/>
+                        <c:param name="subcate" value="${sc[0].catecode2 }"></c:param>
+                  <c:param name="maincatename" value="${maincatename }"/>
+                  </c:url>
                      <a href="${after}"><img src="resources/img/arrow_right.png" style="width:25px;height:25px;vertical-align: middle;"></a>
                   </c:if>    
     </div> 

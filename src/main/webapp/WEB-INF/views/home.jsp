@@ -96,11 +96,11 @@
           <c:if test="${pr.pr_name!=NULL }">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="Rcard h-500 w-100">
-                    <a href="ProductDetail?pr_code=${pr.pr_code}"><img src="resources/img/Productuploadimg/${pr.renameFileName }" class="Rcard-img-top"></a>
+                    <a href="ProductDetail?pr_code=${pr.pr_code}"><img src="resources/img/Productuploadimg/${pr.renameFileName }" style="width:90%; height:200px;" class="Rcard-img-top"></a>
                 
                     <div class="Rcard-body">
                         <h4 class="Rcard-title"><a href="ProductDetail?pr_code=${pr.pr_code}" style="text-decoration: none;">${pr.pr_name }</a></h4>
-                        <p class="Rcard-text">${pr.pr_price }</p>
+                        <p class="Rcard-text">${pr.pr_price }원</p>
                     </div>
                 </div>
             </div>

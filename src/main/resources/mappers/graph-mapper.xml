@@ -45,6 +45,7 @@ SELECT TRUNC(or_date,'iw')               "시작일"
 	 SELECT TO_CHAR((SYSDATE-7) + ROWNUM - 1, 'YYYY-MM-DD') AS "DATE"
    FROM ALL_OBJECTS  BB
   WHERE ROWNUM <= 7
+  order by "DATE" asc
 	]]>
 	</select>
 
@@ -60,6 +61,7 @@ WHERE
  OR_DATE>=SYSDATE-7 AND OR_DATE<SYSDATE
 GROUP BY
  to_char(OR_DATE, 'YYYY-MM-DD')
+  order by created_date asc
 ]]>
 </select>
 </mapper>

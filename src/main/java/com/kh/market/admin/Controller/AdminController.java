@@ -263,6 +263,8 @@ ArrayList<MainCategory> mc = cService.selectMainCategoryList();
 		ArrayList<graphvo> pricelist = gService.getSevenPrice(); // 2개
 		int j = 0 ;
 		ArrayList<graphvo> sendlist = new ArrayList<graphvo>();
+		System.out.println(pricelist);
+		System.out.println(sendlist);
 		for(int i =0; i < 7;i++) {
 			graphvo gv = new graphvo();
 			

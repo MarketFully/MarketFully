@@ -80,36 +80,7 @@
 		  </c:forEach>
           </div>
           
-        <!-- 최근 뜨고 있는 레시피-->
-        <div class="RecentBest">
-            <div class="RTitle">
-                <p class="RContent">최근 뜨는 레시피</p>
-            </div>
-          </div>
-
-          <div class="row">
-		  <c:forEach var="b" items="${ mainrandomlist2 }">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="Rcard h-500 w-100">
-                        <c:url var="bdetail" value="RecipeDetail">
-							<c:param name="bId" value="${ b.mb_num }"/>
-							<c:param name="currentPage" value="${ pi.currentPage }"/>
-							<c:param name="TvOrUser" value="${ TvOrUser }"/>
-						</c:url>
-                    <a href="${ bdetail }"><img src="resources/img/tvRecipe/${b.getMb_rename()}"  onERROR="this.src='resources/img/errorimg.PNG'" class="Rcard-img-top"></a>
-                
-                    <div class="Rcard-body">
-                        <h4 class="Rcard-title"><a href="${ bdetail }" style="text-decoration: none;">${ b.mb_title }</a></h4>
-                        <p class="Rcard-text">"${ b.mb_content }"</p>
-                    </div>
-                    <div class="Rcard-footer">
-                        <small class="text-muted">추천수</small>&nbsp;&nbsp;<small class="text-muted">${ b.mb_thank }</small><br>
-                        <small class="text-muted1"><img src="resources/img/heart.png" style="float: right; margin-right: 10px;"></small>
-                    </div>
-                </div>
-            </div>
-		  </c:forEach>
-        </div>
+  
           
           
 
@@ -122,7 +93,7 @@
 
           <div class="row">
           <c:forEach var="pr" items="${mainRankProduct }">
-          
+          <c:if test="${pr.pr_name!=NULL }">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="Rcard h-500 w-100">
                     <a href="ProductDetail?pr_code=${pr.pr_code}"><img src="resources/img/Productuploadimg/${pr.renameFileName }" class="Rcard-img-top"></a>
@@ -133,6 +104,7 @@
                     </div>
                 </div>
             </div>
+            </c:if>
           </c:forEach>
         </div>
         

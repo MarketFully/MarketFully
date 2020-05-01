@@ -198,6 +198,13 @@ public class ProductController {
 			AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
 			ArrayList<Product> subcateproductlist = pService.selectlowerproduct(subcatevo,pi);//페이징처리
 			ArrayList<SubCategory> subcatelist = cService.lowerSublist(maincate); //하위 카테고리 리스트 
+			ArrayList<MainCategory> fileimg = cService.selectMainCategoryList();
+			for(int i = 0 ; i<fileimg.size(); i++) {
+				if(fileimg.get(i).getCatecode1().equals(maincate)) {
+					mv.addObject("renamefilename",fileimg.get(i).getRenamefilename());
+				}
+			}
+			
 			
 			mv.addObject("pr", subcateproductlist)
 			.addObject("currentPage",currentPage)
@@ -223,6 +230,13 @@ public class ProductController {
 			AdminProductPageInfo pi = AdminProductPagnation.getPageInfo(currentPage, listCount);
 			subproductlist = pService.pagingchoosecateList(maincatenum,pi);//페이징 처리된 전체 리스트
 			ArrayList<SubCategory> subcatelist = cService.lowerSublist(maincatenum); //하위 카테고리 리스트 
+			
+			ArrayList<MainCategory> fileimg = cService.selectMainCategoryList();
+			for(int i = 0 ; i<fileimg.size(); i++) {
+				if(fileimg.get(i).getCatecode1().equals(maincatenum)) {
+					mv.addObject("renamefilename",fileimg.get(i).getRenamefilename());
+				}
+			}
 			
 			mv.addObject("pr",subproductlist)
 			.addObject("sc",subcatelist)

@@ -1,8 +1,10 @@
 package com.kh.market.mirotic.Controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.market.member.model.service.MemberService;
 import com.kh.market.member.model.vo.Member;
 import com.kh.market.member.model.vo.MyBag;
@@ -97,6 +101,8 @@ public class MiroticController {
 		
 		ArrayList<MyBag> cartList = null;
 		cartList = (ArrayList)session.getAttribute("cartList");
+	
+		mv.addObject("cartList", cartList);
 		
 		return "mirotic/miroticPage";
 	}
@@ -185,22 +191,25 @@ public class MiroticController {
 	
 	
 	@RequestMapping("miroticView")
-	@ResponseBody
-	public String miroticView(ModelAndView mv, @RequestBody ArrayList<MyBag> cartList, MyBag mybag, HttpSession session) {
-		
-		
-		
+	
+	public void miroticView(ModelAndView mv, @RequestBody ArrayList<MyBag> cartList, MyBag mybag, HttpSession session
+			, HttpServletResponse response
+			) throws JsonIOException, IOException {
+
 		if(cartList.isEmpty()) {
+			System.out.println(("cartList is empty!!!"));
 			cartList.add(mybag);
 		}//if
 		
+		//만약 mybag이 비었으면 cartList안 각각의 mybag객체안에 product값들을 setPrd해줘야 한다. 
 		
-		
+					
 		mv.addObject("cartList", cartList);
 		mv.setViewName("mirotic/miroticPage");
 		
 		
-		return "cartList";
+		new Gson().toJson(cartList,response.getWriter());
+		
 	}
 	
 	@RequestMapping("productMirotic")
@@ -214,6 +223,45 @@ public class MiroticController {
 		
 		
 		cartList.add(mybag);
+		
+		mv.addObject("cartList",cartList);
+		mv.setViewName("mirotic/miroticPage");
+		
+		return mv;
+		
+	}//productMiroticx
+
+	
+	@RequestMapping("recipeMirotic")
+	public ModelAndView recipeMirotic(ModelAndView mv
+			, String pr_code 
+			, String pr_each
+			, HttpSession session) {
+		
+		System.out.println("recipeMirotic-----------");
+//		System.out.println("mybag : " + mybag);
+		
+		System.out.println("pr_code : "+pr_code);
+		System.out.println("pr_each : "+pr_each);
+		
+		String[] pcode = pr_code.split(",");
+		String[] peach = pr_each.split(",");
+		
+		
+		ArrayList<MyBag> cartList = new ArrayList<MyBag>();
+		
+		
+		for(int i=0; i<pcode.length; i++) {
+			MyBag mybag = new MyBag();
+			mybag.setPr_code(Integer.parseInt(pcode[i]));
+			mybag.setPr_each(Integer.parseInt(peach[i]));
+			mybag.setPrd(mService.selectOneProduct(Integer.parseInt(pcode[i])));
+			System.out.println("mybag : "+ mybag);
+			
+			cartList.add(mybag);
+		}//for
+		
+		System.out.println("cartList : "+ cartList);
 		
 		mv.addObject("cartList",cartList);
 		mv.setViewName("mirotic/miroticPage");

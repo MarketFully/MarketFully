@@ -179,10 +179,10 @@
 	                                		</tr>
                                 		</thead>
                                 		<tbody style="text-align: initial;">
+                                			<form action="recipeMirotic" method="post" id="recipeForm">
                                 			<c:forEach var="bp" items="${b.getBplist() }">
 		                                		<tr id="product${bp.getPrd().getPr_code() }">
 		                                			<td style="padding-top:17px">
-			                                            
 			                                            <input type="hidden" value="${bp.getPrd().getPr_code() }" name="pr_code" id="pr_code"/>
 			                                            <input type="hidden" value="${bp.getPrd().getPr_price() }" name="pr_price" id="pr_price"/>
 			                                            <label for = "source" style="font-size:16px;" name="pr_name" id="pr_name">${bp.getPrd().getPr_name() }</label>
@@ -195,14 +195,15 @@
 				                                    <td>        
 			                                            <div class="proCount">
 			                                                <div class="product_count">
-			                                                    <button onclick="form_btn(-1, ${bp.getPrd().getPr_code() })" class="count_btn">-</button>
-			                                                    <input type="text" id="pr_each" value="${bp.peach }" style="width: 30px;" class="input_num">
-			                                                    <button onclick="form_btn(1, ${bp.getPrd().getPr_code() })" class="count_btn">+</button>
+			                                                    <input type="button" onclick="form_btn(-1, ${bp.getPrd().getPr_code() })" class="count_btn" value="-">
+			                                                    <input type="text" name="pr_each" id="pr_each" value="${bp.peach }" style="width: 30px;" class="input_num">
+			                                                    <input type="button" onclick="form_btn(1, ${bp.getPrd().getPr_code() })" class="count_btn" value="+">
 			                                                </div>
 			                                            </div>
 		                                			</td>
 	                                			</tr>
                                            </c:forEach>
+                                           </form>
                                 		</tbody>
                                 	</table>
 
@@ -505,6 +506,9 @@
         	 }
          	
          	
+         	$('#recipeForm').submit();
+         	
+         	/* 
          	//넘겨야될 값을 list로 만든다.
 	       	 var list=[];
 	    	$.each($('#l_table tbody tr'), function(index, item){
@@ -525,7 +529,7 @@
      	   			, method:"post"
      	   			, success:function(data){
      	   				console.log(data);
-     	   				location.href="miroticView1";
+     	   				location.replace("miroticView1");
      	   			}//success
      	   			, error:function(data, request, status, error){
      	   				console.log('data : '+data);
@@ -535,7 +539,7 @@
      	   			}//error
      	   		}); //ajax 
          	//확인
-         	
+         	 */
         		
          }//miroticView
          

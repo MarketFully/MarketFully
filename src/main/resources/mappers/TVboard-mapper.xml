@@ -161,6 +161,7 @@
 	<select id="selectListBoardExp" resultMap="BoardExpMap" parameterType="_int">
 		SELECT * FROM TV_MENU_EXPLAIN
 		WHERE TMB_NUM= #{value}
+		ORDER BY TME_SEQ
 	</select>
 	
 	<resultMap type="BoardProduct" id="BoardProductMap">

@@ -191,6 +191,7 @@
 	<select id="selectListBoardExp" resultMap="BoardExpMap" parameterType="_int">
 		SELECT * FROM USER_MENU_EXPLAIN
 		WHERE UMB_NUM= #{value}
+		ORDER BY UME_SEQ
 	</select>
 	
 	<select id="selectListBoardProduct" resultMap="BoardProductMap" parameterType="_int">
